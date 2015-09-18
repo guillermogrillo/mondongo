@@ -12,15 +12,36 @@ namespace AerolineaFrba.Menu
 {
     public partial class Menu : Form
     {
+
+        private Boolean esAdmin;
+
         public Menu()
         {
+            InitializeComponent();            
+        }
+
+        public Menu(Boolean esAdmin)
+        {
             InitializeComponent();
+            this.btnABMRol.Visible = esAdmin;
+            this.btnABMRutaAerea.Visible = esAdmin;
+            this.btnABMCiudades.Visible = esAdmin;
+            this.btnABMAeronaves.Visible = esAdmin;
+            this.btnGenerarViaje.Visible = esAdmin;
+            this.btnListado.Visible = esAdmin;
+            this.btnRegistrarLlegada.Visible = esAdmin;
+            this.grpAdministrador.Visible = esAdmin;            
         }
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
             this.Hide();
             new AerolineasFRBA().Show();
+        }
+
+        private void btnABMRol_Click(object sender, EventArgs e)
+        {
+
         }
 
        

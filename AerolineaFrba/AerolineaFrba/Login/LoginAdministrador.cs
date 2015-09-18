@@ -20,7 +20,7 @@ namespace AerolineaFrba.Login
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new Menu.Menu().Show();
+            new Menu.Menu(true).Show();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
