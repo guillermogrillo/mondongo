@@ -65,6 +65,7 @@
             // 
             this.tbContraseña.Location = new System.Drawing.Point(191, 72);
             this.tbContraseña.Name = "tbContraseña";
+            this.tbContraseña.PasswordChar = '*';
             this.tbContraseña.Size = new System.Drawing.Size(100, 22);
             this.tbContraseña.TabIndex = 3;
             // 

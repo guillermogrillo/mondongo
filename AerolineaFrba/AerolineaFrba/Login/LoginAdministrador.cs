@@ -18,9 +18,17 @@ namespace AerolineaFrba.Login
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new Menu.Menu(true).Show();
+        {            
+            Boolean usuarioValido = new Controller.LoginController().autenticar(tbUsuario.Text,tbContraseña.Text);
+            if (!usuarioValido)
+            {
+                MessageBox.Show("Usuario o contraseña invalidos");
+            }
+            else
+            {
+                this.Hide();
+                new Menu.Menu(true).Show();
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
