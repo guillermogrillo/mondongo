@@ -22,10 +22,11 @@ namespace AerolineaFrba.Login
             Boolean usuarioValido = new Controller.LoginController().autenticar(tbUsuario.Text,tbContraseña.Text);
             if (!usuarioValido)
             {
-                MessageBox.Show("Usuario o contraseña invalidos");
+                lblError.Text = "El Usuario o Contraseña ingresados son inválidos";
             }
             else
             {
+                lblError.Text = "";
                 this.Hide();
                 new Menu.Menu(true).Show();
             }

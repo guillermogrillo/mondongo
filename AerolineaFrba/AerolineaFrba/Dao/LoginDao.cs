@@ -12,17 +12,19 @@ namespace AerolineaFrba.Dao
     {
 
         public Boolean autenticar(String usuario, String contraseña) 
-        {
-            int usuarioValido = 0;
-            SqlConnection myConnection = new SqlConnection("server=GUILLE\\SQLSERVER2012;" +
-                                       "Trusted_Connection=yes;" +
-                                       "database=GD2C2015; " +
-                                       "connection timeout=30");
+        {            
+            var stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+            Model.UsuarioModel usuarioLogin = null;
+            SqlConnection myConnection = null;
             try
             {
+                myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();                
-                SqlCommand command = null;                
-                var query = "SELECT COUNT(*) AS VALIDO FROM MONDONGO.USUARIOS WHERE nombre_usuario = @nombreUsuario and contraseña_usuario = @contraseñaUsuario";
+                SqlCommand command = null;
+                var query = "SELECT id_usuario, nombre_usuario, intentos_fallidos, bloqueado, id_rol "+
+                            "FROM MONDONGO.USUARIOS "+
+                            "WHERE nombre_usuario = @nombreUsuario "+
+                            "and contraseña_usuario = @contraseñaUsuario";
                 using (command = new SqlCommand(query, myConnection)){
                     command.Parameters.AddWithValue("@nombreUsuario", usuario);
                     command.Parameters.AddWithValue("@contraseñaUsuario", contraseña);
@@ -30,22 +32,25 @@ namespace AerolineaFrba.Dao
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                    {                      
-                        usuarioValido = reader.GetInt32(0);                      
-                        Console.WriteLine("{0}", usuarioValido);
+                    {
+
+                        var idUsuario = reader.GetInt32(0);
+                        var nombreUsuario = reader.GetString(1);
+                        var intentosFallidos = reader.GetInt32(2);
+                        var bloqueado = reader.GetInt32(3);
+                        var idRol = reader.GetInt32(4);
+
+                        usuarioLogin = new Model.UsuarioModel(idUsuario, nombreUsuario, intentosFallidos, bloqueado, idRol);
+
                     }
                 }                
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
-            catch (InvalidCastException ice)
-            {
-                MessageBox.Show("ERROR" + ice.Message);
-            }
 
-            return (usuarioValido > 0);
+            return (usuarioLogin != null);
         }
 
 
