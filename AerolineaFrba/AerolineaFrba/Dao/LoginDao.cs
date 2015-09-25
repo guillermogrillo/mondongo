@@ -21,10 +21,10 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();                
                 SqlCommand command = null;
-                var query = "SELECT id_usuario, nombre_usuario, intentos_fallidos, bloqueado, id_rol "+
+                var query = "SELECT usuario_id, usuario_nombre, usuario_intentos_fallidos, usuario_bloqueado, rol_id " +
                             "FROM MONDONGO.USUARIOS "+
-                            "WHERE nombre_usuario = @nombreUsuario "+
-                            "and contraseña_usuario = @contraseñaUsuario";
+                            "WHERE usuario_nombre = @nombreUsuario "+
+                            "and usuario_contraseña = @contraseñaUsuario";
                 using (command = new SqlCommand(query, myConnection)){
                     command.Parameters.AddWithValue("@nombreUsuario", usuario);
                     command.Parameters.AddWithValue("@contraseñaUsuario", contraseña);

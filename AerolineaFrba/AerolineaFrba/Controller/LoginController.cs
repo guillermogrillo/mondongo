@@ -10,17 +10,17 @@ namespace AerolineaFrba.Controller
     class LoginController
     {
 
-        private Service.LoginService loginService = null;
+        private Dao.LoginDao _loginDao = null;
 
         public LoginController()
         {
-            loginService = new Service.LoginService();
+            _loginDao = new Dao.LoginDao();
         }
 
         public Boolean autenticar(String usuario, String contraseña)
         {
             String contraseñaEncriptada = encriptarPassword(contraseña);
-            return loginService.autenticar(usuario,contraseñaEncriptada);
+            return _loginDao.autenticar(usuario, contraseñaEncriptada);
         }
 
 
