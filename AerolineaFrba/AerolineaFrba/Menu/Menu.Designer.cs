@@ -34,23 +34,24 @@
             this.btnABMAeronaves = new System.Windows.Forms.Button();
             this.btnRegresar = new System.Windows.Forms.Button();
             this.grpAdministrador = new System.Windows.Forms.GroupBox();
-            this.grpCliente = new System.Windows.Forms.GroupBox();
-            this.btnGenerarViaje = new System.Windows.Forms.Button();
-            this.btnRegistrarLlegada = new System.Windows.Forms.Button();
-            this.btnComprarPasajes = new System.Windows.Forms.Button();
-            this.btnCancelarPasajes = new System.Windows.Forms.Button();
-            this.btnConsultarMillas = new System.Windows.Forms.Button();
-            this.btnCanjeMillas = new System.Windows.Forms.Button();
             this.btnListado = new System.Windows.Forms.Button();
+            this.btnRegistrarLlegada = new System.Windows.Forms.Button();
+            this.btnGenerarViaje = new System.Windows.Forms.Button();
+            this.grpCliente = new System.Windows.Forms.GroupBox();
+            this.btnCanjeMillas = new System.Windows.Forms.Button();
+            this.btnConsultarMillas = new System.Windows.Forms.Button();
+            this.btnCancelarPasajes = new System.Windows.Forms.Button();
+            this.btnComprarPasajes = new System.Windows.Forms.Button();
             this.grpAdministrador.SuspendLayout();
             this.grpCliente.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnABMRol
             // 
-            this.btnABMRol.Location = new System.Drawing.Point(6, 32);
+            this.btnABMRol.Location = new System.Drawing.Point(4, 26);
+            this.btnABMRol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMRol.Name = "btnABMRol";
-            this.btnABMRol.Size = new System.Drawing.Size(214, 33);
+            this.btnABMRol.Size = new System.Drawing.Size(160, 27);
             this.btnABMRol.TabIndex = 0;
             this.btnABMRol.Text = "ABM Rol";
             this.btnABMRol.UseVisualStyleBackColor = true;
@@ -58,36 +59,40 @@
             // 
             // btnABMCiudades
             // 
-            this.btnABMCiudades.Location = new System.Drawing.Point(6, 71);
+            this.btnABMCiudades.Location = new System.Drawing.Point(4, 58);
+            this.btnABMCiudades.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMCiudades.Name = "btnABMCiudades";
-            this.btnABMCiudades.Size = new System.Drawing.Size(214, 33);
+            this.btnABMCiudades.Size = new System.Drawing.Size(160, 27);
             this.btnABMCiudades.TabIndex = 1;
             this.btnABMCiudades.Text = "ABM Ciudades";
             this.btnABMCiudades.UseVisualStyleBackColor = true;
             // 
             // btnABMRutaAerea
             // 
-            this.btnABMRutaAerea.Location = new System.Drawing.Point(6, 110);
+            this.btnABMRutaAerea.Location = new System.Drawing.Point(4, 89);
+            this.btnABMRutaAerea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMRutaAerea.Name = "btnABMRutaAerea";
-            this.btnABMRutaAerea.Size = new System.Drawing.Size(214, 33);
+            this.btnABMRutaAerea.Size = new System.Drawing.Size(160, 27);
             this.btnABMRutaAerea.TabIndex = 2;
             this.btnABMRutaAerea.Text = "ABM Ruta Aerea";
             this.btnABMRutaAerea.UseVisualStyleBackColor = true;
             // 
             // btnABMAeronaves
             // 
-            this.btnABMAeronaves.Location = new System.Drawing.Point(6, 149);
+            this.btnABMAeronaves.Location = new System.Drawing.Point(4, 121);
+            this.btnABMAeronaves.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMAeronaves.Name = "btnABMAeronaves";
-            this.btnABMAeronaves.Size = new System.Drawing.Size(214, 33);
+            this.btnABMAeronaves.Size = new System.Drawing.Size(160, 27);
             this.btnABMAeronaves.TabIndex = 3;
             this.btnABMAeronaves.Text = "ABM Aeronaves";
             this.btnABMAeronaves.UseVisualStyleBackColor = true;
             // 
             // btnRegresar
             // 
-            this.btnRegresar.Location = new System.Drawing.Point(19, 345);
+            this.btnRegresar.Location = new System.Drawing.Point(14, 280);
+            this.btnRegresar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRegresar.Name = "btnRegresar";
-            this.btnRegresar.Size = new System.Drawing.Size(213, 33);
+            this.btnRegresar.Size = new System.Drawing.Size(160, 27);
             this.btnRegresar.TabIndex = 4;
             this.btnRegresar.Text = "Regresar";
             this.btnRegresar.UseVisualStyleBackColor = true;
@@ -102,12 +107,44 @@
             this.grpAdministrador.Controls.Add(this.btnABMCiudades);
             this.grpAdministrador.Controls.Add(this.btnABMRutaAerea);
             this.grpAdministrador.Controls.Add(this.btnABMAeronaves);
-            this.grpAdministrador.Location = new System.Drawing.Point(247, 12);
+            this.grpAdministrador.Location = new System.Drawing.Point(185, 10);
+            this.grpAdministrador.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpAdministrador.Name = "grpAdministrador";
-            this.grpAdministrador.Size = new System.Drawing.Size(226, 327);
+            this.grpAdministrador.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpAdministrador.Size = new System.Drawing.Size(170, 266);
             this.grpAdministrador.TabIndex = 5;
             this.grpAdministrador.TabStop = false;
             this.grpAdministrador.Text = "Administradores";
+            // 
+            // btnListado
+            // 
+            this.btnListado.Location = new System.Drawing.Point(4, 216);
+            this.btnListado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnListado.Name = "btnListado";
+            this.btnListado.Size = new System.Drawing.Size(160, 27);
+            this.btnListado.TabIndex = 4;
+            this.btnListado.Text = "Listados Estadisticos";
+            this.btnListado.UseVisualStyleBackColor = true;
+            // 
+            // btnRegistrarLlegada
+            // 
+            this.btnRegistrarLlegada.Location = new System.Drawing.Point(4, 184);
+            this.btnRegistrarLlegada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRegistrarLlegada.Name = "btnRegistrarLlegada";
+            this.btnRegistrarLlegada.Size = new System.Drawing.Size(160, 27);
+            this.btnRegistrarLlegada.TabIndex = 6;
+            this.btnRegistrarLlegada.Text = "Registrar Llegada";
+            this.btnRegistrarLlegada.UseVisualStyleBackColor = true;
+            // 
+            // btnGenerarViaje
+            // 
+            this.btnGenerarViaje.Location = new System.Drawing.Point(4, 152);
+            this.btnGenerarViaje.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerarViaje.Name = "btnGenerarViaje";
+            this.btnGenerarViaje.Size = new System.Drawing.Size(160, 27);
+            this.btnGenerarViaje.TabIndex = 5;
+            this.btnGenerarViaje.Text = "Generar Viaje";
+            this.btnGenerarViaje.UseVisualStyleBackColor = true;
             // 
             // grpCliente
             // 
@@ -115,84 +152,65 @@
             this.grpCliente.Controls.Add(this.btnConsultarMillas);
             this.grpCliente.Controls.Add(this.btnCancelarPasajes);
             this.grpCliente.Controls.Add(this.btnComprarPasajes);
-            this.grpCliente.Location = new System.Drawing.Point(12, 12);
+            this.grpCliente.Location = new System.Drawing.Point(9, 10);
+            this.grpCliente.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grpCliente.Name = "grpCliente";
-            this.grpCliente.Size = new System.Drawing.Size(226, 327);
+            this.grpCliente.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpCliente.Size = new System.Drawing.Size(170, 266);
             this.grpCliente.TabIndex = 6;
             this.grpCliente.TabStop = false;
             this.grpCliente.Text = "Cliente";
             // 
-            // btnGenerarViaje
-            // 
-            this.btnGenerarViaje.Location = new System.Drawing.Point(6, 187);
-            this.btnGenerarViaje.Name = "btnGenerarViaje";
-            this.btnGenerarViaje.Size = new System.Drawing.Size(214, 33);
-            this.btnGenerarViaje.TabIndex = 5;
-            this.btnGenerarViaje.Text = "Generar Viaje";
-            this.btnGenerarViaje.UseVisualStyleBackColor = true;
-            // 
-            // btnRegistrarLlegada
-            // 
-            this.btnRegistrarLlegada.Location = new System.Drawing.Point(6, 227);
-            this.btnRegistrarLlegada.Name = "btnRegistrarLlegada";
-            this.btnRegistrarLlegada.Size = new System.Drawing.Size(214, 33);
-            this.btnRegistrarLlegada.TabIndex = 6;
-            this.btnRegistrarLlegada.Text = "Registrar Llegada";
-            this.btnRegistrarLlegada.UseVisualStyleBackColor = true;
-            // 
-            // btnComprarPasajes
-            // 
-            this.btnComprarPasajes.Location = new System.Drawing.Point(7, 32);
-            this.btnComprarPasajes.Name = "btnComprarPasajes";
-            this.btnComprarPasajes.Size = new System.Drawing.Size(213, 33);
-            this.btnComprarPasajes.TabIndex = 0;
-            this.btnComprarPasajes.Text = "Compra Pasajes/Encomiendas";
-            this.btnComprarPasajes.UseVisualStyleBackColor = true;
-            // 
-            // btnCancelarPasajes
-            // 
-            this.btnCancelarPasajes.Location = new System.Drawing.Point(7, 71);
-            this.btnCancelarPasajes.Name = "btnCancelarPasajes";
-            this.btnCancelarPasajes.Size = new System.Drawing.Size(213, 33);
-            this.btnCancelarPasajes.TabIndex = 1;
-            this.btnCancelarPasajes.Text = "Cancelar Pasaje/Encomienda";
-            this.btnCancelarPasajes.UseVisualStyleBackColor = true;
-            // 
-            // btnConsultarMillas
-            // 
-            this.btnConsultarMillas.Location = new System.Drawing.Point(7, 110);
-            this.btnConsultarMillas.Name = "btnConsultarMillas";
-            this.btnConsultarMillas.Size = new System.Drawing.Size(213, 33);
-            this.btnConsultarMillas.TabIndex = 2;
-            this.btnConsultarMillas.Text = "Consultar millas";
-            this.btnConsultarMillas.UseVisualStyleBackColor = true;
-            // 
             // btnCanjeMillas
             // 
-            this.btnCanjeMillas.Location = new System.Drawing.Point(7, 149);
+            this.btnCanjeMillas.Location = new System.Drawing.Point(5, 121);
+            this.btnCanjeMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCanjeMillas.Name = "btnCanjeMillas";
-            this.btnCanjeMillas.Size = new System.Drawing.Size(213, 33);
+            this.btnCanjeMillas.Size = new System.Drawing.Size(160, 27);
             this.btnCanjeMillas.TabIndex = 3;
             this.btnCanjeMillas.Text = "Canje millas";
             this.btnCanjeMillas.UseVisualStyleBackColor = true;
             // 
-            // btnListado
+            // btnConsultarMillas
             // 
-            this.btnListado.Location = new System.Drawing.Point(6, 266);
-            this.btnListado.Name = "btnListado";
-            this.btnListado.Size = new System.Drawing.Size(214, 33);
-            this.btnListado.TabIndex = 4;
-            this.btnListado.Text = "Listados Estadisticos";
-            this.btnListado.UseVisualStyleBackColor = true;
+            this.btnConsultarMillas.Location = new System.Drawing.Point(5, 89);
+            this.btnConsultarMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConsultarMillas.Name = "btnConsultarMillas";
+            this.btnConsultarMillas.Size = new System.Drawing.Size(160, 27);
+            this.btnConsultarMillas.TabIndex = 2;
+            this.btnConsultarMillas.Text = "Consultar millas";
+            this.btnConsultarMillas.UseVisualStyleBackColor = true;
+            // 
+            // btnCancelarPasajes
+            // 
+            this.btnCancelarPasajes.Location = new System.Drawing.Point(5, 58);
+            this.btnCancelarPasajes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancelarPasajes.Name = "btnCancelarPasajes";
+            this.btnCancelarPasajes.Size = new System.Drawing.Size(160, 27);
+            this.btnCancelarPasajes.TabIndex = 1;
+            this.btnCancelarPasajes.Text = "Cancelar Pasaje/Encomienda";
+            this.btnCancelarPasajes.UseVisualStyleBackColor = true;
+            // 
+            // btnComprarPasajes
+            // 
+            this.btnComprarPasajes.Location = new System.Drawing.Point(5, 26);
+            this.btnComprarPasajes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnComprarPasajes.Name = "btnComprarPasajes";
+            this.btnComprarPasajes.Size = new System.Drawing.Size(160, 27);
+            this.btnComprarPasajes.TabIndex = 0;
+            this.btnComprarPasajes.Text = "Compra Pasajes/Encomiendas";
+            this.btnComprarPasajes.UseVisualStyleBackColor = true;
+            this.btnComprarPasajes.Click += new System.EventHandler(this.btnComprarPasajes_Click);
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 453);
+            this.ClientSize = new System.Drawing.Size(362, 368);
             this.Controls.Add(this.grpCliente);
             this.Controls.Add(this.grpAdministrador);
             this.Controls.Add(this.btnRegresar);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Menu";
             this.Text = "Menu";
             this.grpAdministrador.ResumeLayout(false);

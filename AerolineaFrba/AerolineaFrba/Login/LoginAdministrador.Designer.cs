@@ -50,7 +50,7 @@
             // tbUsuario
             // 
             this.tbUsuario.Location = new System.Drawing.Point(143, 28);
-            this.tbUsuario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.tbUsuario.Name = "tbUsuario";
             this.tbUsuario.Size = new System.Drawing.Size(76, 20);
             this.tbUsuario.TabIndex = 1;
@@ -68,7 +68,7 @@
             // tbContraseña
             // 
             this.tbContraseña.Location = new System.Drawing.Point(143, 58);
-            this.tbContraseña.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbContraseña.Margin = new System.Windows.Forms.Padding(2);
             this.tbContraseña.Name = "tbContraseña";
             this.tbContraseña.PasswordChar = '*';
             this.tbContraseña.Size = new System.Drawing.Size(76, 20);
@@ -77,9 +77,9 @@
             // btnIngresar
             // 
             this.btnIngresar.Location = new System.Drawing.Point(64, 89);
-            this.btnIngresar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(2);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(75, 23);
+            this.btnIngresar.Size = new System.Drawing.Size(75, 30);
             this.btnIngresar.TabIndex = 4;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = true;
@@ -88,9 +88,9 @@
             // btnCancelar
             // 
             this.btnCancelar.Location = new System.Drawing.Point(143, 89);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(75, 30);
             this.btnCancelar.TabIndex = 5;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -118,7 +118,7 @@
             this.Controls.Add(this.lblContraseña);
             this.Controls.Add(this.tbUsuario);
             this.Controls.Add(this.lblUsuario);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LoginAdministrador";
             this.Text = "LoginAdministrador";
             this.ResumeLayout(false);

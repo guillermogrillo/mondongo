@@ -13,7 +13,7 @@ namespace AerolineaFrba.Menu
     public partial class Menu : Form
     {
 
-        private Boolean esAdmin;
+        private Boolean _esAdmin { get; set; }
 
         public Menu()
         {
@@ -23,6 +23,7 @@ namespace AerolineaFrba.Menu
         public Menu(Boolean esAdmin)
         {
             InitializeComponent();
+            _esAdmin = esAdmin;
             this.btnABMRol.Visible = esAdmin;
             this.btnABMRutaAerea.Visible = esAdmin;
             this.btnABMCiudades.Visible = esAdmin;
@@ -42,6 +43,12 @@ namespace AerolineaFrba.Menu
         private void btnABMRol_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnComprarPasajes_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Compra.BusquedaVuelos(_esAdmin).Show();
         }
 
        
