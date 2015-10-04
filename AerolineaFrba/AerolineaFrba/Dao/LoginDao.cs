@@ -34,13 +34,13 @@ namespace AerolineaFrba.Dao
                     while (reader.Read())
                     {
 
-                        var idUsuario = reader.GetDecimal(0);
+                        var idUsuario = (int)(double)reader.GetDecimal(0);
                         var nombreUsuario = reader.GetString(1);
                         var intentosFallidos = reader.GetInt32(2);
                         var bloqueado = reader.GetInt32(3);
-                        var idRol = reader.GetDecimal(4);
+                        var idRol = (int)(double)reader.GetDecimal(4);
 
-                        //usuarioLogin = new Model.UsuarioModel(idUsuario, nombreUsuario, intentosFallidos, bloqueado, idRol);
+                        usuarioLogin = new Model.UsuarioModel(idUsuario, nombreUsuario, intentosFallidos, bloqueado, idRol);
 
                     }
                 }                
