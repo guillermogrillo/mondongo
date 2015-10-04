@@ -1,9 +1,0 @@
-c:\users\matias\documents\visual studio 2012\Projects\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe.config
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.exe
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\bin\Debug\AerolineaFrba.pdb
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csprojResolveAssemblyReference.cache
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.Properties.Resources.resources
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.csproj.GenerateResource.Cache
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.exe
-C:\Users\Guillermo\Desktop\TP Aerolinea FRBA 1.1 - 2C 2015\Aplicacion Desktop\AerolineaFrba\AerolineaFrba\obj\Debug\AerolineaFrba.pdb
