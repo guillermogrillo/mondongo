@@ -19,6 +19,8 @@ namespace AerolineaFrba.Compra
         {
             InitializeComponent();
             _esAdmin = esAdmin;
+            dpFechaViaje.Format = DateTimePickerFormat.Custom;
+            dpFechaViaje.CustomFormat = "dd/MM/yyyy";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -49,6 +51,18 @@ namespace AerolineaFrba.Compra
         {
             Controller.CompraController compraController = new Controller.CompraController();
             compraController.buscarViajes(tbCiudadOrigen.Text, tbCiudadDestino.Text, dpFechaViaje.Text, tbCantidadPasajeros.Text);
+        }
+
+        private void btnBuscarCiudadDesde_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Ciudad.AbmCiudad(false).Show();
+        }
+
+        private void btnCiudadHasta_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Ciudad.AbmCiudad(false).Show();
         }
     }
 }
