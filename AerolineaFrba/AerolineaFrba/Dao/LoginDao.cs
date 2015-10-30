@@ -21,7 +21,7 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();                
                 SqlCommand command = null;
-                var query = "SELECT usuario_id, usuario_nombre, usuario_intentos_fallidos, usuario_bloqueado, rol_id " +
+                var query = "SELECT usuario_id, usuario_nombre, usuario_intentos_fallidos, usuario_bloqueado " +
                             "FROM MONDONGO.USUARIOS "+
                             "WHERE usuario_nombre = @nombreUsuario "+
                             "and usuario_contraseña = @contraseñaUsuario";
@@ -38,9 +38,8 @@ namespace AerolineaFrba.Dao
                         var nombreUsuario = reader.GetString(1);
                         var intentosFallidos = reader.GetInt32(2);
                         var bloqueado = reader.GetInt32(3);
-                        var idRol = (int)(double)reader.GetDecimal(4);
 
-                        usuarioLogin = new Model.UsuarioModel(idUsuario, nombreUsuario, intentosFallidos, bloqueado, idRol);
+                        usuarioLogin = new Model.UsuarioModel(idUsuario, nombreUsuario, intentosFallidos, bloqueado);
 
                     }
                 }                

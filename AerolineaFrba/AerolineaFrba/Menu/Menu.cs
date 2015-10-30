@@ -42,7 +42,8 @@ namespace AerolineaFrba.Menu
 
         private void btnABMRol_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            new Abm_Rol.ABMRoles().Show();
         }
 
         private void btnComprarPasajes_Click(object sender, EventArgs e)
