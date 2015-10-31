@@ -33,9 +33,8 @@ namespace AerolineaFrba.Dao
 
                         var rolId = (int)(double)reader.GetDecimal(0);
                         var rolNombre = reader.GetString(1);
-                        Boolean rolHabilitado = Convert.ToBoolean(reader.GetInt32(2));                        
-                        var funcionalidades = buscarFuncionalidades(rolId);
-                        rol = new Model.RolModel(rolId,rolNombre,rolHabilitado,funcionalidades);
+                        Model.Estado rolHabilitado = (Model.Estado)reader.GetInt32(2);                                                
+                        rol = new Model.RolModel(rolId,rolNombre,rolHabilitado);
                         roles.Add(rol);
 
                     }
@@ -48,8 +47,65 @@ namespace AerolineaFrba.Dao
             return roles;
         }
 
+        public Boolean agregarNuevoRol(String nombreDelRol)
+        {
+            Boolean agregado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "INSERT INTO MONDONGO.ROLES(rol_nombre)" +
+                            "VALUES(@nombreDelRol) ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@nombreDelRol", nombreDelRol);
+                }
 
-        public List<Model.FuncionalidadModel> buscarFuncionalidades(int rolId)
+                var cantidadInsertada = command.ExecuteNonQuery();
+
+                agregado = Convert.ToBoolean(cantidadInsertada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return agregado;
+        }
+
+        public Boolean cambiarEstadoRol(int rolId, int nuevoEstado)
+        {
+            Boolean modificado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "UPDATE MONDONGO.ROLES " +
+                            "SET rol_habilitado = @nuevoEstado "+
+                            "WHERE rol_id = @rolId ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@rolId", rolId);
+                    command.Parameters.AddWithValue("@nuevoEstado", nuevoEstado);
+                }
+
+                var cantidadModificada = command.ExecuteNonQuery();
+
+                modificado = Convert.ToBoolean(cantidadModificada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return modificado;
+        }
+
+        public List<Model.FuncionalidadModel> buscarFuncionalidadesDelRol(int rolId, Boolean faltantes)
         {
             List<Model.FuncionalidadModel> funcionalidades = new List<Model.FuncionalidadModel>();
             Model.FuncionalidadModel funcionalidad = null;
@@ -59,10 +115,23 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select f.funcionalidad_id, f.funcionalidad_nombre, f.funcionalidad_descripcion " +
+                String query = null;
+                if (faltantes)
+                {
+                    query = "select f.funcionalidad_id, f.funcionalidad_nombre, f.funcionalidad_descripcion "+
+                            "from mondongo.funcionalidades f "+
+                            "where f.funcionalidad_id not in( " +
+                            "select rf.funcionalidad_id from mondongo.roles_funcionalidades rf "+
+                            "where rf.rol_id = @rolId) ";
+                }
+                else
+                {
+
+                    query = "select f.funcionalidad_id, f.funcionalidad_nombre, f.funcionalidad_descripcion " +
                             "from mondongo.funcionalidades f " +
                             "join mondongo.roles_funcionalidades rf on rf.funcionalidad_id = f.funcionalidad_id " +
-                            "where rf.rol_id = @rolId";
+                            "where rf.rol_id = @rolId ";
+                }
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@rolId", rolId);                    
@@ -88,10 +157,39 @@ namespace AerolineaFrba.Dao
             return funcionalidades;
         }
 
-
-        public void quitarFuncionalidadDelRol(int funcionalidadId, int rolId)
+        public Boolean agregarFuncionalidadAlRol(int funcionalidadId, int rolId)
         {
             SqlConnection myConnection = null;
+            Boolean agregada = false;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "INSERT INTO MONDONGO.ROLES_FUNCIONALIDADES(rol_id,funcionalidad_id) " +
+                            "VALUES(@rolId,@funcionalidadId) ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@rolId", rolId);
+                    command.Parameters.AddWithValue("@funcionalidadId", funcionalidadId);
+                }
+
+                var cantidadAgregada = command.ExecuteNonQuery();
+
+                agregada = Convert.ToBoolean(cantidadAgregada);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+            return agregada;
+        }
+
+        public Boolean borrarFuncionalidadDelRol(int funcionalidadId, int rolId)
+        {
+            SqlConnection myConnection = null;
+            Boolean borrado = false;
             try
             {
                 myConnection = new SqlConnection(stringConexion);
@@ -104,15 +202,17 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@rolId", rolId);
                     command.Parameters.AddWithValue("@funcionalidadId", funcionalidadId);
                 }
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    
-                }
+
+                var cantidadBorrada = command.ExecuteNonQuery();
+
+                borrado = Convert.ToBoolean(cantidadBorrada);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+
+            return borrado;
         }
 
 

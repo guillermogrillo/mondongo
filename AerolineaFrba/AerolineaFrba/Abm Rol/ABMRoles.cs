@@ -15,69 +15,99 @@ namespace AerolineaFrba.Abm_Rol
 
 
         private Controller.RolController controller;
-        private Model.RolModel rolSeleccionado { get; set; }
-        private Model.FuncionalidadModel funcionalidadSeleccionada = null;
-        private List<Model.FuncionalidadModel> funcionalidadesDelRol = new List<Model.FuncionalidadModel>();
+        private Model.RolModel rolSeleccionado { get; set; }        
 
         public ABMRoles()
         {
             InitializeComponent();
-            controller = new Controller.RolController();                               
+            controller = new Controller.RolController();
+            btnBorrarRol.Enabled = false;
+            btnCambiarEstado.Enabled = false;
+            btnFuncionalidades.Enabled = false;
         }     
 
-        private void cbRol_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnVolver_Click(object sender, EventArgs e)
         {
-            rolSeleccionado = cbRol.SelectedValue as Model.RolModel;            
-            funcionalidadesDelRol = rolSeleccionado._rolFuncionalidades;
-            cargarTablaFuncionalidades();
-        }
-
-        private void cargarTablaFuncionalidades()
-        {
-            dgvFuncionalidades.DataSource = funcionalidadesDelRol;
-            dgvFuncionalidades.Columns[0].Visible = false;
-            dgvFuncionalidades.Columns[1].HeaderText = "Funcionalidad";
-            dgvFuncionalidades.Columns[1].Width = 320;
-            dgvFuncionalidades.Columns[2].Visible = false;
-        }
-
-        private void dgvFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {            
-            funcionalidadSeleccionada = (Model.FuncionalidadModel)dgvFuncionalidades.CurrentRow.DataBoundItem;
-            btnBorrarFuncionalidad.Enabled = true;
-        }
-
-
-        private void btnBorrarRol_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("querés borrar " + rolSeleccionado._rolNombre);
-        }
-
-        private void btnBorrarFuncionalidad_Click(object sender, EventArgs e)
-        {
-            var confirmacion = MessageBox.Show("Está seguro que quiere quitar "+funcionalidadSeleccionada._funcionalidadNombre + "?",
-                                     "Quitar Funcionalidad",
-                                     MessageBoxButtons.YesNo);
-            if (confirmacion == DialogResult.Yes)
-            {
-                    controller.quitarFuncionalidadDelRol(funcionalidadSeleccionada._funcionalidadId,rolSeleccionado._rolId);
-                    List<Model.FuncionalidadModel> funcionalidades = rolSeleccionado._rolFuncionalidades.Where(funcionalidad => funcionalidad._funcionalidadId != funcionalidadSeleccionada._funcionalidadId).ToList();
-                    rolSeleccionado._rolFuncionalidades = funcionalidades;
-                    dgvFuncionalidades.DataSource = funcionalidades;
-                    dgvFuncionalidades.ClearSelection();
-                    btnBorrarFuncionalidad.Enabled = false;
-            }                       
+            this.Hide();
+            new Menu.Menu(true).Show();
         }
 
         private void ABMRoles_Load(object sender, EventArgs e)
         {
-            dgvFuncionalidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            List<Model.RolModel> roles = controller.buscarTodosLosRoles();
-            cbRol.DisplayMember = "_rolNombre";
-            cbRol.DataSource = roles;
-            cbRol.SelectedIndex = 0;
-            btnBorrarFuncionalidad.Enabled = false;
-            dgvFuncionalidades.ClearSelection();
+            dgvRoles.AutoGenerateColumns = true;
+            dgvRoles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRoles.DataSource = controller.buscarTodosLosRoles();
+            dgvRoles.Columns[0].Visible = false;
+            dgvRoles.Columns[1].HeaderText = "Nombre";
+            dgvRoles.Columns[1].Width = 200;
+            dgvRoles.Columns[1].ReadOnly = true;
+            dgvRoles.Columns[2].HeaderText = "Estado";
+            dgvRoles.Columns[2].Width = 110;
+            dgvRoles.Columns[2].ReadOnly = true;
+            dgvRoles.SelectedRows[0].Selected = true;
+        }
+
+        private void btnAgregarRol_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Rol.NuevoRol().Show();
+        }
+
+        private void dgvRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            rolSeleccionado = (Model.RolModel)dgvRoles.CurrentRow.DataBoundItem;
+            if (rolSeleccionado._rolHabilitado != Model.Estado.Borrado)
+            {
+                btnBorrarRol.Enabled = true;
+                btnCambiarEstado.Enabled = true;
+                btnFuncionalidades.Enabled = true;
+            }
+            else
+            {
+                btnCambiarEstado.Enabled = false;
+                btnBorrarRol.Enabled = false;
+                btnFuncionalidades.Enabled = false;
+            }
+                
+        }
+
+        private void btnBorrarRol_Click(object sender, EventArgs e)
+        {
+            if(rolSeleccionado != null)
+            {
+                var exito = controller.cambiarEstadoRol(rolSeleccionado._rolId, (int)Model.Estado.Borrado);
+                if (exito)
+                {
+                    dgvRoles.DataSource = controller.buscarTodosLosRoles();
+                }
+            }
+        }
+
+        private void btnCambiarEstado_Click(object sender, EventArgs e)
+        {
+            int nuevoEstado = 1;
+            if (rolSeleccionado != null)
+            {
+                if(rolSeleccionado._rolHabilitado == Model.Estado.Deshabilitado)
+                {
+                    nuevoEstado = (int)Model.Estado.Habilitado;
+                }else if(rolSeleccionado._rolHabilitado == Model.Estado.Habilitado)
+                {
+                    nuevoEstado = (int)Model.Estado.Deshabilitado;
+                }
+                var exito = controller.cambiarEstadoRol(rolSeleccionado._rolId, nuevoEstado);
+                if (exito)
+                {
+                    dgvRoles.DataSource = controller.buscarTodosLosRoles();
+                }
+            }
+        }
+
+        private void btnFuncionalidades_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Abm_Rol.ABMFuncionalidades pantallaFuncionalidades = new Abm_Rol.ABMFuncionalidades(rolSeleccionado._rolId);            
+            pantallaFuncionalidades.Show();
         }
   
 

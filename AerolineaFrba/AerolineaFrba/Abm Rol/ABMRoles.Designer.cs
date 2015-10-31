@@ -29,182 +29,160 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.lblRol = new System.Windows.Forms.Label();
-            this.cbRol = new System.Windows.Forms.ComboBox();
-            this.lblEstadoRol = new System.Windows.Forms.Label();
-            this.tbEstadoRol = new System.Windows.Forms.TextBox();
-            this.btnDeshabilitar = new System.Windows.Forms.Button();
-            this.btnBorrarRol = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnBorrarFuncionalidad = new System.Windows.Forms.Button();
-            this.btnAgregarFuncionalidad = new System.Windows.Forms.Button();
-            this.dgvFuncionalidades = new System.Windows.Forms.DataGridView();
+            this.dgvRoles = new System.Windows.Forms.DataGridView();
+            this.rolnombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rolhabilitadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rolesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mondongo = new AerolineaFrba.Mondongo();
-            this.funcionalidadesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.funcionalidadesTableAdapter = new AerolineaFrba.MondongoTableAdapters.funcionalidadesTableAdapter();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).BeginInit();
+            this.rolesTableAdapter = new AerolineaFrba.MondongoTableAdapters.rolesTableAdapter();
+            this.btnAgregarRol = new System.Windows.Forms.Button();
+            this.btnBorrarRol = new System.Windows.Forms.Button();
+            this.btnCambiarEstado = new System.Windows.Forms.Button();
+            this.btnFuncionalidades = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rolesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mondongo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblRol
+            // dgvRoles
             // 
-            this.lblRol.AutoSize = true;
-            this.lblRol.Location = new System.Drawing.Point(13, 13);
-            this.lblRol.Name = "lblRol";
-            this.lblRol.Size = new System.Drawing.Size(88, 13);
-            this.lblRol.TabIndex = 0;
-            this.lblRol.Text = "Seleccionar Rol: ";
+            this.dgvRoles.AllowUserToAddRows = false;
+            this.dgvRoles.AllowUserToDeleteRows = false;
+            this.dgvRoles.AllowUserToResizeColumns = false;
+            this.dgvRoles.AllowUserToResizeRows = false;
+            this.dgvRoles.AutoGenerateColumns = false;
+            this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.rolnombreDataGridViewTextBoxColumn,
+            this.rolhabilitadoDataGridViewTextBoxColumn});
+            this.dgvRoles.DataSource = this.rolesBindingSource;
+            this.dgvRoles.Location = new System.Drawing.Point(12, 12);
+            this.dgvRoles.Name = "dgvRoles";
+            this.dgvRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRoles.Size = new System.Drawing.Size(359, 156);
+            this.dgvRoles.TabIndex = 0;
+            this.dgvRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoles_CellContentClick);
             // 
-            // cbRol
+            // rolnombreDataGridViewTextBoxColumn
             // 
-            this.cbRol.FormattingEnabled = true;
-            this.cbRol.Location = new System.Drawing.Point(107, 10);
-            this.cbRol.Name = "cbRol";
-            this.cbRol.Size = new System.Drawing.Size(259, 21);
-            this.cbRol.TabIndex = 1;
-            this.cbRol.SelectedIndexChanged += new System.EventHandler(this.cbRol_SelectedIndexChanged);
+            this.rolnombreDataGridViewTextBoxColumn.DataPropertyName = "rol_nombre";
+            this.rolnombreDataGridViewTextBoxColumn.HeaderText = "Nombre";
+            this.rolnombreDataGridViewTextBoxColumn.Name = "rolnombreDataGridViewTextBoxColumn";
+            this.rolnombreDataGridViewTextBoxColumn.ReadOnly = true;
+            this.rolnombreDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.rolnombreDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.rolnombreDataGridViewTextBoxColumn.ToolTipText = "Nombre del Rol";
+            this.rolnombreDataGridViewTextBoxColumn.Width = 200;
             // 
-            // lblEstadoRol
+            // rolhabilitadoDataGridViewTextBoxColumn
             // 
-            this.lblEstadoRol.AutoSize = true;
-            this.lblEstadoRol.Location = new System.Drawing.Point(13, 40);
-            this.lblEstadoRol.Name = "lblEstadoRol";
-            this.lblEstadoRol.Size = new System.Drawing.Size(40, 13);
-            this.lblEstadoRol.TabIndex = 2;
-            this.lblEstadoRol.Text = "Estado";
+            this.rolhabilitadoDataGridViewTextBoxColumn.DataPropertyName = "rol_habilitado";
+            this.rolhabilitadoDataGridViewTextBoxColumn.HeaderText = "Estado";
+            this.rolhabilitadoDataGridViewTextBoxColumn.Name = "rolhabilitadoDataGridViewTextBoxColumn";
+            this.rolhabilitadoDataGridViewTextBoxColumn.ReadOnly = true;
+            this.rolhabilitadoDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.rolhabilitadoDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.rolhabilitadoDataGridViewTextBoxColumn.Width = 115;
             // 
-            // tbEstadoRol
+            // rolesBindingSource
             // 
-            this.tbEstadoRol.Enabled = false;
-            this.tbEstadoRol.Location = new System.Drawing.Point(107, 37);
-            this.tbEstadoRol.Name = "tbEstadoRol";
-            this.tbEstadoRol.Size = new System.Drawing.Size(93, 20);
-            this.tbEstadoRol.TabIndex = 3;
-            // 
-            // btnDeshabilitar
-            // 
-            this.btnDeshabilitar.Location = new System.Drawing.Point(206, 35);
-            this.btnDeshabilitar.Name = "btnDeshabilitar";
-            this.btnDeshabilitar.Size = new System.Drawing.Size(73, 23);
-            this.btnDeshabilitar.TabIndex = 4;
-            this.btnDeshabilitar.Text = "Deshabilitar";
-            this.btnDeshabilitar.UseVisualStyleBackColor = true;
-            // 
-            // btnBorrarRol
-            // 
-            this.btnBorrarRol.Location = new System.Drawing.Point(285, 35);
-            this.btnBorrarRol.Name = "btnBorrarRol";
-            this.btnBorrarRol.Size = new System.Drawing.Size(81, 23);
-            this.btnBorrarRol.TabIndex = 5;
-            this.btnBorrarRol.Text = "Borrar";
-            this.btnBorrarRol.UseVisualStyleBackColor = true;
-            this.btnBorrarRol.Click += new System.EventHandler(this.btnBorrarRol_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnBorrarFuncionalidad);
-            this.groupBox1.Controls.Add(this.btnAgregarFuncionalidad);
-            this.groupBox1.Controls.Add(this.dgvFuncionalidades);
-            this.groupBox1.Location = new System.Drawing.Point(16, 64);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(356, 235);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Funcionalidades";
-            // 
-            // btnBorrarFuncionalidad
-            // 
-            this.btnBorrarFuncionalidad.Location = new System.Drawing.Point(190, 199);
-            this.btnBorrarFuncionalidad.Name = "btnBorrarFuncionalidad";
-            this.btnBorrarFuncionalidad.Size = new System.Drawing.Size(107, 23);
-            this.btnBorrarFuncionalidad.TabIndex = 2;
-            this.btnBorrarFuncionalidad.Text = "Borrar";
-            this.btnBorrarFuncionalidad.UseVisualStyleBackColor = true;
-            this.btnBorrarFuncionalidad.Click += new System.EventHandler(this.btnBorrarFuncionalidad_Click);
-            // 
-            // btnAgregarFuncionalidad
-            // 
-            this.btnAgregarFuncionalidad.Location = new System.Drawing.Point(54, 199);
-            this.btnAgregarFuncionalidad.Name = "btnAgregarFuncionalidad";
-            this.btnAgregarFuncionalidad.Size = new System.Drawing.Size(107, 23);
-            this.btnAgregarFuncionalidad.TabIndex = 1;
-            this.btnAgregarFuncionalidad.Text = "Agregar";
-            this.btnAgregarFuncionalidad.UseVisualStyleBackColor = true;
-            // 
-            // dgvFuncionalidades
-            // 
-            this.dgvFuncionalidades.AllowUserToAddRows = false;
-            this.dgvFuncionalidades.AllowUserToDeleteRows = false;
-            this.dgvFuncionalidades.AllowUserToResizeColumns = false;
-            this.dgvFuncionalidades.AllowUserToResizeRows = false;
-            this.dgvFuncionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvFuncionalidades.Location = new System.Drawing.Point(7, 20);
-            this.dgvFuncionalidades.MultiSelect = false;
-            this.dgvFuncionalidades.Name = "dgvFuncionalidades";
-            this.dgvFuncionalidades.ReadOnly = true;
-            this.dgvFuncionalidades.RowHeadersVisible = false;
-            this.dgvFuncionalidades.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgvFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFuncionalidades.ShowCellToolTips = false;
-            this.dgvFuncionalidades.ShowEditingIcon = false;
-            this.dgvFuncionalidades.Size = new System.Drawing.Size(343, 173);
-            this.dgvFuncionalidades.TabIndex = 0;
-            this.dgvFuncionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFuncionalidades_CellContentClick);
+            this.rolesBindingSource.DataMember = "roles";
+            this.rolesBindingSource.DataSource = this.mondongo;
             // 
             // mondongo
             // 
             this.mondongo.DataSetName = "Mondongo";
             this.mondongo.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // funcionalidadesBindingSource
+            // rolesTableAdapter
             // 
-            this.funcionalidadesBindingSource.DataMember = "funcionalidades";
-            this.funcionalidadesBindingSource.DataSource = this.mondongo;
+            this.rolesTableAdapter.ClearBeforeFill = true;
             // 
-            // funcionalidadesTableAdapter
+            // btnAgregarRol
             // 
-            this.funcionalidadesTableAdapter.ClearBeforeFill = true;
+            this.btnAgregarRol.Location = new System.Drawing.Point(388, 36);
+            this.btnAgregarRol.Name = "btnAgregarRol";
+            this.btnAgregarRol.Size = new System.Drawing.Size(100, 40);
+            this.btnAgregarRol.TabIndex = 1;
+            this.btnAgregarRol.Text = "Agregar Rol";
+            this.btnAgregarRol.UseVisualStyleBackColor = true;
+            this.btnAgregarRol.Click += new System.EventHandler(this.btnAgregarRol_Click);
+            // 
+            // btnBorrarRol
+            // 
+            this.btnBorrarRol.Location = new System.Drawing.Point(388, 82);
+            this.btnBorrarRol.Name = "btnBorrarRol";
+            this.btnBorrarRol.Size = new System.Drawing.Size(100, 40);
+            this.btnBorrarRol.TabIndex = 2;
+            this.btnBorrarRol.Text = "Borrar Rol";
+            this.btnBorrarRol.UseVisualStyleBackColor = true;
+            this.btnBorrarRol.Click += new System.EventHandler(this.btnBorrarRol_Click);
+            // 
+            // btnCambiarEstado
+            // 
+            this.btnCambiarEstado.Location = new System.Drawing.Point(388, 128);
+            this.btnCambiarEstado.Name = "btnCambiarEstado";
+            this.btnCambiarEstado.Size = new System.Drawing.Size(100, 40);
+            this.btnCambiarEstado.TabIndex = 3;
+            this.btnCambiarEstado.Text = "Cambiar Estado";
+            this.btnCambiarEstado.UseVisualStyleBackColor = true;
+            this.btnCambiarEstado.Click += new System.EventHandler(this.btnCambiarEstado_Click);
+            // 
+            // btnFuncionalidades
+            // 
+            this.btnFuncionalidades.Location = new System.Drawing.Point(12, 174);
+            this.btnFuncionalidades.Name = "btnFuncionalidades";
+            this.btnFuncionalidades.Size = new System.Drawing.Size(235, 40);
+            this.btnFuncionalidades.TabIndex = 4;
+            this.btnFuncionalidades.Text = "Administrar Funcionalidades";
+            this.btnFuncionalidades.UseVisualStyleBackColor = true;
+            this.btnFuncionalidades.Click += new System.EventHandler(this.btnFuncionalidades_Click);
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(253, 174);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(235, 40);
+            this.btnVolver.TabIndex = 5;
+            this.btnVolver.Text = "Volver al Menu";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // ABMRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 308);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(493, 230);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.btnFuncionalidades);
+            this.Controls.Add(this.btnCambiarEstado);
             this.Controls.Add(this.btnBorrarRol);
-            this.Controls.Add(this.btnDeshabilitar);
-            this.Controls.Add(this.tbEstadoRol);
-            this.Controls.Add(this.lblEstadoRol);
-            this.Controls.Add(this.cbRol);
-            this.Controls.Add(this.lblRol);
+            this.Controls.Add(this.btnAgregarRol);
+            this.Controls.Add(this.dgvRoles);
             this.Name = "ABMRoles";
             this.Text = "ABM Roles";
             this.Load += new System.EventHandler(this.ABMRoles_Load);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rolesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mondongo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lblRol;
-        private System.Windows.Forms.ComboBox cbRol;
-        private System.Windows.Forms.Label lblEstadoRol;
-        private System.Windows.Forms.TextBox tbEstadoRol;
-        private System.Windows.Forms.Button btnDeshabilitar;
-        private System.Windows.Forms.Button btnBorrarRol;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dgvRoles;
         private Mondongo mondongo;
-        private System.Windows.Forms.BindingSource funcionalidadesBindingSource;
-        private MondongoTableAdapters.funcionalidadesTableAdapter funcionalidadesTableAdapter;
-        private System.Windows.Forms.DataGridView dgvFuncionalidades;
-        private System.Windows.Forms.Button btnBorrarFuncionalidad;
-        private System.Windows.Forms.Button btnAgregarFuncionalidad;
+        private System.Windows.Forms.BindingSource rolesBindingSource;
+        private MondongoTableAdapters.rolesTableAdapter rolesTableAdapter;
+        private System.Windows.Forms.Button btnAgregarRol;
+        private System.Windows.Forms.Button btnBorrarRol;
+        private System.Windows.Forms.Button btnCambiarEstado;
+        private System.Windows.Forms.Button btnFuncionalidades;
+        private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rolnombreDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rolhabilitadoDataGridViewTextBoxColumn;
+
     }
 }

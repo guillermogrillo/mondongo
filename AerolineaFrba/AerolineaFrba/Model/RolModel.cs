@@ -10,17 +10,22 @@ namespace AerolineaFrba.Model
     {
         public int _rolId { get; set; }
         public String _rolNombre { get; set; }
-        public Boolean _rolHabilitado { get; set; }
-        public List<Model.FuncionalidadModel> _rolFuncionalidades { get; set; }
+        public Estado _rolHabilitado { get; set; }
 
-        public RolModel(int rolId, String rolNombre, Boolean rolHabilitado, List<Model.FuncionalidadModel> rolFuncionalidades)
+        public RolModel(int rolId, String rolNombre, Estado rolHabilitado)
         {
             _rolId = rolId;
             _rolNombre = rolNombre;
-            _rolHabilitado = rolHabilitado;
-            _rolFuncionalidades = rolFuncionalidades;
+            _rolHabilitado = rolHabilitado;            
         }
 
 
+    }
+
+    enum Estado
+    {
+        Deshabilitado = 0,
+        Habilitado = 1,
+        Borrado = 2
     }
 }

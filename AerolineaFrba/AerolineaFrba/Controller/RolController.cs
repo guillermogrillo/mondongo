@@ -21,11 +21,30 @@ namespace AerolineaFrba.Controller
             return _rolDao.buscarTodosLosRoles();
         }
 
-        public void quitarFuncionalidadDelRol(int funcionalidadId, int rolId)
+        public Boolean agregarNuevoRol(String nombreDelRol)
         {
-            _rolDao.quitarFuncionalidadDelRol(funcionalidadId, rolId);
+            return _rolDao.agregarNuevoRol(nombreDelRol);
         }
 
+        public Boolean cambiarEstadoRol(int rolId, int nuevoEstado)
+        {
+            return _rolDao.cambiarEstadoRol(rolId, nuevoEstado);
+        }
+
+        public List<Model.FuncionalidadModel> buscarFuncionalidadesDelRol(int rolId, Boolean faltantes)
+        {
+            return _rolDao.buscarFuncionalidadesDelRol(rolId, faltantes);
+        }
+
+        public Boolean agregarFuncionalidadAlRol(int funcionalidadId, int rolId)
+        {
+            return _rolDao.agregarFuncionalidadAlRol(funcionalidadId, rolId);
+        }
+
+        public Boolean borrarFuncionalidadDelRol(int funcionalidadId, int rolId)
+        {
+            return _rolDao.borrarFuncionalidadDelRol(funcionalidadId, rolId);
+        }
 
     }
 }
