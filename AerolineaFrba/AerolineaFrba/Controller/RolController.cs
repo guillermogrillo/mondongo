@@ -21,6 +21,11 @@ namespace AerolineaFrba.Controller
             return _rolDao.buscarTodosLosRoles();
         }
 
+        public void quitarFuncionalidadDelRol(int funcionalidadId, int rolId)
+        {
+            _rolDao.quitarFuncionalidadDelRol(funcionalidadId, rolId);
+        }
+
 
     }
 }

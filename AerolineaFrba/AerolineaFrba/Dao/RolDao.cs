@@ -88,5 +88,33 @@ namespace AerolineaFrba.Dao
             return funcionalidades;
         }
 
+
+        public void quitarFuncionalidadDelRol(int funcionalidadId, int rolId)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "delete from mondongo.roles_funcionalidades "+
+                            "where rol_id = @rolId and funcionalidad_id=@funcionalidadId";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@rolId", rolId);
+                    command.Parameters.AddWithValue("@funcionalidadId", funcionalidadId);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+        }
+
+
     }
 }
