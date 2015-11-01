@@ -86,6 +86,14 @@
     <Compile Include="Consulta Millas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\CiudadController.cs" />
+    <Compile Include="Controller\CompraController.cs" />
+    <Compile Include="Controller\LoginController.cs" />
+    <Compile Include="Controller\RolController.cs" />
+    <Compile Include="Dao\CiudadDao.cs" />
+    <Compile Include="Dao\CompraDao.cs" />
+    <Compile Include="Dao\LoginDao.cs" />
+    <Compile Include="Dao\RolDao.cs" />
     <Compile Include="Devolucion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
