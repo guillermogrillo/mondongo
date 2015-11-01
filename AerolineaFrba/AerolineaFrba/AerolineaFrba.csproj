@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,17 +51,47 @@
     <Compile Include="Abm Aeronave\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ciudad\Form1.cs">
+    <Compile Include="Abm Ciudad\AbmCiudad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ciudad\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Ciudad\AbmCiudad.Designer.cs">
+      <DependentUpon>AbmCiudad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Ciudad\BuscadorCiudades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ciudad\BuscadorCiudades.Designer.cs">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\ABMFuncionalidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\ABMFuncionalidades.Designer.cs">
+      <DependentUpon>ABMFuncionalidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\ABMRoles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\ABMRoles.Designer.cs">
+      <DependentUpon>ABMRoles.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Rol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\NuevaFuncionalidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\NuevaFuncionalidad.Designer.cs">
+      <DependentUpon>NuevaFuncionalidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\NuevoRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\NuevoRol.Designer.cs">
+      <DependentUpon>NuevoRol.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Ruta\Form1.cs">
       <SubType>Form</SubType>
@@ -74,11 +105,11 @@
     <Compile Include="Canje Millas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra\Form1.cs">
+    <Compile Include="Compra\BusquedaVuelos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra\BusquedaVuelos.Designer.cs">
+      <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </Compile>
     <Compile Include="Consulta Millas\Form1.cs">
       <SubType>Form</SubType>
@@ -130,6 +161,10 @@
     <Compile Include="Menu\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\CiudadModel.cs" />
+    <Compile Include="Model\FuncionalidadModel.cs" />
+    <Compile Include="Model\RolModel.cs" />
+    <Compile Include="Model\UsuarioModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,6 +184,27 @@
     <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Ciudad\AbmCiudad.resx">
+      <DependentUpon>AbmCiudad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ciudad\BuscadorCiudades.resx">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\ABMFuncionalidades.resx">
+      <DependentUpon>ABMFuncionalidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\ABMRoles.resx">
+      <DependentUpon>ABMRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\NuevaFuncionalidad.resx">
+      <DependentUpon>NuevaFuncionalidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\NuevoRol.resx">
+      <DependentUpon>NuevoRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
+      <DependentUpon>BusquedaVuelos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InicioAerolineasFRBA.resx">
       <DependentUpon>InicioAerolineasFRBA.cs</DependentUpon>
     </EmbeddedResource>
