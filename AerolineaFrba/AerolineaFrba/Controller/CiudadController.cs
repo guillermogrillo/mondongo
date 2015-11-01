@@ -20,5 +20,10 @@ namespace AerolineaFrba.Controller
             return _ciudadDao.buscarTodasLasCiudades();
         }
 
+        public List<Model.CiudadModel> buscarCiudades(String nombreCiudad)
+        {
+            return _ciudadDao.buscarCiudades(nombreCiudad);
+        }
+
     }
 }

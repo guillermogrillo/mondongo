@@ -8,11 +8,13 @@ namespace AerolineaFrba.Model
 {
     class CiudadModel
     {
-        public string _nombre;    
+        public int ciudadId { get; set; }
+        public String nombre { get; set; }
 
-        public CiudadModel(string nombre)
+        public CiudadModel(int _ciudadId, String nombre)
         {
-            _nombre = nombre;
+            this.ciudadId = _ciudadId;
+            this.nombre = nombre;
         }
     }
 }

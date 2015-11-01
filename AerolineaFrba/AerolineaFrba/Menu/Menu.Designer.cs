@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btnABMRol = new System.Windows.Forms.Button();
-            this.btnABMCiudades = new System.Windows.Forms.Button();
             this.btnABMRutaAerea = new System.Windows.Forms.Button();
             this.btnABMAeronaves = new System.Windows.Forms.Button();
             this.btnRegresar = new System.Windows.Forms.Button();
@@ -57,19 +56,9 @@
             this.btnABMRol.UseVisualStyleBackColor = true;
             this.btnABMRol.Click += new System.EventHandler(this.btnABMRol_Click);
             // 
-            // btnABMCiudades
-            // 
-            this.btnABMCiudades.Location = new System.Drawing.Point(4, 58);
-            this.btnABMCiudades.Margin = new System.Windows.Forms.Padding(2);
-            this.btnABMCiudades.Name = "btnABMCiudades";
-            this.btnABMCiudades.Size = new System.Drawing.Size(160, 27);
-            this.btnABMCiudades.TabIndex = 1;
-            this.btnABMCiudades.Text = "ABM Ciudades";
-            this.btnABMCiudades.UseVisualStyleBackColor = true;
-            // 
             // btnABMRutaAerea
             // 
-            this.btnABMRutaAerea.Location = new System.Drawing.Point(4, 89);
+            this.btnABMRutaAerea.Location = new System.Drawing.Point(4, 58);
             this.btnABMRutaAerea.Margin = new System.Windows.Forms.Padding(2);
             this.btnABMRutaAerea.Name = "btnABMRutaAerea";
             this.btnABMRutaAerea.Size = new System.Drawing.Size(160, 27);
@@ -79,7 +68,7 @@
             // 
             // btnABMAeronaves
             // 
-            this.btnABMAeronaves.Location = new System.Drawing.Point(4, 121);
+            this.btnABMAeronaves.Location = new System.Drawing.Point(4, 90);
             this.btnABMAeronaves.Margin = new System.Windows.Forms.Padding(2);
             this.btnABMAeronaves.Name = "btnABMAeronaves";
             this.btnABMAeronaves.Size = new System.Drawing.Size(160, 27);
@@ -89,7 +78,7 @@
             // 
             // btnRegresar
             // 
-            this.btnRegresar.Location = new System.Drawing.Point(14, 280);
+            this.btnRegresar.Location = new System.Drawing.Point(14, 233);
             this.btnRegresar.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegresar.Name = "btnRegresar";
             this.btnRegresar.Size = new System.Drawing.Size(160, 27);
@@ -104,21 +93,20 @@
             this.grpAdministrador.Controls.Add(this.btnRegistrarLlegada);
             this.grpAdministrador.Controls.Add(this.btnGenerarViaje);
             this.grpAdministrador.Controls.Add(this.btnABMRol);
-            this.grpAdministrador.Controls.Add(this.btnABMCiudades);
             this.grpAdministrador.Controls.Add(this.btnABMRutaAerea);
             this.grpAdministrador.Controls.Add(this.btnABMAeronaves);
             this.grpAdministrador.Location = new System.Drawing.Point(185, 10);
             this.grpAdministrador.Margin = new System.Windows.Forms.Padding(2);
             this.grpAdministrador.Name = "grpAdministrador";
             this.grpAdministrador.Padding = new System.Windows.Forms.Padding(2);
-            this.grpAdministrador.Size = new System.Drawing.Size(170, 266);
+            this.grpAdministrador.Size = new System.Drawing.Size(170, 219);
             this.grpAdministrador.TabIndex = 5;
             this.grpAdministrador.TabStop = false;
             this.grpAdministrador.Text = "Administradores";
             // 
             // btnListado
             // 
-            this.btnListado.Location = new System.Drawing.Point(4, 216);
+            this.btnListado.Location = new System.Drawing.Point(4, 185);
             this.btnListado.Margin = new System.Windows.Forms.Padding(2);
             this.btnListado.Name = "btnListado";
             this.btnListado.Size = new System.Drawing.Size(160, 27);
@@ -128,7 +116,7 @@
             // 
             // btnRegistrarLlegada
             // 
-            this.btnRegistrarLlegada.Location = new System.Drawing.Point(4, 184);
+            this.btnRegistrarLlegada.Location = new System.Drawing.Point(4, 153);
             this.btnRegistrarLlegada.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegistrarLlegada.Name = "btnRegistrarLlegada";
             this.btnRegistrarLlegada.Size = new System.Drawing.Size(160, 27);
@@ -138,7 +126,7 @@
             // 
             // btnGenerarViaje
             // 
-            this.btnGenerarViaje.Location = new System.Drawing.Point(4, 152);
+            this.btnGenerarViaje.Location = new System.Drawing.Point(4, 121);
             this.btnGenerarViaje.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerarViaje.Name = "btnGenerarViaje";
             this.btnGenerarViaje.Size = new System.Drawing.Size(160, 27);
@@ -156,7 +144,7 @@
             this.grpCliente.Margin = new System.Windows.Forms.Padding(2);
             this.grpCliente.Name = "grpCliente";
             this.grpCliente.Padding = new System.Windows.Forms.Padding(2);
-            this.grpCliente.Size = new System.Drawing.Size(170, 266);
+            this.grpCliente.Size = new System.Drawing.Size(170, 219);
             this.grpCliente.TabIndex = 6;
             this.grpCliente.TabStop = false;
             this.grpCliente.Text = "Cliente";
@@ -222,7 +210,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnABMRol;
-        private System.Windows.Forms.Button btnABMCiudades;
         private System.Windows.Forms.Button btnABMRutaAerea;
         private System.Windows.Forms.Button btnABMAeronaves;
         private System.Windows.Forms.Button btnRegresar;

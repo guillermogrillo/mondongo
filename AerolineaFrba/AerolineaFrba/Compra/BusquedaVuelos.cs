@@ -14,6 +14,8 @@ namespace AerolineaFrba.Compra
     {
 
         private Boolean _esAdmin { get; set; }
+        
+
 
         public BusquedaVuelos(Boolean esAdmin)
         {
@@ -55,14 +57,14 @@ namespace AerolineaFrba.Compra
 
         private void btnBuscarCiudadDesde_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Abm_Ciudad.AbmCiudad(false).Show();
+            Abm_Ciudad.BuscadorCiudades busquedaCiudad = new Abm_Ciudad.BuscadorCiudades();
+            busquedaCiudad.Show();            
+            //tbCiudadOrigen.Text = busquedaCiudad.getCiudadSeleccionada().nombre;
         }
 
         private void btnCiudadHasta_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Abm_Ciudad.AbmCiudad(false).Show();
+            new Abm_Ciudad.BuscadorCiudades().Show();
         }
     }
 }

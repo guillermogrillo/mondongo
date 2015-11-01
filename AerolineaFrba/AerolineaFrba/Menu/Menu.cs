@@ -25,8 +25,7 @@ namespace AerolineaFrba.Menu
             InitializeComponent();
             _esAdmin = esAdmin;
             this.btnABMRol.Visible = esAdmin;
-            this.btnABMRutaAerea.Visible = esAdmin;
-            this.btnABMCiudades.Visible = esAdmin;
+            this.btnABMRutaAerea.Visible = esAdmin;            
             this.btnABMAeronaves.Visible = esAdmin;
             this.btnGenerarViaje.Visible = esAdmin;
             this.btnListado.Visible = esAdmin;
@@ -50,6 +49,12 @@ namespace AerolineaFrba.Menu
         {
             this.Hide();
             new Compra.BusquedaVuelos(_esAdmin).Show();
+        }
+
+        private void btnABMCiudades_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Ciudad.BuscadorCiudades().Show();
         }
 
        
