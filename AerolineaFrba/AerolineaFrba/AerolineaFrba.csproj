@@ -121,10 +121,12 @@
     <Compile Include="Controller\CompraController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\RolController.cs" />
+    <Compile Include="Controller\RutaController.cs" />
     <Compile Include="Dao\CiudadDao.cs" />
     <Compile Include="Dao\CompraDao.cs" />
     <Compile Include="Dao\LoginDao.cs" />
     <Compile Include="Dao\RolDao.cs" />
+    <Compile Include="Dao\RutaDao.cs" />
     <Compile Include="Devolucion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +166,7 @@
     <Compile Include="Model\CiudadModel.cs" />
     <Compile Include="Model\FuncionalidadModel.cs" />
     <Compile Include="Model\RolModel.cs" />
+    <Compile Include="Model\RutaModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>

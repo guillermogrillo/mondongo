@@ -14,13 +14,17 @@ namespace AerolineaFrba.Abm_Ciudad
     {
 
         Controller.CiudadController controller = null;
-        Model.CiudadModel ciudadSeleccionada = null;
+        public Model.CiudadModel ciudadSeleccionada = null;
+        int modo;
+        Compra.BusquedaVuelos pantalla;
 
-        public BuscadorCiudades()
+        public BuscadorCiudades(Compra.BusquedaVuelos _pantalla, int _modo)
         {
             InitializeComponent();
             controller = new Controller.CiudadController();
             btnAceptar.Enabled = false;
+            this.modo = _modo;
+            this.pantalla = _pantalla;
         }
 
         private void BuscadorCiudades_Load(object sender, EventArgs e)
@@ -36,12 +40,20 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if(modo == 0){
+                pantalla.setCiudadOrigen(ciudadSeleccionada);
+            }else{
+                pantalla.setCiudadDestino(ciudadSeleccionada);
+            }
+            
             this.Hide();
+            pantalla.Show();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Hide();
+            pantalla.Show();
         }
 
         private void dgvCiudades_CellContentClick(object sender, DataGridViewCellEventArgs e)

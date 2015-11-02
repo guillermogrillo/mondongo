@@ -50,13 +50,6 @@ namespace AerolineaFrba.Menu
             this.Hide();
             new Compra.BusquedaVuelos(_esAdmin).Show();
         }
-
-        private void btnABMCiudades_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new Abm_Ciudad.BuscadorCiudades().Show();
-        }
-
        
     }
 }
