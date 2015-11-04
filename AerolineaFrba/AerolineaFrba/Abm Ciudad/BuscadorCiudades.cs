@@ -58,13 +58,18 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void dgvCiudades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            ciudadSeleccionada = (Model.CiudadModel)dgvCiudades.CurrentRow.DataBoundItem;
-            btnAceptar.Enabled = true;
+            
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             dgvCiudades.DataSource = controller.buscarCiudades(tbCiudad.Text);
+        }
+
+        private void dgvCiudades_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            ciudadSeleccionada = (Model.CiudadModel)dgvCiudades.CurrentRow.DataBoundItem;
+            btnAceptar.Enabled = true;
         }
 
         

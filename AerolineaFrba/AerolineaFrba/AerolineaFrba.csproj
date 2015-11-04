@@ -111,6 +111,19 @@
     <Compile Include="Compra\BusquedaVuelos.Designer.cs">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\Pasajeros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\Pasajeros.Designer.cs">
+      <DependentUpon>Pasajeros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\ViajeController.cs" />
+    <Compile Include="Compra\VuelosEncontrados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\VuelosEncontrados.Designer.cs">
+      <DependentUpon>VuelosEncontrados.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consulta Millas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +140,7 @@
     <Compile Include="Dao\LoginDao.cs" />
     <Compile Include="Dao\RolDao.cs" />
     <Compile Include="Dao\RutaDao.cs" />
+    <Compile Include="Dao\ViajeDao.cs" />
     <Compile Include="Devolucion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,11 +177,16 @@
     <Compile Include="Menu\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\ButacaModel.cs" />
     <Compile Include="Model\CiudadModel.cs" />
+    <Compile Include="Model\ClienteModel.cs" />
+    <Compile Include="Model\CompraModel.cs" />
     <Compile Include="Model\FuncionalidadModel.cs" />
+    <Compile Include="Model\PagadorModel.cs" />
     <Compile Include="Model\RolModel.cs" />
     <Compile Include="Model\RutaModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
+    <Compile Include="Model\ViajeModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,6 +226,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\Pasajeros.resx">
+      <DependentUpon>Pasajeros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\VuelosEncontrados.resx">
+      <DependentUpon>VuelosEncontrados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InicioAerolineasFRBA.resx">
       <DependentUpon>InicioAerolineasFRBA.cs</DependentUpon>

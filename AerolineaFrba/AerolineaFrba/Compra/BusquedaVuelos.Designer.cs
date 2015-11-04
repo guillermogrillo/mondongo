@@ -41,12 +41,15 @@
             this.lblError = new System.Windows.Forms.Label();
             this.btnBuscarCiudadDesde = new System.Windows.Forms.Button();
             this.btnCiudadHasta = new System.Windows.Forms.Button();
+            this.cbEncomienda = new System.Windows.Forms.CheckBox();
+            this.tbKg = new System.Windows.Forms.TextBox();
+            this.lblKgs = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblCiudadOrigen
             // 
             this.lblCiudadOrigen.AutoSize = true;
-            this.lblCiudadOrigen.Location = new System.Drawing.Point(10, 34);
+            this.lblCiudadOrigen.Location = new System.Drawing.Point(30, 33);
             this.lblCiudadOrigen.Name = "lblCiudadOrigen";
             this.lblCiudadOrigen.Size = new System.Drawing.Size(74, 13);
             this.lblCiudadOrigen.TabIndex = 0;
@@ -55,7 +58,7 @@
             // lblCiudadDestino
             // 
             this.lblCiudadDestino.AutoSize = true;
-            this.lblCiudadDestino.Location = new System.Drawing.Point(10, 58);
+            this.lblCiudadDestino.Location = new System.Drawing.Point(30, 58);
             this.lblCiudadDestino.Name = "lblCiudadDestino";
             this.lblCiudadDestino.Size = new System.Drawing.Size(79, 13);
             this.lblCiudadDestino.TabIndex = 2;
@@ -64,7 +67,7 @@
             // lblFechaViaje
             // 
             this.lblFechaViaje.AutoSize = true;
-            this.lblFechaViaje.Location = new System.Drawing.Point(10, 83);
+            this.lblFechaViaje.Location = new System.Drawing.Point(30, 80);
             this.lblFechaViaje.Name = "lblFechaViaje";
             this.lblFechaViaje.Size = new System.Drawing.Size(78, 13);
             this.lblFechaViaje.TabIndex = 4;
@@ -73,33 +76,33 @@
             // tbCiudadDestino
             // 
             this.tbCiudadDestino.Enabled = false;
-            this.tbCiudadDestino.Location = new System.Drawing.Point(94, 58);
+            this.tbCiudadDestino.Location = new System.Drawing.Point(134, 54);
             this.tbCiudadDestino.Name = "tbCiudadDestino";
-            this.tbCiudadDestino.Size = new System.Drawing.Size(98, 20);
+            this.tbCiudadDestino.Size = new System.Drawing.Size(153, 20);
             this.tbCiudadDestino.TabIndex = 3;
             // 
             // tbCiudadOrigen
             // 
             this.tbCiudadOrigen.Enabled = false;
-            this.tbCiudadOrigen.Location = new System.Drawing.Point(94, 34);
+            this.tbCiudadOrigen.Location = new System.Drawing.Point(134, 30);
             this.tbCiudadOrigen.Name = "tbCiudadOrigen";
-            this.tbCiudadOrigen.Size = new System.Drawing.Size(98, 20);
+            this.tbCiudadOrigen.Size = new System.Drawing.Size(153, 20);
             this.tbCiudadOrigen.TabIndex = 1;
             // 
             // dpFechaViaje
             // 
             this.dpFechaViaje.CustomFormat = "dd/MM/yyyy";
-            this.dpFechaViaje.Location = new System.Drawing.Point(94, 83);
+            this.dpFechaViaje.Location = new System.Drawing.Point(134, 80);
             this.dpFechaViaje.Name = "dpFechaViaje";
             this.dpFechaViaje.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dpFechaViaje.Size = new System.Drawing.Size(123, 20);
+            this.dpFechaViaje.Size = new System.Drawing.Size(153, 20);
             this.dpFechaViaje.TabIndex = 5;
-            this.dpFechaViaje.Value = new System.DateTime(2015, 11, 11, 0, 0, 0, 0);            
+            this.dpFechaViaje.Value = new System.DateTime(2015, 11, 11, 0, 0, 0, 0);
             // 
             // lblCantidadPasajeros
             // 
             this.lblCantidadPasajeros.AutoSize = true;
-            this.lblCantidadPasajeros.Location = new System.Drawing.Point(10, 107);
+            this.lblCantidadPasajeros.Location = new System.Drawing.Point(15, 106);
             this.lblCantidadPasajeros.Name = "lblCantidadPasajeros";
             this.lblCantidadPasajeros.Size = new System.Drawing.Size(113, 13);
             this.lblCantidadPasajeros.TabIndex = 6;
@@ -107,15 +110,15 @@
             // 
             // tbCantidadPasajeros
             // 
-            this.tbCantidadPasajeros.Location = new System.Drawing.Point(134, 107);
+            this.tbCantidadPasajeros.Location = new System.Drawing.Point(134, 104);
             this.tbCantidadPasajeros.Name = "tbCantidadPasajeros";
-            this.tbCantidadPasajeros.Size = new System.Drawing.Size(83, 20);
+            this.tbCantidadPasajeros.Size = new System.Drawing.Size(49, 20);
             this.tbCantidadPasajeros.TabIndex = 7;
             this.tbCantidadPasajeros.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCantidadPasajeros_KeyPress);
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(12, 132);
+            this.btnBuscar.Location = new System.Drawing.Point(55, 156);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(94, 30);
             this.btnBuscar.TabIndex = 8;
@@ -125,7 +128,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(124, 132);
+            this.btnCancelar.Location = new System.Drawing.Point(164, 156);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(94, 30);
             this.btnCancelar.TabIndex = 9;
@@ -144,8 +147,8 @@
             // 
             // btnBuscarCiudadDesde
             // 
-            this.btnBuscarCiudadDesde.Location = new System.Drawing.Point(196, 34);
-            this.btnBuscarCiudadDesde.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBuscarCiudadDesde.Location = new System.Drawing.Point(292, 31);
+            this.btnBuscarCiudadDesde.Margin = new System.Windows.Forms.Padding(2);
             this.btnBuscarCiudadDesde.Name = "btnBuscarCiudadDesde";
             this.btnBuscarCiudadDesde.Size = new System.Drawing.Size(21, 19);
             this.btnBuscarCiudadDesde.TabIndex = 11;
@@ -155,8 +158,8 @@
             // 
             // btnCiudadHasta
             // 
-            this.btnCiudadHasta.Location = new System.Drawing.Point(196, 58);
-            this.btnCiudadHasta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCiudadHasta.Location = new System.Drawing.Point(292, 55);
+            this.btnCiudadHasta.Margin = new System.Windows.Forms.Padding(2);
             this.btnCiudadHasta.Name = "btnCiudadHasta";
             this.btnCiudadHasta.Size = new System.Drawing.Size(21, 19);
             this.btnCiudadHasta.TabIndex = 12;
@@ -164,11 +167,42 @@
             this.btnCiudadHasta.UseVisualStyleBackColor = true;
             this.btnCiudadHasta.Click += new System.EventHandler(this.btnCiudadHasta_Click);
             // 
+            // cbEncomienda
+            // 
+            this.cbEncomienda.AutoSize = true;
+            this.cbEncomienda.Location = new System.Drawing.Point(24, 131);
+            this.cbEncomienda.Name = "cbEncomienda";
+            this.cbEncomienda.Size = new System.Drawing.Size(91, 17);
+            this.cbEncomienda.TabIndex = 13;
+            this.cbEncomienda.Text = "Encomienda?";
+            this.cbEncomienda.UseVisualStyleBackColor = true;
+            this.cbEncomienda.CheckedChanged += new System.EventHandler(this.cbEncomienda_CheckedChanged);
+            // 
+            // tbKg
+            // 
+            this.tbKg.Location = new System.Drawing.Point(134, 130);
+            this.tbKg.Name = "tbKg";
+            this.tbKg.Size = new System.Drawing.Size(52, 20);
+            this.tbKg.TabIndex = 14;
+            this.tbKg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbKg_KeyPress);
+            // 
+            // lblKgs
+            // 
+            this.lblKgs.AutoSize = true;
+            this.lblKgs.Location = new System.Drawing.Point(192, 135);
+            this.lblKgs.Name = "lblKgs";
+            this.lblKgs.Size = new System.Drawing.Size(28, 13);
+            this.lblKgs.TabIndex = 15;
+            this.lblKgs.Text = "Kgs.";
+            // 
             // BusquedaVuelos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(249, 206);
+            this.ClientSize = new System.Drawing.Size(324, 206);
+            this.Controls.Add(this.lblKgs);
+            this.Controls.Add(this.tbKg);
+            this.Controls.Add(this.cbEncomienda);
             this.Controls.Add(this.btnCiudadHasta);
             this.Controls.Add(this.btnBuscarCiudadDesde);
             this.Controls.Add(this.lblError);
@@ -205,5 +239,8 @@
         private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Button btnBuscarCiudadDesde;
         private System.Windows.Forms.Button btnCiudadHasta;
+        private System.Windows.Forms.CheckBox cbEncomienda;
+        private System.Windows.Forms.TextBox tbKg;
+        private System.Windows.Forms.Label lblKgs;
     }
 }

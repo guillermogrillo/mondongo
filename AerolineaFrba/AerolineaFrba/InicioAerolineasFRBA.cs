@@ -26,7 +26,7 @@ namespace AerolineaFrba
         private void btnCliente_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new Menu.Menu(false).Show();
+            new Menu.Menu().Show();
 
         }
     }

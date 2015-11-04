@@ -28,7 +28,7 @@ namespace AerolineaFrba.Login
             {
                 lblError.Text = "";
                 this.Hide();
-                new Menu.Menu(true).Show();
+                new Menu.Menu().Show();
             }
         }
 

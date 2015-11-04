@@ -38,7 +38,7 @@ namespace AerolineaFrba.Dao
 
                         var idRuta = (int)(double)reader.GetDecimal(0);
                         var codigoRuta = (int)(double)reader.GetDecimal(1);
-                        var ciudadOrigen = (int)(double)reader.GetDecimal(2);
+                        var ciudadOrigen = (int)(double)reader.GetDecimal(2);                        
                         var ciudadDestino = (int)(double)reader.GetDecimal(3);
                         var tipoServicio = (int)(double)reader.GetDecimal(4);
                         var precioBasePasaje = (double)reader.GetDecimal(5);

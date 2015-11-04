@@ -11,20 +11,24 @@ using System.Windows.Forms;
 namespace AerolineaFrba.Compra
 {
     public partial class BusquedaVuelos : Form
-    {
-
-        private Boolean _esAdmin { get; set; }
+    {        
         public Model.CiudadModel ciudadOrigen = null;
         public Model.CiudadModel ciudadDestino = null;
         Controller.RutaController rutaController = null;
+        Controller.ViajeController viajeController = null;
+        public List<Model.ViajeModel> vuelosEncontrados = null;
+        public Model.CompraModel compraModel = null;
 
-        public BusquedaVuelos(Boolean esAdmin)
+        public BusquedaVuelos()
         {
             InitializeComponent();
-            _esAdmin = esAdmin;
             dpFechaViaje.Format = DateTimePickerFormat.Custom;
             dpFechaViaje.CustomFormat = "dd/MM/yyyy";
             rutaController = new Controller.RutaController();
+            viajeController = new Controller.ViajeController();
+            tbCantidadPasajeros.Text = Convert.ToString(0);
+            tbKg.Text = Convert.ToString(0);
+            compraModel = new Model.CompraModel();
         }
 
 
@@ -51,8 +55,8 @@ namespace AerolineaFrba.Compra
         }  
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Menu.Menu(_esAdmin).Show();
+            this.Close();
+            new Menu.Menu().Show();
         }
 
         private void tbCantidadPasajeros_KeyPress(object sender, KeyPressEventArgs e)
@@ -71,11 +75,41 @@ namespace AerolineaFrba.Compra
                 Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId);
                 if (ruta != null)
                 {
-                    MessageBox.Show("Ruta ok");
+                    int cantidadDePasajeros = 0;
+                    int kg = 0;
+                    if(tbCantidadPasajeros.Text != null && tbCantidadPasajeros.Text != ""){
+                        cantidadDePasajeros =   Convert.ToInt32(tbCantidadPasajeros.Text);
+                    }
+                    if(cbEncomienda.Checked && tbKg != null && tbKg.Text != ""){
+                        kg = Convert.ToInt32(tbKg.Text);
+                    } 
+  
+                    if(cantidadDePasajeros == 0 && kg == 0)
+                    {
+                        MessageBox.Show("Debe ingresar al menos un pasajero o datos de encomienda.", "Búsqueda de viajes", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        vuelosEncontrados = viajeController.buscarViajes(ruta.idRuta, dpFechaViaje.Value, cantidadDePasajeros, kg);
+                        if (vuelosEncontrados.Count > 0)
+                        {
+                            this.Close();
+                            compraModel.cantidadKg = kg;
+                            compraModel.cantidadPax = cantidadDePasajeros;
+                            compraModel.ruta = ruta;
+                            compraModel.fechaSalida = dpFechaViaje.Value;
+                            compraModel.vuelos = vuelosEncontrados;
+                            new Compra.VuelosEncontrados(compraModel).Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No existe ningun vuelo para los parámetros ingresados.", "Búsqueda de viajes",MessageBoxButtons.OK);            
+                        }                        
+                    }                                     
                 }
                 else
                 {
-                    MessageBox.Show("No existen vuelos disponibles entre las ciudades seleccionadas", "Búsqueda de viajes",MessageBoxButtons.OK);            
+                    MessageBox.Show("No existe ningun vuelo entre las ciudades pedidas.", "Búsqueda de viajes",MessageBoxButtons.OK);            
                 }
                
             }
@@ -113,6 +147,21 @@ namespace AerolineaFrba.Compra
         private void BusquedaVuelos_Load(object sender, EventArgs e)
         {
             this.dpFechaViaje.Value = DateTime.Now;
+            tbKg.Enabled = false;
+            btnBuscarCiudadDesde.Focus();
+        }
+
+        private void cbEncomienda_CheckedChanged(object sender, EventArgs e)
+        {
+            tbKg.Enabled = cbEncomienda.Checked;
+        }
+
+        private void tbKg_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
