@@ -28,8 +28,8 @@ namespace AerolineaFrba.Abm_Rol
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Menu.Menu(true).Show();
+            this.Close();
+            new Menu.Menu().Show();
         }
 
         private void ABMRoles_Load(object sender, EventArgs e)

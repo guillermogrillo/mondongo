@@ -35,13 +35,13 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.dgvCiudades = new System.Windows.Forms.DataGridView();
-            this.mondongo = new AerolineaFrba.Mondongo();
-            this.ciudadesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ciudadesTableAdapter = new AerolineaFrba.MondongoTableAdapters.ciudadesTableAdapter();
             this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ciudadesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.mondongo = new AerolineaFrba.Mondongo();
+            this.ciudadesTableAdapter = new AerolineaFrba.MondongoTableAdapters.ciudadesTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCiudades)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mondongo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mondongo)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBuscar
@@ -111,20 +111,7 @@
             this.dgvCiudades.Size = new System.Drawing.Size(261, 118);
             this.dgvCiudades.TabIndex = 12;
             this.dgvCiudades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCiudades_CellContentClick);
-            // 
-            // mondongo
-            // 
-            this.mondongo.DataSetName = "Mondongo";
-            this.mondongo.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // ciudadesBindingSource
-            // 
-            this.ciudadesBindingSource.DataMember = "ciudades";
-            this.ciudadesBindingSource.DataSource = this.mondongo;
-            // 
-            // ciudadesTableAdapter
-            // 
-            this.ciudadesTableAdapter.ClearBeforeFill = true;
+            this.dgvCiudades.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCiudades_CellMouseClick);
             // 
             // nombreDataGridViewTextBoxColumn
             // 
@@ -135,6 +122,20 @@
             this.nombreDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.nombreDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.nombreDataGridViewTextBoxColumn.Width = 215;
+            // 
+            // ciudadesBindingSource
+            // 
+            this.ciudadesBindingSource.DataMember = "ciudades";
+            this.ciudadesBindingSource.DataSource = this.mondongo;
+            // 
+            // mondongo
+            // 
+            this.mondongo.DataSetName = "Mondongo";
+            this.mondongo.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // ciudadesTableAdapter
+            // 
+            this.ciudadesTableAdapter.ClearBeforeFill = true;
             // 
             // BuscadorCiudades
             // 
@@ -151,8 +152,8 @@
             this.Text = "BuscadorCiudades";
             this.Load += new System.EventHandler(this.BuscadorCiudades_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCiudades)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mondongo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ciudadesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mondongo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

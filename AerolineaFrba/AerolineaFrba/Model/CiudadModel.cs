@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Model
 {
-    class CiudadModel
+    public class CiudadModel
     {
         public int ciudadId { get; set; }
         public String nombre { get; set; }

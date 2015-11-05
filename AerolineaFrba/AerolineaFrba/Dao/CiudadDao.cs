@@ -52,7 +52,7 @@ namespace AerolineaFrba.Dao
         {
             string query = "select id_ciudad, nombre from " +
                                     "mondongo.ciudades "+
-                                    "where nombre like @nombreCiudad "+
+                                    "where nombre like @nombreCiudad " +
                                     "order by nombre asc ";
             SqlConnection myConnection = null;
             List<Model.CiudadModel> ciudades = new List<Model.CiudadModel>();
@@ -64,7 +64,7 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@nombreCiudad", nombreCiudad);
+                    command.Parameters.AddWithValue("@nombreCiudad", "%"+nombreCiudad+"%");
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

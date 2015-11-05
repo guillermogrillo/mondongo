@@ -12,26 +12,12 @@ namespace AerolineaFrba.Menu
 {
     public partial class Menu : Form
     {
-
-        private Boolean _esAdmin { get; set; }
-
+        
         public Menu()
         {
             InitializeComponent();            
         }
 
-        public Menu(Boolean esAdmin)
-        {
-            InitializeComponent();
-            _esAdmin = esAdmin;
-            this.btnABMRol.Visible = esAdmin;
-            this.btnABMRutaAerea.Visible = esAdmin;            
-            this.btnABMAeronaves.Visible = esAdmin;
-            this.btnGenerarViaje.Visible = esAdmin;
-            this.btnListado.Visible = esAdmin;
-            this.btnRegistrarLlegada.Visible = esAdmin;
-            this.grpAdministrador.Visible = esAdmin;            
-        }
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
@@ -47,22 +33,14 @@ namespace AerolineaFrba.Menu
 
         private void btnComprarPasajes_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Compra.BusquedaVuelos(_esAdmin).Show();
+            this.Close();
+            new Compra.BusquedaVuelos().Show();
         }
-
-        private void btnABMCiudades_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new Abm_Ciudad.BuscadorCiudades().Show();
-        }
-
+		
         private void btnABMAeronaves_Click(object sender, EventArgs e)
         {
             this.Hide();
             new Abm_Aeronave.AbmAeronaves().Show();
-        }
-
-       
+        }       
     }
 }
