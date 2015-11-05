@@ -57,6 +57,12 @@ namespace AerolineaFrba.Menu
             new Abm_Ciudad.BuscadorCiudades().Show();
         }
 
+        private void btnABMAeronaves_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Aeronave.AbmAeronaves().Show();
+        }
+
        
     }
 }

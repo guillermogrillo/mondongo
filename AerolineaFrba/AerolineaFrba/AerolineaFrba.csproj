@@ -45,12 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Aeronave\Form1.cs">
+    <Compile Include="Abm Aeronave\AbmAeronaves.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Aeronave\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Aeronave\AbmAeronaves.Designer.cs">
+      <DependentUpon>AbmAeronaves.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Aeronave\AeronaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Aeronave\AeronaveForm.Designer.cs">
+      <DependentUpon>AeronaveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dao\ViajeDao.cs" />
+    <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,18 +126,27 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\CiudadController.cs" />
+    <Compile Include="Controller\AeronaveController.cs" />
     <Compile Include="Controller\CompraController.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="Controller\RolController.cs" />
+    <Compile Include="Dao\AeronaveDao.cs" />
     <Compile Include="Dao\CiudadDao.cs" />
     <Compile Include="Dao\CompraDao.cs" />
+    <Compile Include="Dao\FabricanteDao.cs" />
     <Compile Include="Dao\LoginDao.cs" />
     <Compile Include="Dao\RolDao.cs" />
+    <Compile Include="Dao\TipoServicioDao.cs" />
     <Compile Include="Devolucion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Devolucion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GD2C2015DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="InicioAerolineasFRBA.cs">
       <SubType>Form</SubType>
@@ -161,10 +178,13 @@
     <Compile Include="Menu\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\AeronaveModel.cs" />
     <Compile Include="Model\CiudadModel.cs" />
     <Compile Include="Model\FuncionalidadModel.cs" />
     <Compile Include="Model\RolModel.cs" />
+    <Compile Include="Model\TipoServicioModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
+    <Compile Include="Model\ViajeModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,6 +204,12 @@
     <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Aeronave\AbmAeronaves.resx">
+      <DependentUpon>AbmAeronaves.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Aeronave\AeronaveForm.resx">
+      <DependentUpon>AeronaveForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Ciudad\AbmCiudad.resx">
       <DependentUpon>AbmCiudad.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +249,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="GD2C2015DataSet.xsc">
+      <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="GD2C2015DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GD2C2015DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="GD2C2015DataSet.xss">
+      <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
+    </None>
     <None Include="Mondongo.xsc">
       <DependentUpon>Mondongo.xsd</DependentUpon>
     </None>
@@ -234,6 +271,7 @@
     <None Include="Mondongo.xss">
       <DependentUpon>Mondongo.xsd</DependentUpon>
     </None>
+    <None Include="Properties\DataSources\AerolineaFrba.Model.AeronaveModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
