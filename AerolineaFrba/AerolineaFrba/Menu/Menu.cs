@@ -36,6 +36,11 @@ namespace AerolineaFrba.Menu
             this.Close();
             new Compra.BusquedaVuelos().Show();
         }
-       
+		
+        private void btnABMAeronaves_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Aeronave.AbmAeronaves().Show();
+        }       
     }
 }

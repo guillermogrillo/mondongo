@@ -28,6 +28,5 @@ namespace AerolineaFrba.Model
             cantidadButacas = _cantidadButacas;
             cantidadKgDisponibles = _cantidadKgDisponibles;
         }
-
     }
 }

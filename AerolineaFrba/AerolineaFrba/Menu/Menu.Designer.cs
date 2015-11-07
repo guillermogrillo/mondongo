@@ -75,6 +75,7 @@
             this.btnABMAeronaves.TabIndex = 3;
             this.btnABMAeronaves.Text = "ABM Aeronaves";
             this.btnABMAeronaves.UseVisualStyleBackColor = true;
+            this.btnABMAeronaves.Click += new System.EventHandler(this.btnABMAeronaves_Click);
             // 
             // btnRegresar
             // 

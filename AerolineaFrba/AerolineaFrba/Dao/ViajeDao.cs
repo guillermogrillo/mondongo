@@ -10,7 +10,6 @@ namespace AerolineaFrba.Dao
 {
     class ViajeDao
     {
-
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
 
 
