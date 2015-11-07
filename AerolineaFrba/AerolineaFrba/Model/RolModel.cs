@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Model
 {
-    class RolModel
+    public class RolModel
     {
         public int _rolId { get; set; }
         public String _rolNombre { get; set; }
@@ -22,7 +22,7 @@ namespace AerolineaFrba.Model
 
     }
 
-    enum Estado
+    public enum Estado
     {
         Deshabilitado = 0,
         Habilitado = 1,

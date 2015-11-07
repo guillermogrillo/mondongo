@@ -21,8 +21,7 @@ namespace AerolineaFrba.Abm_Rol
         {
             InitializeComponent();
             controller = new Controller.RolController();
-            btnBorrarRol.Enabled = false;
-            btnCambiarEstado.Enabled = false;
+            btnEditarRol.Enabled = false;
             btnFuncionalidades.Enabled = false;
         }     
 
@@ -50,64 +49,41 @@ namespace AerolineaFrba.Abm_Rol
         private void btnAgregarRol_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new Abm_Rol.NuevoRol().Show();
+            new Abm_Rol.NuevoRol(null).Show();
         }
 
         private void dgvRoles_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            rolSeleccionado = (Model.RolModel)dgvRoles.CurrentRow.DataBoundItem;
-            if (rolSeleccionado._rolHabilitado != Model.Estado.Borrado)
-            {
-                btnBorrarRol.Enabled = true;
-                btnCambiarEstado.Enabled = true;
-                btnFuncionalidades.Enabled = true;
-            }
-            else
-            {
-                btnCambiarEstado.Enabled = false;
-                btnBorrarRol.Enabled = false;
-                btnFuncionalidades.Enabled = false;
-            }
-                
+     
         }
 
-        private void btnBorrarRol_Click(object sender, EventArgs e)
-        {
-            if(rolSeleccionado != null)
-            {
-                var exito = controller.cambiarEstadoRol(rolSeleccionado._rolId, (int)Model.Estado.Borrado);
-                if (exito)
-                {
-                    dgvRoles.DataSource = controller.buscarTodosLosRoles();
-                }
-            }
-        }
-
-        private void btnCambiarEstado_Click(object sender, EventArgs e)
-        {
-            int nuevoEstado = 1;
-            if (rolSeleccionado != null)
-            {
-                if(rolSeleccionado._rolHabilitado == Model.Estado.Deshabilitado)
-                {
-                    nuevoEstado = (int)Model.Estado.Habilitado;
-                }else if(rolSeleccionado._rolHabilitado == Model.Estado.Habilitado)
-                {
-                    nuevoEstado = (int)Model.Estado.Deshabilitado;
-                }
-                var exito = controller.cambiarEstadoRol(rolSeleccionado._rolId, nuevoEstado);
-                if (exito)
-                {
-                    dgvRoles.DataSource = controller.buscarTodosLosRoles();
-                }
-            }
-        }
 
         private void btnFuncionalidades_Click(object sender, EventArgs e)
         {
             this.Hide();
             Abm_Rol.ABMFuncionalidades pantallaFuncionalidades = new Abm_Rol.ABMFuncionalidades(rolSeleccionado._rolId);            
             pantallaFuncionalidades.Show();
+        }
+
+        private void btnEditarRol_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Abm_Rol.NuevoRol(rolSeleccionado).Show();
+        }
+
+        private void dgvRoles_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            rolSeleccionado = (Model.RolModel)dgvRoles.CurrentRow.DataBoundItem;
+            if (rolSeleccionado._rolHabilitado != Model.Estado.Borrado)
+            {                
+                btnEditarRol.Enabled = true;
+                btnFuncionalidades.Enabled = true;
+            }
+            else
+            {
+                btnEditarRol.Enabled = false;               
+                btnFuncionalidades.Enabled = false;
+            }
         }
   
 

@@ -76,7 +76,9 @@ namespace AerolineaFrba.Compra
 
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            
+            this.Close();
+            compraModel.clientes = new List<Model.ClienteModel>();
+            new Compra.Pasajeros(compraModel).Show();
         }
 
         private void dgvVuelos_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

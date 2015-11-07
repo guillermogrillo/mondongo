@@ -26,9 +26,9 @@ namespace AerolineaFrba.Controller
             return _rolDao.agregarNuevoRol(nombreDelRol);
         }
 
-        public Boolean cambiarEstadoRol(int rolId, int nuevoEstado)
+        public Boolean modificarRol(Model.RolModel rolModel)
         {
-            return _rolDao.cambiarEstadoRol(rolId, nuevoEstado);
+            return _rolDao.modificarRol(rolModel);
         }
 
         public List<Model.FuncionalidadModel> buscarFuncionalidadesDelRol(int rolId, Boolean faltantes)

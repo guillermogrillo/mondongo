@@ -48,8 +48,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void dgvFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            funcionalidadSeleccionada = (Model.FuncionalidadModel)dgvFuncionalidades.CurrentRow.DataBoundItem;
-            btnBorrarFuncionalidad.Enabled = true;
+            
         }
 
         private void btnBorrarFuncionalidad_Click(object sender, EventArgs e)
@@ -68,6 +67,12 @@ namespace AerolineaFrba.Abm_Rol
         {
             this.Hide();
             new Abm_Rol.NuevaFuncionalidad(rolId).Show();
+        }
+
+        private void dgvFuncionalidades_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            funcionalidadSeleccionada = (Model.FuncionalidadModel)dgvFuncionalidades.CurrentRow.DataBoundItem;
+            btnBorrarFuncionalidad.Enabled = true;
         }
     }
 }

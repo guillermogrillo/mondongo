@@ -75,12 +75,6 @@
     <Compile Include="Abm Rol\ABMRoles.Designer.cs">
       <DependentUpon>ABMRoles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Rol\NuevaFuncionalidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,12 +105,19 @@
     <Compile Include="Compra\BusquedaVuelos.Designer.cs">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\NuevoPasajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\NuevoPasajero.Designer.cs">
+      <DependentUpon>NuevoPasajero.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\Pasajeros.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Compra\Pasajeros.Designer.cs">
       <DependentUpon>Pasajeros.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\ClienteController.cs" />
     <Compile Include="Controller\ViajeController.cs" />
     <Compile Include="Compra\VuelosEncontrados.cs">
       <SubType>Form</SubType>
@@ -136,6 +137,7 @@
     <Compile Include="Controller\RolController.cs" />
     <Compile Include="Controller\RutaController.cs" />
     <Compile Include="Dao\CiudadDao.cs" />
+    <Compile Include="Dao\ClienteDao.cs" />
     <Compile Include="Dao\CompraDao.cs" />
     <Compile Include="Dao\LoginDao.cs" />
     <Compile Include="Dao\RolDao.cs" />
@@ -226,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\NuevoPasajero.resx">
+      <DependentUpon>NuevoPasajero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\Pasajeros.resx">
       <DependentUpon>Pasajeros.cs</DependentUpon>

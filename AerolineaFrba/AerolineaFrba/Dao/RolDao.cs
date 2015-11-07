@@ -75,7 +75,7 @@ namespace AerolineaFrba.Dao
             return agregado;
         }
 
-        public Boolean cambiarEstadoRol(int rolId, int nuevoEstado)
+        public Boolean modificarRol(Model.RolModel rolModel)
         {
             Boolean modificado = false;
             SqlConnection myConnection = null;
@@ -85,12 +85,13 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "UPDATE MONDONGO.ROLES " +
-                            "SET rol_habilitado = @nuevoEstado "+
+                            "SET rol_habilitado = @rolEstado, rol_nombre = @rolNombre "+
                             "WHERE rol_id = @rolId ";
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@rolId", rolId);
-                    command.Parameters.AddWithValue("@nuevoEstado", nuevoEstado);
+                    command.Parameters.AddWithValue("@rolId", rolModel._rolId);
+                    command.Parameters.AddWithValue("@rolEstado", rolModel._rolHabilitado);
+                    command.Parameters.AddWithValue("@rolNombre", rolModel._rolNombre);
                 }
 
                 var cantidadModificada = command.ExecuteNonQuery();

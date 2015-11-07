@@ -14,5 +14,14 @@ namespace AerolineaFrba.Model
         public String numeroTarjeta { get; set; }
         public int codigoSeguridad { get; set; }
 
+        public PagadorModel(int _formaPago, int _tipoTarjeta, String _numeroTarjeta, int _codigoSeguridad) : base()
+        {
+            
+            formaPago = _formaPago;
+            tipoTarjeta = _tipoTarjeta;
+            numeroTarjeta = _numeroTarjeta;
+            codigoSeguridad = _codigoSeguridad;
+        }
+
     }
 }
