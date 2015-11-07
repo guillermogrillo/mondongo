@@ -30,11 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.DGVAeronave = new System.Windows.Forms.DataGridView();
-            this.matriculaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modeloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.butacas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.capacidadKg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aeronaveModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.aeronavesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gD2C2015DataSet = new AerolineaFrba.GD2C2015DataSet();
             this.aeronavesTableAdapter = new AerolineaFrba.GD2C2015DataSetTableAdapters.aeronavesTableAdapter();
@@ -42,10 +39,13 @@
             this.editBtn = new System.Windows.Forms.Button();
             this.fueraServicioBtn = new System.Windows.Forms.Button();
             this.bajaBtn = new System.Windows.Forms.Button();
+            this.matriculaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modeloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aeronaveModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAeronave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aeronaveModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aeronavesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aeronaveModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVAeronave
@@ -71,20 +71,6 @@
             this.DGVAeronave.TabIndex = 0;
             this.DGVAeronave.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAeronave_CellContentClick);
             // 
-            // matriculaDataGridViewTextBoxColumn
-            // 
-            this.matriculaDataGridViewTextBoxColumn.DataPropertyName = "matricula";
-            this.matriculaDataGridViewTextBoxColumn.HeaderText = "matricula";
-            this.matriculaDataGridViewTextBoxColumn.Name = "matriculaDataGridViewTextBoxColumn";
-            this.matriculaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // modeloDataGridViewTextBoxColumn
-            // 
-            this.modeloDataGridViewTextBoxColumn.DataPropertyName = "modelo";
-            this.modeloDataGridViewTextBoxColumn.HeaderText = "modelo";
-            this.modeloDataGridViewTextBoxColumn.Name = "modeloDataGridViewTextBoxColumn";
-            this.modeloDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // butacas
             // 
             this.butacas.DataPropertyName = "cantidadButacas";
@@ -98,10 +84,6 @@
             this.capacidadKg.HeaderText = "capacidadKg";
             this.capacidadKg.Name = "capacidadKg";
             this.capacidadKg.ReadOnly = true;
-            // 
-            // aeronaveModelBindingSource
-            // 
-            this.aeronaveModelBindingSource.DataSource = typeof(AerolineaFrba.Model.AeronaveModel);
             // 
             // aeronavesBindingSource
             // 
@@ -157,11 +139,29 @@
             this.bajaBtn.UseVisualStyleBackColor = true;
             this.bajaBtn.Click += new System.EventHandler(this.bajaBtn_Click);
             // 
+            // matriculaDataGridViewTextBoxColumn
+            // 
+            this.matriculaDataGridViewTextBoxColumn.DataPropertyName = "matricula";
+            this.matriculaDataGridViewTextBoxColumn.HeaderText = "matricula";
+            this.matriculaDataGridViewTextBoxColumn.Name = "matriculaDataGridViewTextBoxColumn";
+            this.matriculaDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // modeloDataGridViewTextBoxColumn
+            // 
+            this.modeloDataGridViewTextBoxColumn.DataPropertyName = "modelo";
+            this.modeloDataGridViewTextBoxColumn.HeaderText = "modelo";
+            this.modeloDataGridViewTextBoxColumn.Name = "modeloDataGridViewTextBoxColumn";
+            this.modeloDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // aeronaveModelBindingSource
+            // 
+            this.aeronaveModelBindingSource.DataSource = typeof(AerolineaFrba.Model.AeronaveModel);
+            // 
             // AbmAeronaves
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(394, 261);
+            this.ClientSize = new System.Drawing.Size(408, 261);
             this.Controls.Add(this.bajaBtn);
             this.Controls.Add(this.fueraServicioBtn);
             this.Controls.Add(this.editBtn);
@@ -171,9 +171,9 @@
             this.Text = "Aeronaves";
             this.Load += new System.EventHandler(this.AbmAeronaves_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAeronave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.aeronaveModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aeronavesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gD2C2015DataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aeronaveModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -185,14 +185,14 @@
         private System.Windows.Forms.BindingSource aeronavesBindingSource;
         private GD2C2015DataSetTableAdapters.aeronavesTableAdapter aeronavesTableAdapter;
         private System.Windows.Forms.BindingSource aeronaveModelBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn matriculaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn modeloDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn butacas;
         private System.Windows.Forms.DataGridViewTextBoxColumn capacidadKg;
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.Button fueraServicioBtn;
         private System.Windows.Forms.Button bajaBtn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn matriculaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modeloDataGridViewTextBoxColumn;
 
     }
 }
