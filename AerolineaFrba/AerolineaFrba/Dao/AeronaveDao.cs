@@ -115,12 +115,16 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "DELETE FROM MONDONGO.AERONAVES " +
+                var query = "UPDATE MONDONGO.AERONAVES " +
+                            "   SET fecha_baja_definitiva=@fecha_baja, "+
+                            "       estado=@estado "+
                             "WHERE matricula=@matricula";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@matricula", matricula);
+                    command.Parameters.AddWithValue("@fecha_baja", DateTime.Now);
+                    command.Parameters.AddWithValue("@estado", 2);
                 }
 
                 command.ExecuteNonQuery();
