@@ -31,6 +31,10 @@ namespace AerolineaFrba.Compra
             dgvVuelos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVuelos.DataSource = compraModel.vuelos;
             dgvVuelos.Columns[0].Visible = false;
+            dgvVuelos.Columns[3].Visible = false;
+            dgvVuelos.Columns[4].Visible = false;
+            dgvVuelos.Columns[5].Visible = false;
+            dgvVuelos.Columns[6].Visible = false;
 
             dgvVuelos.Columns[1].HeaderText = "Fecha Salida";            
             dgvVuelos.Columns[1].ReadOnly = true;
@@ -38,27 +42,27 @@ namespace AerolineaFrba.Compra
 
             dgvVuelos.Columns[2].HeaderText = "Hora Salida";            
             dgvVuelos.Columns[2].ReadOnly = true;
-            dgvVuelos.Columns[2].Width = 45;
+            dgvVuelos.Columns[2].Width = 55;
 
-            dgvVuelos.Columns[3].HeaderText = "Ciudad Origen";
-            dgvVuelos.Columns[3].ReadOnly = true;
-            dgvVuelos.Columns[3].Width = 100;
-
-            dgvVuelos.Columns[4].HeaderText = "Ciudad Destino";
-            dgvVuelos.Columns[4].ReadOnly = true;
-            dgvVuelos.Columns[4].Width = 100;
-
-            dgvVuelos.Columns[5].HeaderText = "Tipo de Servicio";
-            dgvVuelos.Columns[5].ReadOnly = true;
-            dgvVuelos.Columns[5].Width = 70;
-
-            dgvVuelos.Columns[6].HeaderText = "Butacas Disponibles";
-            dgvVuelos.Columns[6].ReadOnly = true;
-            dgvVuelos.Columns[6].Width = 65;
-
-            dgvVuelos.Columns[7].HeaderText = "Kg. Disponibles";
+            dgvVuelos.Columns[7].HeaderText = "Ciudad Origen";
             dgvVuelos.Columns[7].ReadOnly = true;
-            dgvVuelos.Columns[7].Width = 65;
+            dgvVuelos.Columns[7].Width = 100;
+
+            dgvVuelos.Columns[8].HeaderText = "Ciudad Destino";
+            dgvVuelos.Columns[8].ReadOnly = true;
+            dgvVuelos.Columns[8].Width = 100;
+
+            dgvVuelos.Columns[9].HeaderText = "Tipo de Servicio";
+            dgvVuelos.Columns[9].ReadOnly = true;
+            dgvVuelos.Columns[9].Width = 65;
+
+            dgvVuelos.Columns[10].HeaderText = "Butacas Disponibles";
+            dgvVuelos.Columns[10].ReadOnly = true;
+            dgvVuelos.Columns[10].Width = 65;
+
+            dgvVuelos.Columns[11].HeaderText = "Kg. Disponibles";
+            dgvVuelos.Columns[11].ReadOnly = true;
+            dgvVuelos.Columns[11].Width = 65;
 
             dgvVuelos.SelectedRows[0].Selected = true;
         }

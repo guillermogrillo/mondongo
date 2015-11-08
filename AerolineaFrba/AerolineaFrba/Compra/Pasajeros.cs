@@ -76,8 +76,7 @@ namespace AerolineaFrba.Compra
             btnQuitar.Enabled = true;
             btnEditar.Enabled = true;
 
-            String detalleButaca =  "Tipo de butaca: " + clienteSeleccionado.butaca.tipo + 
-                                    " | Piso: " + clienteSeleccionado.butaca.piso +
+            String detalleButaca =  "Tipo de butaca: " + clienteSeleccionado.butaca.tipo +                                     
                                     " | Nro: " + clienteSeleccionado.butaca.numero;
             lblDetalleButaca.Text = detalleButaca;
 

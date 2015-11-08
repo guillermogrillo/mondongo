@@ -46,8 +46,6 @@
             this.tbNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.gbButaca = new System.Windows.Forms.GroupBox();
-            this.cbPisoButaca = new System.Windows.Forms.ComboBox();
-            this.lblButacaPiso = new System.Windows.Forms.Label();
             this.cbNumeroButaca = new System.Windows.Forms.ComboBox();
             this.lblNumeroButaca = new System.Windows.Forms.Label();
             this.cbTipoButaca = new System.Windows.Forms.ComboBox();
@@ -223,8 +221,6 @@
             // 
             // gbButaca
             // 
-            this.gbButaca.Controls.Add(this.cbPisoButaca);
-            this.gbButaca.Controls.Add(this.lblButacaPiso);
             this.gbButaca.Controls.Add(this.cbNumeroButaca);
             this.gbButaca.Controls.Add(this.lblNumeroButaca);
             this.gbButaca.Controls.Add(this.cbTipoButaca);
@@ -236,27 +232,10 @@
             this.gbButaca.TabStop = false;
             this.gbButaca.Text = "Datos de la butaca";
             // 
-            // cbPisoButaca
-            // 
-            this.cbPisoButaca.FormattingEnabled = true;
-            this.cbPisoButaca.Location = new System.Drawing.Point(280, 23);
-            this.cbPisoButaca.Name = "cbPisoButaca";
-            this.cbPisoButaca.Size = new System.Drawing.Size(46, 21);
-            this.cbPisoButaca.TabIndex = 5;
-            // 
-            // lblButacaPiso
-            // 
-            this.lblButacaPiso.AutoSize = true;
-            this.lblButacaPiso.Location = new System.Drawing.Point(247, 26);
-            this.lblButacaPiso.Name = "lblButacaPiso";
-            this.lblButacaPiso.Size = new System.Drawing.Size(27, 13);
-            this.lblButacaPiso.TabIndex = 4;
-            this.lblButacaPiso.Text = "Piso";
-            // 
             // cbNumeroButaca
             // 
             this.cbNumeroButaca.FormattingEnabled = true;
-            this.cbNumeroButaca.Location = new System.Drawing.Point(400, 23);
+            this.cbNumeroButaca.Location = new System.Drawing.Point(354, 23);
             this.cbNumeroButaca.Name = "cbNumeroButaca";
             this.cbNumeroButaca.Size = new System.Drawing.Size(58, 21);
             this.cbNumeroButaca.TabIndex = 3;
@@ -264,7 +243,7 @@
             // lblNumeroButaca
             // 
             this.lblNumeroButaca.AutoSize = true;
-            this.lblNumeroButaca.Location = new System.Drawing.Point(350, 26);
+            this.lblNumeroButaca.Location = new System.Drawing.Point(312, 26);
             this.lblNumeroButaca.Name = "lblNumeroButaca";
             this.lblNumeroButaca.Size = new System.Drawing.Size(44, 13);
             this.lblNumeroButaca.TabIndex = 2;
@@ -379,8 +358,6 @@
         private System.Windows.Forms.ComboBox cbNumeroButaca;
         private System.Windows.Forms.Label lblNumeroButaca;
         private System.Windows.Forms.ComboBox cbTipoButaca;
-        private System.Windows.Forms.Label lblButacaPiso;
-        private System.Windows.Forms.ComboBox cbPisoButaca;
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.ErrorProvider epNombre;

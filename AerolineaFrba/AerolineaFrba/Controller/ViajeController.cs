@@ -18,5 +18,15 @@ namespace AerolineaFrba.Controller
         {
             return viajeDao.buscarViajes(idRuta, fechaViaje, cantidadPax, kg);
         }
+
+        public List<Model.ViajeModel> buscarViajes(int idRuta, String matricula, DateTime fechaSalida)
+        {
+            return viajeDao.buscarViajes(idRuta, matricula, fechaSalida);
+        }
+
+        public Boolean actualizarViaje(Model.ViajeModel viaje)
+        {
+            return viajeDao.actualizarViaje(viaje);
+        }
     }
 }

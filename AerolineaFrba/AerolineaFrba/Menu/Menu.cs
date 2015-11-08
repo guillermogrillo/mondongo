@@ -21,13 +21,13 @@ namespace AerolineaFrba.Menu
 
         private void btnRegresar_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             new AerolineasFRBA().Show();
         }
 
         private void btnABMRol_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             new Abm_Rol.ABMRoles().Show();
         }
 
@@ -39,8 +39,14 @@ namespace AerolineaFrba.Menu
 		
         private void btnABMAeronaves_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             new Abm_Aeronave.AbmAeronaves().Show();
+        }
+
+        private void btnRegistrarLlegada_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Registro_Llegada_Destino.RegistroLlegadaDestino().Show();
         }       
     }
 }

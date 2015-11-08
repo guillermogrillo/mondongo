@@ -124,6 +124,7 @@
             this.btnRegistrarLlegada.TabIndex = 6;
             this.btnRegistrarLlegada.Text = "Registrar Llegada";
             this.btnRegistrarLlegada.UseVisualStyleBackColor = true;
+            this.btnRegistrarLlegada.Click += new System.EventHandler(this.btnRegistrarLlegada_Click);
             // 
             // btnGenerarViaje
             // 

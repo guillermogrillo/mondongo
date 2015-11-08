@@ -220,11 +220,17 @@
     <Compile Include="Registro de Usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.cs">
+    <Compile Include="Registro Llegada Destino\BuscadorCiudades.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada Destino\BuscadorCiudades.Designer.cs">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\RegistroLlegadaDestino.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\RegistroLlegadaDestino.Designer.cs">
+      <DependentUpon>RegistroLlegadaDestino.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Aeronave\AbmAeronaves.resx">
       <DependentUpon>AbmAeronaves.cs</DependentUpon>
@@ -280,6 +286,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro Llegada Destino\BuscadorCiudades.resx">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada Destino\RegistroLlegadaDestino.resx">
+      <DependentUpon>RegistroLlegadaDestino.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="GD2C2015DataSet.xsc">
       <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
     </None>

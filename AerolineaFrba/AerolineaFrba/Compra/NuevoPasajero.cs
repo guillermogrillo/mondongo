@@ -40,8 +40,6 @@ namespace AerolineaFrba.Compra
             List<String> pisosButaca = new List<String>();
             pisosButaca.Add("0");
             pisosButaca.Add("1");
-            cbPisoButaca.DataSource = pisosButaca;
-            cbPisoButaca.SelectedIndex = 0;
 
             List<String> numerosButaca = new List<String>();
             numerosButaca.Add("1");
@@ -103,7 +101,8 @@ namespace AerolineaFrba.Compra
             epApellido.SetError(tbApellido, "");
             epMail.SetError(tbMail, "");
             epTelefono.SetError(tbTelefono, "");
-            epDireccion.SetError(tbDireccion, "");           
+            epDireccion.SetError(tbDireccion, "");
+            btnSiguiente.Enabled = false;
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -124,7 +123,7 @@ namespace AerolineaFrba.Compra
                     clientePantalla.direccion = tbDireccion.Text;                    
                     clientePantalla.mail = tbMail.Text;
                     clientePantalla.telefono = Convert.ToInt32(tbTelefono.Text);
-                    clientePantalla.butaca = new Model.ButacaModel(cbTipoButaca.SelectedValue as String, Convert.ToInt32(cbNumeroButaca.SelectedValue), Convert.ToInt32(cbPisoButaca.SelectedValue));
+                    clientePantalla.butaca = new Model.ButacaModel(cbTipoButaca.SelectedValue as String, Convert.ToInt32(cbNumeroButaca.SelectedValue));
 
                     compraModel.clientes.Add(clientePantalla);
                     this.Close();

@@ -8,24 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AerolineaFrba.Abm_Ciudad
+namespace AerolineaFrba.Registro_Llegada_Destino
 {
     public partial class BuscadorCiudades : Form
     {
-
         Controller.CiudadController controller = null;
         public Model.CiudadModel ciudadSeleccionada = null;
         int modo;
-        Compra.BusquedaVuelos pantalla;
+        Registro_Llegada_Destino.RegistroLlegadaDestino pantalla;
 
-        public BuscadorCiudades(Compra.BusquedaVuelos _pantalla, int _modo)
+        public BuscadorCiudades(Registro_Llegada_Destino.RegistroLlegadaDestino _pantalla, int _modo)
         {
             InitializeComponent();
             controller = new Controller.CiudadController();
             btnAceptar.Enabled = false;
             this.modo = _modo;
             this.pantalla = _pantalla;
-        } 
+        }
 
         private void BuscadorCiudades_Load(object sender, EventArgs e)
         {
@@ -40,25 +39,23 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if(modo == 0){
+            if (modo == 0)
+            {
                 pantalla.setCiudadOrigen(ciudadSeleccionada);
-            }else{
+            }
+            else
+            {
                 pantalla.setCiudadDestino(ciudadSeleccionada);
             }
-            
-            this.Hide();
+
+            this.Close();
             pantalla.Show();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
             pantalla.Show();
-        }
-
-        private void dgvCiudades_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -71,8 +68,6 @@ namespace AerolineaFrba.Abm_Ciudad
             ciudadSeleccionada = (Model.CiudadModel)dgvCiudades.CurrentRow.DataBoundItem;
             btnAceptar.Enabled = true;
         }
-
-        
 
     }
 }

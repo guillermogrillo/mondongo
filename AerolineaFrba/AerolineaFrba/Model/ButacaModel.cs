@@ -9,15 +9,13 @@ namespace AerolineaFrba.Model
     public class ButacaModel
     {
         public String tipo { get; set; }
-        public int numero { get; set; }
-        public int piso { get; set; }
+        public int numero { get; set; }        
 
 
-        public ButacaModel(String _tipo, int _numero, int _piso)
+        public ButacaModel(String _tipo, int _numero)
         {
             tipo = _tipo;
-            numero = _numero;
-            piso = _piso;
+            numero = _numero;            
         }
 
     }
