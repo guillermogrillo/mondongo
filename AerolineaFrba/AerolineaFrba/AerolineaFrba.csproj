@@ -57,6 +57,15 @@
     <Compile Include="Abm Aeronave\AeronaveForm.Designer.cs">
       <DependentUpon>AeronaveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\Pagador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\Pagador.Designer.cs">
+      <DependentUpon>Pagador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\TarjetaCreditoController.cs" />
+    <Compile Include="Dao\TarjetaCreditoDao.cs" />
+    <Compile Include="Model\BeneficioTarjetaCredito.cs" />
     <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
       <SubType>Form</SubType>
@@ -203,6 +212,8 @@
     <Compile Include="Model\FuncionalidadModel.cs" />
     <Compile Include="Model\PagadorModel.cs" />
     <Compile Include="Model\RolModel.cs" />
+    <Compile Include="Model\TarjetaCreditoModel.cs" />
+    <Compile Include="Model\TipoPagoModel.cs" />
     <Compile Include="Model\TipoServicioModel.cs" />
     <Compile Include="Model\RutaModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
@@ -261,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\NuevoPasajero.resx">
       <DependentUpon>NuevoPasajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\Pagador.resx">
+      <DependentUpon>Pagador.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\Pasajeros.resx">
       <DependentUpon>Pasajeros.cs</DependentUpon>

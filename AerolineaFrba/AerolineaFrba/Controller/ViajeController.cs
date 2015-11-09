@@ -28,5 +28,10 @@ namespace AerolineaFrba.Controller
         {
             return viajeDao.actualizarViaje(viaje);
         }
+
+        public Dictionary<String, List<int>> buscarButacasDisponibles(Model.ViajeModel viajeModel)
+        {
+            return viajeDao.buscarButacasDisponibles(viajeModel);
+        }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbPasajeros = new System.Windows.Forms.GroupBox();
+            this.lblDetalleButaca = new System.Windows.Forms.Label();
             this.lblPasajerosACargar = new System.Windows.Forms.Label();
             this.lblDe = new System.Windows.Forms.Label();
             this.lblPasajerosYaCargados = new System.Windows.Forms.Label();
@@ -39,7 +40,6 @@
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lblDetalleButaca = new System.Windows.Forms.Label();
             this.gbPasajeros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +61,14 @@
             this.gbPasajeros.TabIndex = 0;
             this.gbPasajeros.TabStop = false;
             this.gbPasajeros.Text = "Pasajeros";
+            // 
+            // lblDetalleButaca
+            // 
+            this.lblDetalleButaca.AutoSize = true;
+            this.lblDetalleButaca.Location = new System.Drawing.Point(10, 194);
+            this.lblDetalleButaca.Name = "lblDetalleButaca";
+            this.lblDetalleButaca.Size = new System.Drawing.Size(0, 13);
+            this.lblDetalleButaca.TabIndex = 8;
             // 
             // lblPasajerosACargar
             // 
@@ -146,6 +154,7 @@
             this.btnSiguiente.TabIndex = 8;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // btnCancelar
             // 
@@ -156,14 +165,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // lblDetalleButaca
-            // 
-            this.lblDetalleButaca.AutoSize = true;
-            this.lblDetalleButaca.Location = new System.Drawing.Point(10, 194);
-            this.lblDetalleButaca.Name = "lblDetalleButaca";
-            this.lblDetalleButaca.Size = new System.Drawing.Size(0, 13);
-            this.lblDetalleButaca.TabIndex = 8;
             // 
             // Pasajeros
             // 

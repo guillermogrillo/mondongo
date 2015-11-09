@@ -24,7 +24,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select	v.viaje_id,v.fecha_salida, v.fecha_llegada, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
-                            "ts.tipo_servicio, v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas, " +
+                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas, " +
                             "v.cantidad_kg_disponibles " +
                             "from	mondongo.viajes v " +
                             "join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id " +
@@ -55,10 +55,11 @@ namespace AerolineaFrba.Dao
                         var ciudadOrigen = reader.GetString(4);
                         var ciudadDestino = reader.GetString(5);
                         var tipoServicio = reader.GetString(6);
-                        var cantidadButacas = (int)(double)reader.GetDecimal(7);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(8);
+                        var aeronaveMatricula = reader.GetString(7);
+                        var cantidadButacas = (int)(double)reader.GetDecimal(8);
+                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, cantidadButacas, cantidadKgDisponibles);
+                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula,cantidadButacas, cantidadKgDisponibles);
                         viajes.Add(viaje);                       
                     }
                 }
@@ -85,7 +86,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
-                            "ts.tipo_servicio, v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas, " +
+                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas, " +
                             "v.cantidad_kg_disponibles " +
                             "from	mondongo.viajes v " +
                             "join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id " +
@@ -114,10 +115,11 @@ namespace AerolineaFrba.Dao
                         var ciudadOrigen = reader.GetString(4);
                         var ciudadDestino = reader.GetString(5);
                         var tipoServicio = reader.GetString(6);
-                        var cantidadButacas = (int)(double)reader.GetDecimal(7);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(8);
+                        var aeronaveMatricula = reader.GetString(7);
+                        var cantidadButacas = (int)(double)reader.GetDecimal(8);
+                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, cantidadButacas, cantidadKgDisponibles);
+                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacas, cantidadKgDisponibles);
                         viajes.Add(viaje);
                     }
                 }
@@ -160,6 +162,100 @@ namespace AerolineaFrba.Dao
                 MessageBox.Show("ERROR" + ex.Message);
             }
             return modificado;
+        }
+
+        public Dictionary<String,List<int>> buscarButacasDisponibles(Model.ViajeModel viajeModel)
+        {
+            Dictionary<String, List<int>> mapaButacasDisponibles = new Dictionary<string,List<int>>();
+            int cantidadButacasVentanilla = 0;
+            int cantidadButacasPasillo = 0;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select aeronaves.cantidad_butacas_pas,aeronaves.cantidad_butacas_ven " +
+                            "from mondongo.aeronaves "+
+                            "where matricula = @matricula ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", viajeModel.aeronaveMatricula);                    
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cantidadButacasPasillo = (int)(double)reader.GetDecimal(0);
+                        cantidadButacasVentanilla = (int)(double)reader.GetDecimal(1);                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+            List<int> butacasPasillo = cargarListaButacas(cantidadButacasPasillo);
+            List<int> butacasVentanilla = cargarListaButacas(cantidadButacasVentanilla);
+
+            List<int> butacasPasilloADescontar = buscarButacasVendidas(viajeModel.idViaje, "Pasillo");
+            List<int> butacasVentanillaADescontar = buscarButacasVendidas(viajeModel.idViaje, "Ventanilla");
+
+            List<int> butacasPasilloFinales = butacasPasillo.Except(butacasPasilloADescontar).ToList();
+            List<int> butacasVentanillaFinales = butacasVentanilla.Except(butacasVentanillaADescontar).ToList();
+
+            mapaButacasDisponibles.Add("Pasillo", butacasPasilloFinales);
+            mapaButacasDisponibles.Add("Ventanilla", butacasVentanillaFinales);
+
+            return mapaButacasDisponibles;
+        }
+
+        private List<int> buscarButacasVendidas(int idViaje, string tipoButaca)
+        {
+            List<int> butacasVendidas = new List<int>();
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select butaca_nro "+
+                            "from mondongo.butacas_vendidas "+
+                            "where butaca_viaje_id = @idViaje "+
+                            "and butaca_tipo = @tipoButaca ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@idViaje", idViaje);
+                    command.Parameters.AddWithValue("@tipoButaca", tipoButaca);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var numeroButaca = (int)(double)reader.GetDecimal(0);
+                        butacasVendidas.Add(numeroButaca);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+            return butacasVendidas;
+        }
+
+
+
+        private List<int> cargarListaButacas(int cantidad)
+        {
+            List<int> butacas = new List<int>();
+            for (int i = 0; i < cantidad; i++)
+            {
+                butacas.Add(i);
+            }
+            return butacas;
         }
     }
 }

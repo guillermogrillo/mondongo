@@ -22,6 +22,10 @@ namespace AerolineaFrba.Model
             numeroTarjeta = _numeroTarjeta;
             codigoSeguridad = _codigoSeguridad;
         }
+        public PagadorModel()
+        {
+
+        }
 
     }
 }

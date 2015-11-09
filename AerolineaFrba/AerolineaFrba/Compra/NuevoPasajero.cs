@@ -15,13 +15,16 @@ namespace AerolineaFrba.Compra
 
         Model.CompraModel compraModel = null;
         Controller.ClienteController clienteController = null;
+        Controller.ViajeController viajeController = null;
         Model.ClienteModel clientePantalla = null;
+        Dictionary<String, List<int>> butacasDisponibles = null;
 
         public NuevoPasajero(Model.CompraModel _compraModel)
         {
             InitializeComponent();
             compraModel = _compraModel;
             clienteController = new Controller.ClienteController();
+            viajeController = new Controller.ViajeController();
             clientePantalla = new Model.ClienteModel();
         }
 
@@ -29,25 +32,10 @@ namespace AerolineaFrba.Compra
         {
             gbDatosPersonales.Enabled = false;
             gbButaca.Enabled = false;
-            btnSiguiente.Enabled = false;
-
-            List<String> tiposButaca = new List<String>();
-            tiposButaca.Add("VENTANILLA");
-            tiposButaca.Add("PASILLO");
-            cbTipoButaca.DataSource = tiposButaca;
-            cbTipoButaca.SelectedIndex = 0;
-
-            List<String> pisosButaca = new List<String>();
-            pisosButaca.Add("0");
-            pisosButaca.Add("1");
-
-            List<String> numerosButaca = new List<String>();
-            numerosButaca.Add("1");
-            numerosButaca.Add("2");
-            numerosButaca.Add("3");
-            numerosButaca.Add("4");
-            cbNumeroButaca.DataSource = numerosButaca;
-            cbNumeroButaca.SelectedIndex = 0;
+            btnSiguiente.Enabled = false;           
+            butacasDisponibles = viajeController.buscarButacasDisponibles(compraModel.vueloElegido);
+            cbTipoButaca.DataSource = Enum.GetValues(typeof(Model.TipoButaca));
+            //cbTipoButaca.SelectedIndex = 0;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -123,7 +111,7 @@ namespace AerolineaFrba.Compra
                     clientePantalla.direccion = tbDireccion.Text;                    
                     clientePantalla.mail = tbMail.Text;
                     clientePantalla.telefono = Convert.ToInt32(tbTelefono.Text);
-                    clientePantalla.butaca = new Model.ButacaModel(cbTipoButaca.SelectedValue as String, Convert.ToInt32(cbNumeroButaca.SelectedValue));
+                    clientePantalla.butaca = new Model.ButacaModel((Model.TipoButaca)cbTipoButaca.SelectedValue, Convert.ToInt32(cbNumeroButaca.SelectedValue));
 
                     compraModel.clientes.Add(clientePantalla);
                     this.Close();
@@ -279,6 +267,12 @@ namespace AerolineaFrba.Compra
         {
             return validarNombre() && validarApellido() && validarEmail() && validarTelefono() && validarDireccion();
 
+        }
+
+        private void cbTipoButaca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String tipoDeButaca = cbTipoButaca.Text;
+            cbNumeroButaca.DataSource = butacasDisponibles[tipoDeButaca];
         }
 
         

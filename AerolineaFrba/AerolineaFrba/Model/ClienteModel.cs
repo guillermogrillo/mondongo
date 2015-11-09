@@ -34,7 +34,7 @@ namespace AerolineaFrba.Model
 
         public ClienteModel(int _clienteId, int _clienteDni, String _clienteNombre,
             String _clienteApellido, DateTime _clienteFechaNacimiento, String _direccion,
-            int _clienteTelefono, String _clienteMail, String _tipoButaca, int _numeroButaca)
+            int _clienteTelefono, String _clienteMail, TipoButaca _tipoButaca, int _numeroButaca)
         {
             clienteId = _clienteId;
             dni = _clienteDni;

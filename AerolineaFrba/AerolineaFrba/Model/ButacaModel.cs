@@ -8,15 +8,21 @@ namespace AerolineaFrba.Model
 {
     public class ButacaModel
     {
-        public String tipo { get; set; }
-        public int numero { get; set; }        
+        public TipoButaca tipo { get; set; }
+        public int numero { get; set; }
 
 
-        public ButacaModel(String _tipo, int _numero)
+        public ButacaModel(TipoButaca _tipo, int _numero)
         {
             tipo = _tipo;
             numero = _numero;            
         }
 
+    }
+
+    public enum TipoButaca
+    {
+        Ventanilla = 0,
+        Pasillo = 1
     }
 }

@@ -93,5 +93,11 @@ namespace AerolineaFrba.Compra
             this.Close();
             new Compra.NuevoPasajero(compraModel).Show();
         }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Compra.Pagador(compraModel).Show();
+        }
     }
 }

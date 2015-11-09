@@ -256,6 +256,7 @@
             this.cbTipoButaca.Name = "cbTipoButaca";
             this.cbTipoButaca.Size = new System.Drawing.Size(121, 21);
             this.cbTipoButaca.TabIndex = 1;
+            this.cbTipoButaca.SelectedIndexChanged += new System.EventHandler(this.cbTipoButaca_SelectedIndexChanged);
             // 
             // lblButacaTipo
             // 

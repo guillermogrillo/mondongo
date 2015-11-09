@@ -18,10 +18,11 @@ namespace AerolineaFrba.Model
         public String ciudadOrigen { get; set; }
         public String ciudadDestino { get; set; }
         public String tipoServicio { get; set; }
+        public String aeronaveMatricula { get; set; }
         public int cantidadButacas { get; set; }
         public int cantidadKgDisponibles { get; set; }        
 
-        public ViajeModel(int _idViaje, DateTime _fechaSalida, DateTime _fechaLlegada, DateTime _fechaLlegadaEstimada, String _ciudadOrigen, String _ciudadDestino, String _tipoServicio, int _cantidadButacas, int _cantidadKgDisponibles)
+        public ViajeModel(int _idViaje, DateTime _fechaSalida, DateTime _fechaLlegada, DateTime _fechaLlegadaEstimada, String _ciudadOrigen, String _ciudadDestino, String _tipoServicio,String _aeronaveMatricula, int _cantidadButacas, int _cantidadKgDisponibles)
         {
             idViaje = _idViaje;
             fechaSalida = _fechaSalida.ToString("dd'/'MM'/'yyyy");
@@ -33,6 +34,7 @@ namespace AerolineaFrba.Model
             ciudadOrigen = _ciudadOrigen;
             ciudadDestino = _ciudadDestino;
             tipoServicio = _tipoServicio;
+            aeronaveMatricula = _aeronaveMatricula;
             cantidadButacas = _cantidadButacas;
             cantidadKgDisponibles = _cantidadKgDisponibles;
         }
