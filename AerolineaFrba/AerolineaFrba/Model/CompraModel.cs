@@ -15,6 +15,7 @@ namespace AerolineaFrba.Model
         public List<Model.ViajeModel> vuelos { get; set; }
         public Model.ViajeModel vueloElegido { get; set; }
         public List<Model.ClienteModel> clientes { get; set; }
+        public Dictionary<String, List<int>> butacasSeleccionadas { get; set; }
         public Model.PagadorModel pagador { get; set; }
         
     }

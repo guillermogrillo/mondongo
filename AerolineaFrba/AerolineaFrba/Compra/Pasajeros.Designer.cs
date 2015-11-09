@@ -40,12 +40,24 @@
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblDatosEncomienda = new System.Windows.Forms.Label();
+            this.lblCalculoEncomienda = new System.Windows.Forms.Label();
+            this.lblPreciosPasajes = new System.Windows.Forms.Label();
+            this.lblCalculoPasajes = new System.Windows.Forms.Label();
+            this.lblPrecioTotal = new System.Windows.Forms.Label();
+            this.lblCalculoPrecio = new System.Windows.Forms.Label();
             this.gbPasajeros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // gbPasajeros
             // 
+            this.gbPasajeros.Controls.Add(this.lblCalculoPrecio);
+            this.gbPasajeros.Controls.Add(this.lblPrecioTotal);
+            this.gbPasajeros.Controls.Add(this.lblCalculoPasajes);
+            this.gbPasajeros.Controls.Add(this.lblPreciosPasajes);
+            this.gbPasajeros.Controls.Add(this.lblCalculoEncomienda);
+            this.gbPasajeros.Controls.Add(this.lblDatosEncomienda);
             this.gbPasajeros.Controls.Add(this.lblDetalleButaca);
             this.gbPasajeros.Controls.Add(this.lblPasajerosACargar);
             this.gbPasajeros.Controls.Add(this.lblDe);
@@ -57,7 +69,7 @@
             this.gbPasajeros.Controls.Add(this.dgvClientes);
             this.gbPasajeros.Location = new System.Drawing.Point(13, 13);
             this.gbPasajeros.Name = "gbPasajeros";
-            this.gbPasajeros.Size = new System.Drawing.Size(479, 231);
+            this.gbPasajeros.Size = new System.Drawing.Size(479, 301);
             this.gbPasajeros.TabIndex = 0;
             this.gbPasajeros.TabStop = false;
             this.gbPasajeros.Text = "Pasajeros";
@@ -65,7 +77,7 @@
             // lblDetalleButaca
             // 
             this.lblDetalleButaca.AutoSize = true;
-            this.lblDetalleButaca.Location = new System.Drawing.Point(10, 194);
+            this.lblDetalleButaca.Location = new System.Drawing.Point(7, 272);
             this.lblDetalleButaca.Name = "lblDetalleButaca";
             this.lblDetalleButaca.Size = new System.Drawing.Size(0, 13);
             this.lblDetalleButaca.TabIndex = 8;
@@ -148,7 +160,7 @@
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(83, 250);
+            this.btnSiguiente.Location = new System.Drawing.Point(96, 320);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(140, 45);
             this.btnSiguiente.TabIndex = 8;
@@ -158,7 +170,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(255, 250);
+            this.btnCancelar.Location = new System.Drawing.Point(268, 320);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(140, 45);
             this.btnCancelar.TabIndex = 8;
@@ -166,11 +178,62 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblDatosEncomienda
+            // 
+            this.lblDatosEncomienda.AutoSize = true;
+            this.lblDatosEncomienda.Location = new System.Drawing.Point(7, 199);
+            this.lblDatosEncomienda.Name = "lblDatosEncomienda";
+            this.lblDatosEncomienda.Size = new System.Drawing.Size(115, 13);
+            this.lblDatosEncomienda.TabIndex = 9;
+            this.lblDatosEncomienda.Text = "Datos de Encomienda:";
+            // 
+            // lblCalculoEncomienda
+            // 
+            this.lblCalculoEncomienda.AutoSize = true;
+            this.lblCalculoEncomienda.Location = new System.Drawing.Point(129, 199);
+            this.lblCalculoEncomienda.Name = "lblCalculoEncomienda";
+            this.lblCalculoEncomienda.Size = new System.Drawing.Size(0, 13);
+            this.lblCalculoEncomienda.TabIndex = 10;
+            // 
+            // lblPreciosPasajes
+            // 
+            this.lblPreciosPasajes.AutoSize = true;
+            this.lblPreciosPasajes.Location = new System.Drawing.Point(7, 223);
+            this.lblPreciosPasajes.Name = "lblPreciosPasajes";
+            this.lblPreciosPasajes.Size = new System.Drawing.Size(95, 13);
+            this.lblPreciosPasajes.TabIndex = 11;
+            this.lblPreciosPasajes.Text = "Precio de Pasajes:";
+            // 
+            // lblCalculoPasajes
+            // 
+            this.lblCalculoPasajes.AutoSize = true;
+            this.lblCalculoPasajes.Location = new System.Drawing.Point(129, 223);
+            this.lblCalculoPasajes.Name = "lblCalculoPasajes";
+            this.lblCalculoPasajes.Size = new System.Drawing.Size(0, 13);
+            this.lblCalculoPasajes.TabIndex = 12;
+            // 
+            // lblPrecioTotal
+            // 
+            this.lblPrecioTotal.AutoSize = true;
+            this.lblPrecioTotal.Location = new System.Drawing.Point(7, 245);
+            this.lblPrecioTotal.Name = "lblPrecioTotal";
+            this.lblPrecioTotal.Size = new System.Drawing.Size(67, 13);
+            this.lblPrecioTotal.TabIndex = 13;
+            this.lblPrecioTotal.Text = "Precio Total:";
+            // 
+            // lblCalculoPrecio
+            // 
+            this.lblCalculoPrecio.AutoSize = true;
+            this.lblCalculoPrecio.Location = new System.Drawing.Point(129, 245);
+            this.lblCalculoPrecio.Name = "lblCalculoPrecio";
+            this.lblCalculoPrecio.Size = new System.Drawing.Size(0, 13);
+            this.lblCalculoPrecio.TabIndex = 14;
+            // 
             // Pasajeros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 300);
+            this.ClientSize = new System.Drawing.Size(504, 377);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.gbPasajeros);
@@ -198,5 +261,11 @@
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblDetalleButaca;
+        private System.Windows.Forms.Label lblDatosEncomienda;
+        private System.Windows.Forms.Label lblCalculoEncomienda;
+        private System.Windows.Forms.Label lblPreciosPasajes;
+        private System.Windows.Forms.Label lblCalculoPasajes;
+        private System.Windows.Forms.Label lblPrecioTotal;
+        private System.Windows.Forms.Label lblCalculoPrecio;
     }
 }

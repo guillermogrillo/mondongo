@@ -42,6 +42,16 @@ namespace AerolineaFrba.Compra
                 btnSiguiente.Enabled = true;
             }
 
+            int cantidadPasajerosCargados = compraModel.clientes.Count;
+            double precioPasajes = cantidadPasajerosCargados * compraModel.ruta.precioBasePasaje;
+            lblCalculoPasajes.Text = cantidadPasajerosCargados + " x $" + compraModel.ruta.precioBasePasaje + " = $" +precioPasajes.ToString();
+
+            double precioEncomienda = compraModel.cantidadKg * compraModel.ruta.precioBaseKg;
+            lblCalculoEncomienda.Text = compraModel.cantidadKg + " x $" + compraModel.ruta.precioBaseKg+" = $"+ precioEncomienda.ToString();
+
+            double precioTotal = precioPasajes + precioEncomienda;
+            lblCalculoPrecio.Text = "$" + precioTotal.ToString();
+
             dgvClientes.DataSource = compraModel.clientes;
             dgvClientes.AutoGenerateColumns = true;
             dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

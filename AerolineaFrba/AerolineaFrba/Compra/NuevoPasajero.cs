@@ -32,10 +32,9 @@ namespace AerolineaFrba.Compra
         {
             gbDatosPersonales.Enabled = false;
             gbButaca.Enabled = false;
-            btnSiguiente.Enabled = false;           
-            butacasDisponibles = viajeController.buscarButacasDisponibles(compraModel.vueloElegido);
-            cbTipoButaca.DataSource = Enum.GetValues(typeof(Model.TipoButaca));
-            //cbTipoButaca.SelectedIndex = 0;
+            btnSiguiente.Enabled = false;
+            butacasDisponibles = filtrarButacasNoDisponibles();          
+            cbTipoButaca.DataSource = Enum.GetValues(typeof(Model.TipoButaca));            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -111,13 +110,35 @@ namespace AerolineaFrba.Compra
                     clientePantalla.direccion = tbDireccion.Text;                    
                     clientePantalla.mail = tbMail.Text;
                     clientePantalla.telefono = Convert.ToInt32(tbTelefono.Text);
-                    clientePantalla.butaca = new Model.ButacaModel((Model.TipoButaca)cbTipoButaca.SelectedValue, Convert.ToInt32(cbNumeroButaca.SelectedValue));
 
+                    String tipoDeButaca = cbTipoButaca.Text;
+                    int numeroDeButaca = Convert.ToInt32(cbNumeroButaca.SelectedValue);
+                    clientePantalla.butaca = new Model.ButacaModel((Model.TipoButaca)cbTipoButaca.SelectedValue, numeroDeButaca);
+
+                    compraModel.butacasSeleccionadas[cbTipoButaca.Text].Add(numeroDeButaca);
+                    
+                    
+                   
                     compraModel.clientes.Add(clientePantalla);
                     this.Close();
                     new Compra.Pasajeros(compraModel).Show();
                 }
             }
+        }
+
+        private Dictionary<String, List<int>> filtrarButacasNoDisponibles()
+        {
+            Dictionary<String,List<int>> butacasDisponibles = viajeController.buscarButacasDisponibles(compraModel.vueloElegido);
+            Dictionary<String, List<int>> butacasAsignadas = compraModel.butacasSeleccionadas;
+            
+
+            foreach (KeyValuePair<String, List<int>> entry in butacasAsignadas)
+            {
+                IEnumerable<int> butacasFiltradas = butacasDisponibles[entry.Key].Except(entry.Value);
+                butacasDisponibles[entry.Key] = butacasFiltradas.ToList();
+            }
+
+            return butacasDisponibles;
         }
       
 

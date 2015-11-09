@@ -67,7 +67,36 @@ namespace AerolineaFrba.Compra
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            
+            if(validarTodosLosCampos()){
+                pagador.dni = Convert.ToInt32(tbDni.Text);
+                pagador.nombre = tbNombre.Text;
+                pagador.apellido = tbApellido.Text;
+                pagador.fechaNacimiento = dpFNac.Value;
+                pagador.mail = tbMail.Text;
+                pagador.telefono = Convert.ToInt32(tbTelefono.Text);
+                var formaDePago = (Model.TipoPagoModel)cbTipoPago.SelectedValue;
+                pagador.formaPago = formaDePago;
+                if (formaDePago.Equals(Model.TipoPagoModel.Tarjeta))
+                {
+                    pagador.tipoTarjeta = (Model.TarjetaCreditoModel)cbTarjetas.SelectedValue;
+                    pagador.cuotas = (Model.BeneficioTarjetaCredito)cbCuotas.SelectedValue;
+                    pagador.numeroTarjeta = tbNumeroTarjeta.Text;
+                    pagador.codigoSeguridad = Convert.ToInt32(tbCodSeguridad.Text);
+                    pagador.vencimiento = tbVencimiento.Text;
+                }
+                compraModel.pagador = pagador;
+            }            
+        }
+
+        private Boolean validarTodosLosCampos()
+        {
+            return (validarNombre() && validarApellido() && validarEmail() && validarDireccion() && validarTelefono() && validarDatosPago());
+        }
+
+
+        private Boolean validarDatosPago()
+        {
+            return validarNumeroTarjeta() && validarCodSeguridad() && validarVencimiento();
         }
 
         private void tbDni_TextChanged(object sender, EventArgs e)
@@ -88,7 +117,7 @@ namespace AerolineaFrba.Compra
             tbDireccion.Text = null;
             tbCodSeguridad.Text = null;
             tbNumeroTarjeta.Text = null;
-            tbVencimiento.Text = null;
+            tbVencimiento.Text = null;            
             epNombre.SetError(tbNombre, "");
             epApellido.SetError(tbApellido, "");
             epMail.SetError(tbMail, "");
@@ -187,6 +216,62 @@ namespace AerolineaFrba.Compra
             return bDireccion;
         }
 
+        private Boolean validarNumeroTarjeta()
+        {
+            Boolean bDireccion = true;
+            var formaDePago = (Model.TipoPagoModel)cbTipoPago.SelectedValue;
+            if (formaDePago.Equals(Model.TipoPagoModel.Tarjeta))
+            {
+                if (string.IsNullOrWhiteSpace(tbDireccion.Text))
+                {
+                    epDireccion.SetError(tbDireccion, "Campo Obligatorio");
+                    bDireccion = false;
+                }
+                else
+                {
+                    epDireccion.SetError(tbDireccion, "");
+                }
+            }
+            return bDireccion;
+        }
+
+        private Boolean validarVencimiento()
+        {
+            Boolean bVencimiento = true;
+            var formaDePago = (Model.TipoPagoModel)cbTipoPago.SelectedValue;
+            if (formaDePago.Equals(Model.TipoPagoModel.Tarjeta))
+            {
+                if (string.IsNullOrWhiteSpace(tbVencimiento.Text))
+                {
+                    epVencimiento.SetError(tbVencimiento, "Campo Obligatorio");
+                    bVencimiento = false;
+                }
+                else
+                {
+                    epVencimiento.SetError(tbVencimiento, "");
+                }
+            }
+            return bVencimiento;
+        }
+
+        private Boolean validarCodSeguridad()
+        {
+            Boolean bCodSeguridad = true;
+            var formaDePago = (Model.TipoPagoModel)cbTipoPago.SelectedValue;
+            if (formaDePago.Equals(Model.TipoPagoModel.Tarjeta))
+            {
+                if (string.IsNullOrWhiteSpace(tbCodSeguridad.Text))
+                {
+                    epCodSeguridad.SetError(tbCodSeguridad, "Campo Obligatorio");
+                    bCodSeguridad = false;
+                }
+                else
+                {
+                    epCodSeguridad.SetError(tbCodSeguridad, "");
+                }
+            }
+            return bCodSeguridad;
+        }
 
         private void tbNombre_Validating(object sender, CancelEventArgs e)
         {
@@ -215,17 +300,17 @@ namespace AerolineaFrba.Compra
 
         private void tbNumeroTarjeta_Validating(object sender, CancelEventArgs e)
         {
-            //validarNumeroTarjeta();
+            validarNumeroTarjeta();
         }
 
         private void tbVencimiento_Validating(object sender, CancelEventArgs e)
         {
-            //validarVencimiento();
+            validarVencimiento();
         }
 
         private void tbCodSeguridad_Validating(object sender, CancelEventArgs e)
         {
-            //validarCodSeguridad();
+            validarCodSeguridad();
         }
 
         bool IsValidEmail(string email)
@@ -288,8 +373,10 @@ namespace AerolineaFrba.Compra
             cbCuotas.Enabled = esTarjeta;
             tbCodSeguridad.Enabled = esTarjeta;
             tbNumeroTarjeta.Enabled = esTarjeta;
-            tbVencimiento.Enabled = esTarjeta;
-
+            tbVencimiento.Enabled = esTarjeta;            
+            tbCodSeguridad.Text = null;
+            tbNumeroTarjeta.Text = null;
+            tbVencimiento.Text = null;            
             cbTarjetas.DataSource = tarjetaCreditoController.buscarTodasLasTarjetas();
             cbTarjetas.DisplayMember = "descripcion";
         }
