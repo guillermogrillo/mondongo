@@ -85,6 +85,8 @@ namespace AerolineaFrba.Compra
                     pagador.vencimiento = tbVencimiento.Text;
                 }
                 compraModel.pagador = pagador;
+                this.Close();
+                
             }            
         }
 
