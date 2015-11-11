@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvFuncionalidades = new System.Windows.Forms.DataGridView();
+            this.funcionalidadnombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.funcionalidadesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mondongo = new AerolineaFrba.Mondongo();
             this.funcionalidadesTableAdapter = new AerolineaFrba.MondongoTableAdapters.funcionalidadesTableAdapter();
             this.btnAgregarFuncionalidad = new System.Windows.Forms.Button();
             this.btnBorrarFuncionalidad = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.funcionalidadnombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mondongo)).BeginInit();
@@ -60,6 +60,27 @@
             this.dgvFuncionalidades.Size = new System.Drawing.Size(521, 132);
             this.dgvFuncionalidades.TabIndex = 0;
             this.dgvFuncionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFuncionalidades_CellContentClick);
+            this.dgvFuncionalidades.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFuncionalidades_CellMouseClick);
+            // 
+            // funcionalidadnombreDataGridViewTextBoxColumn
+            // 
+            this.funcionalidadnombreDataGridViewTextBoxColumn.DataPropertyName = "funcionalidad_nombre";
+            this.funcionalidadnombreDataGridViewTextBoxColumn.HeaderText = "Nombre";
+            this.funcionalidadnombreDataGridViewTextBoxColumn.Name = "funcionalidadnombreDataGridViewTextBoxColumn";
+            this.funcionalidadnombreDataGridViewTextBoxColumn.ReadOnly = true;
+            this.funcionalidadnombreDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.funcionalidadnombreDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.funcionalidadnombreDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // funcionalidaddescripcionDataGridViewTextBoxColumn
+            // 
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.DataPropertyName = "funcionalidad_descripcion";
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.HeaderText = "Descripción";
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Name = "funcionalidaddescripcionDataGridViewTextBoxColumn";
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Width = 300;
             // 
             // funcionalidadesBindingSource
             // 
@@ -105,26 +126,6 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // funcionalidadnombreDataGridViewTextBoxColumn
-            // 
-            this.funcionalidadnombreDataGridViewTextBoxColumn.DataPropertyName = "funcionalidad_nombre";
-            this.funcionalidadnombreDataGridViewTextBoxColumn.HeaderText = "Nombre";
-            this.funcionalidadnombreDataGridViewTextBoxColumn.Name = "funcionalidadnombreDataGridViewTextBoxColumn";
-            this.funcionalidadnombreDataGridViewTextBoxColumn.ReadOnly = true;
-            this.funcionalidadnombreDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.funcionalidadnombreDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.funcionalidadnombreDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // funcionalidaddescripcionDataGridViewTextBoxColumn
-            // 
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.DataPropertyName = "funcionalidad_descripcion";
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.HeaderText = "Descripción";
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Name = "funcionalidaddescripcionDataGridViewTextBoxColumn";
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Width = 300;
-            // 
             // ABMFuncionalidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,7 +136,7 @@
             this.Controls.Add(this.btnAgregarFuncionalidad);
             this.Controls.Add(this.dgvFuncionalidades);
             this.Name = "ABMFuncionalidades";
-            this.Text = "ABMFuncionalidades";
+            this.Text = "Funcionalidades";
             this.Load += new System.EventHandler(this.ABMFuncionalidades_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesBindingSource)).EndInit();

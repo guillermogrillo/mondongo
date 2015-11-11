@@ -14,16 +14,28 @@ namespace AerolineaFrba.Abm_Rol
     {
 
         private Controller.RolController controller;
+        private Model.RolModel rol;
 
-        public NuevoRol()
+        public NuevoRol(Model.RolModel _rol)
         {
             InitializeComponent();
             controller = new Controller.RolController();
+            rol = _rol;
+            cbEstados.Enabled = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            controller.agregarNuevoRol(tbNombreRol.Text);
+            if(rol != null)
+            {
+                rol._rolHabilitado = (Model.Estado)cbEstados.SelectedValue;
+                rol._rolNombre = tbNombreRol.Text;
+                controller.modificarRol(rol);
+            }
+            else
+            {
+                controller.agregarNuevoRol(tbNombreRol.Text);
+            }
             this.Hide();
             new Abm_Rol.ABMRoles().Show();
         }
@@ -32,6 +44,22 @@ namespace AerolineaFrba.Abm_Rol
         {
             this.Hide();
             new Abm_Rol.ABMRoles().Show();
+        }
+
+        private void NuevoRol_Load(object sender, EventArgs e)
+        {
+            cbEstados.DataSource = Enum.GetValues(typeof(Model.Estado));
+            if (rol != null)
+            {
+                tbNombreRol.Text = rol._rolNombre;
+                cbEstados.Enabled = true;
+                cbEstados.SelectedIndex = (int)rol._rolHabilitado;
+            }
+            else
+            {
+                cbEstados.SelectedIndex = (int)Model.Estado.Habilitado;
+            }
+                        
         }
     }
 }

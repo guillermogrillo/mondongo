@@ -63,6 +63,21 @@
     <Compile Include="Abm Aeronave\BajaAeronaveForm.Designer.cs">
       <DependentUpon>BajaAeronaveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\ConfirmacionCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\ConfirmacionCompra.Designer.cs">
+      <DependentUpon>ConfirmacionCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra\Pagador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\Pagador.Designer.cs">
+      <DependentUpon>Pagador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\TarjetaCreditoController.cs" />
+    <Compile Include="Dao\TarjetaCreditoDao.cs" />
+    <Compile Include="Model\BeneficioTarjetaCredito.cs" />
     <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
       <SubType>Form</SubType>
@@ -87,12 +102,6 @@
     </Compile>
     <Compile Include="Abm Rol\ABMRoles.Designer.cs">
       <DependentUpon>ABMRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Rol\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\NuevaFuncionalidad.cs">
       <SubType>Form</SubType>
@@ -124,12 +133,19 @@
     <Compile Include="Compra\BusquedaVuelos.Designer.cs">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\NuevoPasajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\NuevoPasajero.Designer.cs">
+      <DependentUpon>NuevoPasajero.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\Pasajeros.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Compra\Pasajeros.Designer.cs">
       <DependentUpon>Pasajeros.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\ClienteController.cs" />
     <Compile Include="Controller\ViajeController.cs" />
     <Compile Include="Compra\VuelosEncontrados.cs">
       <SubType>Form</SubType>
@@ -151,6 +167,7 @@
     <Compile Include="Dao\AeronaveDao.cs" />
     <Compile Include="Controller\RutaController.cs" />
     <Compile Include="Dao\CiudadDao.cs" />
+    <Compile Include="Dao\ClienteDao.cs" />
     <Compile Include="Dao\CompraDao.cs" />
     <Compile Include="Dao\FabricanteDao.cs" />
     <Compile Include="Dao\LoginDao.cs" />
@@ -207,6 +224,8 @@
     <Compile Include="Model\FuncionalidadModel.cs" />
     <Compile Include="Model\PagadorModel.cs" />
     <Compile Include="Model\RolModel.cs" />
+    <Compile Include="Model\TarjetaCreditoModel.cs" />
+    <Compile Include="Model\TipoPagoModel.cs" />
     <Compile Include="Model\TipoServicioModel.cs" />
     <Compile Include="Model\RutaModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
@@ -224,11 +243,17 @@
     <Compile Include="Registro de Usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.cs">
+    <Compile Include="Registro Llegada Destino\BuscadorCiudades.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada Destino\BuscadorCiudades.Designer.cs">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\RegistroLlegadaDestino.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro Llegada Destino\RegistroLlegadaDestino.Designer.cs">
+      <DependentUpon>RegistroLlegadaDestino.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Aeronave\AbmAeronaves.resx">
       <DependentUpon>AbmAeronaves.cs</DependentUpon>
@@ -260,6 +285,15 @@
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Compra\ConfirmacionCompra.resx">
+      <DependentUpon>ConfirmacionCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\NuevoPasajero.resx">
+      <DependentUpon>NuevoPasajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\Pagador.resx">
+      <DependentUpon>Pagador.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra\Pasajeros.resx">
       <DependentUpon>Pasajeros.cs</DependentUpon>
     </EmbeddedResource>
@@ -284,6 +318,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro Llegada Destino\BuscadorCiudades.resx">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada Destino\RegistroLlegadaDestino.resx">
+      <DependentUpon>RegistroLlegadaDestino.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="GD2C2015DataSet.xsc">
       <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
     </None>

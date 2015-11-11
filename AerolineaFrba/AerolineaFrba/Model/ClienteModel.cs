@@ -8,16 +8,47 @@ namespace AerolineaFrba.Model
 {
     public class ClienteModel
     {
-        public String dni { get; set; }
+        public int clienteId { get; set; }
+        public int dni { get; set; }
         public String nombre { get; set; }
         public String apellido { get; set; }
         public DateTime fechaNacimiento { get; set; }
-        public String calle { get; set; }
-        public int numero { get; set; }
-        public int piso { get; set; }
-        public String departamento { get; set; }
-        public String telefono { get; set; }
+        public String direccion { get; set; }
+        public int telefono { get; set; }
         public String mail { get; set; }
         public Model.ButacaModel butaca { get; set; }
+
+        public ClienteModel(int _clienteId, int _clienteDni, String _clienteNombre,
+            String _clienteApellido, DateTime _clienteFechaNacimiento, String _direccion,
+            int _clienteTelefono, String _clienteMail)
+        {
+            clienteId = _clienteId;
+            dni = _clienteDni;
+            nombre = _clienteNombre;
+            apellido = _clienteApellido;
+            fechaNacimiento = _clienteFechaNacimiento;
+            direccion = _direccion;            
+            telefono = _clienteTelefono;
+            mail = _clienteMail;
+        }
+
+        public ClienteModel(int _clienteId, int _clienteDni, String _clienteNombre,
+            String _clienteApellido, DateTime _clienteFechaNacimiento, String _direccion,
+            int _clienteTelefono, String _clienteMail, TipoButaca _tipoButaca, int _numeroButaca)
+        {
+            clienteId = _clienteId;
+            dni = _clienteDni;
+            nombre = _clienteNombre;
+            apellido = _clienteApellido;
+            fechaNacimiento = _clienteFechaNacimiento;
+            direccion = _direccion;
+            telefono = _clienteTelefono;
+            mail = _clienteMail;
+            butaca = new Model.ButacaModel(_tipoButaca, _numeroButaca);
+        }
+
+        public ClienteModel()
+        {
+        }
     }
 }

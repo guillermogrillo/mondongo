@@ -36,8 +36,7 @@
             this.mondongo = new AerolineaFrba.Mondongo();
             this.rolesTableAdapter = new AerolineaFrba.MondongoTableAdapters.rolesTableAdapter();
             this.btnAgregarRol = new System.Windows.Forms.Button();
-            this.btnBorrarRol = new System.Windows.Forms.Button();
-            this.btnCambiarEstado = new System.Windows.Forms.Button();
+            this.btnEditarRol = new System.Windows.Forms.Button();
             this.btnFuncionalidades = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
@@ -60,9 +59,10 @@
             this.dgvRoles.Location = new System.Drawing.Point(12, 12);
             this.dgvRoles.Name = "dgvRoles";
             this.dgvRoles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRoles.Size = new System.Drawing.Size(359, 156);
+            this.dgvRoles.Size = new System.Drawing.Size(359, 176);
             this.dgvRoles.TabIndex = 0;
             this.dgvRoles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRoles_CellContentClick);
+            this.dgvRoles.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvRoles_CellMouseClick);
             // 
             // rolnombreDataGridViewTextBoxColumn
             // 
@@ -101,7 +101,7 @@
             // 
             // btnAgregarRol
             // 
-            this.btnAgregarRol.Location = new System.Drawing.Point(388, 36);
+            this.btnAgregarRol.Location = new System.Drawing.Point(388, 12);
             this.btnAgregarRol.Name = "btnAgregarRol";
             this.btnAgregarRol.Size = new System.Drawing.Size(100, 40);
             this.btnAgregarRol.TabIndex = 1;
@@ -109,31 +109,21 @@
             this.btnAgregarRol.UseVisualStyleBackColor = true;
             this.btnAgregarRol.Click += new System.EventHandler(this.btnAgregarRol_Click);
             // 
-            // btnBorrarRol
+            // btnEditarRol
             // 
-            this.btnBorrarRol.Location = new System.Drawing.Point(388, 82);
-            this.btnBorrarRol.Name = "btnBorrarRol";
-            this.btnBorrarRol.Size = new System.Drawing.Size(100, 40);
-            this.btnBorrarRol.TabIndex = 2;
-            this.btnBorrarRol.Text = "Borrar Rol";
-            this.btnBorrarRol.UseVisualStyleBackColor = true;
-            this.btnBorrarRol.Click += new System.EventHandler(this.btnBorrarRol_Click);
-            // 
-            // btnCambiarEstado
-            // 
-            this.btnCambiarEstado.Location = new System.Drawing.Point(388, 128);
-            this.btnCambiarEstado.Name = "btnCambiarEstado";
-            this.btnCambiarEstado.Size = new System.Drawing.Size(100, 40);
-            this.btnCambiarEstado.TabIndex = 3;
-            this.btnCambiarEstado.Text = "Cambiar Estado";
-            this.btnCambiarEstado.UseVisualStyleBackColor = true;
-            this.btnCambiarEstado.Click += new System.EventHandler(this.btnCambiarEstado_Click);
+            this.btnEditarRol.Location = new System.Drawing.Point(388, 58);
+            this.btnEditarRol.Name = "btnEditarRol";
+            this.btnEditarRol.Size = new System.Drawing.Size(100, 40);
+            this.btnEditarRol.TabIndex = 3;
+            this.btnEditarRol.Text = "Editar Rol";
+            this.btnEditarRol.UseVisualStyleBackColor = true;
+            this.btnEditarRol.Click += new System.EventHandler(this.btnEditarRol_Click);
             // 
             // btnFuncionalidades
             // 
-            this.btnFuncionalidades.Location = new System.Drawing.Point(12, 174);
+            this.btnFuncionalidades.Location = new System.Drawing.Point(388, 103);
             this.btnFuncionalidades.Name = "btnFuncionalidades";
-            this.btnFuncionalidades.Size = new System.Drawing.Size(235, 40);
+            this.btnFuncionalidades.Size = new System.Drawing.Size(100, 40);
             this.btnFuncionalidades.TabIndex = 4;
             this.btnFuncionalidades.Text = "Administrar Funcionalidades";
             this.btnFuncionalidades.UseVisualStyleBackColor = true;
@@ -141,11 +131,11 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(253, 174);
+            this.btnVolver.Location = new System.Drawing.Point(388, 148);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(235, 40);
+            this.btnVolver.Size = new System.Drawing.Size(100, 40);
             this.btnVolver.TabIndex = 5;
-            this.btnVolver.Text = "Volver al Menu";
+            this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
@@ -153,11 +143,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 230);
+            this.ClientSize = new System.Drawing.Size(493, 193);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnFuncionalidades);
-            this.Controls.Add(this.btnCambiarEstado);
-            this.Controls.Add(this.btnBorrarRol);
+            this.Controls.Add(this.btnEditarRol);
             this.Controls.Add(this.btnAgregarRol);
             this.Controls.Add(this.dgvRoles);
             this.Name = "ABMRoles";
@@ -177,8 +166,7 @@
         private System.Windows.Forms.BindingSource rolesBindingSource;
         private MondongoTableAdapters.rolesTableAdapter rolesTableAdapter;
         private System.Windows.Forms.Button btnAgregarRol;
-        private System.Windows.Forms.Button btnBorrarRol;
-        private System.Windows.Forms.Button btnCambiarEstado;
+        private System.Windows.Forms.Button btnEditarRol;
         private System.Windows.Forms.Button btnFuncionalidades;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.DataGridViewTextBoxColumn rolnombreDataGridViewTextBoxColumn;

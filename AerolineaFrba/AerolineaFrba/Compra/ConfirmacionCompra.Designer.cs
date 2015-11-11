@@ -1,6 +1,6 @@
-﻿namespace AerolineaFrba.Abm_Rol
+﻿namespace AerolineaFrba.Compra
 {
-    partial class Form1
+    partial class ConfirmacionCompra
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // ConfirmacionCompra
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(799, 305);
+            this.Name = "ConfirmacionCompra";
+            this.Text = "ConfirmacionCompra";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
