@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AerolineaFrba.Controller
 {
-    class AeronaveController
+    public class AeronaveController
     {
         private Dao.AeronaveDao _dao = null;
 
@@ -22,7 +23,11 @@ namespace AerolineaFrba.Controller
 
         public String darBajaAeronave(String matricula)
         {
-            //Chequear viajes asignados
+            //Busca viajes entre la fecha de sistema y el año 8000. (porque no acepta null)
+            Boolean tieneViajesAsignados = _dao.tieneViajesAsignados(matricula, DateTime.Now, DateTime.Now.AddYears(6000));
+            if (tieneViajesAsignados)
+                return "La aeronave tiene viajes asignados";
+
             _dao.eliminarAeronave(matricula);
             return "OK";
         }
@@ -42,12 +47,29 @@ namespace AerolineaFrba.Controller
             _dao.actualizarAeronave(aeronave);
             return "OK";
         }
-        
-        public String fueraServicioAeronave(string matricula)
+
+        public Boolean chequearViajesAsignados(string matricula, DateTime fechaDesde, DateTime fechaHasta)
         {
-            //Chequear viajes asignados
-            _dao.fueraServicioAeronave(matricula);
-            return "OK";
+            return _dao.tieneViajesAsignados(matricula, fechaDesde, fechaHasta);
+        }
+        
+        public void fueraServicioAeronave(string matricula, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            _dao.fueraServicioAeronave(matricula, fechaDesde, fechaHasta);
+        }
+
+        public void bajaAeronave(string matricula, DateTime fechaDesde)
+        {
+            _dao.bajaAeronave(matricula, fechaDesde);
+        }
+
+        public String buscarAeronaveReemplazo(Model.AeronaveModel aeronave, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            String matriculaNueva = _dao.buscarAeronaveReemplazo(aeronave, fechaDesde, fechaHasta);
+            if (matriculaNueva == null)
+                return "Atencion: No hay aeronaves disponibles para suplantar";
+
+            return matriculaNueva;
         }
     }
 }

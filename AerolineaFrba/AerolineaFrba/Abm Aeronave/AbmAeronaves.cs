@@ -68,11 +68,9 @@ namespace AerolineaFrba.Abm_Aeronave
             if (pregunta == DialogResult.No)
                 return;
 
-            String resultado = _controller.fueraServicioAeronave(aeronave.matricula);
-            if (resultado.Equals("OK"))
-                cargarAeronaves();
-                
-            MessageBox.Show(resultado);
+            Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave);
+            fueraServicioForm.Height = 160;
+            fueraServicioForm.Show();
         }
 
         private void bajaBtn_Click(object sender, EventArgs e)
