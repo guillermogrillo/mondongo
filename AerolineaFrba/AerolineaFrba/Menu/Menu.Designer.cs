@@ -65,6 +65,7 @@
             this.btnABMRutaAerea.TabIndex = 2;
             this.btnABMRutaAerea.Text = "ABM Ruta Aerea";
             this.btnABMRutaAerea.UseVisualStyleBackColor = true;
+            this.btnABMRutaAerea.Click += new System.EventHandler(this.btnABMRutaAerea_Click);
             // 
             // btnABMAeronaves
             // 
