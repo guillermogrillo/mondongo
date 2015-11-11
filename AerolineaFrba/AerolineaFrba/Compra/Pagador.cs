@@ -74,6 +74,7 @@ namespace AerolineaFrba.Compra
                 pagador.fechaNacimiento = dpFNac.Value;
                 pagador.mail = tbMail.Text;
                 pagador.telefono = Convert.ToInt32(tbTelefono.Text);
+                pagador.direccion = tbDireccion.Text;
                 var formaDePago = (Model.TipoPagoModel)cbTipoPago.SelectedValue;
                 pagador.formaPago = formaDePago;
                 if (formaDePago.Equals(Model.TipoPagoModel.Tarjeta))
@@ -86,7 +87,7 @@ namespace AerolineaFrba.Compra
                 }
                 compraModel.pagador = pagador;
                 this.Close();
-                
+                new Compra.ConfirmacionCompra(compraModel).Show();
             }            
         }
 

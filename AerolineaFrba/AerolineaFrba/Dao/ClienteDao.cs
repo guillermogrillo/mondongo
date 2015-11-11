@@ -12,22 +12,7 @@ namespace AerolineaFrba.Dao
     class ClienteDao
     {
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
-
-        public Boolean guardar(Model.ClienteModel cliente)
-        {
-            return true;
-        }
-
-        public Boolean modificar(Model.ClienteModel cliente)
-        {
-            return true;
-        }
-
-        public Boolean borrar(Model.ClienteModel cliente)
-        {
-            return true;
-        }
-
+  
         public List<Model.ClienteModel> buscarClientes(String dni)
         {
             List<Model.ClienteModel> clientesEncontrados = new List<Model.ClienteModel>();
@@ -71,6 +56,144 @@ namespace AerolineaFrba.Dao
                 MessageBox.Show("ERROR" + ex.Message);
             }
             return clientesEncontrados;
+        }
+
+        public int guardarCliente(Model.ClienteModel cliente)
+        {
+            int idCliente = 0;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                String query;
+                List<Model.ClienteModel> clientes = buscarClientes(cliente.dni.ToString());
+                if (clientes.Count == 0)
+                {
+                    query = "INSERT INTO MONDONGO.CLIENTES(cliente_nombre, cliente_apellido, " +
+                            "cliente_dni, cliente_direccion, cliente_telefono, cliente_mail, cliente_fecha_nacimiento,rol_id) " +
+                            "values(@nombre,@apellido,@dni,@direccion,@telefono,@mail,@fechaNacimiento,@rolId)";
+                            using (command = new SqlCommand(query, myConnection))
+                            {
+                                command.Parameters.AddWithValue("@nombre", cliente.nombre);
+                                command.Parameters.AddWithValue("@apellido", cliente.apellido);
+                                command.Parameters.AddWithValue("@dni", cliente.dni);
+                                command.Parameters.AddWithValue("@direccion", cliente.direccion);
+                                command.Parameters.AddWithValue("@telefono", cliente.telefono);
+                                command.Parameters.AddWithValue("@mail", cliente.mail);
+                                command.Parameters.AddWithValue("@fechaNacimiento", cliente.fechaNacimiento);
+                                command.Parameters.AddWithValue("@rolId", 2);
+                            }
+                }
+                else
+                {
+                    Model.ClienteModel clienteEncontrado = clientes[0];
+                    query = "UPDATE MONDONGO.CLIENTES "+
+                            "SET cliente_dni = @dni, "+
+                            "cliente_nombre = @nombre, "+
+                            "cliente_apellido = @apellido, "+
+                            "cliente_direccion = @direccion, "+
+                            "cliente_telefono = @telefono, "+
+                            "cliente_mail = @mail, "+
+                            "cliente_fecha_nacimiento = @fechaNacimiento "+
+                            "where cliente_id = @id ";
+                    using (command = new SqlCommand(query, myConnection))
+                    {
+                        command.Parameters.AddWithValue("@dni", cliente.dni);
+                        command.Parameters.AddWithValue("@nombre", cliente.nombre);
+                        command.Parameters.AddWithValue("@apellido", cliente.apellido);
+                        command.Parameters.AddWithValue("@direccion", cliente.direccion);
+                        command.Parameters.AddWithValue("@telefono", cliente.telefono);
+                        command.Parameters.AddWithValue("@mail", cliente.mail);
+                        command.Parameters.AddWithValue("@fechaNacimiento", cliente.fechaNacimiento);
+                        command.Parameters.AddWithValue("@id", clienteEncontrado.clienteId);
+                    }
+                }
+                var cantidad = command.ExecuteNonQuery();
+
+                if (cantidad > 0)
+                {
+                    clientes = buscarClientes(cliente.dni.ToString());
+                    idCliente = clientes[0].clienteId;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+
+            return idCliente;
+        }
+
+        public int guardarPagador(Model.PagadorModel pagador)
+        {            
+            int idPagador = 0; 
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                String query;
+                List<Model.ClienteModel> clientes = buscarClientes(pagador.dni.ToString());
+                if (clientes.Count == 0)
+                {
+                    query = "INSERT INTO MONDONGO.CLIENTES(cliente_nombre, cliente_apellido, " +
+                            "cliente_dni, cliente_direccion, cliente_telefono, cliente_mail, cliente_fecha_nacimiento,rol_id) " +
+                            "values(@nombre, @apellido, @dni, @direccion, @telefono, @mail, @fechaNacimiento, @rolId)";
+                            using (command = new SqlCommand(query, myConnection))
+                            {
+                                command.Parameters.AddWithValue("@nombre", pagador.nombre);
+                                command.Parameters.AddWithValue("@apellido", pagador.apellido);
+                                command.Parameters.AddWithValue("@dni", pagador.dni);
+                                command.Parameters.AddWithValue("@direccion", pagador.direccion);
+                                command.Parameters.AddWithValue("@telefono", pagador.telefono);
+                                command.Parameters.AddWithValue("@mail", pagador.mail);
+                                command.Parameters.AddWithValue("@fechaNacimiento", pagador.fechaNacimiento);
+                                command.Parameters.AddWithValue("@rolId", 2);
+                            }
+                }
+                else
+                {
+                    Model.ClienteModel cliente = clientes[0];
+                    query = "UPDATE MONDONGO.CLIENTES "+
+                            "SET cliente_dni = @dni, "+
+                            "cliente_nombre = @nombre, "+
+                            "cliente_apellido = @apellido, "+
+                            "cliente_direccion = @direccion, "+
+                            "cliente_telefono = @telefono, "+
+                            "cliente_mail = @mail, "+
+                            "cliente_fecha_nacimiento = @fechaNacimiento "+
+                            "where cliente_id = @id ";
+                    using (command = new SqlCommand(query, myConnection))
+                    {
+                        command.Parameters.AddWithValue("@dni", pagador.dni);
+                        command.Parameters.AddWithValue("@nombre", pagador.nombre);
+                        command.Parameters.AddWithValue("@apellido", pagador.apellido);                        
+                        command.Parameters.AddWithValue("@direccion", pagador.direccion);
+                        command.Parameters.AddWithValue("@telefono", pagador.telefono);
+                        command.Parameters.AddWithValue("@mail", pagador.mail);
+                        command.Parameters.AddWithValue("@fechaNacimiento", pagador.fechaNacimiento);
+                        command.Parameters.AddWithValue("@id", cliente.clienteId);
+                    }
+                }                                
+
+                var cantidad = command.ExecuteNonQuery();
+
+                if(cantidad>0){
+                    clientes = buscarClientes(pagador.dni.ToString());
+                    idPagador = clientes[0].clienteId;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return idPagador;
         }
 
     }

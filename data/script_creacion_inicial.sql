@@ -749,7 +749,7 @@ begin
 end
 go
 
-create sequence mondongo.sq_pnr
+create sequence mondongo.sq_pnr as int
 	START WITH 79435966
 	INCREMENT BY 1 ;
 go
