@@ -57,6 +57,12 @@
     <Compile Include="Abm Aeronave\AeronaveForm.Designer.cs">
       <DependentUpon>AeronaveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Aeronave\BajaAeronaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Aeronave\BajaAeronaveForm.Designer.cs">
+      <DependentUpon>BajaAeronaveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
       <SubType>Form</SubType>
@@ -229,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\AeronaveForm.resx">
       <DependentUpon>AeronaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Aeronave\BajaAeronaveForm.resx">
+      <DependentUpon>BajaAeronaveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ciudad\AbmCiudad.resx">
       <DependentUpon>AbmCiudad.cs</DependentUpon>

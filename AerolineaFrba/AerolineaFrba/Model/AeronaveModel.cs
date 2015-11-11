@@ -19,10 +19,18 @@ namespace AerolineaFrba.Model
         public DateTime fechaReinicioServicio   { get; set; }
         public String   fueraDeUso              { get; set; }
         public int      cantButacasVen          { get; set; }
-        public int      cantButacasPas           { get; set; }
+        public int      cantButacasPas          { get; set; }
         public DateTime fechaBajaDefinitiva     { get; set; }
+        public int      estado                  { get; set; }
 
         public int      cantidadButacas         { get; set; }
 
+    }
+
+    public enum AeronaveEstado
+    {
+        ACTIVA          = 0,
+        FUERA_SERVICIO  = 1,
+        ELIMINADA       = 2
     }
 }

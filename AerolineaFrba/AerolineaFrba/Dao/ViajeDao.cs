@@ -66,9 +66,60 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
-
-
             return viajes;
+        }
+
+        public void actualizarAeronaveViajes(String matriculaVieja, String matriculaNueva, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update mondongo.viajes "+
+                            "set aeronave_matricula=@matriculaNueva "+
+                            "where aeronave_matricula=@matriculaVieja "+
+                            "  and fecha_salida between @fechaDesde and @fechaHasta ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matriculaNueva", matriculaNueva);
+                    command.Parameters.AddWithValue("@matriculaVieja", matriculaVieja);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+        }
+
+        public void cancelarViajesAeronave(String matricula, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update mondongo.viajes " +
+                            "set estado = 1 " +
+                            "where aeronave_matricula=@matricula "+
+                            "   and fecha_salida between @fechaDesde and @fechaHasta ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matriculaNueva", matricula);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
         }
     }
 }
