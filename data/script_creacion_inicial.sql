@@ -131,6 +131,12 @@ GO
 IF OBJECT_ID('MONDONGO.pr_cargar_productos', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_productos;
 GO
+IF OBJECT_ID('MONDONGO.pr_cargar_butacas_vendidas', 'P') IS NOT NULL
+  DROP PROCEDURE mondongo.pr_cargar_butacas_vendidas;
+GO
+IF OBJECT_ID('MONDONGO.pr_actualizar_viajes', 'P') IS NOT NULL
+  DROP PROCEDURE mondongo.pr_actualizar_viajes;
+GO
 IF OBJECT_ID('MONDONGO.fx_get_tipo_servicio', 'FN') IS NOT NULL
   DROP FUNCTION mondongo.fx_get_tipo_servicio;
 GO
@@ -530,6 +536,47 @@ AS
 		insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'6 VASOS',100)        
     END
 GO
+
+create procedure mondongo.pr_cargar_butacas_vendidas
+as
+begin
+    insert into mondongo.butacas_vendidas(butaca_viaje_id,butaca_tipo,butaca_nro)
+    select pasaje_viaje_id,pasaje_butaca_tipo,pasaje_butaca_numero
+    from mondongo.pasajes
+end
+go
+create procedure mondongo.pr_actualizar_viajes
+as
+begin
+	update mondongo.viajes
+	set cantidad_butacas_ventanilla_disponibles = cantidad_butacas_ventanilla_disponibles - b.cantidad
+	from mondongo.viajes v
+	inner join (select butaca_viaje_id, count(butaca_viaje_id) as cantidad
+				from mondongo.butacas_vendidas bv
+				group by bv.butaca_viaje_id, bv.butaca_tipo
+				having bv.butaca_tipo = 'Ventanilla') b
+	on b.butaca_viaje_id = v.viaje_id
+
+	update mondongo.viajes
+	set cantidad_butacas_pasillo_disponibles = cantidad_butacas_pasillo_disponibles - b.cantidad
+	from mondongo.viajes v
+	inner join (select butaca_viaje_id, count(butaca_viaje_id) as cantidad
+				from mondongo.butacas_vendidas bv
+				group by bv.butaca_viaje_id, bv.butaca_tipo
+				having bv.butaca_tipo = 'Pasillo') b
+	on b.butaca_viaje_id = v.viaje_id
+
+	update mondongo.viajes
+	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
+	from mondongo.viajes v
+	inner join (select pq.paquete_viaje_id, sum(paquete_kg) as cantidad
+				from mondongo.paquetes pq
+				group by pq.paquete_viaje_id) q
+	on q.paquete_viaje_id = v.viaje_id
+				
+
+end
+go
 create table mondongo.roles
 (rol_id numeric(18,0) identity primary key,
 rol_nombre nvarchar(20) not null,
@@ -709,9 +756,6 @@ create table mondongo.historial_millas(
 	tipo_operacion char not null
 )
 GO
-
-
-
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
     DROP INDEX gd_esquema.maestra.maestra_pas_cod
 GO
@@ -741,63 +785,6 @@ GO
 CREATE INDEX index_ruta_matricula
 ON mondongo.viajes (aeronave_matricula)
 GO
-
-
-create trigger tr_restar_pasaje
-on mondongo.pasajes
-after insert
-as
-begin
-    BEGIN TRY        
-        update mondongo.viajes
-        set cantidad_butacas_ventanilla_disponibles =
-            cantidad_butacas_ventanilla_disponibles - ((select count(pasaje_viaje_id)
-                                            from inserted
-                                            where viajes.viaje_id = inserted.pasaje_viaje_id
-                                            group by inserted.pasaje_viaje_id)/2),
-            cantidad_butacas_pasillo_disponibles =
-            cantidad_butacas_pasillo_disponibles - ((select count(pasaje_viaje_id)
-                                            from inserted
-                                            where viajes.viaje_id = inserted.pasaje_viaje_id
-                                            group by inserted.pasaje_viaje_id)/2)
-        
-        insert into mondongo.butacas_vendidas(butaca_viaje_id,butaca_tipo,butaca_nro)
-        select inserted.pasaje_viaje_id,inserted.pasaje_butaca_tipo,inserted.pasaje_butaca_numero
-        from inserted
-        
-    END TRY
-    BEGIN CATCH
-        SELECT
-        ERROR_NUMBER() AS ErrorNumber
-       ,ERROR_MESSAGE() AS ErrorMessage;       
-    END CATCH;
-    
-end
-go
-
-
-create trigger tr_restar_kg
-on mondongo.paquetes
-after insert
-as
-begin
-
-    BEGIN TRY
-        update mondongo.viajes
-        set cantidad_kg_disponibles = cantidad_kg_disponibles - (select SUM(inserted.paquete_kg)
-                                                                from inserted
-                                                                where viajes.viaje_id = inserted.paquete_viaje_id
-                                                                group by inserted.paquete_viaje_id)
-    END TRY
-    BEGIN CATCH
-        SELECT
-        ERROR_NUMBER() AS ErrorNumber
-       ,ERROR_MESSAGE() AS ErrorMessage;       
-    END CATCH;
-    
-end
-go
-
 create sequence mondongo.sq_pnr as int
 	START WITH 79435967
 	INCREMENT BY 1 ;
@@ -838,6 +825,7 @@ exec mondongo.pr_cargar_pasajes
 go
 exec mondongo.pr_cargar_paquetes
 go
-
-
-
+exec mondongo.pr_cargar_butacas_vendidas
+go
+exec mondongo.pr_actualizar_viajes
+go
