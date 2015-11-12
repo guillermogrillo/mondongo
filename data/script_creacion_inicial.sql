@@ -1,7 +1,10 @@
 USE [GD2C2015]
 GO
 
-CREATE SCHEMA [MONDONGO]
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'mondongo')
+BEGIN	
+	EXEC sp_executesql N'CREATE SCHEMA MONDONGO';
+END
 GO
 
 
