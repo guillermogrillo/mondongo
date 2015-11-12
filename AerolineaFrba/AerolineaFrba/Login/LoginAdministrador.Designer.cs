@@ -121,6 +121,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "LoginAdministrador";
             this.Text = "LoginAdministrador";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -15,9 +15,11 @@ namespace AerolineaFrba.Model
         public int tipoServicio { get; set; }
         public Double precioBasePasaje { get; set; }
         public Double precioBaseKg { get; set; }
-        public int horasVuelo { get; set; }
+        public Double horasVuelo { get; set; }
 
-        public RutaModel(int _idRuta, int _codigoRuta, int _ciudadOrigen, int _ciudadDestino, int _tipoServicio, Double _precioBasePasaje, Double _precioBaseKg, int _horasVuelo)
+        public RutaModel() { }
+        
+        public RutaModel(int _idRuta, int _codigoRuta, int _ciudadOrigen, int _ciudadDestino, int _tipoServicio, Double _precioBasePasaje, Double _precioBaseKg, Double _horasVuelo)
         {
             this.idRuta = _idRuta;
             this.codigoRuta = _codigoRuta;

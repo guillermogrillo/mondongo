@@ -13,6 +13,9 @@ namespace AerolineaFrba.Abm_Ruta
     public partial class AbmRuta : Form
     {
         private Controller.RutaController _controller;
+
+        private Boolean isBack = true;
+
         public AbmRuta()
         {
             _controller = new Controller.RutaController();
@@ -34,6 +37,7 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void btAgregar_Click(object sender, EventArgs e)
         {
+            isBack = false;
             this.Close();
             new Abm_Ruta.RutaForm().Show();
         }
@@ -42,9 +46,16 @@ namespace AerolineaFrba.Abm_Ruta
         {
             Model.RutaModel ruta = (Model.RutaModel)dgRutas.CurrentRow.DataBoundItem;
             if (ruta == null) return;
-            _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino);
+
+            isBack = false;
+            this.Close();
             new Abm_Ruta.RutaForm(ruta).Show();
-            this.Hide();
+        }
+
+        private void onClose(object sender, FormClosedEventArgs e)
+        {
+            if(isBack)
+                new Menu.Menu().Show();
         }
     }
 }

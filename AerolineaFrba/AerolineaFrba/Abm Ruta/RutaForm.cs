@@ -14,19 +14,30 @@ namespace AerolineaFrba.Abm_Ruta
     {
         private Dao.TipoServicioDao _tipoServicioDao;
         private Controller.CiudadController _ciudadController;
+        private Controller.RutaController _controller;
+
+        private Boolean isEdit;
+        private int rutaId;
         
         public RutaForm()
         {
+            isEdit = false;
             _tipoServicioDao = new Dao.TipoServicioDao();
             _ciudadController = new Controller.CiudadController();
+            _controller = new Controller.RutaController();
             InitializeComponent();
+            init();
         }
         public RutaForm(Model.RutaModel ruta)
         {
+            isEdit = true;
             _tipoServicioDao = new Dao.TipoServicioDao();
             _ciudadController = new Controller.CiudadController();
+            _controller = new Controller.RutaController();
             InitializeComponent();
+            init();
             cargarRuta(ruta);
+            rutaId = ruta.idRuta;
         }
 
         private void cargarRuta(Model.RutaModel ruta)
@@ -36,17 +47,18 @@ namespace AerolineaFrba.Abm_Ruta
             tbPasajePrecio.Text = ruta.precioBasePasaje.ToString();
             tbPrecioKg.Text = ruta.precioBaseKg.ToString();
             cbTipoServicio.SelectedItem = getTipoServicio(ruta.tipoServicio);
-            cbOrigen.SelectedItem = getCiudad(ruta.ciudadOrigen);
-            cbDestino.SelectedItem = getCiudad(ruta.ciudadDestino);
+            cbOrigen.SelectedIndex = getCiudad(ruta.ciudadOrigen);
+            cbDestino.SelectedIndex = getCiudad(ruta.ciudadDestino);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void init()
         {
             cbTipoServicio.DataSource = _tipoServicioDao.buscarTiposServicio();
             
-            List<Model.CiudadModel> ciudades = _ciudadController.buscarTodasLasCiudades();
-            cbOrigen.DataSource = ciudades;
-            cbDestino.DataSource = ciudades;
+            List<Model.CiudadModel> ciudadesOrig = _ciudadController.buscarTodasLasCiudades();
+            List<Model.CiudadModel> ciudadesDest = _ciudadController.buscarTodasLasCiudades();
+            cbOrigen.DataSource = ciudadesOrig;
+            cbDestino.DataSource = ciudadesDest;
         }
 
         private object getTipoServicio(int ts_id)
@@ -58,14 +70,55 @@ namespace AerolineaFrba.Abm_Ruta
             }
             return null;
         }
-        private object getCiudad(int ciu_id)
+        private int getCiudad(int ciu_id)
         {
+            int i = 0;
             foreach (Model.CiudadModel ciudad in (List<Model.CiudadModel>)cbOrigen.DataSource)
             {
                 if (ciudad.ciudadId == ciu_id)
-                    return ciudad;
+                    return i;
+                i++;
             }
-            return null;
+            return 0;
+        }
+
+        private void onClose(object sender, FormClosedEventArgs e)
+        {
+            new Abm_Ruta.AbmRuta().Show();
+        }
+
+        private void btAceptar_Click(object sender, EventArgs e)
+        {
+            Model.RutaModel ruta = armarRuta();
+            if (isEdit)
+                _controller.editarRuta(ruta);
+            else
+                _controller.guardarRuta(ruta);
+
+            this.Close();
+        }
+
+        private Model.RutaModel armarRuta()
+        {
+            Model.RutaModel ruta = new Model.RutaModel();
+
+            ruta.codigoRuta = Convert.ToInt32(tbCodigoRuta.Text);
+            ruta.horasVuelo = Convert.ToDouble(tbHorasVuelo.Text);
+            ruta.precioBasePasaje = Convert.ToDouble(tbPasajePrecio.Text);
+            ruta.precioBaseKg = Convert.ToDouble(tbPrecioKg.Text);
+            ruta.tipoServicio = Convert.ToInt32(((Model.TipoServicioModel)cbTipoServicio.SelectedItem).id);
+            ruta.ciudadOrigen = Convert.ToInt32(((Model.CiudadModel)cbOrigen.SelectedItem).ciudadId);
+            ruta.ciudadDestino = Convert.ToInt32(((Model.CiudadModel)cbDestino.SelectedItem).ciudadId);
+
+            if (isEdit)
+                ruta.idRuta = rutaId;
+
+            return ruta;
+        }
+
+        private void btCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

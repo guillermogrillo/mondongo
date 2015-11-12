@@ -163,6 +163,7 @@
             this.Controls.Add(this.dgRutas);
             this.Name = "AbmRuta";
             this.Text = "RutaForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onClose);
             this.Load += new System.EventHandler(this.AbmRuta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgRutas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rutaModelBindingSource)).EndInit();

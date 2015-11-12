@@ -26,5 +26,14 @@ namespace AerolineaFrba.Controller
             return _rutaDao.buscarTodasLasRutas();
         }
 
+        public void guardarRuta(Model.RutaModel ruta)
+        {
+            _rutaDao.guardarRuta(ruta);
+        }
+
+        public void editarRuta(Model.RutaModel ruta)
+        {
+            _rutaDao.editarRuta(ruta);
+        }
     }
 }

@@ -458,8 +458,8 @@ BEGIN
         mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1)),
         mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Destino, LEN(Ruta_Ciudad_Destino) - 1)),
         mondongo.fx_busca_id_tipo_servicio(Tipo_Servicio),
-        max(Ruta_Precio_BaseKG),
         max(Ruta_Precio_BasePasaje),
+        max(Ruta_Precio_BaseKG),
         datediff(hh, FechaSalida,FechaLLegada)
     from gd_esquema.Maestra
     group by ruta_codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, tipo_servicio, datediff(hh, FechaSalida,FechaLLegada)

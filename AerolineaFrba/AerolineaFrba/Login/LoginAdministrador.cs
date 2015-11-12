@@ -37,5 +37,10 @@ namespace AerolineaFrba.Login
             this.Hide();
             new AerolineaFrba.AerolineasFRBA().Show();
         }
+
+        private void onClose(object sender, FormClosedEventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
     }
 }

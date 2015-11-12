@@ -14,8 +14,12 @@ namespace AerolineaFrba.Abm_Aeronave
     public partial class AbmAeronaves : Form
     {
         Controller.AeronaveController _controller;
+
+        private Boolean isBack;
+
         public AbmAeronaves()
         {
+            isBack = true;
             _controller = new Controller.AeronaveController();
             InitializeComponent();
         }
@@ -80,6 +84,12 @@ namespace AerolineaFrba.Abm_Aeronave
             Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave, false);
             fueraServicioForm.Height = 160;
             fueraServicioForm.Show();
+        }
+
+        private void onClose(object sender, FormClosedEventArgs e)
+        {
+            if (isBack)
+                new Menu.Menu().Show();
         }
 
         
