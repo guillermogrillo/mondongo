@@ -35,5 +35,10 @@ namespace AerolineaFrba.Controller
         {
             _rutaDao.editarRuta(ruta);
         }
+
+        public void eliminarRuta(int rutaId)
+        {
+            _rutaDao.eliminarRuta(rutaId);
+        }
     }
 }

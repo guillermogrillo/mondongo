@@ -33,14 +33,14 @@
             this.btAgregar = new System.Windows.Forms.Button();
             this.btEditar = new System.Windows.Forms.Button();
             this.btEliminar = new System.Windows.Forms.Button();
-            this.codigoRutaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ciudadOrigenDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ciudadDestinoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoServicioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioBasePasajeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precioBaseKgDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.horasVueloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rutaModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.horasVueloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioBaseKgDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precioBasePasajeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoServicioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ciudadDestinoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ciudadOrigenDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codigoRutaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgRutas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rutaModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -98,48 +98,11 @@
             this.btEliminar.TabIndex = 3;
             this.btEliminar.Text = "Eliminar";
             this.btEliminar.UseVisualStyleBackColor = true;
+            this.btEliminar.Click += new System.EventHandler(this.btEliminar_Click);
             // 
-            // codigoRutaDataGridViewTextBoxColumn
+            // rutaModelBindingSource
             // 
-            this.codigoRutaDataGridViewTextBoxColumn.DataPropertyName = "codigoRuta";
-            this.codigoRutaDataGridViewTextBoxColumn.HeaderText = "codigoRuta";
-            this.codigoRutaDataGridViewTextBoxColumn.Name = "codigoRutaDataGridViewTextBoxColumn";
-            this.codigoRutaDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ciudadOrigenDataGridViewTextBoxColumn
-            // 
-            this.ciudadOrigenDataGridViewTextBoxColumn.DataPropertyName = "ciudadOrigen";
-            this.ciudadOrigenDataGridViewTextBoxColumn.HeaderText = "ciudadOrigen";
-            this.ciudadOrigenDataGridViewTextBoxColumn.Name = "ciudadOrigenDataGridViewTextBoxColumn";
-            this.ciudadOrigenDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ciudadDestinoDataGridViewTextBoxColumn
-            // 
-            this.ciudadDestinoDataGridViewTextBoxColumn.DataPropertyName = "ciudadDestino";
-            this.ciudadDestinoDataGridViewTextBoxColumn.HeaderText = "ciudadDestino";
-            this.ciudadDestinoDataGridViewTextBoxColumn.Name = "ciudadDestinoDataGridViewTextBoxColumn";
-            this.ciudadDestinoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tipoServicioDataGridViewTextBoxColumn
-            // 
-            this.tipoServicioDataGridViewTextBoxColumn.DataPropertyName = "tipoServicio";
-            this.tipoServicioDataGridViewTextBoxColumn.HeaderText = "tipoServicio";
-            this.tipoServicioDataGridViewTextBoxColumn.Name = "tipoServicioDataGridViewTextBoxColumn";
-            this.tipoServicioDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // precioBasePasajeDataGridViewTextBoxColumn
-            // 
-            this.precioBasePasajeDataGridViewTextBoxColumn.DataPropertyName = "precioBasePasaje";
-            this.precioBasePasajeDataGridViewTextBoxColumn.HeaderText = "precioBasePasaje";
-            this.precioBasePasajeDataGridViewTextBoxColumn.Name = "precioBasePasajeDataGridViewTextBoxColumn";
-            this.precioBasePasajeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // precioBaseKgDataGridViewTextBoxColumn
-            // 
-            this.precioBaseKgDataGridViewTextBoxColumn.DataPropertyName = "precioBaseKg";
-            this.precioBaseKgDataGridViewTextBoxColumn.HeaderText = "precioBaseKg";
-            this.precioBaseKgDataGridViewTextBoxColumn.Name = "precioBaseKgDataGridViewTextBoxColumn";
-            this.precioBaseKgDataGridViewTextBoxColumn.ReadOnly = true;
+            this.rutaModelBindingSource.DataSource = typeof(AerolineaFrba.Model.RutaModel);
             // 
             // horasVueloDataGridViewTextBoxColumn
             // 
@@ -148,9 +111,47 @@
             this.horasVueloDataGridViewTextBoxColumn.Name = "horasVueloDataGridViewTextBoxColumn";
             this.horasVueloDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // rutaModelBindingSource
+            // precioBaseKgDataGridViewTextBoxColumn
             // 
-            this.rutaModelBindingSource.DataSource = typeof(AerolineaFrba.Model.RutaModel);
+            this.precioBaseKgDataGridViewTextBoxColumn.DataPropertyName = "precioBaseKg";
+            this.precioBaseKgDataGridViewTextBoxColumn.HeaderText = "precioBaseKg";
+            this.precioBaseKgDataGridViewTextBoxColumn.Name = "precioBaseKgDataGridViewTextBoxColumn";
+            this.precioBaseKgDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // precioBasePasajeDataGridViewTextBoxColumn
+            // 
+            this.precioBasePasajeDataGridViewTextBoxColumn.DataPropertyName = "precioBasePasaje";
+            this.precioBasePasajeDataGridViewTextBoxColumn.HeaderText = "precioBasePasaje";
+            this.precioBasePasajeDataGridViewTextBoxColumn.Name = "precioBasePasajeDataGridViewTextBoxColumn";
+            this.precioBasePasajeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tipoServicioDataGridViewTextBoxColumn
+            // 
+            this.tipoServicioDataGridViewTextBoxColumn.DataPropertyName = "tipoServicio";
+            this.tipoServicioDataGridViewTextBoxColumn.HeaderText = "tipoServicio";
+            this.tipoServicioDataGridViewTextBoxColumn.Name = "tipoServicioDataGridViewTextBoxColumn";
+            this.tipoServicioDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ciudadDestinoDataGridViewTextBoxColumn
+            // 
+            this.ciudadDestinoDataGridViewTextBoxColumn.DataPropertyName = "ciudadDestino";
+            this.ciudadDestinoDataGridViewTextBoxColumn.HeaderText = "ciudadDestino";
+            this.ciudadDestinoDataGridViewTextBoxColumn.Name = "ciudadDestinoDataGridViewTextBoxColumn";
+            this.ciudadDestinoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ciudadOrigenDataGridViewTextBoxColumn
+            // 
+            this.ciudadOrigenDataGridViewTextBoxColumn.DataPropertyName = "ciudadOrigen";
+            this.ciudadOrigenDataGridViewTextBoxColumn.HeaderText = "ciudadOrigen";
+            this.ciudadOrigenDataGridViewTextBoxColumn.Name = "ciudadOrigenDataGridViewTextBoxColumn";
+            this.ciudadOrigenDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // codigoRutaDataGridViewTextBoxColumn
+            // 
+            this.codigoRutaDataGridViewTextBoxColumn.DataPropertyName = "codigoRuta";
+            this.codigoRutaDataGridViewTextBoxColumn.HeaderText = "codigoRuta";
+            this.codigoRutaDataGridViewTextBoxColumn.Name = "codigoRutaDataGridViewTextBoxColumn";
+            this.codigoRutaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // AbmRuta
             // 
@@ -177,6 +178,7 @@
         private System.Windows.Forms.Button btAgregar;
         private System.Windows.Forms.Button btEditar;
         private System.Windows.Forms.Button btEliminar;
+        private System.Windows.Forms.BindingSource rutaModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn codigoRutaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ciudadOrigenDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ciudadDestinoDataGridViewTextBoxColumn;
@@ -184,6 +186,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn precioBasePasajeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn precioBaseKgDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn horasVueloDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource rutaModelBindingSource;
     }
 }

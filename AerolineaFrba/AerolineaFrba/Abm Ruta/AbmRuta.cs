@@ -57,5 +57,19 @@ namespace AerolineaFrba.Abm_Ruta
             if(isBack)
                 new Menu.Menu().Show();
         }
+
+        private void btEliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult pregunta = MessageBox.Show("Esta seguro de eliminar la ruta seleccionada?",
+                                                    "Atencion",
+                                                    MessageBoxButtons.YesNo);
+            if (pregunta == DialogResult.No)
+                return;
+
+            Model.RutaModel ruta = (Model.RutaModel)dgRutas.CurrentRow.DataBoundItem;
+            _controller.eliminarRuta(ruta.idRuta);
+            dgRutas.DataSource = _controller.buscarTodasLasRutas();
+            MessageBox.Show("Ruta eliminada");
+        }
     }
 }

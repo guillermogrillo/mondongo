@@ -66,7 +66,8 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo " +
-                            "from mondongo.rutas ";
+                            "from mondongo.rutas "+
+                            "where estado = 0 ";
                 
                 command = new SqlCommand(query, myConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -158,6 +159,32 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@precioPas", ruta.precioBasePasaje);
                     command.Parameters.AddWithValue("@horasVuelo", ruta.horasVuelo);
                     command.Parameters.AddWithValue("@idRuta", ruta.idRuta);
+                }
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+        }
+
+        public void eliminarRuta(int rutaId)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update mondongo.rutas " +
+                            "set estado = @estado " +
+                            "where id_ruta = @idRuta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@estado", Model.RutaModel.RutaEstado.ELIMINADA);
+                    command.Parameters.AddWithValue("@idRuta", rutaId);
                 }
 
                 command.ExecuteNonQuery();

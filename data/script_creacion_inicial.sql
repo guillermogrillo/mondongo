@@ -612,9 +612,13 @@ create table MONDONGO.rutas(
     id_tipo_servicio numeric(8) REFERENCES mondongo.tipos_servicio(id_tipo_servicio),
     precio_base_kg numeric(18,2),
     precio_base_pasaje numeric(18,2),
-[horas_vuelo] [numeric](18, 0) NULL
+	[horas_vuelo] [numeric](18, 0) NULL,
+	estado numeric(1,0)
 )
 GO
+ALTER TABLE [MONDONGO].[rutas] ADD  CONSTRAINT [DF_rutas_estado]  DEFAULT ((0)) FOR [estado]
+GO
+
 CREATE TABLE MONDONGO.fabricantes(
     id_fabricante numeric(18,0) identity primary key,
     nombre nvarchar(255) not null

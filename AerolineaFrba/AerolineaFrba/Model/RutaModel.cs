@@ -16,6 +16,7 @@ namespace AerolineaFrba.Model
         public Double precioBasePasaje { get; set; }
         public Double precioBaseKg { get; set; }
         public Double horasVuelo { get; set; }
+        public Boolean estado { get; set; }
 
         public RutaModel() { }
         
@@ -31,5 +32,10 @@ namespace AerolineaFrba.Model
             this.horasVuelo = _horasVuelo;
         }
 
+        public enum RutaEstado
+        {
+            ACTIVA = 0,
+            ELIMINADA = 1
+        }
     }
 }
