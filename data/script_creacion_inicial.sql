@@ -391,8 +391,8 @@ GO
 CREATE PROCEDURE mondongo.pr_cargar_usuarios
 AS
     BEGIN        
-        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña) values ('a','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb')
-        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña)    values ('b','ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb')    
+        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña) values ('adminUno','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')
+        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña)    values ('adminDos','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')    
     END
 GO
 create procedure mondongo.pr_cargar_usuarios_roles
