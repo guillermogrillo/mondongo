@@ -21,6 +21,10 @@ namespace AerolineaFrba.Controller
             return _rutaDao.buscarRuta(idCiudadOrigen, idCiudadDestino);
         }
 
+        public List<Model.RutaModel> buscarTodasLasRutas()
+        {
+            return _rutaDao.buscarTodasLasRutas();
+        }
 
     }
 }

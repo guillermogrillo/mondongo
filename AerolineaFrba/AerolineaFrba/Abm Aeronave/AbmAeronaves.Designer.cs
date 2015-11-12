@@ -69,7 +69,6 @@
             this.DGVAeronave.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVAeronave.Size = new System.Drawing.Size(380, 150);
             this.DGVAeronave.TabIndex = 0;
-            this.DGVAeronave.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAeronave_CellContentClick);
             // 
             // butacas
             // 

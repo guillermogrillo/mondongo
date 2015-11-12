@@ -21,17 +21,6 @@ namespace AerolineaFrba.Controller
             return _dao.buscarAeronaves();
         }
 
-        public String darBajaAeronave(String matricula)
-        {
-            //Busca viajes entre la fecha de sistema y el año 8000. (porque no acepta null)
-            Boolean tieneViajesAsignados = _dao.tieneViajesAsignados(matricula, DateTime.Now, DateTime.Now.AddYears(6000));
-            if (tieneViajesAsignados)
-                return "La aeronave tiene viajes asignados";
-
-            _dao.eliminarAeronave(matricula);
-            return "OK";
-        }
-
         public String guardarAeronave(Model.AeronaveModel aeronave)
         {
             Model.AeronaveModel a = _dao.buscarAeronavePorMatricula(aeronave.matricula);

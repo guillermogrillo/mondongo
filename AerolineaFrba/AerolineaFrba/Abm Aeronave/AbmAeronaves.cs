@@ -30,11 +30,6 @@ namespace AerolineaFrba.Abm_Aeronave
             DGVAeronave.Columns[3].Width = 80;
         }
 
-        private void DGVAeronave_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            AeronaveModel aeronave = (Model.AeronaveModel)DGVAeronave.CurrentRow.DataBoundItem;
-        }
-
         public void cargarAeronaves()
         {
             DGVAeronave.DataSource = _controller.buscarAeronaves();
@@ -68,7 +63,7 @@ namespace AerolineaFrba.Abm_Aeronave
             if (pregunta == DialogResult.No)
                 return;
 
-            Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave);
+            Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave, true);
             fueraServicioForm.Height = 160;
             fueraServicioForm.Show();
         }
@@ -82,12 +77,9 @@ namespace AerolineaFrba.Abm_Aeronave
             if (pregunta == DialogResult.No)
                 return;
 
-            String resultado = _controller.darBajaAeronave(aeronave.matricula);
-
-            if (resultado.Equals("OK"))
-                cargarAeronaves();
-
-            DialogResult baja = MessageBox.Show(resultado);
+            Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave, false);
+            fueraServicioForm.Height = 160;
+            fueraServicioForm.Show();
         }
 
         

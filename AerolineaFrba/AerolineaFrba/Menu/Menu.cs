@@ -47,6 +47,12 @@ namespace AerolineaFrba.Menu
         {
             this.Close();
             new Registro_Llegada_Destino.RegistroLlegadaDestino().Show();
+        }
+
+        private void btnABMRutaAerea_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Abm_Ruta.AbmRuta().Show();
         }       
     }
 }

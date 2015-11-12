@@ -14,7 +14,7 @@ namespace AerolineaFrba.Abm_Aeronave
     {
         public Model.AeronaveModel _aeronave;
         public Controller.AeronaveController _controller;
-        private Boolean fechaHastaEnabled;
+        //private Boolean fechaHastaEnabled;
 
         public BajaAeronaveForm(Model.AeronaveModel a, Boolean fechaVisible)
         {
@@ -34,10 +34,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             if (!tieneViajesAsignados)
             {
-                if (dpFechaHasta.Visible) 
-                    _controller.fueraServicioAeronave(_aeronave.matricula, dpFechaDesde.Value, dpFechaHasta.Value);
-                else
-                    _controller.bajaAeronave(_aeronave.matricula, dpFechaDesde.Value);
+                actualizarAeronave();
 
                 MessageBox.Show("Aeronave fuera de servicio");
                 this.Close();
@@ -78,10 +75,20 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 Dao.ViajeDao daoViajes = new Dao.ViajeDao();
                 daoViajes.actualizarAeronaveViajes(_aeronave.matricula, respuesta, dpFechaDesde.Value, fechaHasta);
-                _controller.fueraServicioAeronave(_aeronave.matricula, dpFechaDesde.Value, fechaHasta);
+
+                actualizarAeronave();
+
                 MessageBox.Show("Se ha suplantado la aeronave por " + respuesta);
                 this.Close();
             }
+        }
+
+        private void actualizarAeronave()
+        {
+            if (dpFechaHasta.Visible)
+                _controller.fueraServicioAeronave(_aeronave.matricula, dpFechaDesde.Value, dpFechaHasta.Value);
+            else
+                _controller.bajaAeronave(_aeronave.matricula, dpFechaDesde.Value);
         }
 
     }

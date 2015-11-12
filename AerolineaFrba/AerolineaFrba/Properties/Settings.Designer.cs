@@ -26,8 +26,8 @@ namespace AerolineaFrba.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=GASTITAN\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Password=g" +
-            "d2015")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=N-DES-GRILLO\\SQLSERVER2012;Initial Catalog=GD2C2015;User ID=gd;Passwo" +
+            "rd=gd2015")]
         public string GD2C2015ConnectionString {
             get {
                 return ((string)(this["GD2C2015ConnectionString"]));

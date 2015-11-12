@@ -63,6 +63,12 @@
     <Compile Include="Abm Aeronave\BajaAeronaveForm.Designer.cs">
       <DependentUpon>BajaAeronaveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Ruta\AbmRuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ruta\AbmRuta.Designer.cs">
+      <DependentUpon>AbmRuta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\ConfirmacionCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,11 +121,11 @@
     <Compile Include="Abm Rol\NuevoRol.Designer.cs">
       <DependentUpon>NuevoRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ruta\Form1.cs">
+    <Compile Include="Abm Ruta\RutaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ruta\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Ruta\RutaForm.Designer.cs">
+      <DependentUpon>RutaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Canje Millas\Form1.cs">
       <SubType>Form</SubType>
@@ -255,6 +261,7 @@
     <Compile Include="Registro Llegada Destino\RegistroLlegadaDestino.Designer.cs">
       <DependentUpon>RegistroLlegadaDestino.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Abm Aeronave\AbmAeronaves.resx">
       <DependentUpon>AbmAeronaves.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +288,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\NuevoRol.resx">
       <DependentUpon>NuevoRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ruta\AbmRuta.resx">
+      <DependentUpon>AbmRuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ruta\RutaForm.resx">
+      <DependentUpon>RutaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
@@ -347,6 +360,7 @@
       <DependentUpon>Mondongo.xsd</DependentUpon>
     </None>
     <None Include="Properties\DataSources\AerolineaFrba.Model.AeronaveModel.datasource" />
+    <None Include="Properties\DataSources\AerolineaFrba.Model.RutaModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
