@@ -33,5 +33,15 @@ namespace AerolineaFrba.Controller
         {
             return viajeDao.buscarButacasDisponibles(viajeModel);
         }
+
+        public Boolean descontarButacas(int viajeId, int cantidadVentanilla, int cantidadPasillo)
+        {
+            return viajeDao.descontarButacas(viajeId, cantidadVentanilla, cantidadPasillo);
+        }
+
+        public Boolean descontarKg(int viajeId, int kg)
+        {
+            return viajeDao.descontarKg(viajeId, kg);
+        }
     }
 }

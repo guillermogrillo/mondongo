@@ -308,5 +308,70 @@ namespace AerolineaFrba.Dao
             }
             return butacas;
         }
+
+
+        public Boolean descontarButacas(int viajeId, int cantidadVentanilla, int cantidadPasillo)
+        {
+            Boolean modificado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "UPDATE MONDONGO.VIAJES " +
+                            "SET cantidad_butacas_ventanilla_disponibles = cantidad_butacas_ventanilla_disponibles - @cantidadVentanilla, " +
+                            "cantidad_butacas_pasillo_disponibles = cantidad_butacas_pasillo_disponibles - @cantidadPasillo " +
+                            "WHERE viaje_id = @viajeId ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@cantidadVentanilla", cantidadVentanilla);
+                    command.Parameters.AddWithValue("@cantidadPasillo", cantidadPasillo);
+                    command.Parameters.AddWithValue("@viajeId", viajeId);
+                }
+
+                var cantidadModificada = command.ExecuteNonQuery();
+
+                modificado = Convert.ToBoolean(cantidadModificada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return modificado;
+        }
+
+
+        public Boolean descontarKg(int viajeId, int kg)
+        {
+            Boolean modificado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "UPDATE MONDONGO.VIAJES " +
+                            "SET cantidad_kg_disponibles = cantidad_kg_disponibles - @kg " +                            
+                            "WHERE viaje_id = @viajeId ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@kg", kg);                   
+                    command.Parameters.AddWithValue("@viajeId", viajeId);
+                }
+
+                var cantidadModificada = command.ExecuteNonQuery();
+
+                modificado = Convert.ToBoolean(cantidadModificada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return modificado;
+        }
+
     }
 }

@@ -558,13 +558,23 @@ begin
 	on b.butaca_viaje_id = v.viaje_id
 
 	update mondongo.viajes
-	set cantidad_butacas_ventanilla_disponibles = cantidad_butacas_ventanilla_disponibles - b.cantidad
+	set cantidad_butacas_pasillo_disponibles = cantidad_butacas_pasillo_disponibles - b.cantidad
 	from mondongo.viajes v
 	inner join (select butaca_viaje_id, count(butaca_viaje_id) as cantidad
 				from mondongo.butacas_vendidas bv
 				group by bv.butaca_viaje_id, bv.butaca_tipo
 				having bv.butaca_tipo = 'Pasillo') b
 	on b.butaca_viaje_id = v.viaje_id
+
+	update mondongo.viajes
+	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
+	from mondongo.viajes v
+	inner join (select pq.paquete_viaje_id, sum(paquete_kg) as cantidad
+				from mondongo.paquetes pq
+				group by pq.paquete_viaje_id) q
+	on q.paquete_viaje_id = v.viaje_id
+				
+
 end
 go
 create table mondongo.roles
@@ -742,9 +752,6 @@ create table mondongo.historial_millas(
 	tipo_operacion char not null
 )
 GO
-
-
-
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
     DROP INDEX gd_esquema.maestra.maestra_pas_cod
 GO
@@ -774,28 +781,6 @@ GO
 CREATE INDEX index_ruta_matricula
 ON mondongo.viajes (aeronave_matricula)
 GO
-create trigger tr_restar_kg
-on mondongo.paquetes
-after insert
-as
-begin
-
-    BEGIN TRY
-        update mondongo.viajes
-        set cantidad_kg_disponibles = cantidad_kg_disponibles - (select SUM(inserted.paquete_kg)
-                                                                from inserted
-                                                                where viajes.viaje_id = inserted.paquete_viaje_id
-                                                                group by inserted.paquete_viaje_id)
-    END TRY
-    BEGIN CATCH
-        SELECT
-        ERROR_NUMBER() AS ErrorNumber
-       ,ERROR_MESSAGE() AS ErrorMessage;       
-    END CATCH;
-    
-end
-go
-
 create sequence mondongo.sq_pnr as int
 	START WITH 79435967
 	INCREMENT BY 1 ;
