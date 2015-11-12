@@ -23,7 +23,8 @@ namespace AerolineaFrba.Controller
             int idPagador = _clienteDao.guardarPagador(compraModel.pagador);
             int pnr = _compraDao.buscarPnr();
             foreach (Model.ClienteModel cliente in compraModel.clientes)
-            {                
+            {
+                _compraDao.guardarButacasVendidas(compraModel.vueloElegido.idViaje, cliente.butaca.tipo.ToString(), cliente.butaca.numero);
                 int idCliente = _clienteDao.guardarCliente(cliente);
                 int idPaquete = 0;
                 int idPasaje = 0;
