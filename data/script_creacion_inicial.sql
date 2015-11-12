@@ -5,9 +5,6 @@ CREATE SCHEMA [MONDONGO]
 GO
 
 
-
-
-
 IF OBJECT_ID('mondongo.pasajes', 'U') IS NOT NULL
   DROP TABLE mondongo.pasajes;
 GO
@@ -16,6 +13,12 @@ IF OBJECT_ID('mondongo.paquetes', 'U') IS NOT NULL
 GO
 IF OBJECT_ID('mondongo.ventas', 'U') IS NOT NULL
   DROP TABLE mondongo.ventas;
+GO
+IF OBJECT_ID('mondongo.historial_millas', 'U') IS NOT NULL
+  DROP TABLE mondongo.historial_millas;
+GO
+IF OBJECT_ID('mondongo.productos', 'U') IS NOT NULL
+	DROP TABLE mondongo.productos
 GO
 IF OBJECT_ID('mondongo.clientes', 'U') IS NOT NULL
   DROP TABLE mondongo.clientes;
@@ -122,6 +125,9 @@ GO
 IF OBJECT_ID('MONDONGO.pr_cargar_usuarios_roles', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_usuarios_roles;
 GO
+IF OBJECT_ID('MONDONGO.pr_cargar_productos', 'P') IS NOT NULL
+  DROP PROCEDURE mondongo.pr_cargar_productos;
+GO
 IF OBJECT_ID('MONDONGO.fx_get_tipo_servicio', 'FN') IS NOT NULL
   DROP FUNCTION mondongo.fx_get_tipo_servicio;
 GO
@@ -161,6 +167,8 @@ go
 IF EXISTS (SELECT * FROM sys.sequences seq JOIN sys.schemas sch ON seq.schema_id=sch.schema_id WHERE seq.name=N'sq_pnr'  AND sch.name=N'mondongo' )
    DROP SEQUENCE mondongo.sq_pnr
 GO
+
+
 create function mondongo.fx_busca_id_tipo_servicio(@tipo_servicio nvarchar(255))
 returns numeric(18,0)
 as
@@ -509,6 +517,16 @@ begin
     group by m.Ruta_Ciudad_Origen,m.Ruta_Ciudad_Destino, m.Tipo_Servicio, m.FechaSalida, m.FechaLLegada,m.Fecha_LLegada_Estimada, m.Aeronave_Matricula;
 end
 go
+CREATE PROCEDURE mondongo.pr_cargar_productos
+AS
+    BEGIN        
+        insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'LICUADORA',150)
+		insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'PELOTA',75)
+		insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'COLCHON INFLABLE',250)
+		insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'CARPA',325)
+		insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'6 VASOS',100)        
+    END
+GO
 create table mondongo.roles
 (rol_id numeric(18,0) identity primary key,
 rol_nombre nvarchar(20) not null,
@@ -663,6 +681,30 @@ ALTER TABLE MONDONGO.butacas_vendidas
 ADD CONSTRAINT PK_BUTACAS_VENDIDAS
 PRIMARY KEY (butaca_nro, butaca_tipo, butaca_viaje_id)
 GO
+
+
+create table mondongo.productos(
+	id_producto numeric(18,0) primary key identity,
+	stock numeric(3,0) not null,
+	descripcion nvarchar(255) not null,
+	costo_millas numeric(7,0) not null
+)
+GO
+
+create table mondongo.historial_millas(
+	id_historial numeric(18,0) primary key identity,
+	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),
+	id_viaje numeric(18,0) null references mondongo.viajes(viaje_id),
+	id_producto numeric(18,0) null references mondongo.productos(id_producto),
+	cantidad_producto numeric(3,0) null,
+	cantidad_millas numeric(7,0) not null,
+	fecha_operacion datetime default getdate(),
+	tipo_operacion char not null
+)
+GO
+
+
+
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
     DROP INDEX gd_esquema.maestra.maestra_pas_cod
 GO
@@ -753,8 +795,8 @@ create sequence mondongo.sq_pnr as int
 	START WITH 79435966
 	INCREMENT BY 1 ;
 go
-
-
+exec mondongo.pr_cargar_productos
+go
 exec mondongo.pr_cargar_funcionalidades
 go
 exec mondongo.pr_cargar_roles
