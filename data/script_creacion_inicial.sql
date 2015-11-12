@@ -581,9 +581,9 @@ beneficio_tarjeta_credito numeric(18,0) references mondongo.tarjeta_credito(tarj
 GO
 CREATE TABLE mondongo.clientes
 (cliente_id numeric(18,0) primary key identity,
-cliente_nombre nvarchar(255) null,
-cliente_apellido nvarchar(255) null,
-cliente_dni numeric(18,0) null,
+cliente_nombre nvarchar(255) not null,
+cliente_apellido nvarchar(255) not null,
+cliente_dni numeric(18,0) not null,
 cliente_direccion nvarchar(255) null,
 cliente_telefono numeric(18,0) null,
 cliente_mail nvarchar(255) not null,
@@ -792,7 +792,7 @@ end
 go
 
 create sequence mondongo.sq_pnr as int
-	START WITH 79435966
+	START WITH 79435967
 	INCREMENT BY 1 ;
 go
 exec mondongo.pr_cargar_productos

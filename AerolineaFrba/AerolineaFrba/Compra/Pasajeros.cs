@@ -74,10 +74,7 @@ namespace AerolineaFrba.Compra
             dgvClientes.Columns[5].Visible = false;
             dgvClientes.Columns[6].Visible = false;
             dgvClientes.Columns[7].Visible = false;
-            dgvClientes.Columns[8].Visible = false;
-            dgvClientes.Columns[9].Visible = false;
-            dgvClientes.Columns[10].Visible = false;
-            dgvClientes.Columns[11].Visible = false; 
+            dgvClientes.Columns[8].Visible = false; 
         }
 
         private void dgvClientes_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

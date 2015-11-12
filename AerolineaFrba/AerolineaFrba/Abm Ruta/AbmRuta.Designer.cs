@@ -67,12 +67,12 @@
             this.dgRutas.Name = "dgRutas";
             this.dgRutas.ReadOnly = true;
             this.dgRutas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgRutas.Size = new System.Drawing.Size(425, 150);
+            this.dgRutas.Size = new System.Drawing.Size(605, 150);
             this.dgRutas.TabIndex = 0;
             // 
             // btAgregar
             // 
-            this.btAgregar.Location = new System.Drawing.Point(106, 211);
+            this.btAgregar.Location = new System.Drawing.Point(196, 211);
             this.btAgregar.Name = "btAgregar";
             this.btAgregar.Size = new System.Drawing.Size(75, 23);
             this.btAgregar.TabIndex = 1;
@@ -82,7 +82,7 @@
             // 
             // btEditar
             // 
-            this.btEditar.Location = new System.Drawing.Point(188, 210);
+            this.btEditar.Location = new System.Drawing.Point(278, 210);
             this.btEditar.Name = "btEditar";
             this.btEditar.Size = new System.Drawing.Size(75, 23);
             this.btEditar.TabIndex = 2;
@@ -92,7 +92,7 @@
             // 
             // btEliminar
             // 
-            this.btEliminar.Location = new System.Drawing.Point(270, 210);
+            this.btEliminar.Location = new System.Drawing.Point(360, 210);
             this.btEliminar.Name = "btEliminar";
             this.btEliminar.Size = new System.Drawing.Size(75, 23);
             this.btEliminar.TabIndex = 3;
@@ -156,7 +156,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 261);
+            this.ClientSize = new System.Drawing.Size(630, 261);
             this.Controls.Add(this.btEliminar);
             this.Controls.Add(this.btEditar);
             this.Controls.Add(this.btAgregar);
