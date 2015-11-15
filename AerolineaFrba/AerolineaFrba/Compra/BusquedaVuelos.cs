@@ -72,7 +72,7 @@ namespace AerolineaFrba.Compra
             if (validarCampos())
             {
                 lblError.Text = "";
-                Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId);
+                Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId, 0);
                 if (ruta != null)
                 {
                     int cantidadDePasajeros = 0;

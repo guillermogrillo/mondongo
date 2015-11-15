@@ -90,6 +90,14 @@ namespace AerolineaFrba.Abm_Ruta
         private void btAceptar_Click(object sender, EventArgs e)
         {
             Model.RutaModel ruta = armarRuta();
+
+            Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
+            if (rutaExistente != null)
+            {
+                MessageBox.Show("Ya existe una ruta con ese origen y destino");
+                return;
+            }
+
             if (isEdit)
                 _controller.editarRuta(ruta);
             else
@@ -119,6 +127,22 @@ namespace AerolineaFrba.Abm_Ruta
         private void btCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void onKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void horasVuelo_onKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

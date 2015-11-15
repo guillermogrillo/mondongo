@@ -25,13 +25,6 @@ namespace AerolineaFrba.Abm_Ruta
         private void AbmRuta_Load(object sender, EventArgs e)
         {
             dgRutas.RowHeadersWidth = 25;
-            dgRutas.Columns[0].Width = 80;
-            dgRutas.Columns[1].Width = 80;
-            dgRutas.Columns[2].Width = 80;
-            dgRutas.Columns[3].Width = 80;
-            dgRutas.Columns[4].Width = 80;
-            dgRutas.Columns[5].Width = 80;
-            dgRutas.Columns[6].Width = 80;
             dgRutas.DataSource = _controller.buscarTodasLasRutas();
         }
 

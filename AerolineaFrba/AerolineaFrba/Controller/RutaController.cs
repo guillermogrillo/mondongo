@@ -16,9 +16,9 @@ namespace AerolineaFrba.Controller
             _rutaDao = new Dao.RutaDao();
         }
 
-        public Model.RutaModel buscarRuta(int idCiudadOrigen, int idCiudadDestino)
+        public Model.RutaModel buscarRuta(int idCiudadOrigen, int idCiudadDestino, int idTipoServicio)
         {
-            return _rutaDao.buscarRuta(idCiudadOrigen, idCiudadDestino);
+            return _rutaDao.buscarRuta(idCiudadOrigen, idCiudadDestino, idTipoServicio);
         }
 
         public List<Model.RutaModel> buscarTodasLasRutas()

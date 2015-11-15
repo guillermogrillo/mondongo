@@ -18,6 +18,10 @@ namespace AerolineaFrba.Model
         public Double horasVuelo { get; set; }
         public Boolean estado { get; set; }
 
+        public String nombreCiudadOrigen { get; set; }
+        public String nombreCiudadDestino { get; set; }
+        public String nombreTipoServicio { get; set; }
+
         public RutaModel() { }
         
         public RutaModel(int _idRuta, int _codigoRuta, int _ciudadOrigen, int _ciudadDestino, int _tipoServicio, Double _precioBasePasaje, Double _precioBaseKg, Double _horasVuelo)

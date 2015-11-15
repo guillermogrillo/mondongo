@@ -103,30 +103,37 @@
             // tbCodigoRuta
             // 
             this.tbCodigoRuta.Location = new System.Drawing.Point(86, 10);
+            this.tbCodigoRuta.MaxLength = 8;
             this.tbCodigoRuta.Name = "tbCodigoRuta";
             this.tbCodigoRuta.Size = new System.Drawing.Size(121, 20);
-            this.tbCodigoRuta.TabIndex = 6;
+            this.tbCodigoRuta.TabIndex = 1;
             // 
             // tbHorasVuelo
             // 
             this.tbHorasVuelo.Location = new System.Drawing.Point(302, 63);
+            this.tbHorasVuelo.MaxLength = 2;
             this.tbHorasVuelo.Name = "tbHorasVuelo";
             this.tbHorasVuelo.Size = new System.Drawing.Size(121, 20);
-            this.tbHorasVuelo.TabIndex = 7;
+            this.tbHorasVuelo.TabIndex = 5;
+            this.tbHorasVuelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.horasVuelo_onKeyPress);
             // 
             // tbPasajePrecio
             // 
             this.tbPasajePrecio.Location = new System.Drawing.Point(86, 91);
+            this.tbPasajePrecio.MaxLength = 10;
             this.tbPasajePrecio.Name = "tbPasajePrecio";
             this.tbPasajePrecio.Size = new System.Drawing.Size(121, 20);
-            this.tbPasajePrecio.TabIndex = 8;
+            this.tbPasajePrecio.TabIndex = 6;
+            this.tbPasajePrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // tbPrecioKg
             // 
             this.tbPrecioKg.Location = new System.Drawing.Point(302, 91);
+            this.tbPrecioKg.MaxLength = 10;
             this.tbPrecioKg.Name = "tbPrecioKg";
             this.tbPrecioKg.Size = new System.Drawing.Size(121, 20);
-            this.tbPrecioKg.TabIndex = 9;
+            this.tbPrecioKg.TabIndex = 7;
+            this.tbPrecioKg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // label4
             // 
@@ -169,7 +176,7 @@
             this.btAceptar.Location = new System.Drawing.Point(128, 146);
             this.btAceptar.Name = "btAceptar";
             this.btAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btAceptar.TabIndex = 14;
+            this.btAceptar.TabIndex = 8;
             this.btAceptar.Text = "Aceptar";
             this.btAceptar.UseVisualStyleBackColor = true;
             this.btAceptar.Click += new System.EventHandler(this.btAceptar_Click);
@@ -179,7 +186,7 @@
             this.btCancelar.Location = new System.Drawing.Point(231, 146);
             this.btCancelar.Name = "btCancelar";
             this.btCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btCancelar.TabIndex = 15;
+            this.btCancelar.TabIndex = 9;
             this.btCancelar.Text = "Cancelar";
             this.btCancelar.UseVisualStyleBackColor = true;
             this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
