@@ -308,13 +308,8 @@ go
 CREATE PROCEDURE mondongo.pr_cargar_tipos_servicio
 AS
 BEGIN
-    INSERT INTO MONDONGO.tipos_servicio(tipo_servicio, costo_adicional)
-    SELECT distinct Tipo_Servicio,
-	case tipo_servicio when 'Ejecutivo' then 50
-						when 'Primera Clase' then 100
-						else 0
-	end
-	from gd_esquema.Maestra;
+    INSERT INTO MONDONGO.tipos_servicio(tipo_servicio)
+    SELECT distinct Tipo_Servicio from gd_esquema.Maestra;
 END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_ciudades
@@ -483,36 +478,64 @@ GO
 create PROCEDURE [MONDONGO].[pr_cargar_pasajes]
 AS
 BEGIN
-    insert into mondongo.pasajes(pasaje_pnr,pasaje_pasajero_id,pasaje_pagador_id,pasaje_monto,pasaje_viaje_id,pasaje_fecha_compra,pasaje_tipo_pago_id,pasaje_butaca_tipo,pasaje_butaca_numero,estado)
-    select      Pasaje_Codigo as pasaje_pnr,
-                mondongo.fx_busca_id_cliente(cli_dni, Cli_Apellido) as pasaje_pasajero_id,
-                mondongo.fx_busca_id_cliente(cli_dni, Cli_Apellido) as pasaje_pagador_id,
-                Pasaje_Precio as pasaje_monto,                
-                mondongo.fx_busca_id_viaje(RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1),RIGHT(Ruta_Ciudad_Destino, LEN(Ruta_Ciudad_Destino) - 1),FechaLLegada,Aeronave_Matricula,Tipo_Servicio) as pasaje_viaje_id,
-                Pasaje_FechaCompra as pasaje_fecha_compra,
-                1 as tipo_pago_id,
-                Butaca_Tipo,
-                Butaca_Nro,
-				0
-    from        gd_esquema.Maestra
-    where        Pasaje_Codigo <> 0
+    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,pasaje_butaca_tipo,pasaje_butaca_numero,estado)
+	select	m.pasaje_codigo,
+			c.cliente_id,
+			m.pasaje_precio,
+			m.butaca_tipo,
+			m.butaca_nro,
+			0
+	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and m.cli_apellido = c.cliente_apellido)
+	where	m.pasaje_codigo <> 0
 END
 GO
 CREATE PROCEDURE [MONDONGO].[pr_cargar_paquetes]
 AS
 BEGIN
-    insert into mondongo.paquetes(paquete_pnr,paquete_viaje_id,paquete_kg, paquete_monto, paquete_pagador_id,paquete_fecha_compra,paquete_tipo_pago_id,estado)
-    select        m.Paquete_Codigo,
-                mondongo.fx_busca_id_viaje(RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1),RIGHT(Ruta_Ciudad_Destino, LEN(Ruta_Ciudad_Destino) - 1),FechaLLegada,Aeronave_Matricula,Tipo_Servicio),
-                m.Paquete_KG,
-                m.Paquete_Precio,
-                mondongo.fx_busca_id_cliente(cli_dni, Cli_Apellido),
-                Paquete_FechaCompra as pasaje_fecha_compra,
-                1 as tipo_pago_id,
-				0
-    from    gd_esquema.Maestra m
-    where    m.Paquete_Codigo <>0
+    insert into mondongo.paquetes(paquete_venta_pnr,paquete_kg,paquete_monto,estado)
+	select	m.paquete_codigo,
+			m.paquete_kg,
+			m.paquete_precio,
+			0
+	from	gd_esquema.Maestra m
+	where	m.paquete_codigo <> 0
 END
+go
+CREATE PROCEDURE mondongo.pr_cargar_ventas
+as
+begin
+	insert into mondongo.ventas (venta_fecha_compra, venta_viaje_id, venta_id_pagador, venta_tipo_pago_id, venta_estado, venta_pnr)
+	(select		(case when m.pasaje_codigo>0 
+					then m.pasaje_fechaCompra 
+					else m.paquete_fechaCompra 
+				end) as fechaCompra,
+				v.viaje_id,
+				c.cliente_id,
+				1,
+				0,
+				(case when m.pasaje_codigo>0 
+					then m.pasaje_codigo 
+					else m.paquete_codigo 
+				end) as venta_pnr		
+	from		gd_esquema.Maestra m
+	inner join	mondongo.ciudades c1 on c1.nombre = RIGHT(m.Ruta_Ciudad_Origen, LEN(m.Ruta_Ciudad_Origen) - 1)
+	inner join	mondongo.ciudades c2 on c2.nombre = RIGHT(m.Ruta_Ciudad_Destino, LEN(m.Ruta_Ciudad_Destino) - 1)
+	inner join	mondongo.tipos_servicio ts on ts.tipo_servicio = m.Tipo_Servicio
+	inner join	mondongo.rutas r on (r.codigo_ruta = m.ruta_codigo and r.id_ciudad_origen = c1.id_ciudad and r.id_ciudad_destino = c2.id_ciudad and r.id_tipo_servicio = ts.id_tipo_servicio)
+	inner join	mondongo.viajes v on (v.viaje_ruta_id = r.id_ruta and v.fecha_salida = m.fechaSalida and v.aeronave_matricula = m.aeronave_matricula)
+	inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and m.cli_apellido = c.cliente_apellido)
+	group by	(case when pasaje_codigo>0 
+					then m.pasaje_fechaCompra 
+					else m.paquete_fechaCompra 
+				end), 
+				m.fechaSalida,
+				v.viaje_id,
+				c.cliente_id,
+				(case when m.pasaje_codigo>0 
+					then m.pasaje_codigo 
+					else m.paquete_codigo 
+				end))
+end
 go
 CREATE PROCEDURE mondongo.pr_cargar_viajes
 as
@@ -546,8 +569,9 @@ create procedure mondongo.pr_cargar_butacas_vendidas
 as
 begin
     insert into mondongo.butacas_vendidas(butaca_viaje_id,butaca_tipo,butaca_nro)
-    select pasaje_viaje_id,pasaje_butaca_tipo,pasaje_butaca_numero
-    from mondongo.pasajes
+	select ve.venta_viaje_id, p.pasaje_butaca_tipo, p.pasaje_butaca_numero
+    from		mondongo.pasajes p
+	inner join	mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr	
 end
 go
 create procedure mondongo.pr_actualizar_viajes
@@ -574,12 +598,10 @@ begin
 	update mondongo.viajes
 	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
 	from mondongo.viajes v
-	inner join (select pq.paquete_viaje_id, sum(paquete_kg) as cantidad
-				from mondongo.paquetes pq
-				group by pq.paquete_viaje_id) q
-	on q.paquete_viaje_id = v.viaje_id
-				
-
+	inner join (select ve.venta_viaje_id, sum(pq.paquete_kg) as cantidad
+				from mondongo.paquetes pq inner join mondongo.ventas ve on ve.venta_pnr = pq.paquete_venta_pnr
+				group by ve.venta_viaje_id) q
+	on q.venta_viaje_id = v.viaje_id
 end
 go
 create table mondongo.roles
@@ -653,8 +675,7 @@ CREATE TABLE [MONDONGO].[ciudades](
 GO
 create table mondongo.tipos_servicio(
     id_tipo_servicio numeric(8) primary key identity,
-    tipo_servicio nvarchar(255),
-	costo_adicional numeric(18,0)
+    tipo_servicio nvarchar(255)
 )
 GO
 create table MONDONGO.rutas(
@@ -665,13 +686,9 @@ create table MONDONGO.rutas(
     id_tipo_servicio numeric(8) REFERENCES mondongo.tipos_servicio(id_tipo_servicio),
     precio_base_kg numeric(18,2),
     precio_base_pasaje numeric(18,2),
-	[horas_vuelo] [numeric](18, 0) NULL,
-	estado numeric(1,0)
+[horas_vuelo] [numeric](18, 0) NULL
 )
 GO
-ALTER TABLE [MONDONGO].[rutas] ADD  CONSTRAINT [DF_rutas_estado]  DEFAULT ((0)) FOR [estado]
-GO
-
 CREATE TABLE MONDONGO.fabricantes(
     id_fabricante numeric(18,0) identity primary key,
     nombre nvarchar(255) not null
@@ -699,38 +716,43 @@ create table mondongo.viajes(
     fecha_salida datetime not null,
     fecha_llegada datetime,
     fecha_llegada_estimada datetime not null,
-        cantidad_butacas_ventanilla_disponibles numeric(18,0) not null,
-cantidad_butacas_pasillo_disponibles numeric(18,0) not null,
-cantidad_kg_disponibles numeric(18,0) not null,
-estado numeric(1,0)
+    cantidad_butacas_ventanilla_disponibles numeric(18,0) not null,
+	cantidad_butacas_pasillo_disponibles numeric(18,0) not null,
+	cantidad_kg_disponibles numeric(18,0) not null,
+	estado numeric(1,0)
 )
 GO
+
+create table mondongo.ventas(
+	venta_pnr numeric(18,0) primary key,
+	venta_fecha_compra datetime not null default getdate(),
+	venta_viaje_id numeric(18) not null references mondongo.viajes(viaje_id),
+	venta_id_pagador numeric(18,0) not null references mondongo.clientes(cliente_id),
+	venta_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
+	venta_estado numeric(1,0)
+)
+
+GO
 create table mondongo.pasajes(
-pasaje_id numeric(18,0) primary key identity,
-pasaje_pnr numeric(18,0) not null,
-pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
-pasaje_pagador_id numeric(18,0) references mondongo.clientes(cliente_id),
-pasaje_viaje_id numeric(18,0) references mondongo.viajes(viaje_id),
-pasaje_monto numeric(18,2) default 0,
-pasaje_fecha_compra datetime default getdate(),
-pasaje_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
-pasaje_butaca_tipo varchar(255) not null,
-pasaje_butaca_numero numeric(18,0) not null,
-estado numeric(1,0)
+	pasaje_id numeric(18,0) primary key identity,
+	pasaje_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
+	pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
+	pasaje_monto numeric(18,2) default 0,
+	pasaje_butaca_tipo varchar(255) not null,
+	pasaje_butaca_numero numeric(18,0) not null,
+	estado numeric(1,0)
 )
 GO
 create table mondongo.paquetes(
-paquete_id numeric(18,0) primary key identity,
-paquete_pnr numeric(18,0) not null,
-paquete_kg numeric(18,0) default 0,
-paquete_monto numeric(18,2) default 0,
-paquete_viaje_id numeric(18,0) references mondongo.viajes(viaje_id),
-paquete_pagador_id numeric(18,0) references mondongo.clientes(cliente_id),
-paquete_fecha_compra datetime default getdate(),
-paquete_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
-estado numeric(1,0)
+	paquete_id numeric(18,0) primary key identity,
+	paquete_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
+	paquete_kg numeric(18,0) default 0,
+	paquete_monto numeric(18,2) default 0,
+	estado numeric(1,0)
 )
 GO
+
+
 CREATE TABLE MONDONGO.butacas_vendidas(    
     butaca_nro numeric(18, 0) NOT NULL,
     butaca_tipo nvarchar(255) NOT NULL,
@@ -761,6 +783,8 @@ create table mondongo.historial_millas(
 	fecha_operacion datetime default getdate(),
 	tipo_operacion char not null
 )
+
+
 GO
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
     DROP INDEX gd_esquema.maestra.maestra_pas_cod
@@ -791,10 +815,11 @@ GO
 CREATE INDEX index_ruta_matricula
 ON mondongo.viajes (aeronave_matricula)
 GO
-create sequence mondongo.sq_pnr as int
-	START WITH 79435967
-	INCREMENT BY 1 ;
-go
+
+CREATE INDEX index_cliente
+ON mondongo.clientes (cliente_id)
+GO
+
 exec mondongo.pr_cargar_productos
 go
 exec mondongo.pr_cargar_funcionalidades
@@ -827,6 +852,8 @@ exec mondongo.pr_cargar_rutas
 go
 exec mondongo.pr_cargar_viajes
 go
+exec mondongo.pr_cargar_ventas
+go
 exec mondongo.pr_cargar_pasajes
 go
 exec mondongo.pr_cargar_paquetes
@@ -835,3 +862,4 @@ exec mondongo.pr_cargar_butacas_vendidas
 go
 exec mondongo.pr_actualizar_viajes
 go
+
