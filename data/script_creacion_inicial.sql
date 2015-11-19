@@ -308,8 +308,13 @@ go
 CREATE PROCEDURE mondongo.pr_cargar_tipos_servicio
 AS
 BEGIN
-    INSERT INTO MONDONGO.tipos_servicio(tipo_servicio)
-    SELECT distinct Tipo_Servicio from gd_esquema.Maestra;
+    INSERT INTO MONDONGO.tipos_servicio(tipo_servicio, costo_adicional)
+    SELECT distinct Tipo_Servicio,
+	case tipo_servicio when 'Ejecutivo' then 50
+						when 'Primera Clase' then 100
+						else 0
+	end
+	from gd_esquema.Maestra;
 END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_ciudades
@@ -675,7 +680,8 @@ CREATE TABLE [MONDONGO].[ciudades](
 GO
 create table mondongo.tipos_servicio(
     id_tipo_servicio numeric(8) primary key identity,
-    tipo_servicio nvarchar(255)
+    tipo_servicio nvarchar(255),
+	costo_adicional numeric(18,0)
 )
 GO
 create table MONDONGO.rutas(
