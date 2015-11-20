@@ -44,6 +44,8 @@
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.lblFechaSalida = new System.Windows.Forms.Label();
             this.dpFechaSalida = new System.Windows.Forms.DateTimePicker();
+            this.lblTipoServicio = new System.Windows.Forms.Label();
+            this.cbTipoServicio = new System.Windows.Forms.ComboBox();
             this.gbViajes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViajes)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +53,7 @@
             // lblMatricula
             // 
             this.lblMatricula.AutoSize = true;
-            this.lblMatricula.Location = new System.Drawing.Point(92, 59);
+            this.lblMatricula.Location = new System.Drawing.Point(92, 84);
             this.lblMatricula.Name = "lblMatricula";
             this.lblMatricula.Size = new System.Drawing.Size(52, 13);
             this.lblMatricula.TabIndex = 7;
@@ -59,7 +61,7 @@
             // 
             // tbMatricula
             // 
-            this.tbMatricula.Location = new System.Drawing.Point(159, 56);
+            this.tbMatricula.Location = new System.Drawing.Point(159, 81);
             this.tbMatricula.Name = "tbMatricula";
             this.tbMatricula.Size = new System.Drawing.Size(194, 20);
             this.tbMatricula.TabIndex = 7;
@@ -122,7 +124,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(159, 111);
+            this.btnBuscar.Location = new System.Drawing.Point(159, 136);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(105, 23);
             this.btnBuscar.TabIndex = 8;
@@ -133,7 +135,7 @@
             // gbViajes
             // 
             this.gbViajes.Controls.Add(this.dgvViajes);
-            this.gbViajes.Location = new System.Drawing.Point(12, 140);
+            this.gbViajes.Location = new System.Drawing.Point(12, 163);
             this.gbViajes.Name = "gbViajes";
             this.gbViajes.Size = new System.Drawing.Size(410, 136);
             this.gbViajes.TabIndex = 15;
@@ -157,7 +159,7 @@
             // lblFechaLlegada
             // 
             this.lblFechaLlegada.AutoSize = true;
-            this.lblFechaLlegada.Location = new System.Drawing.Point(71, 292);
+            this.lblFechaLlegada.Location = new System.Drawing.Point(71, 315);
             this.lblFechaLlegada.Name = "lblFechaLlegada";
             this.lblFechaLlegada.Size = new System.Drawing.Size(89, 13);
             this.lblFechaLlegada.TabIndex = 9;
@@ -165,14 +167,14 @@
             // 
             // dpFechaLlegada
             // 
-            this.dpFechaLlegada.Location = new System.Drawing.Point(162, 288);
+            this.dpFechaLlegada.Location = new System.Drawing.Point(162, 311);
             this.dpFechaLlegada.Name = "dpFechaLlegada";
             this.dpFechaLlegada.Size = new System.Drawing.Size(194, 20);
             this.dpFechaLlegada.TabIndex = 10;
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.Location = new System.Drawing.Point(156, 325);
+            this.btnRegistrar.Location = new System.Drawing.Point(156, 348);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(105, 23);
             this.btnRegistrar.TabIndex = 16;
@@ -183,7 +185,7 @@
             // lblFechaSalida
             // 
             this.lblFechaSalida.AutoSize = true;
-            this.lblFechaSalida.Location = new System.Drawing.Point(73, 85);
+            this.lblFechaSalida.Location = new System.Drawing.Point(73, 110);
             this.lblFechaSalida.Name = "lblFechaSalida";
             this.lblFechaSalida.Size = new System.Drawing.Size(84, 13);
             this.lblFechaSalida.TabIndex = 17;
@@ -191,16 +193,35 @@
             // 
             // dpFechaSalida
             // 
-            this.dpFechaSalida.Location = new System.Drawing.Point(159, 82);
+            this.dpFechaSalida.Location = new System.Drawing.Point(159, 107);
             this.dpFechaSalida.Name = "dpFechaSalida";
             this.dpFechaSalida.Size = new System.Drawing.Size(194, 20);
             this.dpFechaSalida.TabIndex = 18;
+            // 
+            // lblTipoServicio
+            // 
+            this.lblTipoServicio.AutoSize = true;
+            this.lblTipoServicio.Location = new System.Drawing.Point(74, 58);
+            this.lblTipoServicio.Name = "lblTipoServicio";
+            this.lblTipoServicio.Size = new System.Drawing.Size(84, 13);
+            this.lblTipoServicio.TabIndex = 19;
+            this.lblTipoServicio.Text = "Tipo de Servicio";
+            // 
+            // cbTipoServicio
+            // 
+            this.cbTipoServicio.FormattingEnabled = true;
+            this.cbTipoServicio.Location = new System.Drawing.Point(159, 55);
+            this.cbTipoServicio.Name = "cbTipoServicio";
+            this.cbTipoServicio.Size = new System.Drawing.Size(194, 21);
+            this.cbTipoServicio.TabIndex = 20;
             // 
             // RegistroLlegadaDestino
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 358);
+            this.ClientSize = new System.Drawing.Size(427, 377);
+            this.Controls.Add(this.cbTipoServicio);
+            this.Controls.Add(this.lblTipoServicio);
             this.Controls.Add(this.dpFechaSalida);
             this.Controls.Add(this.lblFechaSalida);
             this.Controls.Add(this.btnRegistrar);
@@ -244,5 +265,7 @@
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label lblFechaSalida;
         private System.Windows.Forms.DateTimePicker dpFechaSalida;
+        private System.Windows.Forms.Label lblTipoServicio;
+        private System.Windows.Forms.ComboBox cbTipoServicio;
     }
 }

@@ -271,10 +271,11 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select butaca_nro "+
-                            "from mondongo.butacas_vendidas "+
-                            "where butaca_viaje_id = @idViaje "+
-                            "and butaca_tipo = @tipoButaca ";
+                var query = "select p.pasaje_butaca_numero " +
+                            "from mondongo.pasajes p " +
+                            "inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr " +
+                            "where ve.venta_viaje_id = @idViaje " +
+                            "and p.pasaje_butaca_tipo = @tipoButaca";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@idViaje", idViaje);

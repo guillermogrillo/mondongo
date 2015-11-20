@@ -131,9 +131,6 @@ GO
 IF OBJECT_ID('MONDONGO.pr_cargar_productos', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_productos;
 GO
-IF OBJECT_ID('MONDONGO.pr_cargar_butacas_vendidas', 'P') IS NOT NULL
-  DROP PROCEDURE mondongo.pr_cargar_butacas_vendidas;
-GO
 IF OBJECT_ID('MONDONGO.pr_actualizar_viajes', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_actualizar_viajes;
 GO
@@ -570,35 +567,28 @@ AS
     END
 GO
 
-create procedure mondongo.pr_cargar_butacas_vendidas
-as
-begin
-    insert into mondongo.butacas_vendidas(butaca_viaje_id,butaca_tipo,butaca_nro)
-	select ve.venta_viaje_id, p.pasaje_butaca_tipo, p.pasaje_butaca_numero
-    from		mondongo.pasajes p
-	inner join	mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr	
-end
-go
 create procedure mondongo.pr_actualizar_viajes
 as
 begin
 	update mondongo.viajes
 	set cantidad_butacas_ventanilla_disponibles = cantidad_butacas_ventanilla_disponibles - b.cantidad
 	from mondongo.viajes v
-	inner join (select butaca_viaje_id, count(butaca_viaje_id) as cantidad
-				from mondongo.butacas_vendidas bv
-				group by bv.butaca_viaje_id, bv.butaca_tipo
-				having bv.butaca_tipo = 'Ventanilla') b
-	on b.butaca_viaje_id = v.viaje_id
+	inner join (select		v.venta_viaje_id, count(v.venta_viaje_id) as cantidad
+				from		mondongo.pasajes p
+				inner join	mondongo.ventas v on p.pasaje_venta_pnr = v.venta_pnr
+				group by	v.venta_viaje_id, p.pasaje_butaca_tipo
+				having		p.pasaje_butaca_tipo = 'Ventanilla') b
+	on b.venta_viaje_id = v.viaje_id
 
 	update mondongo.viajes
 	set cantidad_butacas_pasillo_disponibles = cantidad_butacas_pasillo_disponibles - b.cantidad
 	from mondongo.viajes v
-	inner join (select butaca_viaje_id, count(butaca_viaje_id) as cantidad
-				from mondongo.butacas_vendidas bv
-				group by bv.butaca_viaje_id, bv.butaca_tipo
-				having bv.butaca_tipo = 'Pasillo') b
-	on b.butaca_viaje_id = v.viaje_id
+	inner join (select		v.venta_viaje_id, count(v.venta_viaje_id) as cantidad
+				from		mondongo.pasajes p
+				inner join	mondongo.ventas v on p.pasaje_venta_pnr = v.venta_pnr
+				group by	v.venta_viaje_id, p.pasaje_butaca_tipo
+				having		p.pasaje_butaca_tipo = 'Pasillo') b
+	on b.venta_viaje_id = v.viaje_id
 
 	update mondongo.viajes
 	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
@@ -758,19 +748,6 @@ create table mondongo.paquetes(
 )
 GO
 
-
-CREATE TABLE MONDONGO.butacas_vendidas(    
-    butaca_nro numeric(18, 0) NOT NULL,
-    butaca_tipo nvarchar(255) NOT NULL,
-    butaca_viaje_id numeric (18,0) NOT NULL references mondongo.viajes(viaje_id)       
-)
-GO
-ALTER TABLE MONDONGO.butacas_vendidas
-ADD CONSTRAINT PK_BUTACAS_VENDIDAS
-PRIMARY KEY (butaca_nro, butaca_tipo, butaca_viaje_id)
-GO
-
-
 create table mondongo.productos(
 	id_producto numeric(18,0) primary key identity,
 	stock numeric(3,0) not null,
@@ -864,8 +841,47 @@ exec mondongo.pr_cargar_pasajes
 go
 exec mondongo.pr_cargar_paquetes
 go
-exec mondongo.pr_cargar_butacas_vendidas
-go
 exec mondongo.pr_actualizar_viajes
 go
 
+
+/*Top 5 de los destinos con más pasajes comprados*/
+/*
+select top 5 c.nombre, count(c.nombre) as cantidad, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) as semestre
+from mondongo.pasajes p
+inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr
+inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id
+inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta
+inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino
+group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra)
+having (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) = 1 and year(ve.venta_Fecha_compra) = 2015 
+order by count(c.nombre) desc
+*/
+
+/*Top 5 de los destinos con aeronaves más vacías*/
+/*
+select top 5 dif.nombre, min(dif.diferencia) as diferencia_minima
+from
+(select c.nombre, (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) as semestre, (a.cantidad_butacas_ven + a.cantidad_butacas_pas)-(vi.cantidad_butacas_ventanilla_disponibles + vi.cantidad_butacas_pasillo_disponibles) as diferencia
+from mondongo.viajes vi
+inner join mondongo.aeronaves a on vi.aeronave_matricula = a.matricula
+inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta
+inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino
+where (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) = 2 and year(vi.fecha_salida) = 2016) dif
+group by dif.nombre
+order by diferencia_minima asc
+*/
+
+
+/*Top 5 de los destinos con pasajes cancelados*/
+/*
+select top 5 c.nombre, count(c.id_ciudad) as cantidad_cancelaciones
+from mondongo.pasajes p
+inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr
+inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id
+inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta
+inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino
+where p.estado = 1
+group by c.nombre
+order by cantidad_cancelaciones desc
+*/

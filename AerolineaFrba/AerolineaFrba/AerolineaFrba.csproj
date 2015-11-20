@@ -82,6 +82,7 @@
       <DependentUpon>Pagador.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\TarjetaCreditoController.cs" />
+    <Compile Include="Controller\TipoServicioController.cs" />
     <Compile Include="Dao\TarjetaCreditoDao.cs" />
     <Compile Include="Model\BeneficioTarjetaCredito.cs" />
     <Compile Include="Model\FabricanteModel.cs" />

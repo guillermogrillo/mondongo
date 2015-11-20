@@ -24,30 +24,27 @@ namespace AerolineaFrba.Controller
         {
             int idPagador = _clienteDao.guardarPagador(compraModel.pagador);
             int pnr = _compraDao.buscarPnr();
-            int idPaquete = 0;
-            foreach (Model.ClienteModel cliente in compraModel.clientes)
-            {
-                _compraDao.guardarButacasVendidas(compraModel.vueloElegido.idViaje, cliente.butaca.tipo.ToString(), cliente.butaca.numero);
-                int idCliente = _clienteDao.guardarCliente(cliente);                
-                int idPasaje = 0;                
-                if(compraModel.cantidadPax>0)
-                {
-                    idPasaje = _compraDao.guardarPasaje(idCliente, idPagador, pnr, compraModel, cliente);
-                }
-            }
-
+            _compraDao.guardarVenta(pnr, idPagador, compraModel);
             if (compraModel.cantidadPax > 0)
             {
+                foreach (Model.ClienteModel cliente in compraModel.clientes)
+                {                
+                    int idCliente = _clienteDao.guardarCliente(cliente);
+                    _compraDao.guardarPasaje(pnr, idCliente, compraModel, cliente);
+                }
+
                 int cantidadButacasVentanilla = compraModel.butacasSeleccionadas["Ventanilla"].Count;
                 int cantidadButacasPasillo = compraModel.butacasSeleccionadas["Pasillo"].Count;
                 _viajeDao.descontarButacas(compraModel.vueloElegido.idViaje, cantidadButacasVentanilla, cantidadButacasPasillo);
-            }
+
+            }          
 
             if (compraModel.cantidadKg > 0)
             {
-                idPaquete = _compraDao.guardarPaquete(pnr, idPagador, compraModel);
+                _compraDao.guardarPaquete(pnr, compraModel);
                 _viajeDao.descontarKg(compraModel.vueloElegido.idViaje, compraModel.cantidadKg);
             }
+            
         }
 
     }

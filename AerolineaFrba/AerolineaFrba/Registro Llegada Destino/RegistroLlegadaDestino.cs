@@ -15,16 +15,19 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         Controller.RutaController rutaController = null;
         Controller.ViajeController viajeController = null;
+        Controller.TipoServicioController tipoServicioController = null;
         public Model.CiudadModel ciudadOrigen = null;
         public Model.CiudadModel ciudadDestino = null;
         public List<Model.ViajeModel> vuelosEncontrados = null;
         Model.ViajeModel vueloSeleccionado = null;
+        Model.TipoServicioModel tipoServicioSeleccionado = null;
 
         public RegistroLlegadaDestino()
         {
             InitializeComponent();
             rutaController = new Controller.RutaController();
             viajeController = new Controller.ViajeController();
+            tipoServicioController = new Controller.TipoServicioController();
         }
 
         public Model.CiudadModel setCiudadOrigen()
@@ -65,7 +68,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId);
+            tipoServicioSeleccionado = cbTipoServicio.SelectedItem as Model.TipoServicioModel;
+            Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId, tipoServicioSeleccionado.id);
             if (ruta != null)
             {
                 vuelosEncontrados = viajeController.buscarViajes(ruta.idRuta, tbMatricula.Text, dpFechaSalida.Value);
@@ -125,7 +129,10 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             dpFechaSalida.CustomFormat = "dd'/'MM'/'yyyy";
 
             dpFechaLlegada.Format = DateTimePickerFormat.Custom;
-            dpFechaLlegada.CustomFormat = "dd'/'MM'/'yyyy hh':'mm':'ss"; 
+            dpFechaLlegada.CustomFormat = "dd'/'MM'/'yyyy hh':'mm':'ss";
+            cbTipoServicio.DataSource = tipoServicioController.buscarTiposServicio();
+            cbTipoServicio.DisplayMember = "tipoServicio";
+            cbTipoServicio.SelectedIndex = 0;
         }
 
         private void dgvViajes_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
