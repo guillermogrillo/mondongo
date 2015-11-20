@@ -34,12 +34,12 @@ namespace AerolineaFrba.Dao
                             "where	r.id_ruta = @idRuta " +
                             "and (v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles) > @cantidadPax " +
                             "and cantidad_kg_disponibles > @kg " +
-                            "and fecha_salida > @fechaViaje " +
+                            "and Convert(date, fecha_salida) = @fechaViaje " +
                             "order by v.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@idRuta", idRuta);                    
-                    command.Parameters.AddWithValue("@fechaViaje", fechaViaje);
+                    command.Parameters.AddWithValue("@fechaViaje", fechaViaje.Date);
                     command.Parameters.AddWithValue("@cantidadPax", cantidadPax);
                     command.Parameters.AddWithValue("@kg", kg);
                 }

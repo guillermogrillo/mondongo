@@ -45,21 +45,23 @@ namespace AerolineaFrba.Compra
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            gbDatosPersonales.Enabled = true;
-            gbButaca.Enabled = true;
-            btnSiguiente.Enabled = true;
-            List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(tbDni.Text);
-            if(clientesEncontrados.Count == 1){
-                clientePantalla = clientesEncontrados[0];
-
-                tbNombre.Text = clientePantalla.nombre;
-                tbApellido.Text = clientePantalla.apellido;
-                dpFNac.Value = clientePantalla.fechaNacimiento;
-                tbMail.Text = clientePantalla.mail;
-                tbTelefono.Text = clientePantalla.telefono.ToString();
-                tbDireccion.Text = clientePantalla.direccion;
-                
-
+            
+            if(!tbDni.Text.Equals("")){
+                gbDatosPersonales.Enabled = true;
+                gbButaca.Enabled = true;
+                btnSiguiente.Enabled = true;
+                List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(tbDni.Text);
+                if(clientesEncontrados.Count == 1){
+                    clientePantalla = clientesEncontrados[0];
+                    tbNombre.Text = clientePantalla.nombre;
+                    tbApellido.Text = clientePantalla.apellido;
+                    dpFNac.Value = clientePantalla.fechaNacimiento;
+                    tbMail.Text = clientePantalla.mail;
+                    tbTelefono.Text = clientePantalla.telefono.ToString();
+                    tbDireccion.Text = clientePantalla.direccion;               
+                }
+            }else{
+                MessageBox.Show("Ingrese el Dni");
             }
         }
 

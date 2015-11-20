@@ -48,20 +48,26 @@ namespace AerolineaFrba.Compra
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            gbDatosPersonales.Enabled = true;
-            gbDatosTarjeta.Enabled = true;
-            btnSiguiente.Enabled = true;
-            pagador = new Model.PagadorModel();
-            List<Model.PagadorModel> encontrados = clienteController.buscarPagadores(tbDni.Text);
-            if (encontrados.Count == 1)
+            
+            if (!tbDni.Text.Equals(""))
             {
-                pagador = encontrados[0];
-                tbNombre.Text = pagador.nombre;
-                tbApellido.Text = pagador.apellido;
-                dpFNac.Value = pagador.fechaNacimiento;
-                tbMail.Text = pagador.mail;
-                tbTelefono.Text = pagador.telefono.ToString();
-                tbDireccion.Text = pagador.direccion;
+                gbDatosPersonales.Enabled = true;
+                gbDatosTarjeta.Enabled = true;
+                btnSiguiente.Enabled = true;
+                pagador = new Model.PagadorModel();
+                List<Model.PagadorModel> encontrados = clienteController.buscarPagadores(tbDni.Text);
+                if (encontrados.Count == 1)
+                {
+                    pagador = encontrados[0];
+                    tbNombre.Text = pagador.nombre;
+                    tbApellido.Text = pagador.apellido;
+                    dpFNac.Value = pagador.fechaNacimiento;
+                    tbMail.Text = pagador.mail;
+                    tbTelefono.Text = pagador.telefono.ToString();
+                    tbDireccion.Text = pagador.direccion;
+                }
+            }else{
+                MessageBox.Show("Ingrese el Dni");
             }
         }
 
