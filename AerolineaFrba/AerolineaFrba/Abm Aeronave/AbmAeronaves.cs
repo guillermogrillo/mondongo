@@ -89,7 +89,7 @@ namespace AerolineaFrba.Abm_Aeronave
         private void onClose(object sender, FormClosedEventArgs e)
         {
             if (isBack)
-                new Menu.Menu().Show();
+                new AerolineasFRBA().Show();
         }
 
         

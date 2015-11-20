@@ -368,16 +368,16 @@ GO
 CREATE PROCEDURE mondongo.pr_cargar_funcionalidades
 AS
     BEGIN
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('ABM de Rol','ABM de Rol')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('ABM de Ruta Aerea','ABM de Ruta Aerea')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('ABM de Aeronave','ABM de Aeronave')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Generacion de Viaje','Generacion de Viaje')    
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Registro de llegada a Destino','Registro de llegada a Destino')
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Compra de pasaje/encomienda','Compra de pasaje/encomienda')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Devolucion/Cancelacion de pasaje y/o encomienda','Devolucion/Cancelacion de pasaje y/o encomienda')                 
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Consulta de millas de pasajero frecuente','Consulta de millas de pasajero frecuente')  
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Canje de millas','Canje de millas')    
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('Listado Estadistico','Listado Estadistico')
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRol','ABM de Rol')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRutaAerea','ABM de Ruta Aerea')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMAeronaves','ABM de Aeronave')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnGenerarViaje','Generacion de Viaje')    
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnRegistrarLlegada','Registro de llegada a Destino')
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnComprarPasajes','Compra de pasaje/encomienda')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCancelarPasajes','Devolucion/Cancelacion de pasaje y/o encomienda')                 
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnConsultarMillas','Consulta de millas de pasajero frecuente')  
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCanjeMillas','Canje de millas')    
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnListado','Listado Estadistico')
     END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_roles_funcionalidades
@@ -885,6 +885,3 @@ where p.estado = 1
 group by c.nombre
 order by cantidad_cancelaciones desc
 */
-
-
-

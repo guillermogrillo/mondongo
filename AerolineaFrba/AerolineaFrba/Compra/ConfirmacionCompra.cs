@@ -66,14 +66,14 @@ namespace AerolineaFrba.Compra
         private void btnCancelarCompra_Click(object sender, EventArgs e)
         {
             this.Close();
-            new Menu.Menu().Show();
+            new AerolineasFRBA().Show();
         }
 
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
             registrarCompra(compraModel);           
             this.Close();
-            new Menu.Menu().Show();
+            new AerolineasFRBA().Show();
         }
 
         private void registrarCompra(Model.CompraModel compraModel)

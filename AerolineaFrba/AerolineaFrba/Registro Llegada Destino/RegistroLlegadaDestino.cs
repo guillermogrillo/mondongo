@@ -153,7 +153,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             vueloSeleccionado.horaLlegada = horaLlegadaFormateada;
             Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
             this.Close();
-            new Menu.Menu().Show();
+            new AerolineasFRBA().Show();
         }
     }
 }

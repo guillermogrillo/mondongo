@@ -56,7 +56,7 @@ namespace AerolineaFrba.Compra
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-            new Menu.Menu().Show();
+            new AerolineasFRBA().Show();
         }
 
         private void tbCantidadPasajeros_KeyPress(object sender, KeyPressEventArgs e)

@@ -48,7 +48,7 @@ namespace AerolineaFrba.Abm_Ruta
         private void onClose(object sender, FormClosedEventArgs e)
         {
             if(isBack)
-                new Menu.Menu().Show();
+                new AerolineasFRBA().Show();
         }
 
         private void btEliminar_Click(object sender, EventArgs e)

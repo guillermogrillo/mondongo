@@ -81,9 +81,17 @@
     <Compile Include="Compra\Pagador.Designer.cs">
       <DependentUpon>Pagador.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\ListadoController.cs" />
     <Compile Include="Controller\TarjetaCreditoController.cs" />
     <Compile Include="Controller\TipoServicioController.cs" />
+    <Compile Include="Dao\ListadoDao.cs" />
     <Compile Include="Dao\TarjetaCreditoDao.cs" />
+    <Compile Include="Listado Estadistico\ListadosEstadisticos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listado Estadistico\ListadosEstadisticos.Designer.cs">
+      <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\BeneficioTarjetaCredito.cs" />
     <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
@@ -193,22 +201,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GD2C2015DataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="InicioAerolineasFRBA.cs">
+    <Compile Include="AerolineasFRBA.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InicioAerolineasFRBA.Designer.cs">
-      <DependentUpon>InicioAerolineasFRBA.cs</DependentUpon>
+    <Compile Include="AerolineasFRBA.Designer.cs">
+      <DependentUpon>AerolineasFRBA.cs</DependentUpon>
     </Compile>
     <Compile Include="Generacion Viaje\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Generacion Viaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginAdministrador.cs">
@@ -314,8 +316,11 @@
     <EmbeddedResource Include="Compra\VuelosEncontrados.resx">
       <DependentUpon>VuelosEncontrados.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InicioAerolineasFRBA.resx">
-      <DependentUpon>InicioAerolineasFRBA.cs</DependentUpon>
+    <EmbeddedResource Include="AerolineasFRBA.resx">
+      <DependentUpon>AerolineasFRBA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\ListadosEstadisticos.resx">
+      <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginAdministrador.resx">
       <DependentUpon>LoginAdministrador.cs</DependentUpon>

@@ -12,10 +12,14 @@ namespace AerolineaFrba.Menu
 {
     public partial class Menu : Form
     {
+
+
+        public List<Model.FuncionalidadModel> funcionalidades = null;
         
-        public Menu()
+        public Menu(List<Model.FuncionalidadModel> _funcionalidades)
         {
-            InitializeComponent();            
+            InitializeComponent();
+            funcionalidades = _funcionalidades;
         }
 
 
@@ -53,6 +57,21 @@ namespace AerolineaFrba.Menu
         {
             this.Close();
             new Abm_Ruta.AbmRuta().Show();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+            foreach (Model.FuncionalidadModel funcionalidad in funcionalidades)
+            {
+                Control[] controles = this.Controls.Find(funcionalidad._funcionalidadNombre,true);
+                controles[0].Visible = true;
+            }
+        }
+
+        private void btnListado_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Listado_Estadistico.ListadosEstadisticos().Show();
         }       
     }
 }

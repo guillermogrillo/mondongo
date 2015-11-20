@@ -12,9 +12,15 @@ namespace AerolineaFrba.Login
 {
     public partial class LoginAdministrador : Form
     {
+
+
+        Controller.RolController rolController = null;
+
         public LoginAdministrador()
         {
             InitializeComponent();
+            rolController = new Controller.RolController();    
+
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -27,8 +33,9 @@ namespace AerolineaFrba.Login
             else
             {
                 lblError.Text = "";
+                List<Model.FuncionalidadModel> funcionalidades = rolController.buscarFuncionalidadesDelRol(1, false);
                 this.Hide();
-                new Menu.Menu().Show();
+                new Menu.Menu(funcionalidades).Show();
             }
         }
 
