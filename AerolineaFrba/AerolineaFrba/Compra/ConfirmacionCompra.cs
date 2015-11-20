@@ -34,7 +34,42 @@ namespace AerolineaFrba.Compra
             tbHoraLlegadaEstimado.Text = compraModel.vueloElegido.horaLlegadaEstimada;
             tbKg.Text = compraModel.cantidadKg.ToString();
             tbPrecioEncomienda.Text = (compraModel.cantidadKg * compraModel.ruta.precioBaseKg).ToString();
+
+            dgvPasajeros.AutoGenerateColumns = true;
+            dgvPasajeros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPasajeros.DataSource = compraModel.clientes;
+            dgvPasajeros.Columns[0].Visible = false;
+
+            dgvPasajeros.Columns[1].HeaderText = "DNI";
+            dgvPasajeros.Columns[1].ReadOnly = true;
+            dgvPasajeros.Columns[1].Width = 100;
+
+            dgvPasajeros.Columns[2].HeaderText = "Nombre";
+            dgvPasajeros.Columns[2].ReadOnly = true;
+            dgvPasajeros.Columns[2].Width = 140;
+
+            dgvPasajeros.Columns[3].HeaderText = "Apellido";
+            dgvPasajeros.Columns[3].ReadOnly = true;
+            dgvPasajeros.Columns[3].Width = 140;
+
+            dgvPasajeros.Columns[4].HeaderText = "Fecha Nacimiento";
+            dgvPasajeros.Columns[4].ReadOnly = true;
+            dgvPasajeros.Columns[4].Width = 75;
+
+            dgvPasajeros.Columns[5].HeaderText = "Dirección";
+            dgvPasajeros.Columns[5].ReadOnly = true;
+            dgvPasajeros.Columns[5].Width = 100;
+
+            dgvPasajeros.Columns[6].HeaderText = "Teléfono";
+            dgvPasajeros.Columns[6].ReadOnly = true;
+            dgvPasajeros.Columns[6].Width = 70;
+
+            dgvPasajeros.Columns[7].HeaderText = "Mail";
+            dgvPasajeros.Columns[7].ReadOnly = true;
+            dgvPasajeros.Columns[7].Width = 90;
+
+            dgvPasajeros.Columns[8].Visible = false; 
+
             tbPrecioPasajes.Text = (compraModel.cantidadPax * compraModel.ruta.precioBasePasaje).ToString();
             tbNombrePagador.Text = compraModel.pagador.nombre;
             tbApellidoPagador.Text = compraModel.pagador.apellido;
