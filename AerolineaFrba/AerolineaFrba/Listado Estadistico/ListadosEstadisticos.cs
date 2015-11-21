@@ -35,11 +35,11 @@ namespace AerolineaFrba.Listado_Estadistico
 
                 if (rbDestinosMasComprados.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarDestinosConMasPasajesComprados(año, semestre);
+                    dgvListado.DataSource = listadoController.listarDestinosMasVendidos(año, semestre);
                 }
                 else if (rbDestinosAeronavesVacias.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarDestinosConMasAeronavesVacias(año, semestre);
+                    dgvListado.DataSource = listadoController.listarDestinosConAeronavesMasVacias(año, semestre);
                 }
                 else if (rbDestinosPasajesCancelados.Checked)
                 {
@@ -47,11 +47,11 @@ namespace AerolineaFrba.Listado_Estadistico
                 }
                 else if (rbClientesPuntosAcumulados.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarClientesConMasPuntosAcumulados(año, semestre);
+                    dgvListado.DataSource = listadoController.listarClientes(año, semestre);
                 }
                 else if (rbAeronavesFueraServicio.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarAeronavesConMasDiasFueraDeServicio(año, semestre);
+                    dgvListado.DataSource = listadoController.listarAeronaves(año, semestre);
                 }
             }
                 

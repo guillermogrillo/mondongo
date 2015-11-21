@@ -231,6 +231,7 @@
     <Compile Include="Model\ClienteModel.cs" />
     <Compile Include="Model\CompraModel.cs" />
     <Compile Include="Model\FuncionalidadModel.cs" />
+    <Compile Include="Model\ListadoDestinoModel.cs" />
     <Compile Include="Model\PagadorModel.cs" />
     <Compile Include="Model\RolModel.cs" />
     <Compile Include="Model\TarjetaCreditoModel.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Abm Aeronave\AbmAeronaves.resx">
       <DependentUpon>AbmAeronaves.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\AeronaveForm.resx">
       <DependentUpon>AeronaveForm.cs</DependentUpon>
@@ -294,6 +296,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\AbmRuta.resx">
       <DependentUpon>AbmRuta.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\RutaForm.resx">
       <DependentUpon>RutaForm.cs</DependentUpon>
