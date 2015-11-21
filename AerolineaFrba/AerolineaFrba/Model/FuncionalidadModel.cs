@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Model
 {
-    class FuncionalidadModel
+    public class FuncionalidadModel
     {
         public int _funcionalidadId { get; set; }
         public String _funcionalidadNombre { get; set; }

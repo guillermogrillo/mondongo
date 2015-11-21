@@ -54,6 +54,8 @@
             this.tbPrecioTotal = new System.Windows.Forms.TextBox();
             this.lblPrecioTotal = new System.Windows.Forms.Label();
             this.gbTarjeta = new System.Windows.Forms.GroupBox();
+            this.tbPrecioCuotas = new System.Windows.Forms.TextBox();
+            this.lblPrecioCuotas = new System.Windows.Forms.Label();
             this.tbVencimientoTarjeta = new System.Windows.Forms.TextBox();
             this.lblVencimiento = new System.Windows.Forms.Label();
             this.tbCuotas = new System.Windows.Forms.TextBox();
@@ -73,8 +75,6 @@
             this.btnConfirmarCompra = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnCancelarCompra = new System.Windows.Forms.Button();
-            this.lblPrecioCuotas = new System.Windows.Forms.Label();
-            this.tbPrecioCuotas = new System.Windows.Forms.TextBox();
             this.gbPasajeros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasajeros)).BeginInit();
             this.gbDetallesViaje.SuspendLayout();
@@ -115,10 +115,13 @@
             // 
             this.dgvPasajeros.AllowUserToAddRows = false;
             this.dgvPasajeros.AllowUserToDeleteRows = false;
+            this.dgvPasajeros.AllowUserToResizeColumns = false;
+            this.dgvPasajeros.AllowUserToResizeRows = false;
             this.dgvPasajeros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPasajeros.Location = new System.Drawing.Point(7, 20);
             this.dgvPasajeros.Name = "dgvPasajeros";
             this.dgvPasajeros.ReadOnly = true;
+            this.dgvPasajeros.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPasajeros.Size = new System.Drawing.Size(761, 97);
             this.dgvPasajeros.TabIndex = 0;
             // 
@@ -350,6 +353,23 @@
             this.gbTarjeta.TabStop = false;
             this.gbTarjeta.Text = "Detalle de la tarjeta";
             // 
+            // tbPrecioCuotas
+            // 
+            this.tbPrecioCuotas.Enabled = false;
+            this.tbPrecioCuotas.Location = new System.Drawing.Point(640, 25);
+            this.tbPrecioCuotas.Name = "tbPrecioCuotas";
+            this.tbPrecioCuotas.Size = new System.Drawing.Size(100, 20);
+            this.tbPrecioCuotas.TabIndex = 9;
+            // 
+            // lblPrecioCuotas
+            // 
+            this.lblPrecioCuotas.AutoSize = true;
+            this.lblPrecioCuotas.Location = new System.Drawing.Point(561, 28);
+            this.lblPrecioCuotas.Name = "lblPrecioCuotas";
+            this.lblPrecioCuotas.Size = new System.Drawing.Size(73, 13);
+            this.lblPrecioCuotas.TabIndex = 8;
+            this.lblPrecioCuotas.Text = "Precio Cuotas";
+            // 
             // tbVencimientoTarjeta
             // 
             this.tbVencimientoTarjeta.Enabled = false;
@@ -515,23 +535,6 @@
             this.btnCancelarCompra.Text = "Cancelar Compra";
             this.btnCancelarCompra.UseVisualStyleBackColor = true;
             this.btnCancelarCompra.Click += new System.EventHandler(this.btnCancelarCompra_Click);
-            // 
-            // lblPrecioCuotas
-            // 
-            this.lblPrecioCuotas.AutoSize = true;
-            this.lblPrecioCuotas.Location = new System.Drawing.Point(561, 28);
-            this.lblPrecioCuotas.Name = "lblPrecioCuotas";
-            this.lblPrecioCuotas.Size = new System.Drawing.Size(73, 13);
-            this.lblPrecioCuotas.TabIndex = 8;
-            this.lblPrecioCuotas.Text = "Precio Cuotas";
-            // 
-            // tbPrecioCuotas
-            // 
-            this.tbPrecioCuotas.Enabled = false;
-            this.tbPrecioCuotas.Location = new System.Drawing.Point(640, 25);
-            this.tbPrecioCuotas.Name = "tbPrecioCuotas";
-            this.tbPrecioCuotas.Size = new System.Drawing.Size(100, 20);
-            this.tbPrecioCuotas.TabIndex = 9;
             // 
             // ConfirmacionCompra
             // 

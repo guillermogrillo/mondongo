@@ -43,7 +43,7 @@ namespace AerolineaFrba.Abm_Ciudad
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new Menu.Menu().Show();
+            new AerolineasFRBA().Show();
         }
 
      

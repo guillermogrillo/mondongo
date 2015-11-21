@@ -13,21 +13,27 @@ namespace AerolineaFrba
 {
     public partial class AerolineasFRBA : Form
     {
+
+
+        Controller.RolController rolController = null;
+
         public AerolineasFRBA()
         {
-            InitializeComponent();                   
+            InitializeComponent();
+            rolController = new Controller.RolController();    
         }
 
         private void btnLoginAdministrador_Click(object sender, EventArgs e)
-        {
+        {            
             this.Hide();
             new Login.LoginAdministrador().Show();
         }
 
         private void btnCliente_Click(object sender, EventArgs e)
         {
+            List<Model.FuncionalidadModel> funcionalidades = rolController.buscarFuncionalidadesDelRol(2, false);
             this.Hide();
-            new Menu.Menu().Show();
+            new Menu.Menu(funcionalidades).Show();
 
         }
     }

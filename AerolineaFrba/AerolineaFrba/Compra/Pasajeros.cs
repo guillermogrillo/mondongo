@@ -106,5 +106,20 @@ namespace AerolineaFrba.Compra
             this.Close();
             new Compra.Pagador(compraModel).Show();
         }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnQuitar_Click(object sender, EventArgs e)
+        {
+            if(clienteSeleccionado != null)
+            {
+                compraModel.clientes.Remove(clienteSeleccionado);
+                dgvClientes.DataSource = null;
+                dgvClientes.DataSource = compraModel.clientes;
+            }
+        }
     }
 }
