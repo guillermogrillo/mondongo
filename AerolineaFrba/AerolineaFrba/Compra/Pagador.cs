@@ -25,6 +25,8 @@ namespace AerolineaFrba.Compra
             pagador = new Model.PagadorModel();
             clienteController = new Controller.ClienteController();
             tarjetaCreditoController = new Controller.TarjetaCreditoController();
+            dpFNac.Format = DateTimePickerFormat.Custom;
+            dpFNac.CustomFormat = "dd/MM/yyyy";
         }
 
         private void Pagador_Load(object sender, EventArgs e)
@@ -65,6 +67,16 @@ namespace AerolineaFrba.Compra
                     tbMail.Text = pagador.mail;
                     tbTelefono.Text = pagador.telefono.ToString();
                     tbDireccion.Text = pagador.direccion;
+                }
+                else if(encontrados.Count == 0 && compraModel.clientes.Exists(cliente => cliente.dni == Convert.ToInt32(tbDni.Text)))
+                {
+                    Model.ClienteModel cliente = compraModel.clientes.Find(clienteEncontrado => clienteEncontrado.dni == Convert.ToInt32(tbDni.Text));
+                    tbNombre.Text = cliente.nombre;
+                    tbApellido.Text = cliente.apellido;
+                    dpFNac.Value = cliente.fechaNacimiento;
+                    tbMail.Text = cliente.mail;
+                    tbTelefono.Text = cliente.telefono.ToString();
+                    tbDireccion.Text = cliente.direccion;
                 }
             }else{
                 MessageBox.Show("Ingrese el Dni");
