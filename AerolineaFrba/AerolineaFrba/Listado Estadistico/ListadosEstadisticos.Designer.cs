@@ -36,10 +36,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbAño = new System.Windows.Forms.TextBox();
-            this.tbSemestre = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.dgvListado = new System.Windows.Forms.DataGridView();
+            this.cbSemestre = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListado)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,17 +127,11 @@
             // 
             this.tbAño.Location = new System.Drawing.Point(110, 160);
             this.tbAño.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbAño.MaxLength = 4;
             this.tbAño.Name = "tbAño";
             this.tbAño.Size = new System.Drawing.Size(84, 22);
             this.tbAño.TabIndex = 7;
-            // 
-            // tbSemestre
-            // 
-            this.tbSemestre.Location = new System.Drawing.Point(267, 160);
-            this.tbSemestre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tbSemestre.Name = "tbSemestre";
-            this.tbSemestre.Size = new System.Drawing.Size(84, 22);
-            this.tbSemestre.TabIndex = 8;
+            this.tbAño.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAño_KeyPress);
             // 
             // btnBuscar
             // 
@@ -173,15 +167,23 @@
             this.dgvListado.Size = new System.Drawing.Size(397, 207);
             this.dgvListado.TabIndex = 11;
             // 
+            // cbSemestre
+            // 
+            this.cbSemestre.FormattingEnabled = true;
+            this.cbSemestre.Location = new System.Drawing.Point(265, 160);
+            this.cbSemestre.Name = "cbSemestre";
+            this.cbSemestre.Size = new System.Drawing.Size(56, 24);
+            this.cbSemestre.TabIndex = 12;
+            // 
             // ListadosEstadisticos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 454);
+            this.Controls.Add(this.cbSemestre);
             this.Controls.Add(this.dgvListado);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.tbSemestre);
             this.Controls.Add(this.tbAño);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -193,6 +195,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ListadosEstadisticos";
             this.Text = "Listados Estadisticos";
+            this.Load += new System.EventHandler(this.ListadosEstadisticos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -209,9 +212,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbAño;
-        private System.Windows.Forms.TextBox tbSemestre;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.DataGridView dgvListado;
+        private System.Windows.Forms.ComboBox cbSemestre;
     }
 }

@@ -116,7 +116,7 @@ namespace AerolineaFrba.Dao
                                 "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
                                 "inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta "+
                                 "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino "+
-                                "where p.estado = 0 "+
+                                "where p.estado = 1 "+
                                 "group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra) "+
                                 "having (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) = @semestre and year(ve.venta_Fecha_compra) = @año "+
                                 "order by cantidad_cancelaciones desc";

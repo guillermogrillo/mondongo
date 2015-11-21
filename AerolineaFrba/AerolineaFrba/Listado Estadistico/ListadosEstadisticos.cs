@@ -25,13 +25,13 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if(tbAño.Text.Equals("") || tbSemestre.Text.Equals("")){
+            if(tbAño.Text.Equals("")){
                 MessageBox.Show("Debe ingresar año y semestre");
             }
             else
             {
                 int año = Convert.ToInt32(tbAño.Text);
-                int semestre = Convert.ToInt32(tbSemestre.Text);
+                int semestre = Convert.ToInt32(cbSemestre.SelectedValue);
 
                 if (rbDestinosMasComprados.Checked)
                 {
@@ -62,6 +62,31 @@ namespace AerolineaFrba.Listado_Estadistico
         {
             this.Close();
             new AerolineasFRBA().Show();
+        }
+
+        private void tbAño_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSemestre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ListadosEstadisticos_Load(object sender, EventArgs e)
+        {
+            List<int> semestres = new List<int>();
+            semestres.Add(1);
+            semestres.Add(2);
+            cbSemestre.DataSource = semestres;
+            cbSemestre.SelectedIndex = 0;
         }
     }
 }
