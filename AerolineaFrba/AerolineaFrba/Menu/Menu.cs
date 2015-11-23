@@ -72,6 +72,12 @@ namespace AerolineaFrba.Menu
         {
             this.Close();
             new Listado_Estadistico.ListadosEstadisticos().Show();
+        }
+
+        private void btnGenerarViaje_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Generacion_Viaje.GeneradorViajes().Show();
         }       
     }
 }

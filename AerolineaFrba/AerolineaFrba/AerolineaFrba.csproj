@@ -86,6 +86,18 @@
     <Compile Include="Controller\TipoServicioController.cs" />
     <Compile Include="Dao\ListadoDao.cs" />
     <Compile Include="Dao\TarjetaCreditoDao.cs" />
+    <Compile Include="Generacion Viaje\BuscadorCiudades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generacion Viaje\BuscadorCiudades.Designer.cs">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generacion Viaje\GeneradorViajes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generacion Viaje\GeneradorViajes.Designer.cs">
+      <DependentUpon>GeneradorViajes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Listado Estadistico\ListadosEstadisticos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,12 +219,6 @@
     <Compile Include="AerolineasFRBA.Designer.cs">
       <DependentUpon>AerolineasFRBA.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generacion Viaje\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Generacion Viaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Login\LoginAdministrador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,6 +327,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AerolineasFRBA.resx">
       <DependentUpon>AerolineasFRBA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generacion Viaje\BuscadorCiudades.resx">
+      <DependentUpon>BuscadorCiudades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generacion Viaje\GeneradorViajes.resx">
+      <DependentUpon>GeneradorViajes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\ListadosEstadisticos.resx">
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
