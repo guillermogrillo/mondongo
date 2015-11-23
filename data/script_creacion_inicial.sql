@@ -704,7 +704,7 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
     [cantidad_butacas_pas] [numeric](18, 0) NULL,
     [fecha_baja_definitiva] [date] NULL,
-[estado] [numeric](18,0)
+[estado] [numeric](18,0) default 0
 ) ON [PRIMARY]
 GO
 create table mondongo.viajes(
@@ -717,7 +717,7 @@ create table mondongo.viajes(
     cantidad_butacas_ventanilla_disponibles numeric(18,0) not null,
 	cantidad_butacas_pasillo_disponibles numeric(18,0) not null,
 	cantidad_kg_disponibles numeric(18,0) not null,
-	estado numeric(1,0)
+	estado numeric(1,0) default 0
 )
 GO
 

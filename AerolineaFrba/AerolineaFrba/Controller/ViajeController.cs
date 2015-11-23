@@ -43,5 +43,10 @@ namespace AerolineaFrba.Controller
         {
             return viajeDao.descontarKg(viajeId, kg);
         }
+
+        public Boolean guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
+        {
+            return viajeDao.guardarViaje(viaje,ruta,aeronave);
+        }
     }
 }
