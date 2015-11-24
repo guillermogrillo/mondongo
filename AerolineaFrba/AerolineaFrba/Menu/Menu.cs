@@ -84,6 +84,12 @@ namespace AerolineaFrba.Menu
         {
             this.Close();
             new Consulta_Millas.ConsultaMillas().Show();
+        }
+
+        private void btnCanjeMillas_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Canje_Millas.CanjeMillas().Show();
         }       
     }
 }

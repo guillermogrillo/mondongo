@@ -86,5 +86,66 @@ namespace AerolineaFrba.Dao
             }
             return agregado;
         }
+
+        public int buscarUltimoRegistroMillas()
+        {
+            int idHistorial = 0;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select max(id_historial) from mondongo.historial_millas";
+                command = new SqlCommand(query, myConnection);
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        idHistorial = (int)(double)reader.GetDecimal(0);                                                
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return idHistorial;
+        }
+
+
+        public Boolean registrarCanje(int idProducto, int idHistorial, int cantidad)
+        {
+            Boolean agregado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.canje_millas(id_producto, id_historial, cantidad, fecha_canje) "+
+                            "values (@idProducto, @idHistorial, @cantidad, @fechaCanje)";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@idProducto", idProducto);
+                    command.Parameters.AddWithValue("@idHistorial", idHistorial);
+                    command.Parameters.AddWithValue("@cantidad", cantidad);
+                    command.Parameters.AddWithValue("@fechaCanje", DateTime.Now);                    
+                }
+
+                var cantidadInsertada = command.ExecuteNonQuery();
+
+                agregado = Convert.ToBoolean(cantidadInsertada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return agregado;            
+        }
+
     }
 }

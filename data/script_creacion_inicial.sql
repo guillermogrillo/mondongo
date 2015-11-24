@@ -852,3 +852,21 @@ exec mondongo.pr_cargar_paquetes
 go
 exec mondongo.pr_actualizar_viajes
 go
+
+/*
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,400,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,150,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');*/

@@ -45,10 +45,10 @@
             // 
             // btnABMRol
             // 
-            this.btnABMRol.Location = new System.Drawing.Point(3, 150);
-            this.btnABMRol.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnABMRol.Location = new System.Drawing.Point(2, 126);
+            this.btnABMRol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMRol.Name = "btnABMRol";
-            this.btnABMRol.Size = new System.Drawing.Size(213, 33);
+            this.btnABMRol.Size = new System.Drawing.Size(160, 27);
             this.btnABMRol.TabIndex = 0;
             this.btnABMRol.Text = "ABM Rol";
             this.btnABMRol.UseVisualStyleBackColor = true;
@@ -57,10 +57,10 @@
             // 
             // btnABMRutaAerea
             // 
-            this.btnABMRutaAerea.Location = new System.Drawing.Point(3, 224);
-            this.btnABMRutaAerea.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnABMRutaAerea.Location = new System.Drawing.Point(2, 188);
+            this.btnABMRutaAerea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMRutaAerea.Name = "btnABMRutaAerea";
-            this.btnABMRutaAerea.Size = new System.Drawing.Size(213, 33);
+            this.btnABMRutaAerea.Size = new System.Drawing.Size(160, 27);
             this.btnABMRutaAerea.TabIndex = 2;
             this.btnABMRutaAerea.Text = "ABM Ruta Aerea";
             this.btnABMRutaAerea.UseVisualStyleBackColor = true;
@@ -69,10 +69,10 @@
             // 
             // btnABMAeronaves
             // 
-            this.btnABMAeronaves.Location = new System.Drawing.Point(3, 187);
-            this.btnABMAeronaves.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnABMAeronaves.Location = new System.Drawing.Point(2, 157);
+            this.btnABMAeronaves.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnABMAeronaves.Name = "btnABMAeronaves";
-            this.btnABMAeronaves.Size = new System.Drawing.Size(213, 33);
+            this.btnABMAeronaves.Size = new System.Drawing.Size(160, 27);
             this.btnABMAeronaves.TabIndex = 3;
             this.btnABMAeronaves.Text = "ABM Aeronaves";
             this.btnABMAeronaves.UseVisualStyleBackColor = true;
@@ -81,10 +81,10 @@
             // 
             // btnRegresar
             // 
-            this.btnRegresar.Location = new System.Drawing.Point(3, 372);
-            this.btnRegresar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnRegresar.Location = new System.Drawing.Point(2, 312);
+            this.btnRegresar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRegresar.Name = "btnRegresar";
-            this.btnRegresar.Size = new System.Drawing.Size(213, 33);
+            this.btnRegresar.Size = new System.Drawing.Size(160, 27);
             this.btnRegresar.TabIndex = 4;
             this.btnRegresar.Text = "Regresar";
             this.btnRegresar.UseVisualStyleBackColor = true;
@@ -92,10 +92,10 @@
             // 
             // btnListado
             // 
-            this.btnListado.Location = new System.Drawing.Point(3, 335);
-            this.btnListado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnListado.Location = new System.Drawing.Point(2, 281);
+            this.btnListado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnListado.Name = "btnListado";
-            this.btnListado.Size = new System.Drawing.Size(213, 33);
+            this.btnListado.Size = new System.Drawing.Size(160, 27);
             this.btnListado.TabIndex = 4;
             this.btnListado.Text = "Listados Estadisticos";
             this.btnListado.UseVisualStyleBackColor = true;
@@ -104,10 +104,10 @@
             // 
             // btnRegistrarLlegada
             // 
-            this.btnRegistrarLlegada.Location = new System.Drawing.Point(3, 298);
-            this.btnRegistrarLlegada.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnRegistrarLlegada.Location = new System.Drawing.Point(2, 250);
+            this.btnRegistrarLlegada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRegistrarLlegada.Name = "btnRegistrarLlegada";
-            this.btnRegistrarLlegada.Size = new System.Drawing.Size(213, 33);
+            this.btnRegistrarLlegada.Size = new System.Drawing.Size(160, 27);
             this.btnRegistrarLlegada.TabIndex = 6;
             this.btnRegistrarLlegada.Text = "Registrar Llegada";
             this.btnRegistrarLlegada.UseVisualStyleBackColor = true;
@@ -116,10 +116,10 @@
             // 
             // btnGenerarViaje
             // 
-            this.btnGenerarViaje.Location = new System.Drawing.Point(3, 261);
-            this.btnGenerarViaje.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnGenerarViaje.Location = new System.Drawing.Point(2, 219);
+            this.btnGenerarViaje.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGenerarViaje.Name = "btnGenerarViaje";
-            this.btnGenerarViaje.Size = new System.Drawing.Size(213, 33);
+            this.btnGenerarViaje.Size = new System.Drawing.Size(160, 27);
             this.btnGenerarViaje.TabIndex = 5;
             this.btnGenerarViaje.Text = "Generar Viaje";
             this.btnGenerarViaje.UseVisualStyleBackColor = true;
@@ -128,21 +128,22 @@
             // 
             // btnCanjeMillas
             // 
-            this.btnCanjeMillas.Location = new System.Drawing.Point(3, 113);
-            this.btnCanjeMillas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCanjeMillas.Location = new System.Drawing.Point(2, 95);
+            this.btnCanjeMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCanjeMillas.Name = "btnCanjeMillas";
-            this.btnCanjeMillas.Size = new System.Drawing.Size(213, 33);
+            this.btnCanjeMillas.Size = new System.Drawing.Size(160, 27);
             this.btnCanjeMillas.TabIndex = 3;
             this.btnCanjeMillas.Text = "Canje millas";
             this.btnCanjeMillas.UseVisualStyleBackColor = true;
             this.btnCanjeMillas.Visible = false;
+            this.btnCanjeMillas.Click += new System.EventHandler(this.btnCanjeMillas_Click);
             // 
             // btnConsultarMillas
             // 
-            this.btnConsultarMillas.Location = new System.Drawing.Point(3, 76);
-            this.btnConsultarMillas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnConsultarMillas.Location = new System.Drawing.Point(2, 64);
+            this.btnConsultarMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnConsultarMillas.Name = "btnConsultarMillas";
-            this.btnConsultarMillas.Size = new System.Drawing.Size(213, 33);
+            this.btnConsultarMillas.Size = new System.Drawing.Size(160, 27);
             this.btnConsultarMillas.TabIndex = 2;
             this.btnConsultarMillas.Text = "Consultar millas";
             this.btnConsultarMillas.UseVisualStyleBackColor = true;
@@ -151,10 +152,10 @@
             // 
             // btnCancelarPasajes
             // 
-            this.btnCancelarPasajes.Location = new System.Drawing.Point(3, 39);
-            this.btnCancelarPasajes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancelarPasajes.Location = new System.Drawing.Point(2, 33);
+            this.btnCancelarPasajes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancelarPasajes.Name = "btnCancelarPasajes";
-            this.btnCancelarPasajes.Size = new System.Drawing.Size(213, 33);
+            this.btnCancelarPasajes.Size = new System.Drawing.Size(160, 27);
             this.btnCancelarPasajes.TabIndex = 1;
             this.btnCancelarPasajes.Text = "Cancelar Pasaje/Encomienda";
             this.btnCancelarPasajes.UseVisualStyleBackColor = true;
@@ -162,10 +163,10 @@
             // 
             // btnComprarPasajes
             // 
-            this.btnComprarPasajes.Location = new System.Drawing.Point(3, 2);
-            this.btnComprarPasajes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnComprarPasajes.Location = new System.Drawing.Point(2, 2);
+            this.btnComprarPasajes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnComprarPasajes.Name = "btnComprarPasajes";
-            this.btnComprarPasajes.Size = new System.Drawing.Size(213, 33);
+            this.btnComprarPasajes.Size = new System.Drawing.Size(160, 27);
             this.btnComprarPasajes.TabIndex = 0;
             this.btnComprarPasajes.Text = "Compra Pasajes/Encomiendas";
             this.btnComprarPasajes.UseVisualStyleBackColor = true;
@@ -185,19 +186,18 @@
             this.flpMenu.Controls.Add(this.btnRegistrarLlegada);
             this.flpMenu.Controls.Add(this.btnListado);
             this.flpMenu.Controls.Add(this.btnRegresar);
-            this.flpMenu.Location = new System.Drawing.Point(16, 15);
-            this.flpMenu.Margin = new System.Windows.Forms.Padding(4);
+            this.flpMenu.Location = new System.Drawing.Point(12, 12);
             this.flpMenu.Name = "flpMenu";
-            this.flpMenu.Size = new System.Drawing.Size(220, 426);
+            this.flpMenu.Size = new System.Drawing.Size(165, 346);
             this.flpMenu.TabIndex = 7;
             // 
             // Menu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(248, 449);
+            this.ClientSize = new System.Drawing.Size(186, 365);
             this.Controls.Add(this.flpMenu);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Menu";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Menu_Load);

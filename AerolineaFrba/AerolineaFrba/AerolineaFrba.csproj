@@ -69,6 +69,12 @@
     <Compile Include="Abm Ruta\AbmRuta.Designer.cs">
       <DependentUpon>AbmRuta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Canje Millas\CanjeMillas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Canje Millas\CanjeMillas.Designer.cs">
+      <DependentUpon>CanjeMillas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\ConfirmacionCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,10 +95,12 @@
     </Compile>
     <Compile Include="Controller\ListadoController.cs" />
     <Compile Include="Controller\MillasController.cs" />
+    <Compile Include="Controller\ProductosController.cs" />
     <Compile Include="Controller\TarjetaCreditoController.cs" />
     <Compile Include="Controller\TipoServicioController.cs" />
     <Compile Include="Dao\ListadoDao.cs" />
     <Compile Include="Dao\MillasDao.cs" />
+    <Compile Include="Dao\ProductosDao.cs" />
     <Compile Include="Dao\TarjetaCreditoDao.cs" />
     <Compile Include="Generacion Viaje\BuscadorCiudades.cs">
       <SubType>Form</SubType>
@@ -156,12 +164,6 @@
     </Compile>
     <Compile Include="Abm Ruta\RutaForm.Designer.cs">
       <DependentUpon>RutaForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Canje Millas\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Canje Millas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra\BusquedaVuelos.cs">
       <SubType>Form</SubType>
@@ -244,6 +246,7 @@
     <Compile Include="Model\PagadorModel.cs" />
     <Compile Include="Model\PaqueteModel.cs" />
     <Compile Include="Model\PasajeModel.cs" />
+    <Compile Include="Model\ProductoModel.cs" />
     <Compile Include="Model\RolModel.cs" />
     <Compile Include="Model\TarjetaCreditoModel.cs" />
     <Compile Include="Model\TipoOperacion.cs" />
@@ -313,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\RutaForm.resx">
       <DependentUpon>RutaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Canje Millas\CanjeMillas.resx">
+      <DependentUpon>CanjeMillas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
