@@ -16,6 +16,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         Controller.RutaController rutaController = null;
         Controller.ViajeController viajeController = null;
         Controller.TipoServicioController tipoServicioController = null;
+        Controller.MillasController millasController = null;
+        Controller.CompraController compraController = null;
         public Model.CiudadModel ciudadOrigen = null;
         public Model.CiudadModel ciudadDestino = null;
         public List<Model.ViajeModel> vuelosEncontrados = null;
@@ -28,6 +30,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             rutaController = new Controller.RutaController();
             viajeController = new Controller.ViajeController();
             tipoServicioController = new Controller.TipoServicioController();
+            millasController = new Controller.MillasController();
+            compraController = new Controller.CompraController();
         }
 
         public Model.CiudadModel setCiudadOrigen()
@@ -150,6 +154,35 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");                      
             vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
             Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
+
+            List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
+            DateTime fechaOperacion = DateTime.Today;
+            foreach(Model.VentaModel venta in ventasDelViaje)
+            {
+
+                List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);
+                Model.HistorialMillasModel historialMillas = null;
+                double millasAsignadas = 0;
+                foreach(Model.PasajeModel pasaje in pasajesDeLaVenta)
+                {
+                    millasAsignadas = pasaje.pasajeMonto*0.1;
+                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaOperacion,Model.TipoOperacion.Acreditacion, "Acreditación de Millas por Pasaje");
+                    millasController.registrarMillas(historialMillas);
+                }
+
+
+                Model.PaqueteModel paqueteDeLaVenta = compraController.buscarPaquetes(venta.ventaPnr);
+                if (paqueteDeLaVenta != null)
+                {
+                    millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
+                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaOperacion, Model.TipoOperacion.Acreditacion, "Acreditación de Millas por Paquete");
+                    millasController.registrarMillas(historialMillas);
+                }
+                
+            }
+
+
+
             this.Close();
             new AerolineasFRBA().Show();
         }

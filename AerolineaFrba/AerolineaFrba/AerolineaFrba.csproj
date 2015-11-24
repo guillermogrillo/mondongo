@@ -242,6 +242,8 @@
     <Compile Include="Model\FuncionalidadModel.cs" />
     <Compile Include="Model\ListadoDestinoModel.cs" />
     <Compile Include="Model\PagadorModel.cs" />
+    <Compile Include="Model\PaqueteModel.cs" />
+    <Compile Include="Model\PasajeModel.cs" />
     <Compile Include="Model\RolModel.cs" />
     <Compile Include="Model\TarjetaCreditoModel.cs" />
     <Compile Include="Model\TipoOperacion.cs" />
@@ -249,6 +251,7 @@
     <Compile Include="Model\TipoServicioModel.cs" />
     <Compile Include="Model\RutaModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
+    <Compile Include="Model\VentaModel.cs" />
     <Compile Include="Model\ViajeModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>

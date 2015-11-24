@@ -26,5 +26,14 @@ namespace AerolineaFrba.Model
             tipoOperacion = _tipoOperacion;
             descripcion = _descripcion;
         }
+
+        public HistorialMillasModel(int _idCliente, double _millas, DateTime _fechaOperacion, Model.TipoOperacion _tipoOperacion, String _descripcion)
+        {            
+            idCliente = _idCliente;
+            millas = _millas;
+            fechaOperacion = _fechaOperacion;
+            tipoOperacion = _tipoOperacion;
+            descripcion = _descripcion;
+        }
     }
 }

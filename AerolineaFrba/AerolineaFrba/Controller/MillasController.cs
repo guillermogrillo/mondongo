@@ -23,5 +23,10 @@ namespace AerolineaFrba.Controller
             return millasDao.buscarMillas(dni);
         }
 
+
+        public Boolean registrarMillas(Model.HistorialMillasModel historialMillas)
+        {
+            return millasDao.registroMillas(historialMillas);
+        }
     }
 }

@@ -55,5 +55,36 @@ namespace AerolineaFrba.Dao
         }
 
 
+        public Boolean registroMillas(Model.HistorialMillasModel historialMillas)
+        {
+            Boolean agregado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.historial_millas (id_cliente,millas,fecha_operacion, tipo_operacion, descripcion) "+
+                            "values (@idCliente, @millas, @fechaOperacion, @tipoOperacion, @descripcion)";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@idCliente", historialMillas.idCliente);
+                    command.Parameters.AddWithValue("@millas", historialMillas.millas);
+                    command.Parameters.AddWithValue("@fechaOperacion", historialMillas.fechaOperacion);
+                    command.Parameters.AddWithValue("@tipoOperacion", historialMillas.tipoOperacion);
+                    command.Parameters.AddWithValue("@descripcion", historialMillas.descripcion);
+                }
+
+                var cantidadInsertada = command.ExecuteNonQuery();
+
+                agregado = Convert.ToBoolean(cantidadInsertada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return agregado;
+        }
     }
 }

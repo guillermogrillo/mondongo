@@ -47,5 +47,20 @@ namespace AerolineaFrba.Controller
             
         }
 
+
+        public List<Model.VentaModel> buscarVentas(int viajeId)
+        {
+            return _compraDao.buscarVentas(viajeId);
+        }
+
+        public List<Model.PasajeModel> buscarPasajes(int pnr)
+        {
+            return _compraDao.buscarPasajes(pnr);
+        }
+
+        public Model.PaqueteModel buscarPaquetes(int pnr)
+        {
+            return _compraDao.buscarPaquetes(pnr);
+        }
     }
 }
