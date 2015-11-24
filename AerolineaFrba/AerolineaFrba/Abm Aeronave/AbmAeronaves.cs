@@ -46,15 +46,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
             this.Hide();
             Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm(this, aeronave);
-            aeronaveForm.habilitarMatricula(false);
             aeronaveForm.Show();
         }
 
         private void addBtn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm(this, null);
-            aeronaveForm.habilitarMatricula(true);
+            Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm(this);
             aeronaveForm.Show();
         }
 

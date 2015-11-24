@@ -467,15 +467,14 @@ GO
 CREATE PROCEDURE [MONDONGO].[pr_cargar_rutas]
 AS
 BEGIN
-    insert into MONDONGO.rutas(codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_pasaje, precio_base_kg, horas_vuelo, estado)
+    insert into MONDONGO.rutas(codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_pasaje, precio_base_kg, horas_vuelo)
     select ruta_codigo,
         mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1)),
         mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Destino, LEN(Ruta_Ciudad_Destino) - 1)),
         mondongo.fx_busca_id_tipo_servicio(Tipo_Servicio),
         max(Ruta_Precio_BasePasaje),
         max(Ruta_Precio_BaseKG),
-        datediff(hh, FechaSalida,FechaLLegada),
-		0
+        datediff(hh, FechaSalida,FechaLLegada)
     from gd_esquema.Maestra
     group by ruta_codigo, Ruta_Ciudad_Origen, Ruta_Ciudad_Destino, tipo_servicio, datediff(hh, FechaSalida,FechaLLegada)
     order by Ruta_Ciudad_Origen
@@ -687,7 +686,7 @@ create table MONDONGO.rutas(
     precio_base_kg numeric(18,2),
     precio_base_pasaje numeric(18,2),
 	horas_vuelo numeric(18, 0) NULL,
-	estado numeric(1,0)
+	estado numeric(1,0) default 0
 )
 GO
 CREATE TABLE MONDONGO.fabricantes(
@@ -707,7 +706,11 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
     [cantidad_butacas_pas] [numeric](18, 0) NULL,
     [fecha_baja_definitiva] [date] NULL,
+<<<<<<< HEAD
+	[estado] [numeric](18,0) default 0
+=======
 [estado] [numeric](18,0) default 0
+>>>>>>> a5be2a4afbc946223012b1910ab10b902614ab30
 ) ON [PRIMARY]
 GO
 create table mondongo.viajes(

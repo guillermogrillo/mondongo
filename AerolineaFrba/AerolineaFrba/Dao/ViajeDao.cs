@@ -112,7 +112,7 @@ namespace AerolineaFrba.Dao
                             "   and fecha_salida between @fechaDesde and @fechaHasta ";
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@matriculaNueva", matricula);
+                    command.Parameters.AddWithValue("@matricula", matricula);
                     command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
                     command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
                 }

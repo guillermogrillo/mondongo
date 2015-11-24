@@ -26,6 +26,7 @@ namespace AerolineaFrba.Abm_Ruta
             _ciudadController = new Controller.CiudadController();
             _controller = new Controller.RutaController();
             InitializeComponent();
+            habilitarCombos(true);
             init();
         }
         public RutaForm(Model.RutaModel ruta)
@@ -35,9 +36,16 @@ namespace AerolineaFrba.Abm_Ruta
             _ciudadController = new Controller.CiudadController();
             _controller = new Controller.RutaController();
             InitializeComponent();
+            habilitarCombos(false);
             init();
             cargarRuta(ruta);
             rutaId = ruta.idRuta;
+        }
+
+        private void habilitarCombos(Boolean enabled)
+        {
+            cbOrigen.Enabled = enabled;
+            cbDestino.Enabled = enabled;
         }
 
         private void cargarRuta(Model.RutaModel ruta)
@@ -91,18 +99,20 @@ namespace AerolineaFrba.Abm_Ruta
         {
             Model.RutaModel ruta = armarRuta();
 
-            Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
-            if (rutaExistente != null)
-            {
-                MessageBox.Show("Ya existe una ruta con ese origen y destino");
-                return;
-            }
-
             if (isEdit)
+            {
                 _controller.editarRuta(ruta);
+            }
             else
+            {
+                Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
+                if (rutaExistente != null && rutaExistente.estado==0)
+                {
+                    MessageBox.Show("Ya existe una ruta con esas caracteristicas");
+                    return;
+                }
                 _controller.guardarRuta(ruta);
-
+            }
             this.Close();
         }
 

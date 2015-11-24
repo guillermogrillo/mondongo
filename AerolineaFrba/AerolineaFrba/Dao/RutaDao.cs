@@ -23,7 +23,7 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo " +
+                var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado " +
                             "from mondongo.rutas "+
                             "where id_ciudad_origen = @idCiudadOrigen and id_ciudad_destino = @idCiudadDestino ";
                 
@@ -41,6 +41,7 @@ namespace AerolineaFrba.Dao
                     while (reader.Read())
                     {
                         ruta = generarRuta(reader);
+
                         rutas.Add(ruta);
                     }
                 }
@@ -70,12 +71,13 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, " +
+                var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado, " +
                             "(select nombre from MONDONGO.ciudades where id_ciudad=id_ciudad_origen) as ciudadOrigen, "+
 	                        "(select nombre from MONDONGO.ciudades where id_ciudad=id_ciudad_destino) as ciudadDestino, "+
                             "(select tipo_servicio from MONDONGO.tipos_servicio ts where ts.id_tipo_servicio=r.id_tipo_servicio) "+
                             "from mondongo.rutas r "+
-                            "where estado = 0 ";
+                            "where estado = 0 "+
+                            "order by ciudadOrigen,ciudadDestino ";
                 
                 command = new SqlCommand(query, myConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -84,9 +86,9 @@ namespace AerolineaFrba.Dao
                     {
                         ruta = generarRuta(reader);
 
-                        ruta.nombreCiudadOrigen = reader.GetString(8);
-                        ruta.nombreCiudadDestino = reader.GetString(9);
-                        ruta.nombreTipoServicio = reader.GetString(10);
+                        ruta.nombreCiudadOrigen = reader.GetString(9);
+                        ruta.nombreCiudadDestino = reader.GetString(10);
+                        ruta.nombreTipoServicio = reader.GetString(11);
 
                         rutas.Add(ruta);
                     }
@@ -109,8 +111,9 @@ namespace AerolineaFrba.Dao
             var precioBaseKg = (double)reader.GetDecimal(5);
             var precioBasePasaje = (double)reader.GetDecimal(6);
             var horasVuelo = (int)(double)reader.GetDecimal(7);
+            var estado = (int)(double)reader.GetDecimal(8);
             
-            return new Model.RutaModel(idRuta, codigoRuta, ciudadOrigen, ciudadDestino, tipoServicio, precioBasePasaje, precioBaseKg, horasVuelo);
+            return new Model.RutaModel(idRuta, codigoRuta, ciudadOrigen, ciudadDestino, tipoServicio, precioBasePasaje, precioBaseKg, horasVuelo, estado);
         }
 
         public void guardarRuta(Model.RutaModel ruta)
