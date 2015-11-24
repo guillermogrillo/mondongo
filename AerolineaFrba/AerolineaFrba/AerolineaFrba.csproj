@@ -81,6 +81,12 @@
     <Compile Include="Compra\ConfirmacionCompra.Designer.cs">
       <DependentUpon>ConfirmacionCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\FinalizarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\FinalizarCompra.Designer.cs">
+      <DependentUpon>FinalizarCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\Pagador.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -242,6 +248,7 @@
     <Compile Include="Model\ClienteModel.cs" />
     <Compile Include="Model\CompraModel.cs" />
     <Compile Include="Model\FuncionalidadModel.cs" />
+    <Compile Include="Model\ListadoClienteModel.cs" />
     <Compile Include="Model\ListadoDestinoModel.cs" />
     <Compile Include="Model\PagadorModel.cs" />
     <Compile Include="Model\PaqueteModel.cs" />
@@ -325,6 +332,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\ConfirmacionCompra.resx">
       <DependentUpon>ConfirmacionCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\FinalizarCompra.resx">
+      <DependentUpon>FinalizarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\NuevoPasajero.resx">
       <DependentUpon>NuevoPasajero.cs</DependentUpon>

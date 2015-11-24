@@ -36,18 +36,52 @@ namespace AerolineaFrba.Listado_Estadistico
                 if (rbDestinosMasComprados.Checked)
                 {
                     dgvListado.DataSource = listadoController.listarDestinosMasVendidos(año, semestre);
+                    dgvListado.Columns[0].HeaderText = "Destino";
+                    dgvListado.Columns[0].ReadOnly = true;
+                    dgvListado.Columns[0].Width = 200;
+
+                    dgvListado.Columns[1].HeaderText = "Cantidad";
+                    dgvListado.Columns[1].ReadOnly = true;
+                    dgvListado.Columns[1].Width = 50;
                 }
                 else if (rbDestinosAeronavesVacias.Checked)
                 {
                     dgvListado.DataSource = listadoController.listarDestinosConAeronavesMasVacias(año, semestre);
+                    dgvListado.Columns[0].HeaderText = "Destino";
+                    dgvListado.Columns[0].ReadOnly = true;
+                    dgvListado.Columns[0].Width = 200;
+
+                    dgvListado.Columns[1].HeaderText = "Cantidad";
+                    dgvListado.Columns[1].ReadOnly = true;
+                    dgvListado.Columns[1].Width = 50;
                 }
                 else if (rbDestinosPasajesCancelados.Checked)
                 {
                     dgvListado.DataSource = listadoController.listarDestinosConMasPasajesCancelados(año, semestre);
+                    dgvListado.Columns[0].HeaderText = "Destino";
+                    dgvListado.Columns[0].ReadOnly = true;
+                    dgvListado.Columns[0].Width = 200;
+
+                    dgvListado.Columns[1].HeaderText = "Cantidad";
+                    dgvListado.Columns[1].ReadOnly = true;
+                    dgvListado.Columns[1].Width = 50;
                 }
                 else if (rbClientesPuntosAcumulados.Checked)
                 {
                     dgvListado.DataSource = listadoController.listarClientes(año, semestre);
+                    dgvListado.Columns[0].Visible = false;
+
+                    dgvListado.Columns[1].HeaderText = "Nombre";
+                    dgvListado.Columns[1].ReadOnly = true;
+                    dgvListado.Columns[1].Width = 100;
+
+                    dgvListado.Columns[2].HeaderText = "Apellido";
+                    dgvListado.Columns[2].ReadOnly = true;
+                    dgvListado.Columns[2].Width = 100;
+
+                    dgvListado.Columns[3].HeaderText = "Cantidad";
+                    dgvListado.Columns[3].ReadOnly = true;
+                    dgvListado.Columns[3].Width = 50;
                 }
                 else if (rbAeronavesFueraServicio.Checked)
                 {

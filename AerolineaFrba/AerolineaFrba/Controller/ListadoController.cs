@@ -30,8 +30,8 @@ namespace AerolineaFrba.Controller
         {
             return _listadoDao.listarDestinosConAeronavesMasVacias(año, semestre);
         }
-      
-        public List<Model.ClienteModel> listarClientes(int año, int semestre)
+
+        public List<Model.ListadoClienteModel> listarClientes(int año, int semestre)
         {
             return _listadoDao.listarClientes(año, semestre);
         }

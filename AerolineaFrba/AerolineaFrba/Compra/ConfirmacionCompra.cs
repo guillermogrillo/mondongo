@@ -107,14 +107,15 @@ namespace AerolineaFrba.Compra
 
         private void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
-            registrarCompra(compraModel);           
+            int pnr = registrarCompra(compraModel);                      
+
             this.Close();
-            new AerolineasFRBA().Show();
+            new FinalizarCompra(compraModel, pnr).Show();
         }
 
-        private void registrarCompra(Model.CompraModel compraModel)
+        private int registrarCompra(Model.CompraModel compraModel)
         {
-            compraController.registrarCompra(compraModel);
+            return compraController.registrarCompra(compraModel);
         }
     }
 }

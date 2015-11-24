@@ -23,13 +23,13 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                String query = "select top 5 c.nombre, count(c.nombre) as cantidad, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) as semestre " +
-                                "from mondongo.pasajes p " +
-                                "inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr " +
-                                "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id " +
-                                "inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta " +
-                                "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino " +
-                                "group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra) " +
+                String query =  "select top 5 c.nombre, count(c.nombre) as cantidad, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) as semestre "+
+                                "from mondongo.pasajes p  "+
+                                "inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr  "+
+                                "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id  "+
+                                "inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta  "+
+                                "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino  "+
+                                "group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra)  "+
                                 "having (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) = @semestre and year(ve.venta_Fecha_compra) = @año " +
                                 "order by count(c.nombre) desc";                
                 using (command = new SqlCommand(query, myConnection))
@@ -103,24 +103,41 @@ namespace AerolineaFrba.Dao
         public List<Model.ListadoDestinoModel> listarDestinosConMasPasajesCancelados(int año, int semestre)
         {
             List<Model.ListadoDestinoModel> destinos = new List<Model.ListadoDestinoModel>();
-            Model.ListadoDestinoModel destino = null;
+            
+            return destinos;
+        }
+
+
+        public List<Model.ListadoClienteModel> listarClientes(int año, int semestre)
+        {
+
+            List<Model.ListadoClienteModel> clientes = new List<Model.ListadoClienteModel>();            
             SqlConnection myConnection = null;
             try
             {
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                String query =  "select top 5 c.nombre, count(c.id_ciudad) as cantidad_cancelaciones, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) as semestre "+
-                                "from mondongo.pasajes p "+
-                                "inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr " +
-                                "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
-                                "inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta "+
-                                "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino "+
-                                "where p.estado = 1 "+
-                                "group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra) "+
-                                "having (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) = @semestre and year(ve.venta_Fecha_compra) = @año "+
-                                "order by cantidad_cancelaciones desc";
-
+                var query = "select top 5 c.cliente_id, suma.cliente_nombre, suma.cliente_apellido, (suma.cantidad - resta.cantidad) as cantidad_total "+
+                            "from mondongo.historial_millas hm "+
+                            "inner join mondongo.clientes c on hm.id_cliente = c.cliente_id, "+
+	                        "    (select		c.cliente_id, c.cliente_nombre, c.cliente_apellido, sum(millas) as cantidad, (case when month(fecha_operacion) between 1 and 6 then 1 else 2 end) as semestre  "+
+	                        "    from		mondongo.historial_millas hm "+
+	                        "    inner join mondongo.clientes c on hm.id_cliente = c.cliente_id "+
+	                        "    group by	c.cliente_id, c.cliente_nombre, c.cliente_apellido, tipo_operacion, (case when month(fecha_operacion) between 1 and 6 then 1 else 2 end),year(fecha_operacion) "+
+	                        "    having		tipo_operacion = 1  "+
+				            "                and (case when month(fecha_operacion) between 1 and 6 then 1 else 2 end) = @semestre  "+
+				            "                and year(fecha_operacion) = @año ) suma, "+
+	                        "    (select		c.cliente_id, c.cliente_nombre, c.cliente_apellido, sum(millas) as cantidad, (case when month(fecha_operacion) between 1 and 6 then 1 else 2 end) as semestre  "+
+	                        "    from		mondongo.historial_millas hm "+
+	                        "    inner join mondongo.clientes c on hm.id_cliente = c.cliente_id "+
+	                        "    group by	c.cliente_id, c.cliente_nombre, c.cliente_apellido, tipo_operacion, (case when month(fecha_operacion) between 1 and 6 then 1 else 2 end),year(fecha_operacion) "+
+	                        "    having		tipo_operacion =2  "+
+                            "                and (case when month(fecha_operacion) between 1 and 6 then 1 else 2 end) = @semestre  " +
+                            "                and year(fecha_operacion) = @año ) resta " +
+                            "group by c.cliente_id, suma.cliente_nombre, suma.cliente_apellido, suma.cliente_id, suma.cantidad, resta.cliente_id, resta.cantidad "+
+                            "having c.cliente_id = suma.cliente_id and c.cliente_id = resta.cliente_id " +
+                            "order by cantidad_total desc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@año", año);
@@ -130,10 +147,11 @@ namespace AerolineaFrba.Dao
                 {
                     while (reader.Read())
                     {
-                        var destinoNombre = reader.GetString(0);
-                        var destinoCantidad = reader.GetInt32(1);
-                        destino = new Model.ListadoDestinoModel(destinoNombre, destinoCantidad);
-                        destinos.Add(destino);
+                        var idCliente = (int)(double)reader.GetDecimal(0);
+                        var nombreCliente = reader.GetString(1);
+                        var apellidoCliente = reader.GetString(2);
+                        var cantidad = (double)reader.GetDecimal(3);
+                        clientes.Add(new Model.ListadoClienteModel(idCliente, nombreCliente, apellidoCliente, cantidad));
                     }
                 }
             }
@@ -141,13 +159,6 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
-            return destinos;
-        }
-
-
-        public List<Model.ClienteModel> listarClientes(int año, int semestre)
-        {
-            List<Model.ClienteModel> clientes = new List<Model.ClienteModel>();
 
             return clientes;
         }

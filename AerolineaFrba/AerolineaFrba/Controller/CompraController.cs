@@ -20,7 +20,7 @@ namespace AerolineaFrba.Controller
             _viajeDao = new Dao.ViajeDao();
         }
 
-        public void registrarCompra(Model.CompraModel compraModel)
+        public int registrarCompra(Model.CompraModel compraModel)
         {
             int idPagador = _clienteDao.guardarPagador(compraModel.pagador);
             int pnr = _compraDao.buscarPnr();
@@ -44,7 +44,8 @@ namespace AerolineaFrba.Controller
                 _compraDao.guardarPaquete(pnr, compraModel);
                 _viajeDao.descontarKg(compraModel.vueloElegido.idViaje, compraModel.cantidadKg);
             }
-            
+
+            return pnr;
         }
 
 
