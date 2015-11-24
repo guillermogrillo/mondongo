@@ -374,5 +374,40 @@ namespace AerolineaFrba.Dao
             return modificado;
         }
 
+        public Boolean guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
+        {
+            Boolean guardado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.viajes (viaje_ruta_id, aeronave_matricula, fecha_salida, fecha_llegada_estimada, cantidad_butacas_ventanilla_disponibles, cantidad_butacas_pasillo_disponibles, cantidad_kg_disponibles) "+
+                            "values (@rutaId, @aeronaveMatricula, @fechaSalida, @fechaLlegadaEstimada, @cantidadVentanilla, @cantidadPasillo, @cantidadKg)";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@rutaId", ruta.idRuta);
+                    command.Parameters.AddWithValue("@aeronaveMatricula", viaje.aeronaveMatricula);
+                    command.Parameters.AddWithValue("@fechaSalida", viaje.fechaHoraSalida);
+                    command.Parameters.AddWithValue("@fechaLlegadaEstimada", viaje.fechaHoraLlegadaEstimada);
+                    command.Parameters.AddWithValue("@cantidadVentanilla", aeronave.cantButacasVen);
+                    command.Parameters.AddWithValue("@cantidadPasillo", aeronave.cantButacasPas);
+                    command.Parameters.AddWithValue("@cantidadKg", aeronave.capacidadKg);
+                }
+
+                var cantidadModificada = command.ExecuteNonQuery();
+
+                guardado = Convert.ToBoolean(cantidadModificada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            return guardado;
+
+        }
+
     }
 }

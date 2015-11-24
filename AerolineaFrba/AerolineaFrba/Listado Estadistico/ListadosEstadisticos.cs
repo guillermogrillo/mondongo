@@ -25,21 +25,21 @@ namespace AerolineaFrba.Listado_Estadistico
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if(tbAño.Text.Equals("") || tbSemestre.Text.Equals("")){
+            if(tbAño.Text.Equals("")){
                 MessageBox.Show("Debe ingresar año y semestre");
             }
             else
             {
                 int año = Convert.ToInt32(tbAño.Text);
-                int semestre = Convert.ToInt32(tbSemestre.Text);
+                int semestre = Convert.ToInt32(cbSemestre.SelectedValue);
 
                 if (rbDestinosMasComprados.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarDestinosConMasPasajesComprados(año, semestre);
+                    dgvListado.DataSource = listadoController.listarDestinosMasVendidos(año, semestre);
                 }
                 else if (rbDestinosAeronavesVacias.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarDestinosConMasAeronavesVacias(año, semestre);
+                    dgvListado.DataSource = listadoController.listarDestinosConAeronavesMasVacias(año, semestre);
                 }
                 else if (rbDestinosPasajesCancelados.Checked)
                 {
@@ -47,11 +47,11 @@ namespace AerolineaFrba.Listado_Estadistico
                 }
                 else if (rbClientesPuntosAcumulados.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarClientesConMasPuntosAcumulados(año, semestre);
+                    dgvListado.DataSource = listadoController.listarClientes(año, semestre);
                 }
                 else if (rbAeronavesFueraServicio.Checked)
                 {
-                    dgvListado.DataSource = listadoController.listarAeronavesConMasDiasFueraDeServicio(año, semestre);
+                    dgvListado.DataSource = listadoController.listarAeronaves(año, semestre);
                 }
             }
                 
@@ -62,6 +62,31 @@ namespace AerolineaFrba.Listado_Estadistico
         {
             this.Close();
             new AerolineasFRBA().Show();
+        }
+
+        private void tbAño_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbSemestre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ListadosEstadisticos_Load(object sender, EventArgs e)
+        {
+            List<int> semestres = new List<int>();
+            semestres.Add(1);
+            semestres.Add(2);
+            cbSemestre.DataSource = semestres;
+            cbSemestre.SelectedIndex = 0;
         }
     }
 }

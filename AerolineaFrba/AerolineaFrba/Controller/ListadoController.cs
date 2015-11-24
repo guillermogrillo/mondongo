@@ -16,29 +16,29 @@ namespace AerolineaFrba.Controller
             _listadoDao = new Dao.ListadoDao();
         }
 
-        public List<Model.CiudadModel> listarDestinosConMasPasajesComprados(int año, int semestre)
+        public List<Model.ListadoDestinoModel> listarDestinosMasVendidos(int año, int semestre)
         {
-            return _listadoDao.listarDestinosConMasPasajesComprados(año, semestre);
+            return _listadoDao.listarDestinosMasVendidos(año, semestre);
         }
 
-        public List<Model.CiudadModel> listarDestinosConMasAeronavesVacias(int año, int semestre)
-        {
-            return _listadoDao.listarDestinosConMasAeronavesVacias(año, semestre);
-        }
-
-        public List<Model.CiudadModel> listarDestinosConMasPasajesCancelados(int año, int semestre)
+        public List<Model.ListadoDestinoModel> listarDestinosConMasPasajesCancelados(int año, int semestre)
         {
             return _listadoDao.listarDestinosConMasPasajesCancelados(año, semestre);
         }
 
-        public List<Model.ClienteModel> listarClientesConMasPuntosAcumulados(int año, int semestre)
+        public List<Model.ListadoDestinoModel> listarDestinosConAeronavesMasVacias(int año, int semestre)
         {
-            return _listadoDao.listarClientesConMasPuntosAcumulados(año, semestre);
+            return _listadoDao.listarDestinosConAeronavesMasVacias(año, semestre);
+        }
+      
+        public List<Model.ClienteModel> listarClientes(int año, int semestre)
+        {
+            return _listadoDao.listarClientes(año, semestre);
         }
 
-        public List<Model.AeronaveModel> listarAeronavesConMasDiasFueraDeServicio(int año, int semestre)
+        public List<Model.AeronaveModel> listarAeronaves(int año, int semestre)
         {
-            return _listadoDao.listarAeronavesConMasDiasFueraDeServicio(año, semestre);
+            return _listadoDao.listarAeronaves(año, semestre);
         }
         
     }

@@ -17,7 +17,7 @@ namespace AerolineaFrba.Compra
         Controller.ClienteController clienteController = null;
         Controller.ViajeController viajeController = null;
         Model.ClienteModel clientePantalla = null;
-        Dictionary<String, List<int>> butacasDisponibles = null;
+        Dictionary<String, List<int>> butacasDisponibles = null;        
 
         public NuevoPasajero(Model.CompraModel _compraModel)
         {
@@ -26,6 +26,8 @@ namespace AerolineaFrba.Compra
             clienteController = new Controller.ClienteController();
             viajeController = new Controller.ViajeController();
             clientePantalla = new Model.ClienteModel();
+            dpFNac.Format = DateTimePickerFormat.Custom;
+            dpFNac.CustomFormat = "dd/MM/yyyy";
         }
 
         private void NuevoPasajero_Load(object sender, EventArgs e)

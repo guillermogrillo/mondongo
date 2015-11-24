@@ -55,6 +55,7 @@ namespace AerolineaFrba.Compra
             dgvPasajeros.Columns[4].HeaderText = "Fecha Nacimiento";
             dgvPasajeros.Columns[4].ReadOnly = true;
             dgvPasajeros.Columns[4].Width = 75;
+            dgvPasajeros.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";            
 
             dgvPasajeros.Columns[5].HeaderText = "Dirección";
             dgvPasajeros.Columns[5].ReadOnly = true;

@@ -20,7 +20,13 @@ namespace AerolineaFrba.Model
         public String tipoServicio { get; set; }
         public String aeronaveMatricula { get; set; }
         public int cantidadButacas { get; set; }
-        public int cantidadKgDisponibles { get; set; }        
+        public int cantidadKgDisponibles { get; set; }
+        public int rutaId { get; set; }
+        public int cantidadButacasVentanilla {get;set;}
+        public int cantidadButacasPasillo {get;set;}
+        public DateTime fechaHoraSalida { get; set; }
+        public DateTime fechaHoraLlegadaEstimada { get; set; }
+
 
         public ViajeModel(int _idViaje, DateTime _fechaSalida, DateTime _fechaLlegada, DateTime _fechaLlegadaEstimada, String _ciudadOrigen, String _ciudadDestino, String _tipoServicio,String _aeronaveMatricula, int _cantidadButacas, int _cantidadKgDisponibles)
         {
@@ -38,5 +44,17 @@ namespace AerolineaFrba.Model
             cantidadButacas = _cantidadButacas;
             cantidadKgDisponibles = _cantidadKgDisponibles;
         }
+        
+        public ViajeModel(int rutaId, String matricula, DateTime fechaSalida, DateTime fechaLlegadaEstimada, int cantidadButacasPasillo, int cantidadButacasVentanilla, int cantidadKg)
+        {
+            this.rutaId = rutaId;
+            this.aeronaveMatricula = matricula;
+            this.fechaHoraSalida = fechaSalida;
+            this.fechaHoraLlegadaEstimada = fechaLlegadaEstimada;
+            this.cantidadButacasPasillo = cantidadButacasPasillo;
+            this.cantidadButacasVentanilla = cantidadButacasVentanilla;
+            this.cantidadKgDisponibles = cantidadKg;
+        }
+
     }
 }

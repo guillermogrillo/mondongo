@@ -23,8 +23,7 @@ namespace AerolineaFrba.Compra
         }
 
         private void Pasajeros_Load(object sender, EventArgs e)
-        {            
-            btnEditar.Enabled = false;
+        {                        
             btnQuitar.Enabled = false;
             if(compraModel.clientes.Count==compraModel.cantidadPax)
             {
@@ -52,6 +51,12 @@ namespace AerolineaFrba.Compra
             double precioTotal = precioPasajes + precioEncomienda;
             lblCalculoPrecio.Text = "$" + precioTotal.ToString();
 
+            armarGrilla();
+        }
+
+        private void armarGrilla()
+        {
+            dgvClientes.DataSource = null;
             dgvClientes.DataSource = compraModel.clientes;
             dgvClientes.AutoGenerateColumns = true;
             dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -74,14 +79,13 @@ namespace AerolineaFrba.Compra
             dgvClientes.Columns[5].Visible = false;
             dgvClientes.Columns[6].Visible = false;
             dgvClientes.Columns[7].Visible = false;
-            dgvClientes.Columns[8].Visible = false; 
+            dgvClientes.Columns[8].Visible = false;
         }
 
         private void dgvClientes_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             clienteSeleccionado = (Model.ClienteModel)dgvClientes.CurrentRow.DataBoundItem;
-            btnQuitar.Enabled = true;
-            btnEditar.Enabled = true;
+            btnQuitar.Enabled = true;            
 
             String detalleButaca =  "Tipo de butaca: " + clienteSeleccionado.butaca.tipo +                                     
                                     " | Nro: " + clienteSeleccionado.butaca.numero;
@@ -116,9 +120,8 @@ namespace AerolineaFrba.Compra
         {
             if(clienteSeleccionado != null)
             {
-                compraModel.clientes.Remove(clienteSeleccionado);
-                dgvClientes.DataSource = null;
-                dgvClientes.DataSource = compraModel.clientes;
+                compraModel.clientes.Remove(clienteSeleccionado);                
+                armarGrilla();
             }
         }
     }

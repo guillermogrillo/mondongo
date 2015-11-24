@@ -703,7 +703,11 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
     [cantidad_butacas_pas] [numeric](18, 0) NULL,
     [fecha_baja_definitiva] [date] NULL,
+<<<<<<< HEAD
 	[estado] [numeric](18,0) default 0
+=======
+[estado] [numeric](18,0) default 0
+>>>>>>> a5be2a4afbc946223012b1910ab10b902614ab30
 ) ON [PRIMARY]
 GO
 create table mondongo.viajes(
@@ -716,7 +720,7 @@ create table mondongo.viajes(
     cantidad_butacas_ventanilla_disponibles numeric(18,0) not null,
 	cantidad_butacas_pasillo_disponibles numeric(18,0) not null,
 	cantidad_kg_disponibles numeric(18,0) not null,
-	estado numeric(1,0)
+	estado numeric(1,0) default 0
 )
 GO
 
@@ -844,45 +848,3 @@ exec mondongo.pr_cargar_paquetes
 go
 exec mondongo.pr_actualizar_viajes
 go
-
-
-/*Top 5 de los destinos con más pasajes comprados*/
-/*
-select top 5 c.nombre, count(c.nombre) as cantidad, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) as semestre
-from mondongo.pasajes p
-inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr
-inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id
-inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta
-inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino
-group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra)
-having (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) = 1 and year(ve.venta_Fecha_compra) = 2015 
-order by count(c.nombre) desc
-*/
-
-/*Top 5 de los destinos con aeronaves más vacías*/
-/*
-select top 5 dif.nombre, min(dif.diferencia) as diferencia_minima
-from
-(select c.nombre, (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) as semestre, (a.cantidad_butacas_ven + a.cantidad_butacas_pas)-(vi.cantidad_butacas_ventanilla_disponibles + vi.cantidad_butacas_pasillo_disponibles) as diferencia
-from mondongo.viajes vi
-inner join mondongo.aeronaves a on vi.aeronave_matricula = a.matricula
-inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta
-inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino
-where (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) = 2 and year(vi.fecha_salida) = 2016) dif
-group by dif.nombre
-order by diferencia_minima asc
-*/
-
-
-/*Top 5 de los destinos con pasajes cancelados*/
-/*
-select top 5 c.nombre, count(c.id_ciudad) as cantidad_cancelaciones
-from mondongo.pasajes p
-inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr
-inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id
-inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta
-inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino
-where p.estado = 1
-group by c.nombre
-order by cantidad_cancelaciones desc
-*/
