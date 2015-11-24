@@ -27,11 +27,11 @@ namespace AerolineaFrba.Compra
         private void ConfirmacionCompra_Load(object sender, EventArgs e)
         {
             tbCiudadOrigen.Text = compraModel.vueloElegido.ciudadOrigen;
-            tbFechaSalida.Text = compraModel.vueloElegido.fechaSalida;
-            tbHoraSalida.Text = compraModel.vueloElegido.horaSalida;
+            tbFechaSalida.Text = compraModel.vueloElegido.fechaHoraSalida.Date.ToString();
+            tbHoraSalida.Text = compraModel.vueloElegido.fechaHoraSalida.TimeOfDay.ToString();
             tbCiudadDestino.Text = compraModel.vueloElegido.ciudadDestino;
-            tbFechaLlegada.Text = compraModel.vueloElegido.fechaLlegadaEstimada;
-            tbHoraLlegadaEstimado.Text = compraModel.vueloElegido.horaLlegadaEstimada;
+            tbFechaLlegada.Text = compraModel.vueloElegido.fechaHoraLlegadaEstimada.Date.ToString();
+            tbHoraLlegadaEstimado.Text = compraModel.vueloElegido.fechaHoraLlegadaEstimada.TimeOfDay.ToString();
             tbKg.Text = compraModel.cantidadKg.ToString();
             tbPrecioEncomienda.Text = (compraModel.cantidadKg * compraModel.ruta.precioBaseKg).ToString();
 

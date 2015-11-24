@@ -24,7 +24,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select	v.viaje_id,v.fecha_salida, v.fecha_llegada, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
-                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas, " +
+                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles as cantidad_butacas_pasillo, v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas_ventanilla, " +
                             "v.cantidad_kg_disponibles " +
                             "from	mondongo.viajes v " +
                             "join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id " +
@@ -56,10 +56,11 @@ namespace AerolineaFrba.Dao
                         var ciudadDestino = reader.GetString(5);
                         var tipoServicio = reader.GetString(6);
                         var aeronaveMatricula = reader.GetString(7);
-                        var cantidadButacas = (int)(double)reader.GetDecimal(8);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
+                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(8);
+                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(9);
+                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(10);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula,cantidadButacas, cantidadKgDisponibles);
+                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);                        
                         viajes.Add(viaje);                       
                     }
                 }
@@ -137,7 +138,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
-                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas, " +
+                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles as cantidad_butacas_pasillo, v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas_ventanilla, " +
                             "v.cantidad_kg_disponibles " +
                             "from	mondongo.viajes v " +
                             "join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id " +
@@ -167,10 +168,11 @@ namespace AerolineaFrba.Dao
                         var ciudadDestino = reader.GetString(5);
                         var tipoServicio = reader.GetString(6);
                         var aeronaveMatricula = reader.GetString(7);
-                        var cantidadButacas = (int)(double)reader.GetDecimal(8);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
+                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(8);
+                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(9);
+                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(10);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacas, cantidadKgDisponibles);
+                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);
                         viajes.Add(viaje);
                     }
                 }
@@ -199,7 +201,7 @@ namespace AerolineaFrba.Dao
                             "WHERE viaje_id = @idViaje";
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@fechaLlegada", DateTime.Parse(viaje.fechaLlegada + " " + viaje.horaLlegada));
+                    command.Parameters.AddWithValue("@fechaLlegada", viaje.fechaHoraLlegada);
                     command.Parameters.AddWithValue("@idViaje", viaje.idViaje);
                 }
 

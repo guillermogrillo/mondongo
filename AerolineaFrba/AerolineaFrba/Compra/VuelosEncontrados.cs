@@ -26,11 +26,13 @@ namespace AerolineaFrba.Compra
         }
 
         private void VuelosEncontrados_Load(object sender, EventArgs e)
-        {
+        {                  
+
+
             dgvVuelos.AutoGenerateColumns = true;
             dgvVuelos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvVuelos.DataSource = compraModel.vuelos;
-            dgvVuelos.Columns[0].Visible = false;
+/*            dgvVuelos.Columns[0].Visible = false;
             dgvVuelos.Columns[3].Visible = false;
             dgvVuelos.Columns[4].Visible = false;
             dgvVuelos.Columns[5].Visible = false;
@@ -67,7 +69,7 @@ namespace AerolineaFrba.Compra
             dgvVuelos.Columns[12].HeaderText = "Kg. Disponibles";
             dgvVuelos.Columns[12].ReadOnly = true;
             dgvVuelos.Columns[12].Width = 65;
-
+            */
             dgvVuelos.SelectedRows[0].Selected = true;
         }
 

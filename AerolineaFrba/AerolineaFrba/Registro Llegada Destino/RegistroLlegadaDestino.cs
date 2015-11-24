@@ -147,10 +147,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             DateTime fechaLlegada = dpFechaLlegada.Value;
 
-            var fechaLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy");
-            var horaLlegadaFormateada = fechaLlegada.ToString("HH':'mm':'ss");
-            vueloSeleccionado.fechaLlegada = fechaLlegadaFormateada;
-            vueloSeleccionado.horaLlegada = horaLlegadaFormateada;
+            var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");                      
+            vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
             Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
             this.Close();
             new AerolineasFRBA().Show();
