@@ -54,6 +54,7 @@
             // 
             this.tbMatricula.AccessibleName = "";
             this.tbMatricula.Location = new System.Drawing.Point(89, 24);
+            this.tbMatricula.MaxLength = 10;
             this.tbMatricula.Name = "tbMatricula";
             this.tbMatricula.Size = new System.Drawing.Size(100, 20);
             this.tbMatricula.TabIndex = 0;
@@ -79,6 +80,7 @@
             // tbModelo
             // 
             this.tbModelo.Location = new System.Drawing.Point(89, 76);
+            this.tbModelo.MaxLength = 50;
             this.tbModelo.Name = "tbModelo";
             this.tbModelo.Size = new System.Drawing.Size(100, 20);
             this.tbModelo.TabIndex = 3;
@@ -86,16 +88,20 @@
             // tbPasillo
             // 
             this.tbPasillo.Location = new System.Drawing.Point(88, 45);
+            this.tbPasillo.MaxLength = 2;
             this.tbPasillo.Name = "tbPasillo";
-            this.tbPasillo.Size = new System.Drawing.Size(28, 20);
+            this.tbPasillo.Size = new System.Drawing.Size(47, 20);
             this.tbPasillo.TabIndex = 4;
+            this.tbPasillo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // tbVentanilla
             // 
             this.tbVentanilla.Location = new System.Drawing.Point(88, 19);
+            this.tbVentanilla.MaxLength = 2;
             this.tbVentanilla.Name = "tbVentanilla";
-            this.tbVentanilla.Size = new System.Drawing.Size(28, 20);
+            this.tbVentanilla.Size = new System.Drawing.Size(47, 20);
             this.tbVentanilla.TabIndex = 5;
+            this.tbVentanilla.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // label3
             // 
@@ -109,9 +115,11 @@
             // tbKilos
             // 
             this.tbKilos.Location = new System.Drawing.Point(88, 15);
+            this.tbKilos.MaxLength = 3;
             this.tbKilos.Name = "tbKilos";
-            this.tbKilos.Size = new System.Drawing.Size(28, 20);
+            this.tbKilos.Size = new System.Drawing.Size(47, 20);
             this.tbKilos.TabIndex = 10;
+            this.tbKilos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // label4
             // 

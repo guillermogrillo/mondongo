@@ -16,7 +16,7 @@ namespace AerolineaFrba.Model
         public Double precioBasePasaje { get; set; }
         public Double precioBaseKg { get; set; }
         public Double horasVuelo { get; set; }
-        public Boolean estado { get; set; }
+        public int estado { get; set; }
 
         public String nombreCiudadOrigen { get; set; }
         public String nombreCiudadDestino { get; set; }
@@ -24,7 +24,8 @@ namespace AerolineaFrba.Model
 
         public RutaModel() { }
         
-        public RutaModel(int _idRuta, int _codigoRuta, int _ciudadOrigen, int _ciudadDestino, int _tipoServicio, Double _precioBasePasaje, Double _precioBaseKg, Double _horasVuelo)
+        public RutaModel(int _idRuta, int _codigoRuta, int _ciudadOrigen, int _ciudadDestino, int _tipoServicio, Double _precioBasePasaje, 
+                        Double _precioBaseKg, Double _horasVuelo, int _estado)
         {
             this.idRuta = _idRuta;
             this.codigoRuta = _codigoRuta;
@@ -34,6 +35,7 @@ namespace AerolineaFrba.Model
             this.precioBasePasaje = _precioBasePasaje;
             this.precioBaseKg = _precioBaseKg;
             this.horasVuelo = _horasVuelo;
+            this.estado = _estado;
         }
 
         public enum RutaEstado

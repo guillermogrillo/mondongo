@@ -30,10 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgRutas = new System.Windows.Forms.DataGridView();
-            this.btAgregar = new System.Windows.Forms.Button();
-            this.btEditar = new System.Windows.Forms.Button();
-            this.btEliminar = new System.Windows.Forms.Button();
-            this.rutaModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.codigoRutaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreCiudadOrigen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreCiudadDestino = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +37,10 @@
             this.precioBasePasajeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.precioBaseKgDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.horasVueloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rutaModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btAgregar = new System.Windows.Forms.Button();
+            this.btEditar = new System.Windows.Forms.Button();
+            this.btEliminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgRutas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rutaModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -64,45 +64,12 @@
             this.dgRutas.DataSource = this.rutaModelBindingSource;
             this.dgRutas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgRutas.Location = new System.Drawing.Point(13, 13);
+            this.dgRutas.MultiSelect = false;
             this.dgRutas.Name = "dgRutas";
             this.dgRutas.ReadOnly = true;
             this.dgRutas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgRutas.Size = new System.Drawing.Size(605, 150);
             this.dgRutas.TabIndex = 0;
-            // 
-            // btAgregar
-            // 
-            this.btAgregar.Location = new System.Drawing.Point(196, 211);
-            this.btAgregar.Name = "btAgregar";
-            this.btAgregar.Size = new System.Drawing.Size(75, 23);
-            this.btAgregar.TabIndex = 1;
-            this.btAgregar.Text = "Agregar";
-            this.btAgregar.UseVisualStyleBackColor = true;
-            this.btAgregar.Click += new System.EventHandler(this.btAgregar_Click);
-            // 
-            // btEditar
-            // 
-            this.btEditar.Location = new System.Drawing.Point(278, 210);
-            this.btEditar.Name = "btEditar";
-            this.btEditar.Size = new System.Drawing.Size(75, 23);
-            this.btEditar.TabIndex = 2;
-            this.btEditar.Text = "Editar";
-            this.btEditar.UseVisualStyleBackColor = true;
-            this.btEditar.Click += new System.EventHandler(this.btEditar_Click);
-            // 
-            // btEliminar
-            // 
-            this.btEliminar.Location = new System.Drawing.Point(360, 210);
-            this.btEliminar.Name = "btEliminar";
-            this.btEliminar.Size = new System.Drawing.Size(75, 23);
-            this.btEliminar.TabIndex = 3;
-            this.btEliminar.Text = "Eliminar";
-            this.btEliminar.UseVisualStyleBackColor = true;
-            this.btEliminar.Click += new System.EventHandler(this.btEliminar_Click);
-            // 
-            // rutaModelBindingSource
-            // 
-            this.rutaModelBindingSource.DataSource = typeof(AerolineaFrba.Model.RutaModel);
             // 
             // codigoRutaDataGridViewTextBoxColumn
             // 
@@ -154,6 +121,40 @@
             this.horasVueloDataGridViewTextBoxColumn.HeaderText = "Horas Vuelo";
             this.horasVueloDataGridViewTextBoxColumn.Name = "horasVueloDataGridViewTextBoxColumn";
             this.horasVueloDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // rutaModelBindingSource
+            // 
+            this.rutaModelBindingSource.DataSource = typeof(AerolineaFrba.Model.RutaModel);
+            // 
+            // btAgregar
+            // 
+            this.btAgregar.Location = new System.Drawing.Point(196, 211);
+            this.btAgregar.Name = "btAgregar";
+            this.btAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btAgregar.TabIndex = 1;
+            this.btAgregar.Text = "Agregar";
+            this.btAgregar.UseVisualStyleBackColor = true;
+            this.btAgregar.Click += new System.EventHandler(this.btAgregar_Click);
+            // 
+            // btEditar
+            // 
+            this.btEditar.Location = new System.Drawing.Point(278, 210);
+            this.btEditar.Name = "btEditar";
+            this.btEditar.Size = new System.Drawing.Size(75, 23);
+            this.btEditar.TabIndex = 2;
+            this.btEditar.Text = "Editar";
+            this.btEditar.UseVisualStyleBackColor = true;
+            this.btEditar.Click += new System.EventHandler(this.btEditar_Click);
+            // 
+            // btEliminar
+            // 
+            this.btEliminar.Location = new System.Drawing.Point(360, 210);
+            this.btEliminar.Name = "btEliminar";
+            this.btEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btEliminar.TabIndex = 3;
+            this.btEliminar.Text = "Eliminar";
+            this.btEliminar.UseVisualStyleBackColor = true;
+            this.btEliminar.Click += new System.EventHandler(this.btEliminar_Click);
             // 
             // AbmRuta
             // 

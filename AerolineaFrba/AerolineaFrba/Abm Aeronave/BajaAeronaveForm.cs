@@ -20,8 +20,8 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             _aeronave = a;
             _controller = new Controller.AeronaveController();
-            dpFechaHasta.Visible = fechaVisible;
             InitializeComponent();
+            dpFechaHasta.Visible = fechaVisible;
         }
 
         //boton aceptar

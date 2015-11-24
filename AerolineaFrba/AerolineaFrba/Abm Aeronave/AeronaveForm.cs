@@ -19,22 +19,23 @@ namespace AerolineaFrba.Abm_Aeronave
         Dao.FabricanteDao fabricantesDao;
         Controller.AeronaveController _controller;
         Abm_Aeronave.AbmAeronaves abmAeronaves;
-        
-        public AeronaveForm()
+
+        private Boolean isEdit = false;
+
+        public AeronaveForm(Abm_Aeronave.AbmAeronaves abm_aeronaves)
         {
-            init();
-            llenarTiposServicio();
-            llenarFabricantes();
+            isEdit = false;
             InitializeComponent();
+            init();
+            this.abmAeronaves = abm_aeronaves;
         }
 
         public AeronaveForm( Abm_Aeronave.AbmAeronaves abm_aeronaves, AeronaveModel aeronave)
         {
+            isEdit = true;
+            InitializeComponent();
             init();
             this.abmAeronaves = abm_aeronaves;
-            InitializeComponent();
-            llenarTiposServicio();
-            llenarFabricantes();
             
             if (aeronave != null)
             {
@@ -45,6 +46,9 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.tbPasillo.Text = aeronave.cantButacasPas.ToString();
                 this.tbVentanilla.Text = aeronave.cantButacasVen.ToString();
                 this.cbTipoServicio.SelectedItem = getTipoServicio(aeronave.idTipoServicio);
+
+                this.tbMatricula.Enabled = false;
+                this.cbFabricantes.Enabled = false;
             }
         }
 
@@ -72,6 +76,9 @@ namespace AerolineaFrba.Abm_Aeronave
             tipoServicioDao = new Dao.TipoServicioDao();
             fabricantesDao = new Dao.FabricanteDao();
             _controller = new Controller.AeronaveController();
+
+            llenarTiposServicio();
+            llenarFabricantes();
         }
 
         private void llenarTiposServicio()
@@ -101,7 +108,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void onClickGuardar(object sender, EventArgs e)
         {
-            if (tbMatricula.Enabled)
+            if (isEdit)
                 guardar();
             else
                 actualizar();
@@ -148,9 +155,13 @@ namespace AerolineaFrba.Abm_Aeronave
             return aeronave;
         }
 
-        public void habilitarMatricula(Boolean enabled)
+        private void onKeyPress(object sender, KeyPressEventArgs e)
         {
-            tbMatricula.Enabled = enabled;
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
+
     }
 }
