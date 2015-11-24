@@ -147,6 +147,7 @@
             this.btnConsultarMillas.Text = "Consultar millas";
             this.btnConsultarMillas.UseVisualStyleBackColor = true;
             this.btnConsultarMillas.Visible = false;
+            this.btnConsultarMillas.Click += new System.EventHandler(this.btnConsultarMillas_Click);
             // 
             // btnCancelarPasajes
             // 
@@ -185,7 +186,7 @@
             this.flpMenu.Controls.Add(this.btnListado);
             this.flpMenu.Controls.Add(this.btnRegresar);
             this.flpMenu.Location = new System.Drawing.Point(16, 15);
-            this.flpMenu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flpMenu.Margin = new System.Windows.Forms.Padding(4);
             this.flpMenu.Name = "flpMenu";
             this.flpMenu.Size = new System.Drawing.Size(220, 426);
             this.flpMenu.TabIndex = 7;

@@ -17,6 +17,9 @@ GO
 IF OBJECT_ID('mondongo.ventas', 'U') IS NOT NULL
   DROP TABLE mondongo.ventas;
 GO
+IF OBJECT_ID('mondongo.canje_millas', 'U') IS NOT NULL
+  DROP TABLE mondongo.canje_millas;
+GO
 IF OBJECT_ID('mondongo.historial_millas', 'U') IS NOT NULL
   DROP TABLE mondongo.historial_millas;
 GO
@@ -760,15 +763,20 @@ GO
 
 create table mondongo.historial_millas(
 	id_historial numeric(18,0) primary key identity,
-	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),
-	id_viaje numeric(18,0) null references mondongo.viajes(viaje_id),
-	id_producto numeric(18,0) null references mondongo.productos(id_producto),
-	cantidad_producto numeric(3,0) null,
-	cantidad_millas numeric(7,0) not null,
+	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),			
+	millas numeric(7,2) not null,
 	fecha_operacion datetime default getdate(),
-	tipo_operacion char not null
+	tipo_operacion int not null,
+	descripcion varchar(255) null
 )
-
+go
+create table mondongo.canje_millas(
+	id_canje numeric(18,0) primary key identity,
+	id_producto numeric(18,0) not null references mondongo.productos(id_producto),
+	id_historial numeric(18,0) not null references mondongo.historial_millas(id_historial),
+	cantidad numeric(2) not null,
+	fecha_canje datetime default getdate()
+)
 
 GO
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
@@ -845,3 +853,26 @@ exec mondongo.pr_cargar_paquetes
 go
 exec mondongo.pr_actualizar_viajes
 go
+
+
+/*
+Datos de prueba para consulta de historial de millas
+
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,400,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,150,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
+insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
+values (1,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
+
+*/

@@ -78,6 +78,12 @@ namespace AerolineaFrba.Menu
         {
             this.Close();
             new Generacion_Viaje.GeneradorViajes().Show();
+        }
+
+        private void btnConsultarMillas_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Consulta_Millas.ConsultaMillas().Show();
         }       
     }
 }
