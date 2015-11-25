@@ -78,6 +78,7 @@
             // tbDni
             // 
             this.tbDni.Location = new System.Drawing.Point(81, 10);
+            this.tbDni.MaxLength = 9;
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(116, 20);
             this.tbDni.TabIndex = 1;
@@ -120,6 +121,7 @@
             // 
             this.tbDireccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbDireccion.Location = new System.Drawing.Point(353, 81);
+            this.tbDireccion.MaxLength = 30;
             this.tbDireccion.Name = "tbDireccion";
             this.tbDireccion.Size = new System.Drawing.Size(229, 20);
             this.tbDireccion.TabIndex = 11;
@@ -128,6 +130,7 @@
             // tbTelefono
             // 
             this.tbTelefono.Location = new System.Drawing.Point(68, 81);
+            this.tbTelefono.MaxLength = 15;
             this.tbTelefono.Name = "tbTelefono";
             this.tbTelefono.Size = new System.Drawing.Size(229, 20);
             this.tbTelefono.TabIndex = 10;
@@ -147,6 +150,7 @@
             // 
             this.tbMail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbMail.Location = new System.Drawing.Point(353, 52);
+            this.tbMail.MaxLength = 30;
             this.tbMail.Name = "tbMail";
             this.tbMail.Size = new System.Drawing.Size(229, 20);
             this.tbMail.TabIndex = 8;
@@ -191,6 +195,7 @@
             // 
             this.tbApellido.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbApellido.Location = new System.Drawing.Point(353, 23);
+            this.tbApellido.MaxLength = 30;
             this.tbApellido.Name = "tbApellido";
             this.tbApellido.Size = new System.Drawing.Size(229, 20);
             this.tbApellido.TabIndex = 3;
@@ -209,6 +214,7 @@
             // 
             this.tbNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbNombre.Location = new System.Drawing.Point(68, 23);
+            this.tbNombre.MaxLength = 30;
             this.tbNombre.Name = "tbNombre";
             this.tbNombre.Size = new System.Drawing.Size(229, 20);
             this.tbNombre.TabIndex = 1;

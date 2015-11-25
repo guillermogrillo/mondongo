@@ -41,24 +41,28 @@
             // lblDni
             // 
             this.lblDni.AutoSize = true;
-            this.lblDni.Location = new System.Drawing.Point(210, 16);
+            this.lblDni.Location = new System.Drawing.Point(158, 13);
+            this.lblDni.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDni.Name = "lblDni";
-            this.lblDni.Size = new System.Drawing.Size(29, 17);
+            this.lblDni.Size = new System.Drawing.Size(23, 13);
             this.lblDni.TabIndex = 0;
             this.lblDni.Text = "Dni";
             // 
             // tbDni
             // 
-            this.tbDni.Location = new System.Drawing.Point(245, 14);
+            this.tbDni.Location = new System.Drawing.Point(184, 11);
+            this.tbDni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDni.MaxLength = 9;
             this.tbDni.Name = "tbDni";
-            this.tbDni.Size = new System.Drawing.Size(150, 22);
+            this.tbDni.Size = new System.Drawing.Size(114, 20);
             this.tbDni.TabIndex = 1;
             // 
             // btnConsultar
             // 
-            this.btnConsultar.Location = new System.Drawing.Point(401, 10);
+            this.btnConsultar.Location = new System.Drawing.Point(301, 8);
+            this.btnConsultar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(78, 30);
+            this.btnConsultar.Size = new System.Drawing.Size(58, 24);
             this.btnConsultar.TabIndex = 2;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.UseVisualStyleBackColor = true;
@@ -71,35 +75,39 @@
             this.dgvHistorialMillas.AllowUserToResizeColumns = false;
             this.dgvHistorialMillas.AllowUserToResizeRows = false;
             this.dgvHistorialMillas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHistorialMillas.Location = new System.Drawing.Point(13, 52);
+            this.dgvHistorialMillas.Location = new System.Drawing.Point(10, 42);
+            this.dgvHistorialMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvHistorialMillas.Name = "dgvHistorialMillas";
             this.dgvHistorialMillas.ReadOnly = true;
             this.dgvHistorialMillas.RowTemplate.Height = 24;
-            this.dgvHistorialMillas.Size = new System.Drawing.Size(745, 251);
+            this.dgvHistorialMillas.Size = new System.Drawing.Size(559, 204);
             this.dgvHistorialMillas.TabIndex = 3;
             // 
             // lblCantidadMillas
             // 
             this.lblCantidadMillas.AutoSize = true;
-            this.lblCantidadMillas.Location = new System.Drawing.Point(246, 323);
+            this.lblCantidadMillas.Location = new System.Drawing.Point(184, 262);
+            this.lblCantidadMillas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCantidadMillas.Name = "lblCantidadMillas";
-            this.lblCantidadMillas.Size = new System.Drawing.Size(123, 17);
+            this.lblCantidadMillas.Size = new System.Drawing.Size(93, 13);
             this.lblCantidadMillas.TabIndex = 4;
             this.lblCantidadMillas.Text = "Millas acumuladas";
             // 
             // tbMillasAcumuladas
             // 
             this.tbMillasAcumuladas.Enabled = false;
-            this.tbMillasAcumuladas.Location = new System.Drawing.Point(375, 320);
+            this.tbMillasAcumuladas.Location = new System.Drawing.Point(281, 260);
+            this.tbMillasAcumuladas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbMillasAcumuladas.Name = "tbMillasAcumuladas";
-            this.tbMillasAcumuladas.Size = new System.Drawing.Size(150, 22);
+            this.tbMillasAcumuladas.Size = new System.Drawing.Size(114, 20);
             this.tbMillasAcumuladas.TabIndex = 5;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(485, 9);
+            this.btnVolver.Location = new System.Drawing.Point(364, 7);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 30);
+            this.btnVolver.Size = new System.Drawing.Size(56, 24);
             this.btnVolver.TabIndex = 6;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -107,9 +115,9 @@
             // 
             // ConsultaMillas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 354);
+            this.ClientSize = new System.Drawing.Size(578, 288);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.tbMillasAcumuladas);
             this.Controls.Add(this.lblCantidadMillas);
@@ -117,6 +125,7 @@
             this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.tbDni);
             this.Controls.Add(this.lblDni);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ConsultaMillas";
             this.Text = "Consulta de Millas";
             this.Load += new System.EventHandler(this.ConsultaMillas_Load);

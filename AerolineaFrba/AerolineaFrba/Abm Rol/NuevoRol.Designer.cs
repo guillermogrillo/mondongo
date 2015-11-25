@@ -49,6 +49,7 @@
             // 
             this.tbNombreRol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbNombreRol.Location = new System.Drawing.Point(66, 10);
+            this.tbNombreRol.MaxLength = 20;
             this.tbNombreRol.Name = "tbNombreRol";
             this.tbNombreRol.Size = new System.Drawing.Size(206, 20);
             this.tbNombreRol.TabIndex = 1;

@@ -91,8 +91,8 @@ namespace AerolineaFrba.Compra
             this.Close();
             compraModel.clientes = new List<Model.ClienteModel>();
             compraModel.butacasSeleccionadas = new Dictionary<string, List<int>>();
-            compraModel.butacasSeleccionadas.Add(Model.TipoButaca.Pasillo.ToString(), new List<int>());
-            compraModel.butacasSeleccionadas.Add(Model.TipoButaca.Ventanilla.ToString(), new List<int>());
+            compraModel.butacasSeleccionadas.Add(Model.TipoButaca.PASILLO.ToString(), new List<int>());
+            compraModel.butacasSeleccionadas.Add(Model.TipoButaca.VENTANILLA.ToString(), new List<int>());
             new Compra.Pasajeros(compraModel).Show();
         }
 

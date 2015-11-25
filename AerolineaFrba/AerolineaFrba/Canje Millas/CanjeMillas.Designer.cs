@@ -55,6 +55,7 @@
             // tbDni
             // 
             this.tbDni.Location = new System.Drawing.Point(136, 10);
+            this.tbDni.MaxLength = 9;
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(100, 20);
             this.tbDni.TabIndex = 1;
@@ -130,6 +131,7 @@
             // tbCantidad
             // 
             this.tbCantidad.Location = new System.Drawing.Point(159, 208);
+            this.tbCantidad.MaxLength = 2;
             this.tbCantidad.Name = "tbCantidad";
             this.tbCantidad.Size = new System.Drawing.Size(100, 20);
             this.tbCantidad.TabIndex = 9;

@@ -64,6 +64,7 @@
             // 
             this.tbMatricula.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbMatricula.Location = new System.Drawing.Point(159, 81);
+            this.tbMatricula.MaxLength = 7;
             this.tbMatricula.Name = "tbMatricula";
             this.tbMatricula.Size = new System.Drawing.Size(194, 20);
             this.tbMatricula.TabIndex = 7;

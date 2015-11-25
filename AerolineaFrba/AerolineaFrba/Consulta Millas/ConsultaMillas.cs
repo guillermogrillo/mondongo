@@ -14,12 +14,14 @@ namespace AerolineaFrba.Consulta_Millas
     {
 
         private Controller.MillasController millasController = null;
-
+        private Controller.ClienteController clienteController = null;
+        private Model.ClienteModel clienteEncontrado = null;
 
         public ConsultaMillas()
         {
             InitializeComponent();
             millasController = new Controller.MillasController();
+            clienteController = new Controller.ClienteController();
         }
 
         private void btnConsultar_Click(object sender, EventArgs e)
@@ -28,45 +30,53 @@ namespace AerolineaFrba.Consulta_Millas
 
             if(!dni.Equals(""))
             {
-                List<Model.HistorialMillasModel> millas = millasController.buscarMillas(dni);
-                dgvHistorialMillas.DataSource = millas;
-                dgvHistorialMillas.AutoGenerateColumns = true;
-                dgvHistorialMillas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-                dgvHistorialMillas.Columns[0].Visible = false;
-                dgvHistorialMillas.Columns[1].Visible = false;
-
-                dgvHistorialMillas.Columns[2].HeaderText = "Cant. de millas";
-                dgvHistorialMillas.Columns[2].ReadOnly = true;
-                dgvHistorialMillas.Columns[2].Width = 100;
-
-                dgvHistorialMillas.Columns[3].HeaderText = "Fecha de Operación";
-                dgvHistorialMillas.Columns[3].ReadOnly = true;
-                dgvHistorialMillas.Columns[3].Width = 100;
-
-                dgvHistorialMillas.Columns[4].HeaderText = "Tipo de Operación";
-                dgvHistorialMillas.Columns[4].ReadOnly = true;
-                dgvHistorialMillas.Columns[4].Width = 100;
-
-                dgvHistorialMillas.Columns[5].HeaderText = "Descripción";
-                dgvHistorialMillas.Columns[5].ReadOnly = true;
-                dgvHistorialMillas.Columns[5].Width = 200;
-
-                double millasTotales = 0;
-                foreach(Model.HistorialMillasModel hist in millas)
+                List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(dni);
+                if (clientesEncontrados != null && clientesEncontrados.Count > 0)
                 {
-                    if(hist.tipoOperacion.Equals(Model.TipoOperacion.ACREDITACION))
+                    clienteEncontrado = clientesEncontrados[0];
+                    List<Model.HistorialMillasModel> millas = millasController.buscarMillas(dni);
+                    dgvHistorialMillas.DataSource = millas;
+                    dgvHistorialMillas.AutoGenerateColumns = true;
+                    dgvHistorialMillas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                    dgvHistorialMillas.Columns[0].Visible = false;
+                    dgvHistorialMillas.Columns[1].Visible = false;
+
+                    dgvHistorialMillas.Columns[2].HeaderText = "Cant. de millas";
+                    dgvHistorialMillas.Columns[2].ReadOnly = true;
+                    dgvHistorialMillas.Columns[2].Width = 100;
+
+                    dgvHistorialMillas.Columns[3].HeaderText = "Fecha de Operación";
+                    dgvHistorialMillas.Columns[3].ReadOnly = true;
+                    dgvHistorialMillas.Columns[3].Width = 100;
+
+                    dgvHistorialMillas.Columns[4].HeaderText = "Tipo de Operación";
+                    dgvHistorialMillas.Columns[4].ReadOnly = true;
+                    dgvHistorialMillas.Columns[4].Width = 100;
+
+                    dgvHistorialMillas.Columns[5].HeaderText = "Descripción";
+                    dgvHistorialMillas.Columns[5].ReadOnly = true;
+                    dgvHistorialMillas.Columns[5].Width = 200;
+
+                    double millasTotales = 0;
+                    foreach (Model.HistorialMillasModel hist in millas)
                     {
-                        millasTotales = millasTotales + hist.millas;
+                        if (hist.tipoOperacion.Equals(Model.TipoOperacion.ACREDITACION))
+                        {
+                            millasTotales = millasTotales + hist.millas;
+                        }
+                        else
+                        {
+                            millasTotales = millasTotales - hist.millas;
+                        }
                     }
-                    else
-                    {
-                        millasTotales = millasTotales - hist.millas;
-                    }
+
+                    tbMillasAcumuladas.Text = millasTotales.ToString();
                 }
-
-                tbMillasAcumuladas.Text = millasTotales.ToString();
-
+                else
+                {
+                    MessageBox.Show("No se encontraron clientes registrados con ese dni");
+                }
             }
             else
             {

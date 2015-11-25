@@ -92,6 +92,7 @@
             // tbDni
             // 
             this.tbDni.Location = new System.Drawing.Point(81, 10);
+            this.tbDni.MaxLength = 9;
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(116, 20);
             this.tbDni.TabIndex = 2;
@@ -133,6 +134,7 @@
             // 
             this.tbDireccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbDireccion.Location = new System.Drawing.Point(403, 81);
+            this.tbDireccion.MaxLength = 30;
             this.tbDireccion.Name = "tbDireccion";
             this.tbDireccion.Size = new System.Drawing.Size(179, 20);
             this.tbDireccion.TabIndex = 11;
@@ -141,6 +143,7 @@
             // tbTelefono
             // 
             this.tbTelefono.Location = new System.Drawing.Point(103, 81);
+            this.tbTelefono.MaxLength = 15;
             this.tbTelefono.Name = "tbTelefono";
             this.tbTelefono.Size = new System.Drawing.Size(194, 20);
             this.tbTelefono.TabIndex = 10;
@@ -160,6 +163,7 @@
             // 
             this.tbMail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbMail.Location = new System.Drawing.Point(403, 52);
+            this.tbMail.MaxLength = 30;
             this.tbMail.Name = "tbMail";
             this.tbMail.Size = new System.Drawing.Size(179, 20);
             this.tbMail.TabIndex = 8;
@@ -204,6 +208,7 @@
             // 
             this.tbApellido.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbApellido.Location = new System.Drawing.Point(403, 23);
+            this.tbApellido.MaxLength = 30;
             this.tbApellido.Name = "tbApellido";
             this.tbApellido.Size = new System.Drawing.Size(179, 20);
             this.tbApellido.TabIndex = 3;
@@ -222,6 +227,7 @@
             // 
             this.tbNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbNombre.Location = new System.Drawing.Point(103, 23);
+            this.tbNombre.MaxLength = 30;
             this.tbNombre.Name = "tbNombre";
             this.tbNombre.Size = new System.Drawing.Size(194, 20);
             this.tbNombre.TabIndex = 1;
@@ -260,6 +266,7 @@
             // tbCodSeguridad
             // 
             this.tbCodSeguridad.Location = new System.Drawing.Point(403, 82);
+            this.tbCodSeguridad.MaxLength = 4;
             this.tbCodSeguridad.Name = "tbCodSeguridad";
             this.tbCodSeguridad.Size = new System.Drawing.Size(58, 20);
             this.tbCodSeguridad.TabIndex = 11;
@@ -278,6 +285,7 @@
             // tbVencimiento
             // 
             this.tbVencimiento.Location = new System.Drawing.Point(103, 79);
+            this.tbVencimiento.MaxLength = 4;
             this.tbVencimiento.Name = "tbVencimiento";
             this.tbVencimiento.Size = new System.Drawing.Size(62, 20);
             this.tbVencimiento.TabIndex = 9;
@@ -332,6 +340,7 @@
             // tbNumeroTarjeta
             // 
             this.tbNumeroTarjeta.Location = new System.Drawing.Point(403, 47);
+            this.tbNumeroTarjeta.MaxLength = 16;
             this.tbNumeroTarjeta.Name = "tbNumeroTarjeta";
             this.tbNumeroTarjeta.Size = new System.Drawing.Size(179, 20);
             this.tbNumeroTarjeta.TabIndex = 3;
