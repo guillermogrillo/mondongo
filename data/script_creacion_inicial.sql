@@ -309,9 +309,9 @@ CREATE PROCEDURE mondongo.pr_cargar_tipos_servicio
 AS
 BEGIN
     INSERT INTO MONDONGO.tipos_servicio(tipo_servicio, costo_adicional)
-    SELECT distinct Tipo_Servicio,
-	case tipo_servicio when 'Ejecutivo' then 50
-						when 'Primera Clase' then 100
+    SELECT distinct upper(Tipo_Servicio),
+	case tipo_servicio when 'EJECUTIVO' then 50
+						when 'PRIMERA CLASE' then 100
 						else 0
 	end
 	from gd_esquema.Maestra;
@@ -321,7 +321,7 @@ CREATE PROCEDURE mondongo.pr_cargar_ciudades
 AS
 BEGIN
     INSERT INTO MONDONGO.ciudades(nombre)
-    SELECT distinct RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1) from gd_esquema.Maestra;
+    SELECT distinct RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1) from gd_esquema.Maestra;
 END
 GO
 create procedure mondongo.pr_cargar_butacas(@cantida_butacas numeric(4,0), @matricula numeric(18,0))
@@ -332,9 +332,9 @@ SET @I = 1
     WHILE @I <= @cantida_butacas
     BEGIN
         IF @I % 2 = 0
-            set @TIPO_BUTACA = 'Ventanilla'
+            set @TIPO_BUTACA = 'VENTANILLA'
         ELSE
-            set @TIPO_BUTACA = 'Pasillo'
+            set @TIPO_BUTACA = 'PASILLO'
 
         INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
         VALUES(@matricula, @I, 1, @TIPO_BUTACA)
@@ -347,40 +347,36 @@ CREATE PROCEDURE mondongo.pr_cargar_fabricantes
 AS
 BEGIN
     INSERT INTO MONDONGO.fabricantes(nombre)
-    SELECT distinct Aeronave_Fabricante from gd_esquema.Maestra;
+    SELECT distinct upper(Aeronave_Fabricante) from gd_esquema.Maestra;
 END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_clientes
 AS
-BEGIN
-    PRINT 'COMIENZA MIGRACION DE CLIENTES'    
+BEGIN    
     insert into mondongo.clientes(cliente_nombre,cliente_apellido,cliente_dni,cliente_direccion,cliente_telefono,cliente_mail,cliente_fecha_nacimiento,rol_id)
-    select distinct cli_nombre,cli_apellido,cli_dni,cli_dir,cli_telefono,cli_mail,cli_fecha_nac,2 from gd_esquema.Maestra m    
-    PRINT 'FINALIZA MIGRACION DE CLIENTES'
+    select distinct upper(cli_nombre),upper(cli_apellido),cli_dni,upper(cli_dir),cli_telefono,upper(cli_mail),cli_fecha_nac,2 from gd_esquema.Maestra m        
 END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_roles
 AS
-    BEGIN
-        PRINT 'COMIENZA LA MIGRACION DE ROLES...'
-        insert mondongo.roles values ('administrador',1)
-        insert mondongo.roles values ('cliente',1)        
-        PRINT '...FINALIZA LA MIGRACION DE ROLES'
+    BEGIN        
+        insert mondongo.roles values ('ADMINISTRADOR',1)
+        insert mondongo.roles values ('CLIENTE',1)                
     END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_funcionalidades
 AS
     BEGIN
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRol','ABM de Rol')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRutaAerea','ABM de Ruta Aerea')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMAeronaves','ABM de Aeronave')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnGenerarViaje','Generacion de Viaje')    
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnRegistrarLlegada','Registro de llegada a Destino')
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnComprarPasajes','Compra de pasaje/encomienda')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCancelarPasajes','Devolucion/Cancelacion de pasaje y/o encomienda')                 
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnConsultarMillas','Consulta de millas de pasajero frecuente')  
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCanjeMillas','Canje de millas')    
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnListado','Listado Estadistico')
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRol','ABM DE ROL')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRutaAerea','ABM DE RUTA AEREA')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMAeronaves','ABM DE AERONAVE')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnGenerarViaje','GENERACION DE VIAJE')    
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnRegistrarLlegada','REGISTRO DE LLEGADA A DESTINO')
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnComprarPasajes','COMPRA DE PASAJE/ENCOMIENDA')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCancelarPasajes','DEVOLUCION/CANCELACION DE PASAJE Y/O ENCOMIENDA')                 
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnConsultarMillas','CONSULTA DE MILLAS DE PASAJERO FRECUENTE')  
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCanjeMillas','CANJE DE MILLAS')    
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnListado','LISTADO ESTADISTICO')
     END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_roles_funcionalidades
@@ -405,8 +401,8 @@ GO
 CREATE PROCEDURE mondongo.pr_cargar_usuarios
 AS
     BEGIN        
-        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña) values ('adminUno','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')
-        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña)    values ('adminDos','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')    
+        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña) values ('ADMINUNO','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')
+        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña)    values ('ADMINDOS','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')    
     END
 GO
 create procedure mondongo.pr_cargar_usuarios_roles
@@ -469,8 +465,8 @@ AS
 BEGIN
     insert into MONDONGO.rutas(codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_pasaje, precio_base_kg, horas_vuelo)
     select ruta_codigo,
-        mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1)),
-        mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Destino, LEN(Ruta_Ciudad_Destino) - 1)),
+        mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)),
+        mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)),
         mondongo.fx_busca_id_tipo_servicio(Tipo_Servicio),
         max(Ruta_Precio_BasePasaje),
         max(Ruta_Precio_BaseKG),
@@ -490,7 +486,7 @@ BEGIN
 			m.butaca_tipo,
 			m.butaca_nro,
 			0
-	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and m.cli_apellido = c.cliente_apellido)
+	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and UPPER(m.cli_apellido) = UPPER(c.cliente_apellido))
 	where	m.pasaje_codigo <> 0
 END
 GO
@@ -523,8 +519,8 @@ begin
 					else m.paquete_codigo 
 				end) as venta_pnr		
 	from		gd_esquema.Maestra m
-	inner join	mondongo.ciudades c1 on c1.nombre = RIGHT(m.Ruta_Ciudad_Origen, LEN(m.Ruta_Ciudad_Origen) - 1)
-	inner join	mondongo.ciudades c2 on c2.nombre = RIGHT(m.Ruta_Ciudad_Destino, LEN(m.Ruta_Ciudad_Destino) - 1)
+	inner join	mondongo.ciudades c1 on c1.nombre = RIGHT(upper(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1)
+	inner join	mondongo.ciudades c2 on c2.nombre = RIGHT(upper(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1)
 	inner join	mondongo.tipos_servicio ts on ts.tipo_servicio = m.Tipo_Servicio
 	inner join	mondongo.rutas r on (r.codigo_ruta = m.ruta_codigo and r.id_ciudad_origen = c1.id_ciudad and r.id_ciudad_destino = c2.id_ciudad and r.id_tipo_servicio = ts.id_tipo_servicio)
 	inner join	mondongo.viajes v on (v.viaje_ruta_id = r.id_ruta and v.fecha_salida = m.fechaSalida and v.aeronave_matricula = m.aeronave_matricula)
@@ -547,7 +543,7 @@ as
 begin
     insert into mondongo.viajes(aeronave_matricula,viaje_ruta_id, fecha_salida, fecha_llegada, fecha_llegada_estimada, cantidad_butacas_ventanilla_disponibles, cantidad_butacas_pasillo_disponibles, cantidad_kg_disponibles,estado)
     select  m.Aeronave_Matricula,
-            mondongo.fx_busca_id_ruta(RIGHT(m.Ruta_Ciudad_Origen, LEN(m.Ruta_Ciudad_Origen) - 1), RIGHT(m.Ruta_Ciudad_Destino, LEN(m.Ruta_Ciudad_Destino) - 1), m.Tipo_Servicio) as viaje_ruta_id,
+            mondongo.fx_busca_id_ruta(RIGHT(UPPER(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1), RIGHT(UPPER(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1), m.Tipo_Servicio) as viaje_ruta_id,
             m.FechaSalida,
             m.FechaLLegada,
             m.Fecha_LLegada_Estimada,
@@ -852,116 +848,3 @@ exec mondongo.pr_cargar_paquetes
 go
 exec mondongo.pr_actualizar_viajes
 go
-
-
-/*
-Datos de prueba para listados
-
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,400,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,150,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (1,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
-
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,5100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,4200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,4300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,3400,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,2500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,2150,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,1250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (2,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
-
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,3100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,1200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,5300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,7000,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,1500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,2150,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,1250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (3,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
-
-
-
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,3100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,1200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,5300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,7000,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,250,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,1251,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (4,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
-
-
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,3100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,1200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,5300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,7000,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,500,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,250,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,1250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (5,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
-
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,100,Convert(date,'01/01/2013',103),1,'Acred. de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,200,Convert(date,'01/01/2014',103),1,'Acred. de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,300,Convert(date,'01/01/2015',103),1,'Acred. de prueba 3');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,400,Convert(date,'01/03/2015',103),1,'Acred. de prueba 4');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,501,Convert(date,'01/05/2015',103),1,'Acred. de prueba 5');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,150,Convert(date,'01/05/2013',103),2,'Canje de prueba 1');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,250,Convert(date,'01/05/2015',103),2,'Canje de prueba 2');
-insert into mondongo.historial_millas(id_cliente,millas,fecha_operacion,tipo_operacion,descripcion)
-values (6,300,Convert(date,'01/05/2015',103),2,'Canje de prueba 3');
-
-*/
-
-

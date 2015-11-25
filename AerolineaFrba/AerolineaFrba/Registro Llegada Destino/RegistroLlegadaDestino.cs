@@ -166,7 +166,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 foreach(Model.PasajeModel pasaje in pasajesDeLaVenta)
                 {
                     millasAsignadas = pasaje.pasajeMonto*0.1;
-                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaOperacion,Model.TipoOperacion.Acreditacion, "Acreditación de Millas por Pasaje");
+                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaOperacion, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
                     millasController.registrarMillas(historialMillas);
                 }
 
@@ -175,7 +175,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 if (paqueteDeLaVenta != null)
                 {
                     millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
-                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaOperacion, Model.TipoOperacion.Acreditacion, "Acreditación de Millas por Paquete");
+                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaOperacion, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
                     millasController.registrarMillas(historialMillas);
                 }
                 
@@ -183,6 +183,12 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
 
 
+            this.Close();
+            new AerolineasFRBA().Show();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
             this.Close();
             new AerolineasFRBA().Show();
         }

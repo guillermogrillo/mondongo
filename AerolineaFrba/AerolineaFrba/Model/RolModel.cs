@@ -24,8 +24,8 @@ namespace AerolineaFrba.Model
 
     public enum Estado
     {
-        Deshabilitado = 0,
-        Habilitado = 1,
-        Borrado = 2
+        DESHABILITADO = 0,
+        HABILITADO = 1,
+        BORRADO = 2
     }
 }

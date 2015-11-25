@@ -82,6 +82,7 @@ namespace AerolineaFrba.Canje_Millas
 
                 }else{
                     MessageBox.Show("No se encontraron clientes registrados con ese dni");
+                    gbProductosDisponibles.Visible = false;
                 }
             }
             else
@@ -94,7 +95,7 @@ namespace AerolineaFrba.Canje_Millas
         {
             double cantidadMillas = 0;
             foreach(Model.HistorialMillasModel millas in millasHist){
-                if(millas.tipoOperacion.Equals(Model.TipoOperacion.Acreditacion))
+                if (millas.tipoOperacion.Equals(Model.TipoOperacion.ACREDITACION))
                 {
                     cantidadMillas = cantidadMillas + millas.millas;
                 }
@@ -117,19 +118,17 @@ namespace AerolineaFrba.Canje_Millas
             double millasActuales = Convert.ToInt32(tbMillasAcum.Text);
             if (millasADescontar <= millasActuales)
             {
-                Model.HistorialMillasModel histMillas = new Model.HistorialMillasModel(Convert.ToInt32(clienteEncontrado.clienteId), millasADescontar, DateTime.Now, Model.TipoOperacion.Canje, "Descuento por canje de producto");
+                Model.HistorialMillasModel histMillas = new Model.HistorialMillasModel(Convert.ToInt32(clienteEncontrado.clienteId), millasADescontar, DateTime.Now, Model.TipoOperacion.CANJE, "DESCUENTO POR CANJE DE PRODUCTO");
                 millasController.registrarMillas(histMillas);
                 int idHistorial = millasController.buscarUltimoRegistroMillas();
                 millasController.registrarCanje(productoSeleccionado.idProducto, idHistorial, Convert.ToInt32(tbCantidad.Text));
+                millasActuales = millasActuales - millasADescontar;
+                tbMillasAcum.Text = millasActuales.ToString();
             }
             else
             {
                 MessageBox.Show("Las millas acumuladas no son suficientes para canjear el producto seleccionado.");
-            }
-
-            millasActuales = millasActuales - millasADescontar;
-            tbMillasAcum.Text = millasActuales.ToString();
-
+            }            
         }
     }
 }

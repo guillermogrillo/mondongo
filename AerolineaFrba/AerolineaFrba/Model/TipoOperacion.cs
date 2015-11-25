@@ -8,7 +8,7 @@ namespace AerolineaFrba.Model
 {
     public enum TipoOperacion
     {
-        Acreditacion = 1,
-        Canje = 2
+        ACREDITACION = 1,
+        CANJE = 2
     }
 }

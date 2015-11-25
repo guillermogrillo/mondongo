@@ -118,6 +118,7 @@
             // 
             // tbDireccion
             // 
+            this.tbDireccion.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbDireccion.Location = new System.Drawing.Point(353, 81);
             this.tbDireccion.Name = "tbDireccion";
             this.tbDireccion.Size = new System.Drawing.Size(229, 20);
@@ -144,6 +145,7 @@
             // 
             // tbMail
             // 
+            this.tbMail.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbMail.Location = new System.Drawing.Point(353, 52);
             this.tbMail.Name = "tbMail";
             this.tbMail.Size = new System.Drawing.Size(229, 20);
@@ -187,6 +189,7 @@
             // 
             // tbApellido
             // 
+            this.tbApellido.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbApellido.Location = new System.Drawing.Point(353, 23);
             this.tbApellido.Name = "tbApellido";
             this.tbApellido.Size = new System.Drawing.Size(229, 20);
@@ -204,6 +207,7 @@
             // 
             // tbNombre
             // 
+            this.tbNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbNombre.Location = new System.Drawing.Point(68, 23);
             this.tbNombre.Name = "tbNombre";
             this.tbNombre.Size = new System.Drawing.Size(229, 20);

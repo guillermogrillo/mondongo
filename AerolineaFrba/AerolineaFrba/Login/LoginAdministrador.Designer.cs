@@ -49,6 +49,7 @@
             // 
             // tbUsuario
             // 
+            this.tbUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbUsuario.Location = new System.Drawing.Point(143, 28);
             this.tbUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.tbUsuario.Name = "tbUsuario";

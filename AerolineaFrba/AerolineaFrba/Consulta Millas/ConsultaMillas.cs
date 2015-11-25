@@ -55,7 +55,7 @@ namespace AerolineaFrba.Consulta_Millas
                 double millasTotales = 0;
                 foreach(Model.HistorialMillasModel hist in millas)
                 {
-                    if(hist.tipoOperacion.Equals(Model.TipoOperacion.Acreditacion))
+                    if(hist.tipoOperacion.Equals(Model.TipoOperacion.ACREDITACION))
                     {
                         millasTotales = millasTotales + hist.millas;
                     }

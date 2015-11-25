@@ -148,5 +148,11 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             aeronaveSeleccionada = cbAeronaves.SelectedValue as Model.AeronaveModel;
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new AerolineasFRBA().Show();
+        }
     }
 }
