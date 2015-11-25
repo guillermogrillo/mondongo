@@ -23,6 +23,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         public List<Model.ViajeModel> vuelosEncontrados = null;
         Model.ViajeModel vueloSeleccionado = null;
         Model.TipoServicioModel tipoServicioSeleccionado = null;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public RegistroLlegadaDestino()
         {
@@ -82,35 +83,30 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                     gbViajes.Enabled = true;
                     dgvViajes.DataSource = vuelosEncontrados;                    
                     dgvViajes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    dgvViajes.Columns[0].Visible = false;
+
+                    dgvViajes.Columns[0].HeaderText = "Id. de Viaje";
+                    dgvViajes.Columns[0].ReadOnly = true;
+                    dgvViajes.Columns[0].Width = 75;
+
+                    dgvViajes.Columns[1].Visible = false;
+                    
+                    dgvViajes.Columns[2].Visible = false;
                     dgvViajes.Columns[3].Visible = false;
                     dgvViajes.Columns[4].Visible = false;
+                    dgvViajes.Columns[5].Visible = false;
+                    dgvViajes.Columns[6].Visible = false;
                     dgvViajes.Columns[7].Visible = false;
-                    dgvViajes.Columns[8].Visible = false;                    
-                    dgvViajes.Columns[10].Visible = false;
-                    dgvViajes.Columns[11].Visible = false;
+                    dgvViajes.Columns[8].Visible = false;
 
-
-                    dgvViajes.Columns[1].HeaderText = "Fecha Salida";
-                    dgvViajes.Columns[1].ReadOnly = true;
-                    dgvViajes.Columns[1].Width = 80;
-
-                    dgvViajes.Columns[2].HeaderText = "Hora Salida";
-                    dgvViajes.Columns[2].ReadOnly = true;
-                    dgvViajes.Columns[2].Width = 60;
-
-                    dgvViajes.Columns[5].HeaderText = "Fecha Llegada Estimada";
-                    dgvViajes.Columns[5].ReadOnly = true;
-                    dgvViajes.Columns[5].Width = 80;
-
-                    dgvViajes.Columns[6].HeaderText = "Hora Llegada Estimada";
-                    dgvViajes.Columns[6].ReadOnly = true;
-                    dgvViajes.Columns[6].Width = 60;
-
-
-                    dgvViajes.Columns[9].HeaderText = "Tipo de Servicio";
+                    dgvViajes.Columns[9].HeaderText = "Fecha Salida";
                     dgvViajes.Columns[9].ReadOnly = true;
-                    dgvViajes.Columns[9].Width = 70;
+                    dgvViajes.Columns[9].Width = 135;
+
+                    dgvViajes.Columns[10].HeaderText = "Fecha Llegada Estimada";
+                    dgvViajes.Columns[10].ReadOnly = true;
+                    dgvViajes.Columns[10].Width = 135;
+
+                    dgvViajes.Columns[11].Visible = false;
 
                 }
                 else
@@ -156,7 +152,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
 
             List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
-            DateTime fechaOperacion = DateTime.Today;
+            
             foreach(Model.VentaModel venta in ventasDelViaje)
             {
 
@@ -166,7 +162,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 foreach(Model.PasajeModel pasaje in pasajesDeLaVenta)
                 {
                     millasAsignadas = pasaje.pasajeMonto*0.1;
-                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaOperacion, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
+                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
                     millasController.registrarMillas(historialMillas);
                 }
 
@@ -175,7 +171,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 if (paqueteDeLaVenta != null)
                 {
                     millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
-                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaOperacion, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
+                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
                     millasController.registrarMillas(historialMillas);
                 }
                 

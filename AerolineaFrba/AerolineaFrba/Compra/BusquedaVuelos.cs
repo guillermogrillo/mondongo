@@ -19,6 +19,8 @@ namespace AerolineaFrba.Compra
         public List<Model.ViajeModel> vuelosEncontrados = null;
         public Model.CompraModel compraModel = null;
 
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
+
         public BusquedaVuelos()
         {
             InitializeComponent();
@@ -146,8 +148,8 @@ namespace AerolineaFrba.Compra
 
         private void BusquedaVuelos_Load(object sender, EventArgs e)
         {
-            this.dpFechaViaje.Value = DateTime.Now;
-            tbKg.Enabled = false;
+            this.dpFechaViaje.Value = fechaSistema;
+            tbKg.Enabled = false;            
             btnBuscarCiudadDesde.Focus();
         }
 

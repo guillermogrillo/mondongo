@@ -17,6 +17,7 @@ namespace AerolineaFrba.Compra
         Controller.ClienteController clienteController = null;
         Controller.TarjetaCreditoController tarjetaCreditoController = null;
         Model.TarjetaCreditoModel tarjetaSeleccionada = null;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public Pagador(Model.CompraModel compraModel)
         {
@@ -132,7 +133,7 @@ namespace AerolineaFrba.Compra
         {
             tbNombre.Text = null;
             tbApellido.Text = null;
-            dpFNac.Value = DateTime.Now;
+            dpFNac.Value = fechaSistema;
             tbMail.Text = null;
             tbTelefono.Text = null;
             tbDireccion.Text = null;

@@ -21,6 +21,7 @@ namespace AerolineaFrba.Generacion_Viaje
         private Controller.ViajeController viajeController = null;
         private Model.RutaModel rutaEncontrada = null;
         private Model.AeronaveModel aeronaveSeleccionada = null;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public GeneradorViajes()
         {
@@ -78,6 +79,7 @@ namespace AerolineaFrba.Generacion_Viaje
         private void GeneradorViajes_Load(object sender, EventArgs e)
         {
             gbViajePasoDos.Visible = false;
+
             cbTipoServicio.DataSource = tipoServicioController.buscarTiposServicio();
             cbTipoServicio.DisplayMember = "tipoServicio";
         }

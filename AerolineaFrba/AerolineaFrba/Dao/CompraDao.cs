@@ -12,6 +12,7 @@ namespace AerolineaFrba.Dao
     {
 
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public int buscarPnr()
         {
@@ -55,7 +56,7 @@ namespace AerolineaFrba.Dao
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
-                    command.Parameters.AddWithValue("@fechaCompra", DateTime.Now);
+                    command.Parameters.AddWithValue("@fechaCompra", fechaSistema);
                     command.Parameters.AddWithValue("@viajeId", compraModel.vueloElegido.idViaje);
                     command.Parameters.AddWithValue("@idPagador", idPagador);
                     command.Parameters.AddWithValue("@tipoPagoId", compraModel.pagador.formaPago);                

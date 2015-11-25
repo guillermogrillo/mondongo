@@ -12,6 +12,7 @@ namespace AerolineaFrba.Dao
     {
 
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public List<Model.HistorialMillasModel> buscarMillas(String dni)
         {
@@ -30,7 +31,7 @@ namespace AerolineaFrba.Dao
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@dni", dni);
-                    command.Parameters.AddWithValue("@fechaSistema", DateTime.Today);
+                    command.Parameters.AddWithValue("@fechaSistema", fechaSistema);
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -132,7 +133,7 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@idProducto", idProducto);
                     command.Parameters.AddWithValue("@idHistorial", idHistorial);
                     command.Parameters.AddWithValue("@cantidad", cantidad);
-                    command.Parameters.AddWithValue("@fechaCanje", DateTime.Now);                    
+                    command.Parameters.AddWithValue("@fechaCanje", fechaSistema);                    
                 }
 
                 var cantidadInsertada = command.ExecuteNonQuery();

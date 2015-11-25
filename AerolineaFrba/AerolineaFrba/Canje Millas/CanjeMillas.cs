@@ -20,6 +20,7 @@ namespace AerolineaFrba.Canje_Millas
 
         private Model.ClienteModel clienteEncontrado = null;
         private Model.ProductoModel productoSeleccionado = null;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public CanjeMillas()
         {
@@ -118,7 +119,7 @@ namespace AerolineaFrba.Canje_Millas
             double millasActuales = Convert.ToInt32(tbMillasAcum.Text);
             if (millasADescontar <= millasActuales)
             {
-                Model.HistorialMillasModel histMillas = new Model.HistorialMillasModel(Convert.ToInt32(clienteEncontrado.clienteId), millasADescontar, DateTime.Now, Model.TipoOperacion.CANJE, "DESCUENTO POR CANJE DE PRODUCTO");
+                Model.HistorialMillasModel histMillas = new Model.HistorialMillasModel(Convert.ToInt32(clienteEncontrado.clienteId), millasADescontar, fechaSistema, Model.TipoOperacion.CANJE, "DESCUENTO POR CANJE DE PRODUCTO");
                 millasController.registrarMillas(histMillas);
                 int idHistorial = millasController.buscarUltimoRegistroMillas();
                 millasController.registrarCanje(productoSeleccionado.idProducto, idHistorial, Convert.ToInt32(tbCantidad.Text));
