@@ -479,12 +479,13 @@ GO
 create PROCEDURE [MONDONGO].[pr_cargar_pasajes]
 AS
 BEGIN
-    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,pasaje_butaca_tipo,pasaje_butaca_numero,estado)
+    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,pasaje_butaca_tipo,pasaje_butaca_numero,pasaje_butaca_piso,estado)
 	select	m.pasaje_codigo,
 			c.cliente_id,
 			m.pasaje_precio,
 			m.butaca_tipo,
 			m.butaca_nro,
+			1,
 			0
 	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and UPPER(m.cli_apellido) = UPPER(c.cliente_apellido))
 	where	m.pasaje_codigo <> 0
@@ -493,10 +494,11 @@ GO
 CREATE PROCEDURE [MONDONGO].[pr_cargar_paquetes]
 AS
 BEGIN
-    insert into mondongo.paquetes(paquete_venta_pnr,paquete_kg,paquete_monto,estado)
+    insert into mondongo.paquetes(paquete_venta_pnr,paquete_kg,paquete_monto,paquete_piso,estado)
 	select	m.paquete_codigo,
 			m.paquete_kg,
 			m.paquete_precio,
+			0,
 			0
 	from	gd_esquema.Maestra m
 	where	m.paquete_codigo <> 0
@@ -609,7 +611,7 @@ create table mondongo.usuarios
 usuario_nombre nvarchar(20) not null,
 usuario_contraseña nvarchar(255) not null,
 usuario_intentos_fallidos int default 0,
-usuario_bloqueado int default 0
+usuario_bloqueado int default 0 check(usuario_bloqueado in (0,1))
 )
 GO
 create table mondongo.usuarios_roles
@@ -736,6 +738,7 @@ create table mondongo.pasajes(
 	pasaje_monto numeric(18,2) default 0,
 	pasaje_butaca_tipo varchar(255) not null,
 	pasaje_butaca_numero numeric(18,0) not null,
+	pasaje_butaca_piso numeric(18,0) not null default 1,
 	estado numeric(1,0)
 )
 GO
@@ -744,6 +747,7 @@ create table mondongo.paquetes(
 	paquete_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
 	paquete_kg numeric(18,0) default 0,
 	paquete_monto numeric(18,2) default 0,
+	paquete_piso numeric(18,0) not null default 0,
 	estado numeric(1,0)
 )
 GO

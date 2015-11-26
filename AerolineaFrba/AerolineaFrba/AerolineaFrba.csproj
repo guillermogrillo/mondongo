@@ -254,6 +254,7 @@
     <Compile Include="Model\PaqueteModel.cs" />
     <Compile Include="Model\PasajeModel.cs" />
     <Compile Include="Model\ProductoModel.cs" />
+    <Compile Include="Model\RespuestaLoginModel.cs" />
     <Compile Include="Model\RolModel.cs" />
     <Compile Include="Model\TarjetaCreditoModel.cs" />
     <Compile Include="Model\TipoOperacion.cs" />

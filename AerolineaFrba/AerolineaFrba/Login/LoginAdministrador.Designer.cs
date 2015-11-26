@@ -40,7 +40,7 @@
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(90, 32);
+            this.lblUsuario.Location = new System.Drawing.Point(90, 42);
             this.lblUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(43, 13);
@@ -50,7 +50,7 @@
             // tbUsuario
             // 
             this.tbUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tbUsuario.Location = new System.Drawing.Point(137, 28);
+            this.tbUsuario.Location = new System.Drawing.Point(137, 38);
             this.tbUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.tbUsuario.MaxLength = 20;
             this.tbUsuario.Name = "tbUsuario";
@@ -60,7 +60,7 @@
             // lblContraseña
             // 
             this.lblContraseña.AutoSize = true;
-            this.lblContraseña.Location = new System.Drawing.Point(72, 58);
+            this.lblContraseña.Location = new System.Drawing.Point(72, 68);
             this.lblContraseña.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblContraseña.Name = "lblContraseña";
             this.lblContraseña.Size = new System.Drawing.Size(61, 13);
@@ -69,7 +69,7 @@
             // 
             // tbContraseña
             // 
-            this.tbContraseña.Location = new System.Drawing.Point(137, 58);
+            this.tbContraseña.Location = new System.Drawing.Point(137, 68);
             this.tbContraseña.Margin = new System.Windows.Forms.Padding(2);
             this.tbContraseña.MaxLength = 255;
             this.tbContraseña.Name = "tbContraseña";
@@ -79,7 +79,7 @@
             // 
             // btnIngresar
             // 
-            this.btnIngresar.Location = new System.Drawing.Point(104, 89);
+            this.btnIngresar.Location = new System.Drawing.Point(104, 99);
             this.btnIngresar.Margin = new System.Windows.Forms.Padding(2);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(75, 30);
@@ -90,7 +90,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(183, 89);
+            this.btnCancelar.Location = new System.Drawing.Point(183, 99);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 30);
@@ -104,7 +104,7 @@
             this.lblError.AutoSize = true;
             this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblError.ForeColor = System.Drawing.Color.Red;
-            this.lblError.Location = new System.Drawing.Point(64, 118);
+            this.lblError.Location = new System.Drawing.Point(147, 15);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(0, 13);
             this.lblError.TabIndex = 6;
@@ -113,7 +113,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 368);
+            this.ClientSize = new System.Drawing.Size(362, 158);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnIngresar);

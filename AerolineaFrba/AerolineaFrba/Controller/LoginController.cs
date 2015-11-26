@@ -17,10 +17,44 @@ namespace AerolineaFrba.Controller
             _loginDao = new Dao.LoginDao();
         }
 
-        public Boolean autenticar(String usuario, String contraseña)
+        public Model.RespuestaLoginModel buscarUsuario(String nombreUsuario, String contraseña)
         {
             String contraseñaEncriptada = encriptarPassword(contraseña);
-            return _loginDao.autenticar(usuario, contraseñaEncriptada);
+
+            Model.UsuarioModel usuario = _loginDao.buscarUsuario(nombreUsuario);
+
+            if (usuario != null)
+            {
+                if (Convert.ToBoolean(usuario._bloqueado))
+                {
+                    return new Model.RespuestaLoginModel(Model.LoginRespuesta.BLOQUEADO, usuario);
+                }
+                else
+                {
+                    if (_loginDao.autenticar(nombreUsuario, contraseñaEncriptada))
+                    {
+                        return new Model.RespuestaLoginModel(Model.LoginRespuesta.OK, usuario);
+                    }
+                    else
+                    {
+                        usuario._intentosFallidos++;
+                        if(usuario._intentosFallidos == 3)
+                        {
+                            usuario._bloqueado = 1;                            
+                        }
+                        _loginDao.actualizarUsuario(usuario);
+                        return new Model.RespuestaLoginModel(Model.LoginRespuesta.CONTRASEÑA_INCORRECTA, usuario);
+                    }
+                }
+            }
+            else
+            {
+                return new Model.RespuestaLoginModel(Model.LoginRespuesta.NO_ENCONTRADO, usuario);
+            }
+
+
+
+            
         }
 
 

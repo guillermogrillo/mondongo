@@ -15,28 +15,42 @@ namespace AerolineaFrba.Login
 
 
         Controller.RolController rolController = null;
+        Controller.LoginController loginController = null;
 
         public LoginAdministrador()
         {
             InitializeComponent();
-            rolController = new Controller.RolController();    
-
+            rolController = new Controller.RolController();
+            loginController = new Controller.LoginController();
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
-        {            
-            Boolean usuarioValido = new Controller.LoginController().autenticar(tbUsuario.Text,tbContraseña.Text);
-            if (!usuarioValido)
-            {
-                lblError.Text = "El Usuario o Contraseña ingresados son inválidos";
-            }
-            else
+        {
+            Model.RespuestaLoginModel respuestaLogin = loginController.buscarUsuario(tbUsuario.Text, tbContraseña.Text);
+
+            Model.LoginRespuesta respuesta = respuestaLogin.codigoRespuesta;
+
+            if (respuesta == Model.LoginRespuesta.OK)
             {
                 lblError.Text = "";
                 List<Model.FuncionalidadModel> funcionalidades = rolController.buscarFuncionalidadesDelRol(1, false);
                 this.Hide();
                 new Menu.Menu(funcionalidades).Show();
             }
+            else if(respuesta == Model.LoginRespuesta.NO_ENCONTRADO)
+            {
+                lblError.Text = "Usuario inexistente.";
+            }
+            else if(respuesta == Model.LoginRespuesta.CONTRASEÑA_INCORRECTA)
+            {
+                lblError.Text = "Contraseña incorrecta.";
+            }
+            else if (respuesta == Model.LoginRespuesta.BLOQUEADO)
+            {
+                lblError.Text = "Usuario bloqueado.";
+            }
+              
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
