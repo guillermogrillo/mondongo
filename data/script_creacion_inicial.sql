@@ -603,14 +603,14 @@ go
 create table mondongo.roles
 (rol_id numeric(18,0) identity primary key,
 rol_nombre nvarchar(20) not null,
-rol_habilitado int not null default 1
+rol_habilitado int not null default 1 check(rol_habilitado in (0,1))
 )
 GO
 create table mondongo.usuarios
 (usuario_id numeric(18,0) primary key identity,
-usuario_nombre nvarchar(20) not null,
+usuario_nombre nvarchar(20) not null unique,
 usuario_contraseña nvarchar(255) not null,
-usuario_intentos_fallidos int default 0,
+usuario_intentos_fallidos int default 0 check(usuario_intentos_fallidos >= 0),
 usuario_bloqueado int default 0 check(usuario_bloqueado in (0,1))
 )
 GO
@@ -648,7 +648,7 @@ create table mondongo.beneficios
 (
 beneficio_id numeric(18,0) primary key identity,
 beneficio_descripcion nvarchar(255),
-beneficio_cantidad_cuotas numeric(2),
+beneficio_cantidad_cuotas numeric(2) check(beneficio_cantidad_cuotas > 0),
 beneficio_tarjeta_credito numeric(18,0) references mondongo.tarjeta_credito(tarjeta_credito_id)
 )
 GO
@@ -672,7 +672,7 @@ GO
 create table mondongo.tipos_servicio(
     id_tipo_servicio numeric(8) primary key identity,
     tipo_servicio nvarchar(255),
-	costo_adicional numeric(18,0)
+	costo_adicional numeric(18,0) check(costo_adicional >= 0)
 )
 GO
 create table MONDONGO.rutas(
@@ -681,10 +681,10 @@ create table MONDONGO.rutas(
     id_ciudad_origen numeric(18,0) not null REFERENCES mondongo.ciudades(id_ciudad),
     id_ciudad_destino numeric(18,0) not null REFERENCES mondongo.ciudades(id_ciudad),
     id_tipo_servicio numeric(8) REFERENCES mondongo.tipos_servicio(id_tipo_servicio),
-    precio_base_kg numeric(18,2),
-    precio_base_pasaje numeric(18,2),
+    precio_base_kg numeric(18,2) check(precio_base_kg >= 0),
+    precio_base_pasaje numeric(18,2) check(precio_base_pasaje >= 0),
 	horas_vuelo numeric(18, 0) NULL,
-	estado numeric(1,0) default 0
+	estado numeric(1,0) default 0 check(estado in (0,1))
 )
 GO
 CREATE TABLE MONDONGO.fabricantes(
@@ -704,7 +704,7 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
     [cantidad_butacas_pas] [numeric](18, 0) NULL,
     [fecha_baja_definitiva] [date] NULL,
-	[estado] [numeric](18,0) default 0
+	[estado] [numeric](18,0) default 0 check(estado in (0,1))
 ) ON [PRIMARY]
 GO
 create table mondongo.viajes(
@@ -714,10 +714,10 @@ create table mondongo.viajes(
     fecha_salida datetime not null,
     fecha_llegada datetime,
     fecha_llegada_estimada datetime not null,
-    cantidad_butacas_ventanilla_disponibles numeric(18,0) not null,
-	cantidad_butacas_pasillo_disponibles numeric(18,0) not null,
-	cantidad_kg_disponibles numeric(18,0) not null,
-	estado numeric(1,0) default 0
+    cantidad_butacas_ventanilla_disponibles numeric(18,0) not null check(cantidad_butacas_ventanilla_disponibles>=0),
+	cantidad_butacas_pasillo_disponibles numeric(18,0) not null check(cantidad_butacas_pasillo_disponibles>=0),
+	cantidad_kg_disponibles numeric(18,0) not null check(cantidad_kg_disponibles>=0),
+	estado numeric(1,0) default 0 check(estado in (0,1))
 )
 GO
 
@@ -727,7 +727,7 @@ create table mondongo.ventas(
 	venta_viaje_id numeric(18) not null references mondongo.viajes(viaje_id),
 	venta_id_pagador numeric(18,0) not null references mondongo.clientes(cliente_id),
 	venta_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
-	venta_estado numeric(1,0)
+	venta_estado numeric(1,0) check(venta_estado in (0,1))
 )
 
 GO
@@ -735,20 +735,20 @@ create table mondongo.pasajes(
 	pasaje_id numeric(18,0) primary key identity,
 	pasaje_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
 	pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
-	pasaje_monto numeric(18,2) default 0,
+	pasaje_monto numeric(18,2) default 0 check(pasaje_monto >= 0),
 	pasaje_butaca_tipo varchar(255) not null,
 	pasaje_butaca_numero numeric(18,0) not null,
-	pasaje_butaca_piso numeric(18,0) not null default 1,
-	estado numeric(1,0)
+	pasaje_butaca_piso numeric(18,0) not null default 1 check(pasaje_butaca_piso in (0,1)),
+	estado numeric(1,0) check(estado in (0,1))
 )
 GO
 create table mondongo.paquetes(
 	paquete_id numeric(18,0) primary key identity,
 	paquete_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
-	paquete_kg numeric(18,0) default 0,
-	paquete_monto numeric(18,2) default 0,
-	paquete_piso numeric(18,0) not null default 0,
-	estado numeric(1,0)
+	paquete_kg numeric(18,0) default 0 check(paquete_kg >= 0),
+	paquete_monto numeric(18,2) default 0 check(paquete_monto >= 0),
+	paquete_piso numeric(18,0) not null default 0 check(paquete_piso in (0,1)),
+	estado numeric(1,0) check(estado in (0,1))
 )
 GO
 
@@ -756,16 +756,16 @@ create table mondongo.productos(
 	id_producto numeric(18,0) primary key identity,
 	stock numeric(3,0) not null,
 	descripcion nvarchar(255) not null,
-	costo_millas numeric(7,0) not null
+	costo_millas numeric(7,0) not null check(costo_millas >= 0)
 )
 GO
 
 create table mondongo.historial_millas(
 	id_historial numeric(18,0) primary key identity,
 	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),			
-	millas numeric(7,2) not null,
+	millas numeric(7,2) not null check (millas >= 0),
 	fecha_operacion datetime default getdate(),
-	tipo_operacion int not null,
+	tipo_operacion int not null check (tipo_operacion in (1,2)),
 	descripcion varchar(255) null
 )
 go
@@ -773,7 +773,7 @@ create table mondongo.canje_millas(
 	id_canje numeric(18,0) primary key identity,
 	id_producto numeric(18,0) not null references mondongo.productos(id_producto),
 	id_historial numeric(18,0) not null references mondongo.historial_millas(id_historial),
-	cantidad numeric(2) not null,
+	cantidad numeric(2) not null check(cantidad >= 0),
 	fecha_canje datetime default getdate()
 )
 
