@@ -196,8 +196,7 @@ as begin
     declare @CANT_BUTACAS numeric(18,0)
     SET @CANT_BUTACAS = (select count (distinct Butaca_Nro) as cant_butacas
 						from gd_esquema.Maestra
-						where Pasaje_FechaCompra > '01/01/2000'
-						and Aeronave_Matricula=@aeronave_matricula
+						where Aeronave_Matricula=@aeronave_matricula
 						and Butaca_Tipo=@butaca_tipo)
     return @CANT_BUTACAS
 end
