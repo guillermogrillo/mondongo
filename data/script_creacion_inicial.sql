@@ -69,6 +69,9 @@ IF OBJECT_ID('mondongo.ciudades', 'U') IS NOT NULL
   DROP TABLE mondongo.ciudades;
 GO
 IF OBJECT_ID('mondongo.aeronaves', 'U') IS NOT NULL
+  DROP TABLE mondongo.aeronaves_bajas;
+GO
+IF OBJECT_ID('mondongo.aeronaves', 'U') IS NOT NULL
   DROP TABLE mondongo.aeronaves;
 GO
 IF OBJECT_ID('mondongo.fabricantes', 'U') IS NOT NULL
@@ -600,6 +603,8 @@ begin
 	on q.venta_viaje_id = v.viaje_id
 end
 go
+
+/*TABLAS*/
 create table mondongo.roles
 (rol_id numeric(18,0) identity primary key,
 rol_nombre nvarchar(20) not null,
@@ -699,13 +704,19 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [id_fabricante] [numeric](18, 0) NULL REFERENCES mondongo.fabricantes(id_fabricante),
     [id_tipo_servicio] [numeric](18, 0) NULL,
     [fecha_alta] [date] NULL,
-    [fecha_fuera_servicio] [date] NULL,
-    [fecha_reinicio_servicio] [date] NULL,
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
     [cantidad_butacas_pas] [numeric](18, 0) NULL,
-    [fecha_baja_definitiva] [date] NULL,
 	[estado] [numeric](18,0) default 0 check(estado in (0,1))
 ) ON [PRIMARY]
+GO
+create table MONDONGO.aeronaves_bajas(
+	id_aeronave_baja numeric(18,0) primary key identity,
+	aeronave_matricula nvarchar(255) not null REFERENCES mondongo.aeronaves(matricula),
+	fecha_proceso date not null DEFAULT (getdate()),
+	fecha_fuera_servicio date,
+	fecha_reinicio_servicio date,
+	fecha_baja_definitiva date
+)
 GO
 create table mondongo.viajes(
     viaje_id numeric(18,0) identity primary key,
@@ -777,6 +788,8 @@ create table mondongo.canje_millas(
 	fecha_canje datetime default getdate()
 )
 
+/* INDICES */
+
 GO
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
     DROP INDEX gd_esquema.maestra.maestra_pas_cod
@@ -811,6 +824,40 @@ GO
 CREATE INDEX index_cliente
 ON mondongo.clientes (cliente_id)
 GO
+
+/* TRIGGERS */
+CREATE TRIGGER [MONDONGO].[tr_cancelar_viajes] 
+   ON  [MONDONGO].[viajes] 
+   AFTER UPDATE
+AS 
+BEGIN
+	DECLARE @tempPNR TABLE
+	(
+		venta_pnr numeric(18,0)
+	);
+	
+	insert into @tempPNR
+	select v.venta_pnr
+	from inserted i, MONDONGO.ventas v, deleted d
+	where i.viaje_id=v.venta_viaje_id
+		and i.estado<>d.estado;
+
+	update MONDONGO.ventas
+	set venta_estado = 1
+	where venta_pnr in (select venta_pnr from @tempPNR)
+
+	update MONDONGO.paquetes
+	set estado = 1
+	where paquete_venta_pnr in (select venta_pnr from @tempPNR)
+
+	update MONDONGO.pasajes
+	set estado = 1
+	where pasaje_venta_pnr in (select venta_pnr from @tempPNR)
+
+END
+GO
+
+/* MIGRACION */
 
 exec mondongo.pr_cargar_productos
 go
