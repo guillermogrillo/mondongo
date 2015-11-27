@@ -68,7 +68,7 @@ GO
 IF OBJECT_ID('mondongo.ciudades', 'U') IS NOT NULL
   DROP TABLE mondongo.ciudades;
 GO
-IF OBJECT_ID('mondongo.aeronaves', 'U') IS NOT NULL
+IF OBJECT_ID('mondongo.aeronaves_bajas', 'U') IS NOT NULL
   DROP TABLE mondongo.aeronaves_bajas;
 GO
 IF OBJECT_ID('mondongo.aeronaves', 'U') IS NOT NULL
@@ -749,7 +749,7 @@ create table mondongo.pasajes(
 	pasaje_monto numeric(18,2) default 0 check(pasaje_monto >= 0),
 	pasaje_butaca_tipo varchar(255) not null,
 	pasaje_butaca_numero numeric(18,0) not null,
-	pasaje_butaca_piso numeric(18,0) not null default 1 check(pasaje_butaca_piso in (0,1)),
+	pasaje_butaca_piso numeric(18,0) not null default 1 check(pasaje_butaca_piso = 1),
 	estado numeric(1,0) check(estado in (0,1))
 )
 GO
@@ -758,7 +758,7 @@ create table mondongo.paquetes(
 	paquete_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
 	paquete_kg numeric(18,0) default 0 check(paquete_kg >= 0),
 	paquete_monto numeric(18,2) default 0 check(paquete_monto >= 0),
-	paquete_piso numeric(18,0) not null default 0 check(paquete_piso in (0,1)),
+	paquete_piso numeric(18,0) not null default 0 check(paquete_piso = 0),
 	estado numeric(1,0) check(estado in (0,1))
 )
 GO
