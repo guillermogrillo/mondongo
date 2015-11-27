@@ -49,7 +49,7 @@
             // lblCiudadOrigen
             // 
             this.lblCiudadOrigen.AutoSize = true;
-            this.lblCiudadOrigen.Location = new System.Drawing.Point(30, 33);
+            this.lblCiudadOrigen.Location = new System.Drawing.Point(46, 33);
             this.lblCiudadOrigen.Name = "lblCiudadOrigen";
             this.lblCiudadOrigen.Size = new System.Drawing.Size(74, 13);
             this.lblCiudadOrigen.TabIndex = 0;
@@ -58,7 +58,7 @@
             // lblCiudadDestino
             // 
             this.lblCiudadDestino.AutoSize = true;
-            this.lblCiudadDestino.Location = new System.Drawing.Point(30, 58);
+            this.lblCiudadDestino.Location = new System.Drawing.Point(46, 58);
             this.lblCiudadDestino.Name = "lblCiudadDestino";
             this.lblCiudadDestino.Size = new System.Drawing.Size(79, 13);
             this.lblCiudadDestino.TabIndex = 2;
@@ -67,7 +67,7 @@
             // lblFechaViaje
             // 
             this.lblFechaViaje.AutoSize = true;
-            this.lblFechaViaje.Location = new System.Drawing.Point(30, 80);
+            this.lblFechaViaje.Location = new System.Drawing.Point(46, 80);
             this.lblFechaViaje.Name = "lblFechaViaje";
             this.lblFechaViaje.Size = new System.Drawing.Size(78, 13);
             this.lblFechaViaje.TabIndex = 4;
@@ -76,7 +76,7 @@
             // tbCiudadDestino
             // 
             this.tbCiudadDestino.Enabled = false;
-            this.tbCiudadDestino.Location = new System.Drawing.Point(134, 54);
+            this.tbCiudadDestino.Location = new System.Drawing.Point(150, 54);
             this.tbCiudadDestino.Name = "tbCiudadDestino";
             this.tbCiudadDestino.Size = new System.Drawing.Size(153, 20);
             this.tbCiudadDestino.TabIndex = 3;
@@ -84,7 +84,7 @@
             // tbCiudadOrigen
             // 
             this.tbCiudadOrigen.Enabled = false;
-            this.tbCiudadOrigen.Location = new System.Drawing.Point(134, 30);
+            this.tbCiudadOrigen.Location = new System.Drawing.Point(150, 30);
             this.tbCiudadOrigen.Name = "tbCiudadOrigen";
             this.tbCiudadOrigen.Size = new System.Drawing.Size(153, 20);
             this.tbCiudadOrigen.TabIndex = 1;
@@ -92,7 +92,7 @@
             // dpFechaViaje
             // 
             this.dpFechaViaje.CustomFormat = "dd/MM/yyyy";
-            this.dpFechaViaje.Location = new System.Drawing.Point(134, 80);
+            this.dpFechaViaje.Location = new System.Drawing.Point(150, 80);
             this.dpFechaViaje.Name = "dpFechaViaje";
             this.dpFechaViaje.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dpFechaViaje.Size = new System.Drawing.Size(153, 20);
@@ -102,7 +102,7 @@
             // lblCantidadPasajeros
             // 
             this.lblCantidadPasajeros.AutoSize = true;
-            this.lblCantidadPasajeros.Location = new System.Drawing.Point(15, 106);
+            this.lblCantidadPasajeros.Location = new System.Drawing.Point(31, 106);
             this.lblCantidadPasajeros.Name = "lblCantidadPasajeros";
             this.lblCantidadPasajeros.Size = new System.Drawing.Size(113, 13);
             this.lblCantidadPasajeros.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             // tbCantidadPasajeros
             // 
-            this.tbCantidadPasajeros.Location = new System.Drawing.Point(134, 104);
+            this.tbCantidadPasajeros.Location = new System.Drawing.Point(150, 104);
             this.tbCantidadPasajeros.MaxLength = 2;
             this.tbCantidadPasajeros.Name = "tbCantidadPasajeros";
             this.tbCantidadPasajeros.Size = new System.Drawing.Size(49, 20);
@@ -119,7 +119,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(55, 156);
+            this.btnBuscar.Location = new System.Drawing.Point(71, 156);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(94, 30);
             this.btnBuscar.TabIndex = 8;
@@ -129,7 +129,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(164, 156);
+            this.btnCancelar.Location = new System.Drawing.Point(180, 156);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(94, 30);
             this.btnCancelar.TabIndex = 9;
@@ -141,14 +141,14 @@
             // 
             this.lblError.AutoSize = true;
             this.lblError.ForeColor = System.Drawing.Color.Red;
-            this.lblError.Location = new System.Drawing.Point(15, 8);
+            this.lblError.Location = new System.Drawing.Point(12, 9);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(0, 13);
             this.lblError.TabIndex = 10;
             // 
             // btnBuscarCiudadDesde
             // 
-            this.btnBuscarCiudadDesde.Location = new System.Drawing.Point(292, 31);
+            this.btnBuscarCiudadDesde.Location = new System.Drawing.Point(308, 31);
             this.btnBuscarCiudadDesde.Margin = new System.Windows.Forms.Padding(2);
             this.btnBuscarCiudadDesde.Name = "btnBuscarCiudadDesde";
             this.btnBuscarCiudadDesde.Size = new System.Drawing.Size(21, 19);
@@ -159,7 +159,7 @@
             // 
             // btnCiudadHasta
             // 
-            this.btnCiudadHasta.Location = new System.Drawing.Point(292, 55);
+            this.btnCiudadHasta.Location = new System.Drawing.Point(308, 55);
             this.btnCiudadHasta.Margin = new System.Windows.Forms.Padding(2);
             this.btnCiudadHasta.Name = "btnCiudadHasta";
             this.btnCiudadHasta.Size = new System.Drawing.Size(21, 19);
@@ -171,7 +171,7 @@
             // cbEncomienda
             // 
             this.cbEncomienda.AutoSize = true;
-            this.cbEncomienda.Location = new System.Drawing.Point(24, 131);
+            this.cbEncomienda.Location = new System.Drawing.Point(40, 131);
             this.cbEncomienda.Name = "cbEncomienda";
             this.cbEncomienda.Size = new System.Drawing.Size(91, 17);
             this.cbEncomienda.TabIndex = 13;
@@ -181,7 +181,7 @@
             // 
             // tbKg
             // 
-            this.tbKg.Location = new System.Drawing.Point(134, 130);
+            this.tbKg.Location = new System.Drawing.Point(150, 130);
             this.tbKg.MaxLength = 2;
             this.tbKg.Name = "tbKg";
             this.tbKg.Size = new System.Drawing.Size(52, 20);
@@ -191,7 +191,7 @@
             // lblKgs
             // 
             this.lblKgs.AutoSize = true;
-            this.lblKgs.Location = new System.Drawing.Point(192, 135);
+            this.lblKgs.Location = new System.Drawing.Point(208, 135);
             this.lblKgs.Name = "lblKgs";
             this.lblKgs.Size = new System.Drawing.Size(28, 13);
             this.lblKgs.TabIndex = 15;
@@ -201,7 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 206);
+            this.ClientSize = new System.Drawing.Size(360, 206);
             this.ControlBox = false;
             this.Controls.Add(this.lblKgs);
             this.Controls.Add(this.tbKg);

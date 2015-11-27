@@ -11,6 +11,7 @@ namespace AerolineaFrba.Dao
     class ViajeDao
     {
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
 
         public List<Model.ViajeModel> buscarViajes(int idRuta, DateTime fechaViaje, int cantidadPax, int kg)
@@ -35,6 +36,7 @@ namespace AerolineaFrba.Dao
                             "and (v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles) > @cantidadPax " +
                             "and cantidad_kg_disponibles > @kg " +
                             "and Convert(date, fecha_salida) = @fechaViaje " +
+                            "and Convert(date, fecha_salida) > @fechaSistema "+
                             "order by v.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
@@ -42,6 +44,7 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@fechaViaje", fechaViaje.Date);
                     command.Parameters.AddWithValue("@cantidadPax", cantidadPax);
                     command.Parameters.AddWithValue("@kg", kg);
+                    command.Parameters.AddWithValue("@fechaSistema", fechaSistema);                    
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
