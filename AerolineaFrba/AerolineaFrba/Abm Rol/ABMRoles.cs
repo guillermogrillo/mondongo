@@ -74,7 +74,7 @@ namespace AerolineaFrba.Abm_Rol
         private void dgvRoles_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             rolSeleccionado = (Model.RolModel)dgvRoles.CurrentRow.DataBoundItem;
-            if (rolSeleccionado._rolHabilitado != Model.Estado.Borrado)
+            if (rolSeleccionado._rolHabilitado != Model.Estado.BORRADO)
             {                
                 btnEditarRol.Enabled = true;
                 btnFuncionalidades.Enabled = true;

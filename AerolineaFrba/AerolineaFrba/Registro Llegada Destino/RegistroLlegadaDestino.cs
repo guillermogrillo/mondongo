@@ -16,11 +16,14 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         Controller.RutaController rutaController = null;
         Controller.ViajeController viajeController = null;
         Controller.TipoServicioController tipoServicioController = null;
+        Controller.MillasController millasController = null;
+        Controller.CompraController compraController = null;
         public Model.CiudadModel ciudadOrigen = null;
         public Model.CiudadModel ciudadDestino = null;
         public List<Model.ViajeModel> vuelosEncontrados = null;
         Model.ViajeModel vueloSeleccionado = null;
         Model.TipoServicioModel tipoServicioSeleccionado = null;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public RegistroLlegadaDestino()
         {
@@ -28,6 +31,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             rutaController = new Controller.RutaController();
             viajeController = new Controller.ViajeController();
             tipoServicioController = new Controller.TipoServicioController();
+            millasController = new Controller.MillasController();
+            compraController = new Controller.CompraController();
         }
 
         public Model.CiudadModel setCiudadOrigen()
@@ -78,35 +83,30 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                     gbViajes.Enabled = true;
                     dgvViajes.DataSource = vuelosEncontrados;                    
                     dgvViajes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    dgvViajes.Columns[0].Visible = false;
+
+                    dgvViajes.Columns[0].HeaderText = "Id. de Viaje";
+                    dgvViajes.Columns[0].ReadOnly = true;
+                    dgvViajes.Columns[0].Width = 75;
+
+                    dgvViajes.Columns[1].Visible = false;
+                    
+                    dgvViajes.Columns[2].Visible = false;
                     dgvViajes.Columns[3].Visible = false;
                     dgvViajes.Columns[4].Visible = false;
+                    dgvViajes.Columns[5].Visible = false;
+                    dgvViajes.Columns[6].Visible = false;
                     dgvViajes.Columns[7].Visible = false;
-                    dgvViajes.Columns[8].Visible = false;                    
-                    dgvViajes.Columns[10].Visible = false;
-                    dgvViajes.Columns[11].Visible = false;
+                    dgvViajes.Columns[8].Visible = false;
 
-
-                    dgvViajes.Columns[1].HeaderText = "Fecha Salida";
-                    dgvViajes.Columns[1].ReadOnly = true;
-                    dgvViajes.Columns[1].Width = 80;
-
-                    dgvViajes.Columns[2].HeaderText = "Hora Salida";
-                    dgvViajes.Columns[2].ReadOnly = true;
-                    dgvViajes.Columns[2].Width = 60;
-
-                    dgvViajes.Columns[5].HeaderText = "Fecha Llegada Estimada";
-                    dgvViajes.Columns[5].ReadOnly = true;
-                    dgvViajes.Columns[5].Width = 80;
-
-                    dgvViajes.Columns[6].HeaderText = "Hora Llegada Estimada";
-                    dgvViajes.Columns[6].ReadOnly = true;
-                    dgvViajes.Columns[6].Width = 60;
-
-
-                    dgvViajes.Columns[9].HeaderText = "Tipo de Servicio";
+                    dgvViajes.Columns[9].HeaderText = "Fecha Salida";
                     dgvViajes.Columns[9].ReadOnly = true;
-                    dgvViajes.Columns[9].Width = 70;
+                    dgvViajes.Columns[9].Width = 135;
+
+                    dgvViajes.Columns[10].HeaderText = "Fecha Llegada Estimada";
+                    dgvViajes.Columns[10].ReadOnly = true;
+                    dgvViajes.Columns[10].Width = 135;
+
+                    dgvViajes.Columns[11].Visible = false;
 
                 }
                 else
@@ -147,11 +147,44 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             DateTime fechaLlegada = dpFechaLlegada.Value;
 
-            var fechaLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy");
-            var horaLlegadaFormateada = fechaLlegada.ToString("HH':'mm':'ss");
-            vueloSeleccionado.fechaLlegada = fechaLlegadaFormateada;
-            vueloSeleccionado.horaLlegada = horaLlegadaFormateada;
+            var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");                      
+            vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
             Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
+
+            List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
+            
+            foreach(Model.VentaModel venta in ventasDelViaje)
+            {
+
+                List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);
+                Model.HistorialMillasModel historialMillas = null;
+                double millasAsignadas = 0;
+                foreach(Model.PasajeModel pasaje in pasajesDeLaVenta)
+                {
+                    millasAsignadas = pasaje.pasajeMonto*0.1;
+                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
+                    millasController.registrarMillas(historialMillas);
+                }
+
+
+                Model.PaqueteModel paqueteDeLaVenta = compraController.buscarPaquetes(venta.ventaPnr);
+                if (paqueteDeLaVenta != null)
+                {
+                    millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
+                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
+                    millasController.registrarMillas(historialMillas);
+                }
+                
+            }
+
+
+
+            this.Close();
+            new AerolineasFRBA().Show();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
             this.Close();
             new AerolineasFRBA().Show();
         }

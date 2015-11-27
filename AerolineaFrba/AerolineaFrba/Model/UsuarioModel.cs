@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Model
 {
-    class UsuarioModel
+    public class UsuarioModel
     {
 
-        private int _idUsuario {get;set;}
-        private String _nombreUsuario { get; set; }
-        private int _intentosFallidos { get; set; }
-        private int _bloqueado { get; set; }        
+        public int _idUsuario {get;set;}
+        public String _nombreUsuario { get; set; }
+        public int _intentosFallidos { get; set; }
+        public int _bloqueado { get; set; }        
 
         public UsuarioModel(int idUsuario, String nombreUsuario, int intentosFallidos, int bloqueado)
         {

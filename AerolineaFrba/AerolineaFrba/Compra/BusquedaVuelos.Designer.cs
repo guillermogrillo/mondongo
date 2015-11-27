@@ -111,6 +111,7 @@
             // tbCantidadPasajeros
             // 
             this.tbCantidadPasajeros.Location = new System.Drawing.Point(134, 104);
+            this.tbCantidadPasajeros.MaxLength = 2;
             this.tbCantidadPasajeros.Name = "tbCantidadPasajeros";
             this.tbCantidadPasajeros.Size = new System.Drawing.Size(49, 20);
             this.tbCantidadPasajeros.TabIndex = 7;
@@ -181,6 +182,7 @@
             // tbKg
             // 
             this.tbKg.Location = new System.Drawing.Point(134, 130);
+            this.tbKg.MaxLength = 2;
             this.tbKg.Name = "tbKg";
             this.tbKg.Size = new System.Drawing.Size(52, 20);
             this.tbKg.TabIndex = 14;

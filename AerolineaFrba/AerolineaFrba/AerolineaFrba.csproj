@@ -69,11 +69,23 @@
     <Compile Include="Abm Ruta\AbmRuta.Designer.cs">
       <DependentUpon>AbmRuta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Canje Millas\CanjeMillas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Canje Millas\CanjeMillas.Designer.cs">
+      <DependentUpon>CanjeMillas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\ConfirmacionCompra.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Compra\ConfirmacionCompra.Designer.cs">
       <DependentUpon>ConfirmacionCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra\FinalizarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\FinalizarCompra.Designer.cs">
+      <DependentUpon>FinalizarCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra\Pagador.cs">
       <SubType>Form</SubType>
@@ -81,10 +93,20 @@
     <Compile Include="Compra\Pagador.Designer.cs">
       <DependentUpon>Pagador.cs</DependentUpon>
     </Compile>
+    <Compile Include="Consulta Millas\ConsultaMillas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Consulta Millas\ConsultaMillas.Designer.cs">
+      <DependentUpon>ConsultaMillas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controller\ListadoController.cs" />
+    <Compile Include="Controller\MillasController.cs" />
+    <Compile Include="Controller\ProductosController.cs" />
     <Compile Include="Controller\TarjetaCreditoController.cs" />
     <Compile Include="Controller\TipoServicioController.cs" />
     <Compile Include="Dao\ListadoDao.cs" />
+    <Compile Include="Dao\MillasDao.cs" />
+    <Compile Include="Dao\ProductosDao.cs" />
     <Compile Include="Dao\TarjetaCreditoDao.cs" />
     <Compile Include="Generacion Viaje\BuscadorCiudades.cs">
       <SubType>Form</SubType>
@@ -105,6 +127,7 @@
       <DependentUpon>ListadosEstadisticos.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\BeneficioTarjetaCredito.cs" />
+    <Compile Include="Model\HistorialMillasModel.cs" />
     <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
       <SubType>Form</SubType>
@@ -148,12 +171,6 @@
     <Compile Include="Abm Ruta\RutaForm.Designer.cs">
       <DependentUpon>RutaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Millas\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Canje Millas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Compra\BusquedaVuelos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,12 +196,6 @@
     </Compile>
     <Compile Include="Compra\VuelosEncontrados.Designer.cs">
       <DependentUpon>VuelosEncontrados.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Consulta Millas\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Consulta Millas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\CiudadController.cs" />
     <Compile Include="Controller\AeronaveController.cs" />
@@ -237,14 +248,21 @@
     <Compile Include="Model\ClienteModel.cs" />
     <Compile Include="Model\CompraModel.cs" />
     <Compile Include="Model\FuncionalidadModel.cs" />
+    <Compile Include="Model\ListadoClienteModel.cs" />
     <Compile Include="Model\ListadoDestinoModel.cs" />
     <Compile Include="Model\PagadorModel.cs" />
+    <Compile Include="Model\PaqueteModel.cs" />
+    <Compile Include="Model\PasajeModel.cs" />
+    <Compile Include="Model\ProductoModel.cs" />
+    <Compile Include="Model\RespuestaLoginModel.cs" />
     <Compile Include="Model\RolModel.cs" />
     <Compile Include="Model\TarjetaCreditoModel.cs" />
+    <Compile Include="Model\TipoOperacion.cs" />
     <Compile Include="Model\TipoPagoModel.cs" />
     <Compile Include="Model\TipoServicioModel.cs" />
     <Compile Include="Model\RutaModel.cs" />
     <Compile Include="Model\UsuarioModel.cs" />
+    <Compile Include="Model\VentaModel.cs" />
     <Compile Include="Model\ViajeModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -307,11 +325,17 @@
     <EmbeddedResource Include="Abm Ruta\RutaForm.resx">
       <DependentUpon>RutaForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Canje Millas\CanjeMillas.resx">
+      <DependentUpon>CanjeMillas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\ConfirmacionCompra.resx">
       <DependentUpon>ConfirmacionCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\FinalizarCompra.resx">
+      <DependentUpon>FinalizarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\NuevoPasajero.resx">
       <DependentUpon>NuevoPasajero.cs</DependentUpon>
@@ -327,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AerolineasFRBA.resx">
       <DependentUpon>AerolineasFRBA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Consulta Millas\ConsultaMillas.resx">
+      <DependentUpon>ConsultaMillas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\BuscadorCiudades.resx">
       <DependentUpon>BuscadorCiudades.cs</DependentUpon>

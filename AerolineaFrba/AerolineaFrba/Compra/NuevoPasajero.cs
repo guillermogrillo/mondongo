@@ -17,7 +17,8 @@ namespace AerolineaFrba.Compra
         Controller.ClienteController clienteController = null;
         Controller.ViajeController viajeController = null;
         Model.ClienteModel clientePantalla = null;
-        Dictionary<String, List<int>> butacasDisponibles = null;        
+        Dictionary<String, List<int>> butacasDisponibles = null;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public NuevoPasajero(Model.CompraModel _compraModel)
         {
@@ -84,7 +85,7 @@ namespace AerolineaFrba.Compra
         {
             tbNombre.Text = null;
             tbApellido.Text = null;
-            dpFNac.Value = DateTime.Now;
+            dpFNac.Value = fechaSistema;
             tbMail.Text = null;
             tbTelefono.Text = null;
             tbDireccion.Text = null;

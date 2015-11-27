@@ -17,6 +17,9 @@ GO
 IF OBJECT_ID('mondongo.ventas', 'U') IS NOT NULL
   DROP TABLE mondongo.ventas;
 GO
+IF OBJECT_ID('mondongo.canje_millas', 'U') IS NOT NULL
+  DROP TABLE mondongo.canje_millas;
+GO
 IF OBJECT_ID('mondongo.historial_millas', 'U') IS NOT NULL
   DROP TABLE mondongo.historial_millas;
 GO
@@ -64,6 +67,9 @@ IF OBJECT_ID('mondongo.tipos_servicio', 'U') IS NOT NULL
 GO
 IF OBJECT_ID('mondongo.ciudades', 'U') IS NOT NULL
   DROP TABLE mondongo.ciudades;
+GO
+IF OBJECT_ID('mondongo.aeronaves', 'U') IS NOT NULL
+  DROP TABLE mondongo.aeronaves_bajas;
 GO
 IF OBJECT_ID('mondongo.aeronaves', 'U') IS NOT NULL
   DROP TABLE mondongo.aeronaves;
@@ -306,9 +312,9 @@ CREATE PROCEDURE mondongo.pr_cargar_tipos_servicio
 AS
 BEGIN
     INSERT INTO MONDONGO.tipos_servicio(tipo_servicio, costo_adicional)
-    SELECT distinct Tipo_Servicio,
-	case tipo_servicio when 'Ejecutivo' then 50
-						when 'Primera Clase' then 100
+    SELECT distinct upper(Tipo_Servicio),
+	case tipo_servicio when 'EJECUTIVO' then 50
+						when 'PRIMERA CLASE' then 100
 						else 0
 	end
 	from gd_esquema.Maestra;
@@ -318,7 +324,7 @@ CREATE PROCEDURE mondongo.pr_cargar_ciudades
 AS
 BEGIN
     INSERT INTO MONDONGO.ciudades(nombre)
-    SELECT distinct RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1) from gd_esquema.Maestra;
+    SELECT distinct RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1) from gd_esquema.Maestra;
 END
 GO
 create procedure mondongo.pr_cargar_butacas(@cantida_butacas numeric(4,0), @matricula numeric(18,0))
@@ -329,9 +335,9 @@ SET @I = 1
     WHILE @I <= @cantida_butacas
     BEGIN
         IF @I % 2 = 0
-            set @TIPO_BUTACA = 'Ventanilla'
+            set @TIPO_BUTACA = 'VENTANILLA'
         ELSE
-            set @TIPO_BUTACA = 'Pasillo'
+            set @TIPO_BUTACA = 'PASILLO'
 
         INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
         VALUES(@matricula, @I, 1, @TIPO_BUTACA)
@@ -344,40 +350,36 @@ CREATE PROCEDURE mondongo.pr_cargar_fabricantes
 AS
 BEGIN
     INSERT INTO MONDONGO.fabricantes(nombre)
-    SELECT distinct Aeronave_Fabricante from gd_esquema.Maestra;
+    SELECT distinct upper(Aeronave_Fabricante) from gd_esquema.Maestra;
 END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_clientes
 AS
-BEGIN
-    PRINT 'COMIENZA MIGRACION DE CLIENTES'    
+BEGIN    
     insert into mondongo.clientes(cliente_nombre,cliente_apellido,cliente_dni,cliente_direccion,cliente_telefono,cliente_mail,cliente_fecha_nacimiento,rol_id)
-    select distinct cli_nombre,cli_apellido,cli_dni,cli_dir,cli_telefono,cli_mail,cli_fecha_nac,2 from gd_esquema.Maestra m    
-    PRINT 'FINALIZA MIGRACION DE CLIENTES'
+    select distinct upper(cli_nombre),upper(cli_apellido),cli_dni,upper(cli_dir),cli_telefono,upper(cli_mail),cli_fecha_nac,2 from gd_esquema.Maestra m        
 END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_roles
 AS
-    BEGIN
-        PRINT 'COMIENZA LA MIGRACION DE ROLES...'
-        insert mondongo.roles values ('administrador',1)
-        insert mondongo.roles values ('cliente',1)        
-        PRINT '...FINALIZA LA MIGRACION DE ROLES'
+    BEGIN        
+        insert mondongo.roles values ('ADMINISTRADOR',1)
+        insert mondongo.roles values ('CLIENTE',1)                
     END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_funcionalidades
 AS
     BEGIN
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRol','ABM de Rol')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRutaAerea','ABM de Ruta Aerea')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMAeronaves','ABM de Aeronave')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnGenerarViaje','Generacion de Viaje')    
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnRegistrarLlegada','Registro de llegada a Destino')
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnComprarPasajes','Compra de pasaje/encomienda')        
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCancelarPasajes','Devolucion/Cancelacion de pasaje y/o encomienda')                 
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnConsultarMillas','Consulta de millas de pasajero frecuente')  
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCanjeMillas','Canje de millas')    
-   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnListado','Listado Estadistico')
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRol','ABM DE ROL')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMRutaAerea','ABM DE RUTA AEREA')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnABMAeronaves','ABM DE AERONAVE')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnGenerarViaje','GENERACION DE VIAJE')    
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnRegistrarLlegada','REGISTRO DE LLEGADA A DESTINO')
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnComprarPasajes','COMPRA DE PASAJE/ENCOMIENDA')        
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCancelarPasajes','DEVOLUCION/CANCELACION DE PASAJE Y/O ENCOMIENDA')                 
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnConsultarMillas','CONSULTA DE MILLAS DE PASAJERO FRECUENTE')  
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnCanjeMillas','CANJE DE MILLAS')    
+   insert into mondongo.funcionalidades (funcionalidad_nombre, funcionalidad_descripcion) values ('btnListado','LISTADO ESTADISTICO')
     END
 GO
 CREATE PROCEDURE mondongo.pr_cargar_roles_funcionalidades
@@ -402,8 +404,8 @@ GO
 CREATE PROCEDURE mondongo.pr_cargar_usuarios
 AS
     BEGIN        
-        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña) values ('adminUno','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')
-        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña)    values ('adminDos','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')    
+        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña) values ('ADMINUNO','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')
+        insert into MONDONGO.USUARIOS(usuario_nombre,usuario_contraseña)    values ('ADMINDOS','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')    
     END
 GO
 create procedure mondongo.pr_cargar_usuarios_roles
@@ -466,8 +468,8 @@ AS
 BEGIN
     insert into MONDONGO.rutas(codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_pasaje, precio_base_kg, horas_vuelo)
     select ruta_codigo,
-        mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Origen, LEN(Ruta_Ciudad_Origen) - 1)),
-        mondongo.fx_busca_id_ciudad(RIGHT(Ruta_Ciudad_Destino, LEN(Ruta_Ciudad_Destino) - 1)),
+        mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)),
+        mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)),
         mondongo.fx_busca_id_tipo_servicio(Tipo_Servicio),
         max(Ruta_Precio_BasePasaje),
         max(Ruta_Precio_BaseKG),
@@ -480,24 +482,26 @@ GO
 create PROCEDURE [MONDONGO].[pr_cargar_pasajes]
 AS
 BEGIN
-    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,pasaje_butaca_tipo,pasaje_butaca_numero,estado)
+    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,pasaje_butaca_tipo,pasaje_butaca_numero,pasaje_butaca_piso,estado)
 	select	m.pasaje_codigo,
 			c.cliente_id,
 			m.pasaje_precio,
 			m.butaca_tipo,
 			m.butaca_nro,
+			1,
 			0
-	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and m.cli_apellido = c.cliente_apellido)
+	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and UPPER(m.cli_apellido) = UPPER(c.cliente_apellido))
 	where	m.pasaje_codigo <> 0
 END
 GO
 CREATE PROCEDURE [MONDONGO].[pr_cargar_paquetes]
 AS
 BEGIN
-    insert into mondongo.paquetes(paquete_venta_pnr,paquete_kg,paquete_monto,estado)
+    insert into mondongo.paquetes(paquete_venta_pnr,paquete_kg,paquete_monto,paquete_piso,estado)
 	select	m.paquete_codigo,
 			m.paquete_kg,
 			m.paquete_precio,
+			0,
 			0
 	from	gd_esquema.Maestra m
 	where	m.paquete_codigo <> 0
@@ -520,8 +524,8 @@ begin
 					else m.paquete_codigo 
 				end) as venta_pnr		
 	from		gd_esquema.Maestra m
-	inner join	mondongo.ciudades c1 on c1.nombre = RIGHT(m.Ruta_Ciudad_Origen, LEN(m.Ruta_Ciudad_Origen) - 1)
-	inner join	mondongo.ciudades c2 on c2.nombre = RIGHT(m.Ruta_Ciudad_Destino, LEN(m.Ruta_Ciudad_Destino) - 1)
+	inner join	mondongo.ciudades c1 on c1.nombre = RIGHT(upper(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1)
+	inner join	mondongo.ciudades c2 on c2.nombre = RIGHT(upper(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1)
 	inner join	mondongo.tipos_servicio ts on ts.tipo_servicio = m.Tipo_Servicio
 	inner join	mondongo.rutas r on (r.codigo_ruta = m.ruta_codigo and r.id_ciudad_origen = c1.id_ciudad and r.id_ciudad_destino = c2.id_ciudad and r.id_tipo_servicio = ts.id_tipo_servicio)
 	inner join	mondongo.viajes v on (v.viaje_ruta_id = r.id_ruta and v.fecha_salida = m.fechaSalida and v.aeronave_matricula = m.aeronave_matricula)
@@ -544,7 +548,7 @@ as
 begin
     insert into mondongo.viajes(aeronave_matricula,viaje_ruta_id, fecha_salida, fecha_llegada, fecha_llegada_estimada, cantidad_butacas_ventanilla_disponibles, cantidad_butacas_pasillo_disponibles, cantidad_kg_disponibles,estado)
     select  m.Aeronave_Matricula,
-            mondongo.fx_busca_id_ruta(RIGHT(m.Ruta_Ciudad_Origen, LEN(m.Ruta_Ciudad_Origen) - 1), RIGHT(m.Ruta_Ciudad_Destino, LEN(m.Ruta_Ciudad_Destino) - 1), m.Tipo_Servicio) as viaje_ruta_id,
+            mondongo.fx_busca_id_ruta(RIGHT(UPPER(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1), RIGHT(UPPER(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1), m.Tipo_Servicio) as viaje_ruta_id,
             m.FechaSalida,
             m.FechaLLegada,
             m.Fecha_LLegada_Estimada,
@@ -599,18 +603,20 @@ begin
 	on q.venta_viaje_id = v.viaje_id
 end
 go
+
+/*TABLAS*/
 create table mondongo.roles
 (rol_id numeric(18,0) identity primary key,
 rol_nombre nvarchar(20) not null,
-rol_habilitado int not null default 1
+rol_habilitado int not null default 1 check(rol_habilitado in (0,1))
 )
 GO
 create table mondongo.usuarios
 (usuario_id numeric(18,0) primary key identity,
-usuario_nombre nvarchar(20) not null,
+usuario_nombre nvarchar(20) not null unique,
 usuario_contraseña nvarchar(255) not null,
-usuario_intentos_fallidos int default 0,
-usuario_bloqueado int default 0
+usuario_intentos_fallidos int default 0 check(usuario_intentos_fallidos >= 0),
+usuario_bloqueado int default 0 check(usuario_bloqueado in (0,1))
 )
 GO
 create table mondongo.usuarios_roles
@@ -647,7 +653,7 @@ create table mondongo.beneficios
 (
 beneficio_id numeric(18,0) primary key identity,
 beneficio_descripcion nvarchar(255),
-beneficio_cantidad_cuotas numeric(2),
+beneficio_cantidad_cuotas numeric(2) check(beneficio_cantidad_cuotas > 0),
 beneficio_tarjeta_credito numeric(18,0) references mondongo.tarjeta_credito(tarjeta_credito_id)
 )
 GO
@@ -671,7 +677,7 @@ GO
 create table mondongo.tipos_servicio(
     id_tipo_servicio numeric(8) primary key identity,
     tipo_servicio nvarchar(255),
-	costo_adicional numeric(18,0)
+	costo_adicional numeric(18,0) check(costo_adicional >= 0)
 )
 GO
 create table MONDONGO.rutas(
@@ -680,10 +686,10 @@ create table MONDONGO.rutas(
     id_ciudad_origen numeric(18,0) not null REFERENCES mondongo.ciudades(id_ciudad),
     id_ciudad_destino numeric(18,0) not null REFERENCES mondongo.ciudades(id_ciudad),
     id_tipo_servicio numeric(8) REFERENCES mondongo.tipos_servicio(id_tipo_servicio),
-    precio_base_kg numeric(18,2),
-    precio_base_pasaje numeric(18,2),
+    precio_base_kg numeric(18,2) check(precio_base_kg >= 0),
+    precio_base_pasaje numeric(18,2) check(precio_base_pasaje >= 0),
 	horas_vuelo numeric(18, 0) NULL,
-	estado numeric(1,0) default 0
+	estado numeric(1,0) default 0 check(estado in (0,1))
 )
 GO
 CREATE TABLE MONDONGO.fabricantes(
@@ -698,17 +704,19 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [id_fabricante] [numeric](18, 0) NULL REFERENCES mondongo.fabricantes(id_fabricante),
     [id_tipo_servicio] [numeric](18, 0) NULL,
     [fecha_alta] [date] NULL,
-    [fecha_fuera_servicio] [date] NULL,
-    [fecha_reinicio_servicio] [date] NULL,
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
     [cantidad_butacas_pas] [numeric](18, 0) NULL,
-    [fecha_baja_definitiva] [date] NULL,
-<<<<<<< HEAD
-	[estado] [numeric](18,0) default 0
-=======
-[estado] [numeric](18,0) default 0
->>>>>>> a5be2a4afbc946223012b1910ab10b902614ab30
+	[estado] [numeric](18,0) default 0 check(estado in (0,1))
 ) ON [PRIMARY]
+GO
+create table MONDONGO.aeronaves_bajas(
+	id_aeronave_baja numeric(18,0) primary key identity,
+	aeronave_matricula nvarchar(255) not null REFERENCES mondongo.aeronaves(matricula),
+	fecha_proceso date not null DEFAULT (getdate()),
+	fecha_fuera_servicio date,
+	fecha_reinicio_servicio date,
+	fecha_baja_definitiva date
+)
 GO
 create table mondongo.viajes(
     viaje_id numeric(18,0) identity primary key,
@@ -717,10 +725,10 @@ create table mondongo.viajes(
     fecha_salida datetime not null,
     fecha_llegada datetime,
     fecha_llegada_estimada datetime not null,
-    cantidad_butacas_ventanilla_disponibles numeric(18,0) not null,
-	cantidad_butacas_pasillo_disponibles numeric(18,0) not null,
-	cantidad_kg_disponibles numeric(18,0) not null,
-	estado numeric(1,0) default 0
+    cantidad_butacas_ventanilla_disponibles numeric(18,0) not null check(cantidad_butacas_ventanilla_disponibles>=0),
+	cantidad_butacas_pasillo_disponibles numeric(18,0) not null check(cantidad_butacas_pasillo_disponibles>=0),
+	cantidad_kg_disponibles numeric(18,0) not null check(cantidad_kg_disponibles>=0),
+	estado numeric(1,0) default 0 check(estado in (0,1))
 )
 GO
 
@@ -730,7 +738,7 @@ create table mondongo.ventas(
 	venta_viaje_id numeric(18) not null references mondongo.viajes(viaje_id),
 	venta_id_pagador numeric(18,0) not null references mondongo.clientes(cliente_id),
 	venta_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
-	venta_estado numeric(1,0)
+	venta_estado numeric(1,0) check(venta_estado in (0,1))
 )
 
 GO
@@ -738,18 +746,20 @@ create table mondongo.pasajes(
 	pasaje_id numeric(18,0) primary key identity,
 	pasaje_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
 	pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
-	pasaje_monto numeric(18,2) default 0,
+	pasaje_monto numeric(18,2) default 0 check(pasaje_monto >= 0),
 	pasaje_butaca_tipo varchar(255) not null,
 	pasaje_butaca_numero numeric(18,0) not null,
-	estado numeric(1,0)
+	pasaje_butaca_piso numeric(18,0) not null default 1 check(pasaje_butaca_piso in (0,1)),
+	estado numeric(1,0) check(estado in (0,1))
 )
 GO
 create table mondongo.paquetes(
 	paquete_id numeric(18,0) primary key identity,
 	paquete_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
-	paquete_kg numeric(18,0) default 0,
-	paquete_monto numeric(18,2) default 0,
-	estado numeric(1,0)
+	paquete_kg numeric(18,0) default 0 check(paquete_kg >= 0),
+	paquete_monto numeric(18,2) default 0 check(paquete_monto >= 0),
+	paquete_piso numeric(18,0) not null default 0 check(paquete_piso in (0,1)),
+	estado numeric(1,0) check(estado in (0,1))
 )
 GO
 
@@ -757,21 +767,28 @@ create table mondongo.productos(
 	id_producto numeric(18,0) primary key identity,
 	stock numeric(3,0) not null,
 	descripcion nvarchar(255) not null,
-	costo_millas numeric(7,0) not null
+	costo_millas numeric(7,0) not null check(costo_millas >= 0)
 )
 GO
 
 create table mondongo.historial_millas(
 	id_historial numeric(18,0) primary key identity,
-	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),
-	id_viaje numeric(18,0) null references mondongo.viajes(viaje_id),
-	id_producto numeric(18,0) null references mondongo.productos(id_producto),
-	cantidad_producto numeric(3,0) null,
-	cantidad_millas numeric(7,0) not null,
+	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),			
+	millas numeric(7,2) not null check (millas >= 0),
 	fecha_operacion datetime default getdate(),
-	tipo_operacion char not null
+	tipo_operacion int not null check (tipo_operacion in (1,2)),
+	descripcion varchar(255) null
+)
+go
+create table mondongo.canje_millas(
+	id_canje numeric(18,0) primary key identity,
+	id_producto numeric(18,0) not null references mondongo.productos(id_producto),
+	id_historial numeric(18,0) not null references mondongo.historial_millas(id_historial),
+	cantidad numeric(2) not null check(cantidad >= 0),
+	fecha_canje datetime default getdate()
 )
 
+/* INDICES */
 
 GO
 IF EXISTS(SELECT * FROM sys.indexes WHERE object_id = object_id('gd_esquema.maestra') AND NAME ='maestra_pas_cod')
@@ -807,6 +824,40 @@ GO
 CREATE INDEX index_cliente
 ON mondongo.clientes (cliente_id)
 GO
+
+/* TRIGGERS */
+CREATE TRIGGER [MONDONGO].[tr_cancelar_viajes] 
+   ON  [MONDONGO].[viajes] 
+   AFTER UPDATE
+AS 
+BEGIN
+	DECLARE @tempPNR TABLE
+	(
+		venta_pnr numeric(18,0)
+	);
+	
+	insert into @tempPNR
+	select v.venta_pnr
+	from inserted i, MONDONGO.ventas v, deleted d
+	where i.viaje_id=v.venta_viaje_id
+		and i.estado<>d.estado;
+
+	update MONDONGO.ventas
+	set venta_estado = 1
+	where venta_pnr in (select venta_pnr from @tempPNR)
+
+	update MONDONGO.paquetes
+	set estado = 1
+	where paquete_venta_pnr in (select venta_pnr from @tempPNR)
+
+	update MONDONGO.pasajes
+	set estado = 1
+	where pasaje_venta_pnr in (select venta_pnr from @tempPNR)
+
+END
+GO
+
+/* MIGRACION */
 
 exec mondongo.pr_cargar_productos
 go

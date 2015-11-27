@@ -22,7 +22,7 @@ namespace AerolineaFrba.Model
 
     public enum TipoButaca
     {
-        Ventanilla = 0,
-        Pasillo = 1
+        VENTANILLA = 0,
+        PASILLO = 1
     }
 }

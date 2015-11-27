@@ -57,7 +57,7 @@ namespace AerolineaFrba.Abm_Rol
             }
             else
             {
-                cbEstados.SelectedIndex = (int)Model.Estado.Habilitado;
+                cbEstados.SelectedIndex = (int)Model.Estado.HABILITADO;
             }
                         
         }

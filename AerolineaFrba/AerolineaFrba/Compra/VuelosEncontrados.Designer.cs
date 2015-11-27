@@ -46,14 +46,14 @@
             this.dgvVuelos.Location = new System.Drawing.Point(7, 19);
             this.dgvVuelos.Name = "dgvVuelos";
             this.dgvVuelos.ReadOnly = true;
-            this.dgvVuelos.Size = new System.Drawing.Size(657, 160);
+            this.dgvVuelos.Size = new System.Drawing.Size(777, 160);
             this.dgvVuelos.TabIndex = 0;
             this.dgvVuelos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVuelos_CellContentClick);
             this.dgvVuelos.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvVuelos_CellMouseClick);
             // 
             // btnSeleccionar
             // 
-            this.btnSeleccionar.Location = new System.Drawing.Point(223, 195);
+            this.btnSeleccionar.Location = new System.Drawing.Point(275, 195);
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.Size = new System.Drawing.Size(100, 40);
             this.btnSeleccionar.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(363, 195);
+            this.btnCancelar.Location = new System.Drawing.Point(415, 195);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(100, 40);
             this.btnCancelar.TabIndex = 2;
@@ -78,7 +78,7 @@
             this.gbVuelos.Controls.Add(this.btnSeleccionar);
             this.gbVuelos.Location = new System.Drawing.Point(12, 12);
             this.gbVuelos.Name = "gbVuelos";
-            this.gbVuelos.Size = new System.Drawing.Size(670, 248);
+            this.gbVuelos.Size = new System.Drawing.Size(790, 248);
             this.gbVuelos.TabIndex = 3;
             this.gbVuelos.TabStop = false;
             this.gbVuelos.Text = "Vuelos Disponibles";
@@ -87,7 +87,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 286);
+            this.ClientSize = new System.Drawing.Size(814, 286);
             this.Controls.Add(this.gbVuelos);
             this.Name = "VuelosEncontrados";
             this.Text = "Vuelos Encontrados";

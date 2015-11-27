@@ -46,6 +46,7 @@
             this.dpFechaSalida = new System.Windows.Forms.DateTimePicker();
             this.lblTipoServicio = new System.Windows.Forms.Label();
             this.cbTipoServicio = new System.Windows.Forms.ComboBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.gbViajes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvViajes)).BeginInit();
             this.SuspendLayout();
@@ -61,7 +62,9 @@
             // 
             // tbMatricula
             // 
+            this.tbMatricula.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbMatricula.Location = new System.Drawing.Point(159, 81);
+            this.tbMatricula.MaxLength = 7;
             this.tbMatricula.Name = "tbMatricula";
             this.tbMatricula.Size = new System.Drawing.Size(194, 20);
             this.tbMatricula.TabIndex = 7;
@@ -124,7 +127,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(159, 136);
+            this.btnBuscar.Location = new System.Drawing.Point(105, 134);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(105, 23);
             this.btnBuscar.TabIndex = 8;
@@ -215,11 +218,22 @@
             this.cbTipoServicio.Size = new System.Drawing.Size(194, 21);
             this.cbTipoServicio.TabIndex = 20;
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(216, 133);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(105, 23);
+            this.btnCancelar.TabIndex = 21;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // RegistroLlegadaDestino
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 377);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.cbTipoServicio);
             this.Controls.Add(this.lblTipoServicio);
             this.Controls.Add(this.dpFechaSalida);
@@ -267,5 +281,6 @@
         private System.Windows.Forms.DateTimePicker dpFechaSalida;
         private System.Windows.Forms.Label lblTipoServicio;
         private System.Windows.Forms.ComboBox cbTipoServicio;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }
