@@ -56,6 +56,9 @@ GO
 IF OBJECT_ID('mondongo.butacas_vendidas', 'U') IS NOT NULL
   DROP TABLE mondongo.butacas_vendidas;
 GO
+IF OBJECT_ID('mondongo.butacas_viaje', 'U') IS NOT NULL
+  DROP TABLE mondongo.butacas_viaje;
+GO
 IF OBJECT_ID('mondongo.viajes', 'U') IS NOT NULL
   DROP TABLE mondongo.viajes;
 GO
@@ -67,6 +70,9 @@ IF OBJECT_ID('mondongo.tipos_servicio', 'U') IS NOT NULL
 GO
 IF OBJECT_ID('mondongo.ciudades', 'U') IS NOT NULL
   DROP TABLE mondongo.ciudades;
+GO
+IF OBJECT_ID('mondongo.butacas', 'U') IS NOT NULL
+  DROP TABLE mondongo.butacas;
 GO
 IF OBJECT_ID('mondongo.aeronaves_bajas', 'U') IS NOT NULL
   DROP TABLE mondongo.aeronaves_bajas;
@@ -787,6 +793,24 @@ create table mondongo.canje_millas(
 	cantidad numeric(2) not null check(cantidad >= 0),
 	fecha_canje datetime default getdate()
 )
+create table mondongo.butacas(
+	butaca_id numeric(18,0) primary key identity,
+	aeronave_matricula nvarchar(255),
+	butaca_nro numeric(18,0),
+	butaca_tipo nvarchar(255)
+)
+GO
+create table mondongo.butacas_viaje(
+	viaje_id numeric(18,0) not null references mondongo.viajes(viaje_id) ,
+	butaca_id numeric(18,0) not null references mondongo.butacas(butaca_id),
+	estado nchar(1) check (estado in ('L','V')) default 'L'
+	CONSTRAINT [PK_butacas_viaje] PRIMARY KEY CLUSTERED 
+	(
+		[viaje_id] ASC,
+		[butaca_id] ASC
+	)
+)
+GO
 
 /* INDICES */
 
