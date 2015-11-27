@@ -18,9 +18,9 @@ namespace AerolineaFrba.Controller
         }
 
 
-        public List<Model.HistorialMillasModel> buscarMillas(String dni)
+        public List<Model.HistorialMillasModel> buscarMillas(int clienteId)
         {
-            return millasDao.buscarMillas(dni);
+            return millasDao.buscarMillas(clienteId);
         }
 
         public Boolean registrarMillas(Model.HistorialMillasModel historialMillas)

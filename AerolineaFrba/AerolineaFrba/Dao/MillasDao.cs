@@ -14,7 +14,7 @@ namespace AerolineaFrba.Dao
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
         DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
-        public List<Model.HistorialMillasModel> buscarMillas(String dni)
+        public List<Model.HistorialMillasModel> buscarMillas(int clienteId)
         {
             List<Model.HistorialMillasModel> millas = new List<Model.HistorialMillasModel>();            
             SqlConnection myConnection = null;
@@ -26,11 +26,11 @@ namespace AerolineaFrba.Dao
                 var query = "select hm.id_historial, hm.id_cliente, hm.millas, hm.fecha_operacion, hm.tipo_operacion, hm.descripcion " +
                             "from mondongo.historial_millas hm "+
                             "inner join mondongo.clientes c on hm.id_cliente = c.cliente_id "+
-                            "where c.cliente_dni = @dni "+
+                            "where c.cliente_id = @clienteId " +
                             "and DATEDIFF(DAY,fecha_operacion, @fechaSistema) < 365 and DATEDIFF(DAY,fecha_operacion, @fechaSistema) > 0";
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@dni", dni);
+                    command.Parameters.AddWithValue("@clienteId", clienteId);
                     command.Parameters.AddWithValue("@fechaSistema", fechaSistema);
                 }
                 using (SqlDataReader reader = command.ExecuteReader())

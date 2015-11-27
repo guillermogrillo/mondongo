@@ -30,6 +30,44 @@ namespace AerolineaFrba.Canje_Millas
             productosController = new Controller.ProductosController();
         }
 
+        public void setClientePantalla(Model.ClienteModel cliente)
+        {
+            this.clienteEncontrado = cliente;
+            gbProductosDisponibles.Visible = true;
+
+            List<Model.HistorialMillasModel> millasHist = millasController.buscarMillas(clienteEncontrado.clienteId);
+            double cantidadMillas = calcularCantidadMillas(millasHist);
+
+            tbMillasAcum.Text = cantidadMillas.ToString();
+
+
+            List<Model.ProductoModel> productosDisponibles = productosController.buscarTodosLosProductos();
+            dgvProductos.DataSource = productosDisponibles;
+            armarGrilla();
+        }
+
+        private void armarGrilla()
+        {
+            dgvProductos.AutoGenerateColumns = true;
+            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dgvProductos.Columns[0].HeaderText = "Id. del Producto";
+            dgvProductos.Columns[0].ReadOnly = true;
+            dgvProductos.Columns[0].Width = 80;
+
+            dgvProductos.Columns[1].HeaderText = "Stock Disponible";
+            dgvProductos.Columns[1].ReadOnly = true;
+            dgvProductos.Columns[1].Width = 80;
+
+            dgvProductos.Columns[2].HeaderText = "Descripción";
+            dgvProductos.Columns[2].ReadOnly = true;
+            dgvProductos.Columns[2].Width = 150;
+
+            dgvProductos.Columns[3].HeaderText = "Precio(en millas)";
+            dgvProductos.Columns[3].ReadOnly = true;
+            dgvProductos.Columns[3].Width = 100;
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -49,38 +87,27 @@ namespace AerolineaFrba.Canje_Millas
             {
                 List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(dni);
                 if(clientesEncontrados != null && clientesEncontrados.Count > 0){
-                    clienteEncontrado = clientesEncontrados[0];
+                    if (clientesEncontrados.Count == 1)
+                    {
+                        clienteEncontrado = clientesEncontrados[0];
 
-                    gbProductosDisponibles.Visible = true;
+                        gbProductosDisponibles.Visible = true;
 
-                    List<Model.HistorialMillasModel> millasHist = millasController.buscarMillas(dni);
-                    double cantidadMillas = calcularCantidadMillas(millasHist);
+                        List<Model.HistorialMillasModel> millasHist = millasController.buscarMillas(clienteEncontrado.clienteId);
+                        double cantidadMillas = calcularCantidadMillas(millasHist);
 
-                    tbMillasAcum.Text = cantidadMillas.ToString();
-
-
-                    List<Model.ProductoModel> productosDisponibles = productosController.buscarTodosLosProductos();
-                    dgvProductos.DataSource = productosDisponibles;
-                    dgvProductos.AutoGenerateColumns = true;
-                    dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-                    dgvProductos.Columns[0].HeaderText = "Id. del Producto";
-                    dgvProductos.Columns[0].ReadOnly = true;
-                    dgvProductos.Columns[0].Width = 80;
-
-                    dgvProductos.Columns[1].HeaderText = "Stock Disponible";
-                    dgvProductos.Columns[1].ReadOnly = true;
-                    dgvProductos.Columns[1].Width = 80;
-
-                    dgvProductos.Columns[2].HeaderText = "Descripción";
-                    dgvProductos.Columns[2].ReadOnly = true;
-                    dgvProductos.Columns[2].Width = 150;
-
-                    dgvProductos.Columns[3].HeaderText = "Precio(en millas)";
-                    dgvProductos.Columns[3].ReadOnly = true;
-                    dgvProductos.Columns[3].Width = 100;
+                        tbMillasAcum.Text = cantidadMillas.ToString();
 
 
+                        List<Model.ProductoModel> productosDisponibles = productosController.buscarTodosLosProductos();
+                        dgvProductos.DataSource = productosDisponibles;
+                        armarGrilla();
+                    }
+                    else
+                    {
+                        new Canje_Millas.SeleccionClienteDuplicado(clientesEncontrados, this).Show();
+                        this.Hide();
+                    }
                 }else{
                     MessageBox.Show("No se encontraron clientes registrados con ese dni");
                     gbProductosDisponibles.Visible = false;
@@ -130,6 +157,14 @@ namespace AerolineaFrba.Canje_Millas
             {
                 MessageBox.Show("Las millas acumuladas no son suficientes para canjear el producto seleccionado.");
             }            
+        }
+
+        private void tbDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

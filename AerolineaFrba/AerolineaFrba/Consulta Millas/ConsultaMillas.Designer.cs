@@ -56,6 +56,7 @@
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(114, 20);
             this.tbDni.TabIndex = 1;
+            this.tbDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDni_KeyPress);
             // 
             // btnConsultar
             // 
