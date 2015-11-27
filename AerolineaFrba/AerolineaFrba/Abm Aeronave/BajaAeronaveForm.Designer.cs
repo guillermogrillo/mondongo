@@ -31,7 +31,7 @@
             this.dpFechaDesde = new System.Windows.Forms.DateTimePicker();
             this.dpFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelFechaHasta = new System.Windows.Forms.Label();
             this.btFueraServicio = new System.Windows.Forms.Button();
             this.btCancelar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -43,6 +43,8 @@
             // 
             // dpFechaDesde
             // 
+            this.dpFechaDesde.CustomFormat = "dd/MM/yyyy hh:mm";
+            this.dpFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaDesde.Location = new System.Drawing.Point(98, 13);
             this.dpFechaDesde.Name = "dpFechaDesde";
             this.dpFechaDesde.Size = new System.Drawing.Size(200, 20);
@@ -50,6 +52,8 @@
             // 
             // dpFechaHasta
             // 
+            this.dpFechaHasta.CustomFormat = "dd/MM/yyyy hh:mm";
+            this.dpFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaHasta.Location = new System.Drawing.Point(98, 39);
             this.dpFechaHasta.Name = "dpFechaHasta";
             this.dpFechaHasta.Size = new System.Drawing.Size(200, 20);
@@ -64,14 +68,14 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Fecha desde";
             // 
-            // label2
+            // labelFechaHasta
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 45);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Fecha hasta";
+            this.labelFechaHasta.AutoSize = true;
+            this.labelFechaHasta.Location = new System.Drawing.Point(26, 45);
+            this.labelFechaHasta.Name = "labelFechaHasta";
+            this.labelFechaHasta.Size = new System.Drawing.Size(66, 13);
+            this.labelFechaHasta.TabIndex = 3;
+            this.labelFechaHasta.Text = "Fecha hasta";
             // 
             // btFueraServicio
             // 
@@ -144,7 +148,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btCancelar);
             this.Controls.Add(this.btFueraServicio);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelFechaHasta);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dpFechaHasta);
             this.Controls.Add(this.dpFechaDesde);
@@ -162,7 +166,7 @@
         private System.Windows.Forms.DateTimePicker dpFechaDesde;
         private System.Windows.Forms.DateTimePicker dpFechaHasta;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelFechaHasta;
         private System.Windows.Forms.Button btFueraServicio;
         private System.Windows.Forms.Button btCancelar;
         private System.Windows.Forms.GroupBox groupBox1;

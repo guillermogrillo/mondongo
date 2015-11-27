@@ -18,24 +18,21 @@ namespace AerolineaFrba.Abm_Aeronave
         Dao.TipoServicioDao tipoServicioDao;
         Dao.FabricanteDao fabricantesDao;
         Controller.AeronaveController _controller;
-        Abm_Aeronave.AbmAeronaves abmAeronaves;
 
         private Boolean isEdit = false;
 
-        public AeronaveForm(Abm_Aeronave.AbmAeronaves abm_aeronaves)
+        public AeronaveForm()
         {
             isEdit = false;
             InitializeComponent();
             init();
-            this.abmAeronaves = abm_aeronaves;
         }
 
-        public AeronaveForm( Abm_Aeronave.AbmAeronaves abm_aeronaves, AeronaveModel aeronave)
+        public AeronaveForm(AeronaveModel aeronave)
         {
             isEdit = true;
             InitializeComponent();
             init();
-            this.abmAeronaves = abm_aeronaves;
             
             if (aeronave != null)
             {
@@ -101,17 +98,16 @@ namespace AerolineaFrba.Abm_Aeronave
         }
         private void volver(object sender, FormClosedEventArgs e)
         {
-            //this.Hide();
-            //Abm_Aeronave.AbmAeronaves abmAeronaves = new Abm_Aeronave.AbmAeronaves();
-            abmAeronaves.Show();
+            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
+            abm_aeronaves.Show();
         }
 
         private void onClickGuardar(object sender, EventArgs e)
         {
             if (isEdit)
-                guardar();
-            else
                 actualizar();
+            else
+                guardar();
         }
 
         private void close(object sender, EventArgs e)
@@ -124,8 +120,9 @@ namespace AerolineaFrba.Abm_Aeronave
             AeronaveModel aeronave = cargarAeronave();
             _controller.actualizarAeronave(aeronave);
 
-            abmAeronaves.cargarAeronaves();
+            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();
+            abm_aeronaves.Show();
         }
 
         private void guardar()
@@ -137,8 +134,9 @@ namespace AerolineaFrba.Abm_Aeronave
             if (!resultado.Equals("OK"))
                 return;
 
-            abmAeronaves.cargarAeronaves();
+            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();
+            abm_aeronaves.Show();
         }
 
         private AeronaveModel cargarAeronave()
