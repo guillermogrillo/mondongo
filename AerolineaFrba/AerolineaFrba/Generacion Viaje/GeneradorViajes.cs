@@ -28,10 +28,12 @@ namespace AerolineaFrba.Generacion_Viaje
             InitializeComponent();
 
             dpFechaSalida.Format = DateTimePickerFormat.Custom;
-            dpFechaSalida.CustomFormat = "dd/MM/yyyy hh:mm";
+            dpFechaSalida.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            dpFechaSalida.Value = fechaSistema;
 
             dpFechaLlegadaEstimada.Format = DateTimePickerFormat.Custom;
-            dpFechaLlegadaEstimada.CustomFormat = "dd/MM/yyyy hh:mm";
+            dpFechaLlegadaEstimada.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            dpFechaLlegadaEstimada.Value = fechaSistema;
 
             rutaController = new Controller.RutaController();
             tipoServicioController = new Controller.TipoServicioController();
@@ -85,10 +87,13 @@ namespace AerolineaFrba.Generacion_Viaje
         }
 
         private void dpFechaSalida_ValueChanged(object sender, EventArgs e)
-        {                        
-            DateTime fechaSalida = dpFechaSalida.Value;
-            DateTime fechaLlegadaEstimada = fechaSalida.AddHours(rutaEncontrada.horasVuelo);
-            dpFechaLlegadaEstimada.Value = fechaLlegadaEstimada;            
+        {   
+            if(rutaEncontrada != null){
+                DateTime fechaSalida = dpFechaSalida.Value;
+                DateTime fechaLlegadaEstimada = fechaSalida.AddHours(rutaEncontrada.horasVuelo);
+                dpFechaLlegadaEstimada.Value = fechaLlegadaEstimada;            
+            }
+            
         }
 
         private void btnBuscarRuta_Click(object sender, EventArgs e)
@@ -141,9 +146,15 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             DateTime fechaSalida = dpFechaSalida.Value;
             DateTime fechaLlegadaEstimada = dpFechaLlegadaEstimada.Value;
-            Model.ViajeModel viaje = new Model.ViajeModel(rutaEncontrada.idRuta,aeronaveSeleccionada.matricula,fechaSalida, fechaLlegadaEstimada ,aeronaveSeleccionada.cantButacasPas,aeronaveSeleccionada.cantButacasVen,aeronaveSeleccionada.capacidadKg);                                   
-            viajeController.guardarViaje(viaje, rutaEncontrada, aeronaveSeleccionada);            
-            gbViajePasoDos.Visible = false;
+            if (fechaSalida < fechaSistema || fechaLlegadaEstimada < fechaSistema)
+            {
+                MessageBox.Show("Las fechas de salida y de llegada estimada deben ser posteriores a la fecha de sistema.");
+            }else{
+                Model.ViajeModel viaje = new Model.ViajeModel(rutaEncontrada.idRuta,aeronaveSeleccionada.matricula,fechaSalida, fechaLlegadaEstimada ,aeronaveSeleccionada.cantButacasPas,aeronaveSeleccionada.cantButacasVen,aeronaveSeleccionada.capacidadKg);                                   
+                viajeController.guardarViaje(viaje, rutaEncontrada, aeronaveSeleccionada);
+                this.Close();
+                new AerolineasFRBA().Show();
+            }            
         }
 
         private void cbAeronaves_SelectedIndexChanged(object sender, EventArgs e)

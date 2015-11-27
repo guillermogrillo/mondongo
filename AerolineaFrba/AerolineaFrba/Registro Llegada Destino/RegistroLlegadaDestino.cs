@@ -33,6 +33,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             tipoServicioController = new Controller.TipoServicioController();
             millasController = new Controller.MillasController();
             compraController = new Controller.CompraController();
+            dpFechaSalida.Value = fechaSistema;
+            dpFechaLlegada.Value = fechaSistema;
         }
 
         public Model.CiudadModel setCiudadOrigen()
@@ -140,6 +142,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             vueloSeleccionado = (Model.ViajeModel)dgvViajes.CurrentRow.DataBoundItem;            
             btnRegistrar.Enabled = true;
             dpFechaLlegada.Enabled = true;
+            dpFechaLlegada.Value = vueloSeleccionado.fechaHoraLlegadaEstimada;
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -152,41 +155,47 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             }
             else
             {
-
-                var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");
-                vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
-                Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
-
-                List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
-
-                foreach (Model.VentaModel venta in ventasDelViaje)
+                if (dpFechaLlegada.Value>fechaSistema)
                 {
-
-                    List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);
-                    Model.HistorialMillasModel historialMillas = null;
-                    double millasAsignadas = 0;
-                    foreach (Model.PasajeModel pasaje in pasajesDeLaVenta)
-                    {
-                        millasAsignadas = pasaje.pasajeMonto * 0.1;
-                        historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
-                        millasController.registrarMillas(historialMillas);
-                    }
-
-
-                    Model.PaqueteModel paqueteDeLaVenta = compraController.buscarPaquetes(venta.ventaPnr);
-                    if (paqueteDeLaVenta != null)
-                    {
-                        millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
-                        historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
-                        millasController.registrarMillas(historialMillas);
-                    }
-
+                    MessageBox.Show("La fecha de llegada no puede ser posterior a la fecha de sistema");
                 }
+                else
+                {
+                    var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");
+                    vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
+                    Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
+
+                    List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
+
+                    foreach (Model.VentaModel venta in ventasDelViaje)
+                    {
+
+                        List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);
+                        Model.HistorialMillasModel historialMillas = null;
+                        double millasAsignadas = 0;
+                        foreach (Model.PasajeModel pasaje in pasajesDeLaVenta)
+                        {
+                            millasAsignadas = pasaje.pasajeMonto * 0.1;
+                            historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
+                            millasController.registrarMillas(historialMillas);
+                        }
+
+
+                        Model.PaqueteModel paqueteDeLaVenta = compraController.buscarPaquetes(venta.ventaPnr);
+                        if (paqueteDeLaVenta != null)
+                        {
+                            millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
+                            historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
+                            millasController.registrarMillas(historialMillas);
+                        }
+
+                    }
 
 
 
-                this.Close();
-                new AerolineasFRBA().Show();
+                    this.Close();
+                    new AerolineasFRBA().Show();
+                }
             }
         }
 
