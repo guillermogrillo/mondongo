@@ -25,10 +25,21 @@ namespace AerolineaFrba.Compra
             InitializeComponent();
             compraModel = _compraModel;
             clienteController = new Controller.ClienteController();
-            viajeController = new Controller.ViajeController();
-            clientePantalla = new Model.ClienteModel();
+            viajeController = new Controller.ViajeController();            
             dpFNac.Format = DateTimePickerFormat.Custom;
             dpFNac.CustomFormat = "dd/MM/yyyy";
+        }
+
+
+        public void setClientePantalla(Model.ClienteModel cliente)
+        {
+            this.clientePantalla = cliente;
+            tbNombre.Text = clientePantalla.nombre;
+            tbApellido.Text = clientePantalla.apellido;
+            dpFNac.Value = clientePantalla.fechaNacimiento;
+            tbMail.Text = clientePantalla.mail;
+            tbTelefono.Text = clientePantalla.telefono.ToString();
+            tbDireccion.Text = clientePantalla.direccion;
         }
 
         private void NuevoPasajero_Load(object sender, EventArgs e)
@@ -54,14 +65,20 @@ namespace AerolineaFrba.Compra
                 gbButaca.Enabled = true;
                 btnSiguiente.Enabled = true;
                 List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(tbDni.Text);
-                if(clientesEncontrados.Count == 1){
-                    clientePantalla = clientesEncontrados[0];
+                if (clientesEncontrados.Count == 1)
+                {
+                    setClientePantalla(clientesEncontrados[0]);
                     tbNombre.Text = clientePantalla.nombre;
                     tbApellido.Text = clientePantalla.apellido;
                     dpFNac.Value = clientePantalla.fechaNacimiento;
                     tbMail.Text = clientePantalla.mail;
                     tbTelefono.Text = clientePantalla.telefono.ToString();
-                    tbDireccion.Text = clientePantalla.direccion;               
+                    tbDireccion.Text = clientePantalla.direccion;
+                }
+                else if (clientesEncontrados.Count > 1)
+                {
+                    new Compra.SeleccionClienteDuplicado(clientesEncontrados, this).Show();
+                    this.Hide();
                 }
             }else{
                 MessageBox.Show("Ingrese el Dni");

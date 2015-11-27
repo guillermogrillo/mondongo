@@ -148,6 +148,7 @@ namespace AerolineaFrba.Dao
                             "where	r.id_ruta = @idRuta " +
                             "and v.aeronave_matricula = @matricula "+
                             "and CONVERT(VARCHAR(10),v.fecha_salida,103) = @fechaSalida " +
+                            "and v.estado = 0 "+
                             "order by v.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {

@@ -146,41 +146,48 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
 
             DateTime fechaLlegada = dpFechaLlegada.Value;
-
-            var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");                      
-            vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
-            Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
-
-            List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
-            
-            foreach(Model.VentaModel venta in ventasDelViaje)
+            if (fechaLlegada < vueloSeleccionado.fechaHoraSalida)
+            {
+                MessageBox.Show("La fecha y hora de llegada no puede ser previa a la de salida");
+            }
+            else
             {
 
-                List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);
-                Model.HistorialMillasModel historialMillas = null;
-                double millasAsignadas = 0;
-                foreach(Model.PasajeModel pasaje in pasajesDeLaVenta)
+                var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");
+                vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
+                Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
+
+                List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
+
+                foreach (Model.VentaModel venta in ventasDelViaje)
                 {
-                    millasAsignadas = pasaje.pasajeMonto*0.1;
-                    historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
-                    millasController.registrarMillas(historialMillas);
+
+                    List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);
+                    Model.HistorialMillasModel historialMillas = null;
+                    double millasAsignadas = 0;
+                    foreach (Model.PasajeModel pasaje in pasajesDeLaVenta)
+                    {
+                        millasAsignadas = pasaje.pasajeMonto * 0.1;
+                        historialMillas = new Model.HistorialMillasModel(pasaje.pasajeCliente, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PASAJE COMPRADO");
+                        millasController.registrarMillas(historialMillas);
+                    }
+
+
+                    Model.PaqueteModel paqueteDeLaVenta = compraController.buscarPaquetes(venta.ventaPnr);
+                    if (paqueteDeLaVenta != null)
+                    {
+                        millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
+                        historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
+                        millasController.registrarMillas(historialMillas);
+                    }
+
                 }
 
 
-                Model.PaqueteModel paqueteDeLaVenta = compraController.buscarPaquetes(venta.ventaPnr);
-                if (paqueteDeLaVenta != null)
-                {
-                    millasAsignadas = paqueteDeLaVenta.paqueteMonto * 0.1;
-                    historialMillas = new Model.HistorialMillasModel(venta.ventaClientePagador, millasAsignadas, fechaSistema, Model.TipoOperacion.ACREDITACION, "ACREDITACIÓN DE MILLAS POR PAQUETE COMPRADO");
-                    millasController.registrarMillas(historialMillas);
-                }
-                
+
+                this.Close();
+                new AerolineasFRBA().Show();
             }
-
-
-
-            this.Close();
-            new AerolineasFRBA().Show();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

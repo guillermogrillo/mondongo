@@ -18,6 +18,13 @@ namespace AerolineaFrba.Model
         public String mail { get; set; }
         public Model.ButacaModel butaca { get; set; }
 
+        public String NombreCompleto
+        {
+            get{
+                return apellido+ ", " + nombre;
+            }            
+        }
+
         public ClienteModel(int _clienteId, int _clienteDni, String _clienteNombre,
             String _clienteApellido, DateTime _clienteFechaNacimiento, String _direccion,
             int _clienteTelefono, String _clienteMail)
