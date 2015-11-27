@@ -53,9 +53,6 @@ GO
 IF OBJECT_ID('mondongo.roles', 'U') IS NOT NULL
   DROP TABLE mondongo.roles;
 GO
-IF OBJECT_ID('mondongo.butacas_vendidas', 'U') IS NOT NULL
-  DROP TABLE mondongo.butacas_vendidas;
-GO
 IF OBJECT_ID('mondongo.butacas_viaje', 'U') IS NOT NULL
   DROP TABLE mondongo.butacas_viaje;
 GO
@@ -326,25 +323,7 @@ BEGIN
     SELECT distinct RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1) from gd_esquema.Maestra;
 END
 GO
-create procedure mondongo.pr_cargar_butacas(@cantida_butacas numeric(4,0), @matricula numeric(18,0))
-as begin
-DECLARE @I INT, @TIPO_BUTACA nvarchar(15)
-SET @I = 1
 
-    WHILE @I <= @cantida_butacas
-    BEGIN
-        IF @I % 2 = 0
-            set @TIPO_BUTACA = 'VENTANILLA'
-        ELSE
-            set @TIPO_BUTACA = 'PASILLO'
-
-        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@matricula, @I, 1, @TIPO_BUTACA)
-
-        SET @I = @I + 1
-    END
-END
-GO
 CREATE PROCEDURE mondongo.pr_cargar_fabricantes
 AS
 BEGIN
@@ -481,13 +460,11 @@ GO
 create PROCEDURE [MONDONGO].[pr_cargar_pasajes]
 AS
 BEGIN
-    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,pasaje_butaca_tipo,pasaje_butaca_numero,pasaje_butaca_piso,estado)
+    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,butaca_id,estado)
 	select	m.pasaje_codigo,
 			c.cliente_id,
 			m.pasaje_precio,
-			m.butaca_tipo,
-			m.butaca_nro,
-			1,
+			(select butaca_id from mondongo.butacas b where b.butaca_tipo=m.Butaca_Tipo and	b.butaca_nro = m.Butaca_Nro and b.butaca_piso=1 and b.aeronave_matricula=m.Aeronave_Matricula),
 			0
 	from	gd_esquema.Maestra m inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and UPPER(m.cli_apellido) = UPPER(c.cliente_apellido))
 	where	m.pasaje_codigo <> 0
@@ -569,7 +546,16 @@ AS
 		insert into mondongo.productos(stock, descripcion, costo_millas) values (15,'6 VASOS',100)        
     END
 GO
-
+create procedure mondongo.pr_cargar_butacas
+AS
+BEGIN
+	insert into MONDONGO.butacas(aeronave_matricula, butaca_nro, butaca_tipo, butaca_piso)
+	select distinct Aeronave_Matricula, Butaca_Nro, Butaca_Tipo, butaca_piso
+	from gd_esquema.Maestra
+	where Pasaje_Codigo<>0
+	order by Aeronave_Matricula, Butaca_Nro
+END
+GO
 create procedure mondongo.pr_actualizar_viajes
 as
 begin
@@ -739,16 +725,21 @@ create table mondongo.ventas(
 	venta_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
 	venta_estado numeric(1,0) check(venta_estado in (0,1))
 )
-
+GO
+create table mondongo.butacas(
+	butaca_id numeric(18,0) primary key identity,
+	aeronave_matricula nvarchar(255),
+	butaca_nro numeric(18,0),
+	butaca_tipo nvarchar(255),
+	butaca_piso numeric(18,0) default 1
+)
 GO
 create table mondongo.pasajes(
 	pasaje_id numeric(18,0) primary key identity,
 	pasaje_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
 	pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
 	pasaje_monto numeric(18,2) default 0 check(pasaje_monto >= 0),
-	pasaje_butaca_tipo varchar(255) not null,
-	pasaje_butaca_numero numeric(18,0) not null,
-	pasaje_butaca_piso numeric(18,0) not null default 1 check(pasaje_butaca_piso = 1),
+	butaca_id numeric(18,0) references mondongo.butacas(butaca_id),
 	estado numeric(1,0) check(estado in (0,1))
 )
 GO
@@ -786,13 +777,6 @@ create table mondongo.canje_millas(
 	cantidad numeric(2) not null check(cantidad >= 0),
 	fecha_canje datetime default getdate()
 )
-create table mondongo.butacas(
-	butaca_id numeric(18,0) primary key identity,
-	aeronave_matricula nvarchar(255),
-	butaca_nro numeric(18,0),
-	butaca_tipo nvarchar(255)
-)
-GO
 create table mondongo.butacas_viaje(
 	viaje_id numeric(18,0) not null references mondongo.viajes(viaje_id) ,
 	butaca_id numeric(18,0) not null references mondongo.butacas(butaca_id),
