@@ -194,17 +194,11 @@ create function MONDONGO.fx_cantidad_butacas(@aeronave_matricula nvarchar(255), 
 returns numeric(18,0)
 as begin    
     declare @CANT_BUTACAS numeric(18,0)
-    SET @CANT_BUTACAS = (select max(cant_butacas)
-                from (
-                    select Aeronave_Matricula, Pasaje_FechaCompra, count(*) cant_butacas
-                    from gd_esquema.Maestra
-                    where Pasaje_FechaCompra > '01/01/2000'
-                        and Aeronave_Matricula=@aeronave_matricula
-                        and Butaca_Tipo=@butaca_tipo
-                    group by Aeronave_Matricula, Pasaje_FechaCompra
-                ) as a
-                group by Aeronave_Matricula
-                )
+    SET @CANT_BUTACAS = (select count (distinct Butaca_Nro) as cant_butacas
+						from gd_esquema.Maestra
+						where Pasaje_FechaCompra > '01/01/2000'
+						and Aeronave_Matricula=@aeronave_matricula
+						and Butaca_Tipo=@butaca_tipo)
     return @CANT_BUTACAS
 end
 GO
