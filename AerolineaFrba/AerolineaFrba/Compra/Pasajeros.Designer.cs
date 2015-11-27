@@ -65,11 +65,9 @@
             this.gbPasajeros.Controls.Add(this.btnQuitar);
             this.gbPasajeros.Controls.Add(this.btnAgregar);
             this.gbPasajeros.Controls.Add(this.dgvClientes);
-            this.gbPasajeros.Location = new System.Drawing.Point(17, 16);
-            this.gbPasajeros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbPasajeros.Location = new System.Drawing.Point(13, 13);
             this.gbPasajeros.Name = "gbPasajeros";
-            this.gbPasajeros.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gbPasajeros.Size = new System.Drawing.Size(639, 370);
+            this.gbPasajeros.Size = new System.Drawing.Size(479, 301);
             this.gbPasajeros.TabIndex = 0;
             this.gbPasajeros.TabStop = false;
             this.gbPasajeros.Text = "Pasajeros";
@@ -77,113 +75,101 @@
             // lblCalculoPrecio
             // 
             this.lblCalculoPrecio.AutoSize = true;
-            this.lblCalculoPrecio.Location = new System.Drawing.Point(172, 302);
-            this.lblCalculoPrecio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCalculoPrecio.Location = new System.Drawing.Point(129, 245);
             this.lblCalculoPrecio.Name = "lblCalculoPrecio";
-            this.lblCalculoPrecio.Size = new System.Drawing.Size(0, 17);
+            this.lblCalculoPrecio.Size = new System.Drawing.Size(0, 13);
             this.lblCalculoPrecio.TabIndex = 14;
             // 
             // lblPrecioTotal
             // 
             this.lblPrecioTotal.AutoSize = true;
-            this.lblPrecioTotal.Location = new System.Drawing.Point(9, 302);
-            this.lblPrecioTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPrecioTotal.Location = new System.Drawing.Point(7, 245);
             this.lblPrecioTotal.Name = "lblPrecioTotal";
-            this.lblPrecioTotal.Size = new System.Drawing.Size(88, 17);
+            this.lblPrecioTotal.Size = new System.Drawing.Size(67, 13);
             this.lblPrecioTotal.TabIndex = 13;
             this.lblPrecioTotal.Text = "Precio Total:";
             // 
             // lblCalculoPasajes
             // 
             this.lblCalculoPasajes.AutoSize = true;
-            this.lblCalculoPasajes.Location = new System.Drawing.Point(172, 274);
-            this.lblCalculoPasajes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCalculoPasajes.Location = new System.Drawing.Point(129, 223);
             this.lblCalculoPasajes.Name = "lblCalculoPasajes";
-            this.lblCalculoPasajes.Size = new System.Drawing.Size(0, 17);
+            this.lblCalculoPasajes.Size = new System.Drawing.Size(0, 13);
             this.lblCalculoPasajes.TabIndex = 12;
             // 
             // lblPreciosPasajes
             // 
             this.lblPreciosPasajes.AutoSize = true;
-            this.lblPreciosPasajes.Location = new System.Drawing.Point(9, 274);
-            this.lblPreciosPasajes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPreciosPasajes.Location = new System.Drawing.Point(7, 223);
             this.lblPreciosPasajes.Name = "lblPreciosPasajes";
-            this.lblPreciosPasajes.Size = new System.Drawing.Size(126, 17);
+            this.lblPreciosPasajes.Size = new System.Drawing.Size(95, 13);
             this.lblPreciosPasajes.TabIndex = 11;
             this.lblPreciosPasajes.Text = "Precio de Pasajes:";
             // 
             // lblCalculoEncomienda
             // 
             this.lblCalculoEncomienda.AutoSize = true;
-            this.lblCalculoEncomienda.Location = new System.Drawing.Point(172, 245);
-            this.lblCalculoEncomienda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCalculoEncomienda.Location = new System.Drawing.Point(129, 199);
             this.lblCalculoEncomienda.Name = "lblCalculoEncomienda";
-            this.lblCalculoEncomienda.Size = new System.Drawing.Size(0, 17);
+            this.lblCalculoEncomienda.Size = new System.Drawing.Size(0, 13);
             this.lblCalculoEncomienda.TabIndex = 10;
             // 
             // lblDatosEncomienda
             // 
             this.lblDatosEncomienda.AutoSize = true;
-            this.lblDatosEncomienda.Location = new System.Drawing.Point(9, 245);
-            this.lblDatosEncomienda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDatosEncomienda.Location = new System.Drawing.Point(7, 199);
             this.lblDatosEncomienda.Name = "lblDatosEncomienda";
-            this.lblDatosEncomienda.Size = new System.Drawing.Size(151, 17);
+            this.lblDatosEncomienda.Size = new System.Drawing.Size(115, 13);
             this.lblDatosEncomienda.TabIndex = 9;
             this.lblDatosEncomienda.Text = "Datos de Encomienda:";
             // 
             // lblDetalleButaca
             // 
             this.lblDetalleButaca.AutoSize = true;
-            this.lblDetalleButaca.Location = new System.Drawing.Point(9, 335);
-            this.lblDetalleButaca.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDetalleButaca.Location = new System.Drawing.Point(7, 272);
             this.lblDetalleButaca.Name = "lblDetalleButaca";
-            this.lblDetalleButaca.Size = new System.Drawing.Size(0, 17);
+            this.lblDetalleButaca.Size = new System.Drawing.Size(0, 13);
             this.lblDetalleButaca.TabIndex = 8;
             // 
             // lblPasajerosACargar
             // 
             this.lblPasajerosACargar.AutoSize = true;
-            this.lblPasajerosACargar.Location = new System.Drawing.Point(288, 218);
-            this.lblPasajerosACargar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPasajerosACargar.Location = new System.Drawing.Point(216, 177);
             this.lblPasajerosACargar.Name = "lblPasajerosACargar";
-            this.lblPasajerosACargar.Size = new System.Drawing.Size(0, 17);
+            this.lblPasajerosACargar.Size = new System.Drawing.Size(0, 13);
             this.lblPasajerosACargar.TabIndex = 7;
             // 
             // lblDe
             // 
             this.lblDe.AutoSize = true;
-            this.lblDe.Location = new System.Drawing.Point(255, 218);
-            this.lblDe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDe.Location = new System.Drawing.Point(191, 177);
             this.lblDe.Name = "lblDe";
-            this.lblDe.Size = new System.Drawing.Size(24, 17);
+            this.lblDe.Size = new System.Drawing.Size(19, 13);
             this.lblDe.TabIndex = 6;
             this.lblDe.Text = "de";
             // 
             // lblPasajerosYaCargados
             // 
             this.lblPasajerosYaCargados.AutoSize = true;
-            this.lblPasajerosYaCargados.Location = new System.Drawing.Point(224, 218);
-            this.lblPasajerosYaCargados.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPasajerosYaCargados.Location = new System.Drawing.Point(168, 177);
             this.lblPasajerosYaCargados.Name = "lblPasajerosYaCargados";
-            this.lblPasajerosYaCargados.Size = new System.Drawing.Size(0, 17);
+            this.lblPasajerosYaCargados.Size = new System.Drawing.Size(0, 13);
             this.lblPasajerosYaCargados.TabIndex = 5;
             // 
             // lblPasajeros
             // 
             this.lblPasajeros.AutoSize = true;
-            this.lblPasajeros.Location = new System.Drawing.Point(9, 218);
-            this.lblPasajeros.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPasajeros.Location = new System.Drawing.Point(7, 177);
             this.lblPasajeros.Name = "lblPasajeros";
-            this.lblPasajeros.Size = new System.Drawing.Size(221, 17);
+            this.lblPasajeros.Size = new System.Drawing.Size(165, 13);
             this.lblPasajeros.TabIndex = 4;
             this.lblPasajeros.Text = "Cantidad de pasajeros cargados: ";
             // 
             // btnQuitar
             // 
-            this.btnQuitar.Location = new System.Drawing.Point(440, 88);
-            this.btnQuitar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnQuitar.Location = new System.Drawing.Point(330, 72);
             this.btnQuitar.Name = "btnQuitar";
-            this.btnQuitar.Size = new System.Drawing.Size(187, 55);
+            this.btnQuitar.Size = new System.Drawing.Size(140, 45);
             this.btnQuitar.TabIndex = 2;
             this.btnQuitar.Text = "Quitar";
             this.btnQuitar.UseVisualStyleBackColor = true;
@@ -191,10 +177,9 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(440, 25);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregar.Location = new System.Drawing.Point(330, 20);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(187, 55);
+            this.btnAgregar.Size = new System.Drawing.Size(140, 45);
             this.btnAgregar.TabIndex = 1;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -207,20 +192,18 @@
             this.dgvClientes.AllowUserToResizeColumns = false;
             this.dgvClientes.AllowUserToResizeRows = false;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientes.Location = new System.Drawing.Point(9, 25);
-            this.dgvClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvClientes.Location = new System.Drawing.Point(7, 20);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(423, 180);
+            this.dgvClientes.Size = new System.Drawing.Size(317, 146);
             this.dgvClientes.TabIndex = 0;
             this.dgvClientes.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvClientes_CellMouseClick);
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(128, 394);
-            this.btnSiguiente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSiguiente.Location = new System.Drawing.Point(96, 320);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(187, 55);
+            this.btnSiguiente.Size = new System.Drawing.Size(140, 45);
             this.btnSiguiente.TabIndex = 8;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
@@ -228,10 +211,9 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(357, 394);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelar.Location = new System.Drawing.Point(268, 320);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(187, 55);
+            this.btnCancelar.Size = new System.Drawing.Size(140, 45);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -239,13 +221,13 @@
             // 
             // Pasajeros
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(672, 464);
+            this.ClientSize = new System.Drawing.Size(504, 377);
+            this.ControlBox = false;
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.gbPasajeros);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Pasajeros";
             this.Text = "Pasajeros";
             this.Load += new System.EventHandler(this.Pasajeros_Load);

@@ -71,49 +71,57 @@ namespace AerolineaFrba.Compra
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (validarCampos())
+            if (validarCamposObligatoriosCompletos())
             {
-                lblError.Text = "";
-                Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId, 0);
-                if (ruta != null)
+                if (validarFechaDeViaje())
                 {
-                    int cantidadDePasajeros = 0;
-                    int kg = 0;
-                    if(tbCantidadPasajeros.Text != null && tbCantidadPasajeros.Text != ""){
-                        cantidadDePasajeros =   Convert.ToInt32(tbCantidadPasajeros.Text);
-                    }
-                    if(cbEncomienda.Checked && tbKg != null && tbKg.Text != ""){
-                        kg = Convert.ToInt32(tbKg.Text);
-                    } 
-  
-                    if(cantidadDePasajeros == 0 && kg == 0)
+                    lblError.Text = "";
+                    Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId, 0);
+                    if (ruta != null)
                     {
-                        MessageBox.Show("Debe ingresar al menos un pasajero o datos de encomienda.", "Búsqueda de viajes", MessageBoxButtons.OK);
-                    }
-                    else
-                    {
-                        vuelosEncontrados = viajeController.buscarViajes(ruta.idRuta, dpFechaViaje.Value, cantidadDePasajeros, kg);
-                        if (vuelosEncontrados.Count > 0)
+                        int cantidadDePasajeros = 0;
+                        int kg = 0;
+                        if (tbCantidadPasajeros.Text != null && tbCantidadPasajeros.Text != "")
                         {
-                            this.Close();
-                            compraModel.cantidadKg = kg;
-                            compraModel.cantidadPax = cantidadDePasajeros;
-                            compraModel.ruta = ruta;
-                            compraModel.fechaSalida = dpFechaViaje.Value;
-                            compraModel.vuelos = vuelosEncontrados;
-                            new Compra.VuelosEncontrados(compraModel).Show();
+                            cantidadDePasajeros = Convert.ToInt32(tbCantidadPasajeros.Text);
+                        }
+                        if (cbEncomienda.Checked && tbKg != null && tbKg.Text != "")
+                        {
+                            kg = Convert.ToInt32(tbKg.Text);
+                        }
+
+                        if (cantidadDePasajeros == 0 && kg == 0)
+                        {
+                            MessageBox.Show("Debe ingresar al menos un pasajero o datos de encomienda.", "Búsqueda de viajes", MessageBoxButtons.OK);
                         }
                         else
                         {
-                            MessageBox.Show("No existe ningun vuelo para los parámetros ingresados.", "Búsqueda de viajes",MessageBoxButtons.OK);            
-                        }                        
-                    }                                     
+                            vuelosEncontrados = viajeController.buscarViajes(ruta.idRuta, dpFechaViaje.Value, cantidadDePasajeros, kg);
+                            if (vuelosEncontrados.Count > 0)
+                            {
+                                this.Close();
+                                compraModel.cantidadKg = kg;
+                                compraModel.cantidadPax = cantidadDePasajeros;
+                                compraModel.ruta = ruta;
+                                compraModel.fechaSalida = dpFechaViaje.Value;
+                                compraModel.vuelos = vuelosEncontrados;
+                                new Compra.VuelosEncontrados(compraModel).Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No existe ningun vuelo para los parámetros ingresados.", "Búsqueda de viajes", MessageBoxButtons.OK);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe ningun vuelo entre las ciudades pedidas.", "Búsqueda de viajes", MessageBoxButtons.OK);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("No existe ningun vuelo entre las ciudades pedidas.", "Búsqueda de viajes",MessageBoxButtons.OK);            
+                    lblError.Text = "Debe ingresar una fecha de salida posterior a la fecha de sistema.";
                 }
-               
             }
             else
             {
@@ -122,10 +130,20 @@ namespace AerolineaFrba.Compra
             
         }
 
-        private Boolean validarCampos()
+        private Boolean validarCamposObligatoriosCompletos()
         {
             Boolean retValue = false;
             if(tbCiudadOrigen.Text != "" && tbCiudadDestino.Text != "" && !dpFechaViaje.Value.Equals("") && tbCantidadPasajeros.Text != "")
+            {
+                retValue = true;
+            }
+            return retValue;
+        }
+
+        private Boolean validarFechaDeViaje()
+        {
+            Boolean retValue = false;
+            if (dpFechaViaje.Value >= fechaSistema)
             {
                 retValue = true;
             }

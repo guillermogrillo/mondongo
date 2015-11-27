@@ -59,6 +59,7 @@
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(100, 20);
             this.tbDni.TabIndex = 1;
+            this.tbDni.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbDni_KeyPress);
             // 
             // lblMillasAcum
             // 
@@ -156,6 +157,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 282);
+            this.ControlBox = false;
             this.Controls.Add(this.gbProductosDisponibles);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.tbDni);

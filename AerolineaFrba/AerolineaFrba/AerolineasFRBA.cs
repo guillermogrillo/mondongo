@@ -36,5 +36,10 @@ namespace AerolineaFrba
             new Menu.Menu(funcionalidades).Show();
 
         }
+
+        private void AerolineasFRBA_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
     }
 }

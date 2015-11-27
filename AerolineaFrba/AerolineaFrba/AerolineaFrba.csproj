@@ -75,6 +75,12 @@
     <Compile Include="Canje Millas\CanjeMillas.Designer.cs">
       <DependentUpon>CanjeMillas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Canje Millas\SeleccionClienteDuplicado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Canje Millas\SeleccionClienteDuplicado.Designer.cs">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\ConfirmacionCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,11 +99,23 @@
     <Compile Include="Compra\Pagador.Designer.cs">
       <DependentUpon>Pagador.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\SeleccionClienteDuplicado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\SeleccionClienteDuplicado.Designer.cs">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Consulta Millas\ConsultaMillas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Consulta Millas\ConsultaMillas.Designer.cs">
       <DependentUpon>ConsultaMillas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Consulta Millas\SeleccionClienteDuplicado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Consulta Millas\SeleccionClienteDuplicado.Designer.cs">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\ListadoController.cs" />
     <Compile Include="Controller\MillasController.cs" />
@@ -333,6 +351,9 @@
     <EmbeddedResource Include="Canje Millas\CanjeMillas.resx">
       <DependentUpon>CanjeMillas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Canje Millas\SeleccionClienteDuplicado.resx">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra\BusquedaVuelos.resx">
       <DependentUpon>BusquedaVuelos.cs</DependentUpon>
     </EmbeddedResource>
@@ -351,6 +372,9 @@
     <EmbeddedResource Include="Compra\Pasajeros.resx">
       <DependentUpon>Pasajeros.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Compra\SeleccionClienteDuplicado.resx">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra\VuelosEncontrados.resx">
       <DependentUpon>VuelosEncontrados.cs</DependentUpon>
     </EmbeddedResource>
@@ -359,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Consulta Millas\ConsultaMillas.resx">
       <DependentUpon>ConsultaMillas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Consulta Millas\SeleccionClienteDuplicado.resx">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\BuscadorCiudades.resx">
       <DependentUpon>BuscadorCiudades.cs</DependentUpon>

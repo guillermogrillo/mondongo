@@ -11,6 +11,7 @@ namespace AerolineaFrba.Dao
     class ViajeDao
     {
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
 
         public List<Model.ViajeModel> buscarViajes(int idRuta, DateTime fechaViaje, int cantidadPax, int kg)
@@ -35,6 +36,7 @@ namespace AerolineaFrba.Dao
                             "and (v.cantidad_butacas_pasillo_disponibles + v.cantidad_butacas_ventanilla_disponibles) > @cantidadPax " +
                             "and cantidad_kg_disponibles > @kg " +
                             "and Convert(date, fecha_salida) = @fechaViaje " +
+                            "and Convert(date, fecha_salida) > @fechaSistema "+
                             "order by v.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
@@ -42,6 +44,7 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@fechaViaje", fechaViaje.Date);
                     command.Parameters.AddWithValue("@cantidadPax", cantidadPax);
                     command.Parameters.AddWithValue("@kg", kg);
+                    command.Parameters.AddWithValue("@fechaSistema", fechaSistema);                    
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -49,18 +52,17 @@ namespace AerolineaFrba.Dao
                     {
 
                         var idViaje = (int)(double)reader.GetDecimal(0);
-                        var fechaSalida = reader.GetDateTime(1);
-                        var fechaLlegada = reader.GetDateTime(2);
-                        var fechaLlegadaEstimada = reader.GetDateTime(3);                        
-                        var ciudadOrigen = reader.GetString(4);
-                        var ciudadDestino = reader.GetString(5);
-                        var tipoServicio = reader.GetString(6);
-                        var aeronaveMatricula = reader.GetString(7);
-                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(8);
-                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(9);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(10);
+                        var fechaSalida = reader.GetDateTime(1);                        
+                        var fechaLlegadaEstimada = reader.GetDateTime(2);                        
+                        var ciudadOrigen = reader.GetString(3);
+                        var ciudadDestino = reader.GetString(4);
+                        var tipoServicio = reader.GetString(5);
+                        var aeronaveMatricula = reader.GetString(6);
+                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(7);
+                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(8);
+                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);                        
+                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);                        
                         viajes.Add(viaje);                       
                     }
                 }
@@ -137,7 +139,7 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
+                var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
                             "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles as cantidad_butacas_pasillo, v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas_ventanilla, " +
                             "v.cantidad_kg_disponibles " +
                             "from	mondongo.viajes v " +
@@ -148,6 +150,7 @@ namespace AerolineaFrba.Dao
                             "where	r.id_ruta = @idRuta " +
                             "and v.aeronave_matricula = @matricula "+
                             "and CONVERT(VARCHAR(10),v.fecha_salida,103) = @fechaSalida " +
+                            "and v.estado = 0 "+
                             "order by v.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
@@ -161,18 +164,17 @@ namespace AerolineaFrba.Dao
                     {
 
                         var idViaje = (int)(double)reader.GetDecimal(0);
-                        var fechaSalida = reader.GetDateTime(1);
-                        var fechaLlegada = reader.GetDateTime(2);
-                        var fechaLlegadaEstimada = reader.GetDateTime(3);
-                        var ciudadOrigen = reader.GetString(4);
-                        var ciudadDestino = reader.GetString(5);
-                        var tipoServicio = reader.GetString(6);
-                        var aeronaveMatricula = reader.GetString(7);
-                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(8);
-                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(9);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(10);
+                        var fechaSalida = reader.GetDateTime(1);                        
+                        var fechaLlegadaEstimada = reader.GetDateTime(2);
+                        var ciudadOrigen = reader.GetString(3);
+                        var ciudadDestino = reader.GetString(4);
+                        var tipoServicio = reader.GetString(5);
+                        var aeronaveMatricula = reader.GetString(6);
+                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(7);
+                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(8);
+                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegada, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);
+                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);
                         viajes.Add(viaje);
                     }
                 }
@@ -197,7 +199,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "UPDATE MONDONGO.VIAJES " +
-                            "SET fecha_llegada = @fechaLlegada "+
+                            "SET fecha_llegada = @fechaLlegada, estado = 2 "+
                             "WHERE viaje_id = @idViaje";
                 using (command = new SqlCommand(query, myConnection))
                 {

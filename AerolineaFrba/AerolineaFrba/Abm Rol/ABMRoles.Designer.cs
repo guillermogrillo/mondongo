@@ -144,6 +144,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 193);
+            this.ControlBox = false;
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnFuncionalidades);
             this.Controls.Add(this.btnEditarRol);

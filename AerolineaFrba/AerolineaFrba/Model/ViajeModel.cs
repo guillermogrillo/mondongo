@@ -23,7 +23,7 @@ namespace AerolineaFrba.Model
         public DateTime fechaHoraLlegada { get; set; }
 
 
-        public ViajeModel(int _idViaje, DateTime _fechaSalida, DateTime _fechaLlegada, DateTime _fechaLlegadaEstimada, String _ciudadOrigen, String _ciudadDestino, String _tipoServicio, String _aeronaveMatricula, int _cantidadButacasPasillo, int _cantidadButacasVentanilla, int _cantidadKgDisponibles)
+        public ViajeModel(int _idViaje, DateTime _fechaSalida, DateTime _fechaLlegadaEstimada, String _ciudadOrigen, String _ciudadDestino, String _tipoServicio, String _aeronaveMatricula, int _cantidadButacasPasillo, int _cantidadButacasVentanilla, int _cantidadKgDisponibles)
         {
             idViaje = _idViaje;            
             fechaHoraSalida = _fechaSalida;

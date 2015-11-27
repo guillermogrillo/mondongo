@@ -87,10 +87,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Close();
         }
 
-        private void onClose(object sender, FormClosedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            if (isBack)
-                new AerolineasFRBA().Show();
+            new AerolineasFRBA().Show();
+            this.Close();
         }
 
         

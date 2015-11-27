@@ -46,10 +46,9 @@
             // rbDestinosMasComprados
             // 
             this.rbDestinosMasComprados.AutoSize = true;
-            this.rbDestinosMasComprados.Location = new System.Drawing.Point(65, 12);
-            this.rbDestinosMasComprados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbDestinosMasComprados.Location = new System.Drawing.Point(49, 10);
             this.rbDestinosMasComprados.Name = "rbDestinosMasComprados";
-            this.rbDestinosMasComprados.Size = new System.Drawing.Size(188, 21);
+            this.rbDestinosMasComprados.Size = new System.Drawing.Size(143, 17);
             this.rbDestinosMasComprados.TabIndex = 0;
             this.rbDestinosMasComprados.TabStop = true;
             this.rbDestinosMasComprados.Text = "Destinos mas comprados";
@@ -58,10 +57,9 @@
             // rbDestinosAeronavesVacias
             // 
             this.rbDestinosAeronavesVacias.AutoSize = true;
-            this.rbDestinosAeronavesVacias.Location = new System.Drawing.Point(65, 42);
-            this.rbDestinosAeronavesVacias.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbDestinosAeronavesVacias.Location = new System.Drawing.Point(49, 34);
             this.rbDestinosAeronavesVacias.Name = "rbDestinosAeronavesVacias";
-            this.rbDestinosAeronavesVacias.Size = new System.Drawing.Size(256, 21);
+            this.rbDestinosAeronavesVacias.Size = new System.Drawing.Size(198, 17);
             this.rbDestinosAeronavesVacias.TabIndex = 1;
             this.rbDestinosAeronavesVacias.TabStop = true;
             this.rbDestinosAeronavesVacias.Text = "Destinos con mas aeronaves vacías";
@@ -70,10 +68,9 @@
             // rbClientesPuntosAcumulados
             // 
             this.rbClientesPuntosAcumulados.AutoSize = true;
-            this.rbClientesPuntosAcumulados.Location = new System.Drawing.Point(65, 71);
-            this.rbClientesPuntosAcumulados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbClientesPuntosAcumulados.Location = new System.Drawing.Point(49, 58);
             this.rbClientesPuntosAcumulados.Name = "rbClientesPuntosAcumulados";
-            this.rbClientesPuntosAcumulados.Size = new System.Drawing.Size(263, 21);
+            this.rbClientesPuntosAcumulados.Size = new System.Drawing.Size(200, 17);
             this.rbClientesPuntosAcumulados.TabIndex = 2;
             this.rbClientesPuntosAcumulados.TabStop = true;
             this.rbClientesPuntosAcumulados.Text = "Clientes con mas puntos acumulados";
@@ -82,10 +79,9 @@
             // rbDestinosPasajesCancelados
             // 
             this.rbDestinosPasajesCancelados.AutoSize = true;
-            this.rbDestinosPasajesCancelados.Location = new System.Drawing.Point(65, 101);
-            this.rbDestinosPasajesCancelados.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbDestinosPasajesCancelados.Location = new System.Drawing.Point(49, 82);
             this.rbDestinosPasajesCancelados.Name = "rbDestinosPasajesCancelados";
-            this.rbDestinosPasajesCancelados.Size = new System.Drawing.Size(270, 21);
+            this.rbDestinosPasajesCancelados.Size = new System.Drawing.Size(206, 17);
             this.rbDestinosPasajesCancelados.TabIndex = 3;
             this.rbDestinosPasajesCancelados.TabStop = true;
             this.rbDestinosPasajesCancelados.Text = "Destinos con mas pasajes cancelados";
@@ -94,10 +90,9 @@
             // rbAeronavesFueraServicio
             // 
             this.rbAeronavesFueraServicio.AutoSize = true;
-            this.rbAeronavesFueraServicio.Location = new System.Drawing.Point(65, 130);
-            this.rbAeronavesFueraServicio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbAeronavesFueraServicio.Location = new System.Drawing.Point(49, 106);
             this.rbAeronavesFueraServicio.Name = "rbAeronavesFueraServicio";
-            this.rbAeronavesFueraServicio.Size = new System.Drawing.Size(293, 21);
+            this.rbAeronavesFueraServicio.Size = new System.Drawing.Size(224, 17);
             this.rbAeronavesFueraServicio.TabIndex = 4;
             this.rbAeronavesFueraServicio.TabStop = true;
             this.rbAeronavesFueraServicio.Text = "Aeronaves con mas días fuera de servicio";
@@ -106,39 +101,35 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(80, 163);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(60, 132);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 17);
+            this.label1.Size = new System.Drawing.Size(26, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Año";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(202, 163);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(152, 132);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 17);
+            this.label2.Size = new System.Drawing.Size(51, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Semestre";
             // 
             // tbAño
             // 
-            this.tbAño.Location = new System.Drawing.Point(110, 160);
-            this.tbAño.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbAño.Location = new System.Drawing.Point(82, 130);
             this.tbAño.MaxLength = 4;
             this.tbAño.Name = "tbAño";
-            this.tbAño.Size = new System.Drawing.Size(84, 22);
+            this.tbAño.Size = new System.Drawing.Size(64, 20);
             this.tbAño.TabIndex = 7;
             this.tbAño.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAño_KeyPress);
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(94, 190);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscar.Location = new System.Drawing.Point(70, 154);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(100, 28);
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
             this.btnBuscar.TabIndex = 9;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -146,10 +137,9 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(205, 190);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVolver.Location = new System.Drawing.Point(154, 154);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(100, 28);
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 10;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -160,26 +150,27 @@
             this.dgvListado.AllowUserToAddRows = false;
             this.dgvListado.AllowUserToDeleteRows = false;
             this.dgvListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListado.Location = new System.Drawing.Point(13, 226);
-            this.dgvListado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvListado.Location = new System.Drawing.Point(10, 184);
             this.dgvListado.Name = "dgvListado";
             this.dgvListado.ReadOnly = true;
-            this.dgvListado.Size = new System.Drawing.Size(397, 207);
+            this.dgvListado.Size = new System.Drawing.Size(298, 168);
             this.dgvListado.TabIndex = 11;
             // 
             // cbSemestre
             // 
             this.cbSemestre.FormattingEnabled = true;
-            this.cbSemestre.Location = new System.Drawing.Point(265, 160);
+            this.cbSemestre.Location = new System.Drawing.Point(199, 130);
+            this.cbSemestre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbSemestre.Name = "cbSemestre";
-            this.cbSemestre.Size = new System.Drawing.Size(56, 24);
+            this.cbSemestre.Size = new System.Drawing.Size(43, 21);
             this.cbSemestre.TabIndex = 12;
             // 
             // ListadosEstadisticos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 454);
+            this.ClientSize = new System.Drawing.Size(313, 369);
+            this.ControlBox = false;
             this.Controls.Add(this.cbSemestre);
             this.Controls.Add(this.dgvListado);
             this.Controls.Add(this.btnVolver);
@@ -192,7 +183,6 @@
             this.Controls.Add(this.rbClientesPuntosAcumulados);
             this.Controls.Add(this.rbDestinosAeronavesVacias);
             this.Controls.Add(this.rbDestinosMasComprados);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ListadosEstadisticos";
             this.Text = "Listados Estadisticos";
             this.Load += new System.EventHandler(this.ListadosEstadisticos_Load);

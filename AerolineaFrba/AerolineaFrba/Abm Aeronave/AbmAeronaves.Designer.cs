@@ -42,6 +42,7 @@
             this.editBtn = new System.Windows.Forms.Button();
             this.fueraServicioBtn = new System.Windows.Forms.Button();
             this.bajaBtn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAeronave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aeronaveModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aeronavesBindingSource)).BeginInit();
@@ -156,11 +157,23 @@
             this.bajaBtn.UseVisualStyleBackColor = true;
             this.bajaBtn.Click += new System.EventHandler(this.bajaBtn_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(156, 278);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Cancelar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AbmAeronaves
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 261);
+            this.ClientSize = new System.Drawing.Size(408, 313);
+            this.ControlBox = false;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.bajaBtn);
             this.Controls.Add(this.fueraServicioBtn);
             this.Controls.Add(this.editBtn);
@@ -168,7 +181,6 @@
             this.Controls.Add(this.DGVAeronave);
             this.Name = "AbmAeronaves";
             this.Text = "Aeronaves";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.onClose);
             this.Load += new System.EventHandler(this.AbmAeronaves_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAeronave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.aeronaveModelBindingSource)).EndInit();
@@ -193,6 +205,7 @@
         private System.Windows.Forms.Button bajaBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn matriculaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn modeloDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button1;
 
     }
 }
