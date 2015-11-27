@@ -11,6 +11,7 @@ namespace AerolineaFrba.Dao
     class AeronaveDao
     {
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public List<Model.AeronaveModel> buscarAeronaves()
         {
@@ -24,7 +25,8 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "SELECT matricula, modelo, capacidad_kg, cantidad_butacas_pas, cantidad_butacas_ven, " +
                             "   id_tipo_servicio, id_fabricante, estado " +
-                            "FROM MONDONGO.AERONAVES ";
+                            "FROM MONDONGO.AERONAVES "+
+                            "WHERE estado=0 ";
                 command = new SqlCommand(query, myConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -145,9 +147,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "UPDATE MONDONGO.AERONAVES " +
-                            "SET fecha_fuera_servicio=@fechaFueraServicio, " +
-                            "   fecha_reinicio_servicio=@fechaReinicio, " +
-                            "   estado=@estado " +
+                            "SET estado=@estado " +
                             "WHERE matricula=@matricula";
 
                 using (command = new SqlCommand(query, myConnection))
@@ -156,6 +156,60 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@fechaFueraServicio", fechaDesde);
                     command.Parameters.AddWithValue("@fechaReinicio", fechaReinicio);
                     command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.FUERA_SERVICIO);
+                }
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+        }
+
+        public void grabarBajaAeronave(string matricula, DateTime fueraServ, DateTime reinicio, String tipoBaja)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "INSERT INTO MONDONGO.AERONAVES_BAJAS(aeronave_matricula, fecha_proceso, fecha_fuera_servicio, fecha_reinicio_servicio, tipo_baja) " +
+                            "VALUES (@matricula, @fechaProceso, @fechaFueraServicio, @fechaReinicioServicio, @tipoBaja) ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", matricula);
+                    command.Parameters.AddWithValue("@fechaProceso", fechaSistema);
+                    command.Parameters.AddWithValue("@fechaFueraServicio", fueraServ);
+                    command.Parameters.AddWithValue("@fechaReinicioServicio", reinicio);
+                    command.Parameters.AddWithValue("@tipoBaja", tipoBaja);
+                }
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+        }
+        public void grabarBajaDefinitivaAeronave(string matricula, DateTime baja, String tipoBaja)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "INSERT INTO MONDONGO.AERONAVES_BAJAS(aeronave_matricula, fecha_proceso, fecha_baja_definitiva, tipo_baja) " +
+                            "VALUES (@matricula, @fechaProceso, @fechaBajaDefinitiva, @tipoBaja) ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", matricula);
+                    command.Parameters.AddWithValue("@fechaProceso", fechaSistema);
+                    command.Parameters.AddWithValue("@fechaBajaDefinitiva", baja);
+                    command.Parameters.AddWithValue("@tipoBaja", tipoBaja);
                 }
 
                 command.ExecuteNonQuery();
@@ -175,14 +229,12 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "UPDATE MONDONGO.AERONAVES " +
-                            "SET fecha_baja_definitiva=@fechaBaja, " +
-                            "   estado=@estado " +
+                            "SET estado=@estado " +
                             "WHERE matricula=@matricula";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@matricula", matricula);
-                    command.Parameters.AddWithValue("@fechaBaja", fechaBaja);
                     command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.ELIMINADA);
                 }
 
@@ -203,7 +255,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "SELECT matricula, modelo, capacidad_kg, cantidad_butacas_pas, cantidad_butacas_ven, " +
-                            "   id_tipo_servicio, id_fabricante " +
+                            "   id_tipo_servicio, id_fabricante, estado " +
                             "FROM MONDONGO.AERONAVES " +
                             "WHERE matricula=@matricula ";
                 command = new SqlCommand(query, myConnection);
@@ -342,12 +394,13 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select pasaje_butaca_tipo, max(pasajes)  " +
                             "from ( "+
-                            "    select pasaje_viaje_id,pasaje_butaca_tipo, count(*) as pasajes " +
-	                        "    from mondongo.pasajes pas, mondongo.viajes v "+
+                            "    select viaje_id,pasaje_butaca_tipo, count(*) as pasajes " +
+                            "    from mondongo.pasajes pas, mondongo.ventas vta, mondongo.viajes v " +
 	                        "    where v.fecha_salida between @fechaDesde and @fechaHasta "+
-		                    "        and v.viaje_id = pas.pasaje_viaje_id "+
+                            "        and v.viaje_id = vta.venta_viaje_id " +
+                            "        and vta.venta_pnr = pas.pasaje_venta_pnr "+
 		                    "        and v.aeronave_matricula=@matricula "+
-                            "    group by pasaje_viaje_id,pasaje_butaca_tipo " +
+                            "    group by viaje_id,pasaje_butaca_tipo " +
                             ") asd "+
                             "group by pasaje_butaca_tipo "+
                             "order by pasaje_butaca_tipo";
@@ -390,12 +443,13 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select max(paquetes) " +
                             "from ( " +
-                            "    select paquete_viaje_id, count(*) as paquetes " +
-                            "    from mondongo.paquetes pas, mondongo.viajes v " +
+                            "    select viaje_id, count(*) as paquetes " +
+                            "    from mondongo.paquetes pas, mondongo.viajes v, MONDONGO.ventas vta " +
                             "    where v.fecha_salida between @fechaDesde and @fechaHasta " +
-                            "        and v.viaje_id = pas.paquete_viaje_id " +
+                            "        and vta.venta_pnr = pas.paquete_venta_pnr "+
+		                    "        and vta.venta_viaje_id = v.viaje_id " +
                             "        and v.aeronave_matricula=@matricula " +
-                            "    group by paquete_viaje_id " +
+                            "    group by viaje_id " +
                             ") asd ";
 
                 command = new SqlCommand(query, myConnection);

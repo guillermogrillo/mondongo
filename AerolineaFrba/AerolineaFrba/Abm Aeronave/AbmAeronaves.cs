@@ -45,15 +45,16 @@ namespace AerolineaFrba.Abm_Aeronave
             if (aeronave == null) return;
 
             this.Hide();
-            Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm(this, aeronave);
+            Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm(aeronave);
             aeronaveForm.Show();
+            this.Close();
         }
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm(this);
+            Abm_Aeronave.AeronaveForm aeronaveForm = new Abm_Aeronave.AeronaveForm();
             aeronaveForm.Show();
+            this.Close();
         }
 
         private void fueraServicioBtn_Click(object sender, EventArgs e)
@@ -68,6 +69,7 @@ namespace AerolineaFrba.Abm_Aeronave
             Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave, true);
             fueraServicioForm.Height = 160;
             fueraServicioForm.Show();
+            this.Close();
         }
 
         private void bajaBtn_Click(object sender, EventArgs e)
@@ -82,6 +84,7 @@ namespace AerolineaFrba.Abm_Aeronave
             Abm_Aeronave.BajaAeronaveForm fueraServicioForm = new Abm_Aeronave.BajaAeronaveForm(aeronave, false);
             fueraServicioForm.Height = 160;
             fueraServicioForm.Show();
+            this.Close();
         }
 
         private void onClose(object sender, FormClosedEventArgs e)

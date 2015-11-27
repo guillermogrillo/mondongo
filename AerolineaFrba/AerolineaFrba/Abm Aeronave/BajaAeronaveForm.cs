@@ -15,6 +15,7 @@ namespace AerolineaFrba.Abm_Aeronave
         public Model.AeronaveModel _aeronave;
         public Controller.AeronaveController _controller;
         //private Boolean fechaHastaEnabled;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         public BajaAeronaveForm(Model.AeronaveModel a, Boolean fechaVisible)
         {
@@ -22,6 +23,9 @@ namespace AerolineaFrba.Abm_Aeronave
             _controller = new Controller.AeronaveController();
             InitializeComponent();
             dpFechaHasta.Visible = fechaVisible;
+            labelFechaHasta.Visible = fechaVisible;
+            dpFechaDesde.Value = fechaSistema;
+            dpFechaHasta.Value = fechaSistema;
         }
 
         //boton aceptar
@@ -30,6 +34,16 @@ namespace AerolineaFrba.Abm_Aeronave
             DateTime fechaDesde = dpFechaDesde.Value;
             DateTime fechaHasta = DateTime.MaxValue;
             if (dpFechaHasta.Visible) fechaHasta = dpFechaHasta.Value;
+
+            if (fechaSistema.CompareTo(fechaDesde) == 1  || (fechaSistema.CompareTo(fechaDesde) == 0 && fechaDesde.TimeOfDay < fechaSistema.TimeOfDay))
+            {
+                MessageBox.Show("Fecha desde invalida"); return;
+            }
+            if (fechaDesde.CompareTo(fechaHasta) == 1 || (fechaDesde.CompareTo(fechaHasta) == 0 && fechaHasta.TimeOfDay <= fechaDesde.TimeOfDay))
+            {
+                MessageBox.Show("Fecha hasta invalida"); return;
+            }
+
             Boolean tieneViajesAsignados = _controller.chequearViajesAsignados(_aeronave.matricula, fechaDesde, fechaHasta);
 
             if (!tieneViajesAsignados)
@@ -37,7 +51,9 @@ namespace AerolineaFrba.Abm_Aeronave
                 actualizarAeronave();
 
                 MessageBox.Show("Aeronave fuera de servicio");
+                Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
                 this.Close();
+                abm_aeronaves.Show();
             }
             else
             {
@@ -59,7 +75,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
             Dao.ViajeDao daoViajes = new Dao.ViajeDao();
             daoViajes.cancelarViajesAeronave(_aeronave.matricula, fechaDesde, fechaHasta);
+            MessageBox.Show("Se han cancelado todos los viajes para la fecha solicitada");
+            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();
+            abm_aeronaves.Show();
         }
 
         private void btSuplantarAeronave_Click(object sender, EventArgs e)
@@ -79,7 +98,9 @@ namespace AerolineaFrba.Abm_Aeronave
                 actualizarAeronave();
 
                 MessageBox.Show("Se ha suplantado la aeronave por " + respuesta);
+                Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
                 this.Close();
+                abm_aeronaves.Show();
             }
         }
 
