@@ -886,6 +886,8 @@ exec mondongo.pr_cargar_tipos_servicio
 go
 exec mondongo.pr_cargar_aeronaves
 go
+exec mondongo.pr_cargar_butacas
+go
 exec mondongo.pr_cargar_ciudades
 go
 exec mondongo.pr_cargar_rutas
@@ -898,5 +900,5 @@ exec mondongo.pr_cargar_pasajes
 go
 exec mondongo.pr_cargar_paquetes
 go
-exec mondongo.pr_actualizar_viajes
-go
+--exec mondongo.pr_actualizar_viajes
+--go
