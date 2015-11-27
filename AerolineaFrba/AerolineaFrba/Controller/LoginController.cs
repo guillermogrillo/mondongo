@@ -33,6 +33,8 @@ namespace AerolineaFrba.Controller
                 {
                     if (_loginDao.autenticar(nombreUsuario, contraseñaEncriptada))
                     {
+                        usuario._intentosFallidos = 0;
+                        _loginDao.actualizarUsuario(usuario);
                         return new Model.RespuestaLoginModel(Model.LoginRespuesta.OK, usuario);
                     }
                     else

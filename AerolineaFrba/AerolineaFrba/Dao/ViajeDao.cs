@@ -197,7 +197,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "UPDATE MONDONGO.VIAJES " +
-                            "SET fecha_llegada = @fechaLlegada "+
+                            "SET fecha_llegada = @fechaLlegada, estado = 2 "+
                             "WHERE viaje_id = @idViaje";
                 using (command = new SqlCommand(query, myConnection))
                 {

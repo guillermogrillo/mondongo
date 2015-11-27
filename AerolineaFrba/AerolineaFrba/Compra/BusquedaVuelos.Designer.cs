@@ -202,6 +202,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 206);
+            this.ControlBox = false;
             this.Controls.Add(this.lblKgs);
             this.Controls.Add(this.tbKg);
             this.Controls.Add(this.cbEncomienda);

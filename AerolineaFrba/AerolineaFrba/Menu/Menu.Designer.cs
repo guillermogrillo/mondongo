@@ -46,7 +46,7 @@
             // btnABMRol
             // 
             this.btnABMRol.Location = new System.Drawing.Point(2, 126);
-            this.btnABMRol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnABMRol.Margin = new System.Windows.Forms.Padding(2);
             this.btnABMRol.Name = "btnABMRol";
             this.btnABMRol.Size = new System.Drawing.Size(160, 27);
             this.btnABMRol.TabIndex = 0;
@@ -58,7 +58,7 @@
             // btnABMRutaAerea
             // 
             this.btnABMRutaAerea.Location = new System.Drawing.Point(2, 188);
-            this.btnABMRutaAerea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnABMRutaAerea.Margin = new System.Windows.Forms.Padding(2);
             this.btnABMRutaAerea.Name = "btnABMRutaAerea";
             this.btnABMRutaAerea.Size = new System.Drawing.Size(160, 27);
             this.btnABMRutaAerea.TabIndex = 2;
@@ -70,7 +70,7 @@
             // btnABMAeronaves
             // 
             this.btnABMAeronaves.Location = new System.Drawing.Point(2, 157);
-            this.btnABMAeronaves.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnABMAeronaves.Margin = new System.Windows.Forms.Padding(2);
             this.btnABMAeronaves.Name = "btnABMAeronaves";
             this.btnABMAeronaves.Size = new System.Drawing.Size(160, 27);
             this.btnABMAeronaves.TabIndex = 3;
@@ -82,7 +82,7 @@
             // btnRegresar
             // 
             this.btnRegresar.Location = new System.Drawing.Point(2, 312);
-            this.btnRegresar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRegresar.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegresar.Name = "btnRegresar";
             this.btnRegresar.Size = new System.Drawing.Size(160, 27);
             this.btnRegresar.TabIndex = 4;
@@ -93,7 +93,7 @@
             // btnListado
             // 
             this.btnListado.Location = new System.Drawing.Point(2, 281);
-            this.btnListado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnListado.Margin = new System.Windows.Forms.Padding(2);
             this.btnListado.Name = "btnListado";
             this.btnListado.Size = new System.Drawing.Size(160, 27);
             this.btnListado.TabIndex = 4;
@@ -105,7 +105,7 @@
             // btnRegistrarLlegada
             // 
             this.btnRegistrarLlegada.Location = new System.Drawing.Point(2, 250);
-            this.btnRegistrarLlegada.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnRegistrarLlegada.Margin = new System.Windows.Forms.Padding(2);
             this.btnRegistrarLlegada.Name = "btnRegistrarLlegada";
             this.btnRegistrarLlegada.Size = new System.Drawing.Size(160, 27);
             this.btnRegistrarLlegada.TabIndex = 6;
@@ -117,7 +117,7 @@
             // btnGenerarViaje
             // 
             this.btnGenerarViaje.Location = new System.Drawing.Point(2, 219);
-            this.btnGenerarViaje.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerarViaje.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerarViaje.Name = "btnGenerarViaje";
             this.btnGenerarViaje.Size = new System.Drawing.Size(160, 27);
             this.btnGenerarViaje.TabIndex = 5;
@@ -129,7 +129,7 @@
             // btnCanjeMillas
             // 
             this.btnCanjeMillas.Location = new System.Drawing.Point(2, 95);
-            this.btnCanjeMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCanjeMillas.Margin = new System.Windows.Forms.Padding(2);
             this.btnCanjeMillas.Name = "btnCanjeMillas";
             this.btnCanjeMillas.Size = new System.Drawing.Size(160, 27);
             this.btnCanjeMillas.TabIndex = 3;
@@ -141,7 +141,7 @@
             // btnConsultarMillas
             // 
             this.btnConsultarMillas.Location = new System.Drawing.Point(2, 64);
-            this.btnConsultarMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConsultarMillas.Margin = new System.Windows.Forms.Padding(2);
             this.btnConsultarMillas.Name = "btnConsultarMillas";
             this.btnConsultarMillas.Size = new System.Drawing.Size(160, 27);
             this.btnConsultarMillas.TabIndex = 2;
@@ -153,7 +153,7 @@
             // btnCancelarPasajes
             // 
             this.btnCancelarPasajes.Location = new System.Drawing.Point(2, 33);
-            this.btnCancelarPasajes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancelarPasajes.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelarPasajes.Name = "btnCancelarPasajes";
             this.btnCancelarPasajes.Size = new System.Drawing.Size(160, 27);
             this.btnCancelarPasajes.TabIndex = 1;
@@ -164,7 +164,7 @@
             // btnComprarPasajes
             // 
             this.btnComprarPasajes.Location = new System.Drawing.Point(2, 2);
-            this.btnComprarPasajes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnComprarPasajes.Margin = new System.Windows.Forms.Padding(2);
             this.btnComprarPasajes.Name = "btnComprarPasajes";
             this.btnComprarPasajes.Size = new System.Drawing.Size(160, 27);
             this.btnComprarPasajes.TabIndex = 0;
@@ -196,8 +196,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(186, 365);
+            this.ControlBox = false;
             this.Controls.Add(this.flpMenu);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Menu";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Menu_Load);

@@ -51,7 +51,7 @@
             // tbDni
             // 
             this.tbDni.Location = new System.Drawing.Point(184, 11);
-            this.tbDni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDni.Margin = new System.Windows.Forms.Padding(2);
             this.tbDni.MaxLength = 9;
             this.tbDni.Name = "tbDni";
             this.tbDni.Size = new System.Drawing.Size(114, 20);
@@ -60,7 +60,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Location = new System.Drawing.Point(301, 8);
-            this.btnConsultar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConsultar.Margin = new System.Windows.Forms.Padding(2);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(58, 24);
             this.btnConsultar.TabIndex = 2;
@@ -76,7 +76,7 @@
             this.dgvHistorialMillas.AllowUserToResizeRows = false;
             this.dgvHistorialMillas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHistorialMillas.Location = new System.Drawing.Point(10, 42);
-            this.dgvHistorialMillas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvHistorialMillas.Margin = new System.Windows.Forms.Padding(2);
             this.dgvHistorialMillas.Name = "dgvHistorialMillas";
             this.dgvHistorialMillas.ReadOnly = true;
             this.dgvHistorialMillas.RowTemplate.Height = 24;
@@ -97,7 +97,7 @@
             // 
             this.tbMillasAcumuladas.Enabled = false;
             this.tbMillasAcumuladas.Location = new System.Drawing.Point(281, 260);
-            this.tbMillasAcumuladas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbMillasAcumuladas.Margin = new System.Windows.Forms.Padding(2);
             this.tbMillasAcumuladas.Name = "tbMillasAcumuladas";
             this.tbMillasAcumuladas.Size = new System.Drawing.Size(114, 20);
             this.tbMillasAcumuladas.TabIndex = 5;
@@ -105,7 +105,7 @@
             // btnVolver
             // 
             this.btnVolver.Location = new System.Drawing.Point(364, 7);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(56, 24);
             this.btnVolver.TabIndex = 6;
@@ -118,6 +118,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(578, 288);
+            this.ControlBox = false;
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.tbMillasAcumuladas);
             this.Controls.Add(this.lblCantidadMillas);
@@ -125,7 +126,7 @@
             this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.tbDni);
             this.Controls.Add(this.lblDni);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ConsultaMillas";
             this.Text = "Consulta de Millas";
             this.Load += new System.EventHandler(this.ConsultaMillas_Load);

@@ -30,13 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvFuncionalidades = new System.Windows.Forms.DataGridView();
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.funcionalidadesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mondongo = new AerolineaFrba.Mondongo();
             this.funcionalidadesTableAdapter = new AerolineaFrba.MondongoTableAdapters.funcionalidadesTableAdapter();
             this.btnAgregarFuncionalidad = new System.Windows.Forms.Button();
             this.btnBorrarFuncionalidad = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFuncionalidades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mondongo)).BeginInit();
@@ -53,13 +53,22 @@
             this.dgvFuncionalidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.funcionalidaddescripcionDataGridViewTextBoxColumn});
             this.dgvFuncionalidades.DataSource = this.funcionalidadesBindingSource;
-            this.dgvFuncionalidades.Location = new System.Drawing.Point(17, 16);
-            this.dgvFuncionalidades.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvFuncionalidades.Location = new System.Drawing.Point(13, 13);
             this.dgvFuncionalidades.Name = "dgvFuncionalidades";
-            this.dgvFuncionalidades.Size = new System.Drawing.Size(592, 162);
+            this.dgvFuncionalidades.Size = new System.Drawing.Size(444, 132);
             this.dgvFuncionalidades.TabIndex = 0;
             this.dgvFuncionalidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFuncionalidades_CellContentClick);
             this.dgvFuncionalidades.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvFuncionalidades_CellMouseClick);
+            // 
+            // funcionalidaddescripcionDataGridViewTextBoxColumn
+            // 
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.DataPropertyName = "funcionalidad_descripcion";
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.HeaderText = "Descripción";
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Name = "funcionalidaddescripcionDataGridViewTextBoxColumn";
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Width = 300;
             // 
             // funcionalidadesBindingSource
             // 
@@ -77,10 +86,9 @@
             // 
             // btnAgregarFuncionalidad
             // 
-            this.btnAgregarFuncionalidad.Location = new System.Drawing.Point(617, 16);
-            this.btnAgregarFuncionalidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregarFuncionalidad.Location = new System.Drawing.Point(463, 13);
             this.btnAgregarFuncionalidad.Name = "btnAgregarFuncionalidad";
-            this.btnAgregarFuncionalidad.Size = new System.Drawing.Size(173, 49);
+            this.btnAgregarFuncionalidad.Size = new System.Drawing.Size(130, 40);
             this.btnAgregarFuncionalidad.TabIndex = 1;
             this.btnAgregarFuncionalidad.Text = "Agregar Funcionalidad";
             this.btnAgregarFuncionalidad.UseVisualStyleBackColor = true;
@@ -88,10 +96,9 @@
             // 
             // btnBorrarFuncionalidad
             // 
-            this.btnBorrarFuncionalidad.Location = new System.Drawing.Point(616, 73);
-            this.btnBorrarFuncionalidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBorrarFuncionalidad.Location = new System.Drawing.Point(462, 59);
             this.btnBorrarFuncionalidad.Name = "btnBorrarFuncionalidad";
-            this.btnBorrarFuncionalidad.Size = new System.Drawing.Size(173, 49);
+            this.btnBorrarFuncionalidad.Size = new System.Drawing.Size(130, 40);
             this.btnBorrarFuncionalidad.TabIndex = 2;
             this.btnBorrarFuncionalidad.Text = "Borrar Funcionalidad";
             this.btnBorrarFuncionalidad.UseVisualStyleBackColor = true;
@@ -99,35 +106,24 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(616, 129);
-            this.btnVolver.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVolver.Location = new System.Drawing.Point(462, 105);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(173, 49);
+            this.btnVolver.Size = new System.Drawing.Size(130, 40);
             this.btnVolver.TabIndex = 3;
             this.btnVolver.Text = "Volver al Menu";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // funcionalidaddescripcionDataGridViewTextBoxColumn
-            // 
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.DataPropertyName = "funcionalidad_descripcion";
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.HeaderText = "Descripción";
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Name = "funcionalidaddescripcionDataGridViewTextBoxColumn";
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.ReadOnly = true;
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.funcionalidaddescripcionDataGridViewTextBoxColumn.Width = 300;
-            // 
             // ABMFuncionalidades
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 197);
+            this.ClientSize = new System.Drawing.Size(599, 160);
+            this.ControlBox = false;
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnBorrarFuncionalidad);
             this.Controls.Add(this.btnAgregarFuncionalidad);
             this.Controls.Add(this.dgvFuncionalidades);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ABMFuncionalidades";
             this.Text = "Funcionalidades";
             this.Load += new System.EventHandler(this.ABMFuncionalidades_Load);

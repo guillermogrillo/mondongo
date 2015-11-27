@@ -717,7 +717,7 @@ create table mondongo.viajes(
     cantidad_butacas_ventanilla_disponibles numeric(18,0) not null check(cantidad_butacas_ventanilla_disponibles>=0),
 	cantidad_butacas_pasillo_disponibles numeric(18,0) not null check(cantidad_butacas_pasillo_disponibles>=0),
 	cantidad_kg_disponibles numeric(18,0) not null check(cantidad_kg_disponibles>=0),
-	estado numeric(1,0) default 0 check(estado in (0,1))
+	estado numeric(1,0) default 0 check(estado in (0,1,2))
 )
 GO
 
