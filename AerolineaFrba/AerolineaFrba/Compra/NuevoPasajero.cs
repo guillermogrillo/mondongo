@@ -80,6 +80,10 @@ namespace AerolineaFrba.Compra
                     new Compra.SeleccionClienteDuplicado(clientesEncontrados, this).Show();
                     this.Hide();
                 }
+                else
+                {
+                    clientePantalla = new Model.ClienteModel();
+                }
             }else{
                 MessageBox.Show("Ingrese el Dni");
             }
