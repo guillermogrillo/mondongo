@@ -31,11 +31,7 @@ namespace AerolineaFrba.Controller
                 {                
                     int idCliente = _clienteDao.guardarCliente(cliente);
                     _compraDao.guardarPasaje(pnr, idCliente, compraModel, cliente);
-                }
-
-                int cantidadButacasVentanilla = compraModel.butacasSeleccionadas["Ventanilla"].Count;
-                int cantidadButacasPasillo = compraModel.butacasSeleccionadas["Pasillo"].Count;
-                _viajeDao.descontarButacas(compraModel.vueloElegido.idViaje, cantidadButacasVentanilla, cantidadButacasPasillo);
+                }                
 
             }          
 

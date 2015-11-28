@@ -440,8 +440,8 @@ BEGIN
             MONDONGO.fx_busca_id_fabricante(aeronave_fabricante),
             MONDONGO.fx_busca_id_tipo_servicio(Tipo_Servicio),
             sysdatetime(),
-            MONDONGO.fx_cantidad_butacas(Aeronave_Matricula, 'Pasillo'),
-            MONDONGO.fx_cantidad_butacas(Aeronave_Matricula, 'Ventanilla')
+            MONDONGO.fx_cantidad_butacas(Aeronave_Matricula, 'PASILLO'),
+            MONDONGO.fx_cantidad_butacas(Aeronave_Matricula, 'VENTANILLA')
     from gd_esquema.Maestra
     group by Aeronave_Matricula, Aeronave_Modelo, aeronave_fabricante, Tipo_Servicio
 END
@@ -561,27 +561,7 @@ END
 GO
 create procedure mondongo.pr_actualizar_viajes
 as
-begin
-	/*update mondongo.viajes
-	set cantidad_butacas_ventanilla_disponibles = cantidad_butacas_ventanilla_disponibles - b.cantidad
-	from mondongo.viajes v
-	inner join (select		v.venta_viaje_id, count(v.venta_viaje_id) as cantidad
-				from		mondongo.pasajes p
-				inner join	mondongo.ventas v on p.pasaje_venta_pnr = v.venta_pnr
-				group by	v.venta_viaje_id, p.pasaje_butaca_tipo
-				having		p.pasaje_butaca_tipo = 'Ventanilla') b
-	on b.venta_viaje_id = v.viaje_id
-
-	update mondongo.viajes
-	set cantidad_butacas_pasillo_disponibles = cantidad_butacas_pasillo_disponibles - b.cantidad
-	from mondongo.viajes v
-	inner join (select		v.venta_viaje_id, count(v.venta_viaje_id) as cantidad
-				from		mondongo.pasajes p
-				inner join	mondongo.ventas v on p.pasaje_venta_pnr = v.venta_pnr
-				group by	v.venta_viaje_id, p.pasaje_butaca_tipo
-				having		p.pasaje_butaca_tipo = 'Pasillo') b
-	on b.venta_viaje_id = v.viaje_id
-	*/
+begin	
 	update mondongo.viajes
 	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
 	from mondongo.viajes v
@@ -968,7 +948,7 @@ BEGIN
     WHILE @I <= @CANT_PAS
     BEGIN
         INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@MATRICULA, @I, 1, 'Pasillo')
+        VALUES(@MATRICULA, @I, 1, 'PASILLO')
 
         SET @I = @I + 1
     END
@@ -976,7 +956,7 @@ BEGIN
 	WHILE @I <= (@CANT_PAS + @CANT_VEN)
     BEGIN
         INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@MATRICULA, @I, 1, 'Ventanilla')
+        VALUES(@MATRICULA, @I, 1, 'VENTANILLA')
 
         SET @I = @I + 1
     END

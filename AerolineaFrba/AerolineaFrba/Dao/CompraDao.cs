@@ -80,15 +80,16 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.pasajes(pasaje_venta_pnr, pasaje_pasajero_id, pasaje_monto, pasaje_butaca_tipo, pasaje_butaca_numero, estado) " +
-                            "values (@pnr, @pasajeroId, @monto, @butacaTipo, @butacaNumero, @estado) ";
+                var query = "insert into mondongo.pasajes(pasaje_venta_pnr, pasaje_pasajero_id, pasaje_monto, butaca_id, estado) " +
+                            "values (@pnr, @pasajeroId, @monto, (select butaca_id from mondongo.butacas where aeronave_matricula = @aeronaveMatricula and butaca_nro = @butacaNumero and butaca_tipo = @butacaTipo), @estado) ";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
                     command.Parameters.AddWithValue("@pasajeroId", idPasajero);                                        
                     command.Parameters.AddWithValue("@monto", compraModel.ruta.precioBasePasaje);                                        
                     command.Parameters.AddWithValue("@butacaTipo", cliente.butaca.tipo.ToString());
-                    command.Parameters.AddWithValue("@butacaNumero", cliente.butaca.numero);                   
+                    command.Parameters.AddWithValue("@butacaNumero", cliente.butaca.numero);
+                    command.Parameters.AddWithValue("@aeronaveMatricula", compraModel.vueloElegido.aeronaveMatricula);  
                     command.Parameters.AddWithValue("@estado", 0);
                 }
                 command.ExecuteNonQuery();                                                
