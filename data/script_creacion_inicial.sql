@@ -858,16 +858,35 @@ BEGIN
 	(
 		venta_pnr numeric(18,0)
 	);
-	
+
 	insert into @tempPNR
 	select v.venta_pnr
 	from inserted i, MONDONGO.ventas v, deleted d
 	where i.viaje_id=v.venta_viaje_id
 		and i.estado<>d.estado;
-
+	
 	update MONDONGO.ventas
 	set venta_estado = 1
 	where venta_pnr in (select venta_pnr from @tempPNR)
+	
+END
+GO
+
+CREATE TRIGGER [MONDONGO].[tr_cancelar_ventas] 
+   ON  [MONDONGO].[ventas] 
+   AFTER UPDATE
+AS 
+BEGIN
+	DECLARE @tempPNR TABLE
+	(
+		venta_pnr numeric(18,0)
+	);
+	
+	insert into @tempPNR
+	select i.venta_pnr
+	from inserted i, deleted d
+	where i.venta_estado<>d.venta_estado
+		and i.venta_pnr=d.venta_pnr;
 
 	update MONDONGO.paquetes
 	set estado = 1
@@ -876,7 +895,7 @@ BEGIN
 	update MONDONGO.pasajes
 	set estado = 1
 	where pasaje_venta_pnr in (select venta_pnr from @tempPNR)
-
+	
 END
 GO
 
