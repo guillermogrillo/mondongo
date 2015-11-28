@@ -92,6 +92,9 @@ GO
 IF OBJECT_ID('MONDONGO.pr_cargar_butacas', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_butacas;
 GO
+IF OBJECT_ID('MONDONGO.pr_cargar_butacas_viaje', 'P') IS NOT NULL
+  DROP PROCEDURE mondongo.pr_cargar_butacas_viaje;
+GO
 IF OBJECT_ID('MONDONGO.pr_cargar_fabricantes', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_fabricantes;
 GO
