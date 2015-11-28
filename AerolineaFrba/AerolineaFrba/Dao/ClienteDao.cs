@@ -55,6 +55,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
             return clientesEncontrados;
         }
 
@@ -122,6 +126,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
 
 
@@ -192,6 +200,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
             return idPagador;
         }

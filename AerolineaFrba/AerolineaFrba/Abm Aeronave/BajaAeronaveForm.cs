@@ -134,7 +134,7 @@ namespace AerolineaFrba.Abm_Aeronave
             List<Model.PaqueteModel> paquetes = _viajeController.paquetesParaDevolucion(_aeronave.matricula, fechaDesde, fechaHasta);
             foreach (Model.PaqueteModel paquete in paquetes)
             {
-                _compraController.cargarDevolucionPasaje(paquete.paquetePnr, paquete.paqueteId, "Cancelacion de viaje");
+                _compraController.cargarDevolucionPaquete(paquete.paquetePnr, paquete.paqueteId, "Cancelacion de viaje");
             }
         }
 

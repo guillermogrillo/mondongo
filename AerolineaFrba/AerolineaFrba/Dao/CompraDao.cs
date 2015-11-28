@@ -39,6 +39,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
 
             return pnr;
         }
@@ -68,6 +72,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
         }
 
@@ -99,6 +107,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
             
         }
 
@@ -127,7 +139,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
-           
+            finally
+            {
+                myConnection.Close();
+            }
         }
 
 
@@ -166,7 +181,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
-
+            finally
+            {
+                myConnection.Close();
+            }
 
             return ventas;
         }
@@ -206,7 +224,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
-
+            finally
+            {
+                myConnection.Close();
+            }
 
             return pasajes;
         }
@@ -245,6 +266,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
 
             return paquete;
         }
@@ -257,9 +282,9 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.devoluciones(cod_devolucion, venta_pnr, fecha_devolucion, id_pasaje, motivo) "+
+                var query = "insert into mondongo.devoluciones(cod_devolucion, venta_pnr, fecha_devolucion, id_pasaje, motivo) " +
                             "values(@codDevolucion,@ventaPnr,@fechaDevolucion,@idPasaje,@motivo) ";
-                
+
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
@@ -273,7 +298,11 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
-            };
+            }
+            finally
+            {
+                myConnection.Close();
+            }
         }
 
         public void cargarDevolucionPaquete(int ventaPnr, int idPaquete, String motivo, int codDevolucion)
@@ -301,7 +330,11 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
-            };
+            }
+            finally
+            {
+                myConnection.Close();
+            }
         }
 
         public int generarCodigoDevolucion()
@@ -329,6 +362,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
 
             return 1;

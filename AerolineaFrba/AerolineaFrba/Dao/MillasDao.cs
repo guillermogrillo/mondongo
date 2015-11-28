@@ -52,6 +52,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
             return millas;
         }
 
@@ -85,6 +89,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
             return agregado;
         }
 
@@ -112,6 +120,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
             return idHistorial;
         }
@@ -144,6 +156,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
             return agregado;            
         }

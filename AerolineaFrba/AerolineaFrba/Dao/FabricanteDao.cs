@@ -40,6 +40,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
             return fabricantes;
         }
     }
