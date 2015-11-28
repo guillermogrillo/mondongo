@@ -880,6 +880,36 @@ BEGIN
 END
 GO
 
+create trigger mondongo.tr_generar_butacas
+   ON  [MONDONGO].[aeronaves] 
+   AFTER INSERT
+AS 
+BEGIN
+	DECLARE @I INT, @CANT_PAS INT, @CANT_VEN INT, @MATRICULA nvarchar(255)
+	SET @I = 1
+	SET @CANT_PAS = (select i.cantidad_butacas_pas from inserted i)
+	SET @CANT_VEN = (select i.cantidad_butacas_ven from inserted i)
+	SET @MATRICULA = (select i.matricula from inserted i)
+
+    WHILE @I <= @CANT_PAS
+    BEGIN
+        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
+        VALUES(@MATRICULA, @I, 1, 'Pasillo')
+
+        SET @I = @I + 1
+    END
+
+	WHILE @I <= (@CANT_PAS + @CANT_VEN)
+    BEGIN
+        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
+        VALUES(@MATRICULA, @I, 1, 'Ventanilla')
+
+        SET @I = @I + 1
+    END
+
+END
+GO
+
 /* MIGRACION */
 
 exec mondongo.pr_cargar_productos
