@@ -119,7 +119,7 @@
             // 
             // addBtn
             // 
-            this.addBtn.Location = new System.Drawing.Point(91, 197);
+            this.addBtn.Location = new System.Drawing.Point(102, 197);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(101, 23);
             this.addBtn.TabIndex = 1;
@@ -129,7 +129,7 @@
             // 
             // editBtn
             // 
-            this.editBtn.Location = new System.Drawing.Point(198, 197);
+            this.editBtn.Location = new System.Drawing.Point(209, 197);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(98, 23);
             this.editBtn.TabIndex = 2;
@@ -139,7 +139,7 @@
             // 
             // fueraServicioBtn
             // 
-            this.fueraServicioBtn.Location = new System.Drawing.Point(91, 226);
+            this.fueraServicioBtn.Location = new System.Drawing.Point(102, 226);
             this.fueraServicioBtn.Name = "fueraServicioBtn";
             this.fueraServicioBtn.Size = new System.Drawing.Size(101, 23);
             this.fueraServicioBtn.TabIndex = 4;
@@ -149,7 +149,7 @@
             // 
             // bajaBtn
             // 
-            this.bajaBtn.Location = new System.Drawing.Point(198, 226);
+            this.bajaBtn.Location = new System.Drawing.Point(209, 226);
             this.bajaBtn.Name = "bajaBtn";
             this.bajaBtn.Size = new System.Drawing.Size(98, 23);
             this.bajaBtn.TabIndex = 5;
@@ -159,7 +159,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(156, 278);
+            this.button1.Location = new System.Drawing.Point(167, 278);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 6;

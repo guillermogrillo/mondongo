@@ -96,11 +96,6 @@ namespace AerolineaFrba.Abm_Aeronave
                 cbFabricantes.DisplayMember = "nombre";
             }
         }
-        private void volver(object sender, FormClosedEventArgs e)
-        {
-            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
-            abm_aeronaves.Show();
-        }
 
         private void onClickGuardar(object sender, EventArgs e)
         {
@@ -112,7 +107,14 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void close(object sender, EventArgs e)
         {
+            volver();
+        }
+
+        private void volver()
+        {
+            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();
+            abm_aeronaves.Show();
         }
 
         private void actualizar()
@@ -120,9 +122,7 @@ namespace AerolineaFrba.Abm_Aeronave
             AeronaveModel aeronave = cargarAeronave();
             _controller.actualizarAeronave(aeronave);
 
-            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
-            this.Close();
-            abm_aeronaves.Show();
+            volver();
         }
 
         private void guardar()
@@ -134,9 +134,7 @@ namespace AerolineaFrba.Abm_Aeronave
             if (!resultado.Equals("OK"))
                 return;
 
-            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
-            this.Close();
-            abm_aeronaves.Show();
+            volver();
         }
 
         private AeronaveModel cargarAeronave()

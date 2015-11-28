@@ -64,5 +64,10 @@ namespace AerolineaFrba.Abm_Ruta
             dgRutas.DataSource = _controller.buscarTodasLasRutas();
             MessageBox.Show("Ruta eliminada");
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

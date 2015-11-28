@@ -237,7 +237,6 @@
             this.Controls.Add(this.tbMatricula);
             this.Name = "AeronaveForm";
             this.Text = "AeronaveForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.volver);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
