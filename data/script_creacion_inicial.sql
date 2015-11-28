@@ -588,6 +588,17 @@ begin
 	on q.venta_viaje_id = v.viaje_id
 end
 go
+create procedure mondongo.pr_cargar_butacas_viaje
+AS
+BEGIN
+	insert into MONDONGO.butacas_viaje(viaje_id, butaca_id)
+	select v.viaje_id, b.butaca_id
+	from MONDONGO.viajes v, MONDONGO.aeronaves a, MONDONGO.butacas b
+	where a.matricula=v.aeronave_matricula
+		and a.matricula=b.aeronave_matricula
+	order by 1,2
+END
+GO
 
 /*TABLAS*/
 create table mondongo.roles
@@ -899,6 +910,8 @@ go
 exec mondongo.pr_cargar_pasajes
 go
 exec mondongo.pr_cargar_paquetes
+go
+exec mondongo.pr_cargar_butacas_viaje
 go
 --exec mondongo.pr_actualizar_viajes
 --go
