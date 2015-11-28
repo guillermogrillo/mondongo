@@ -121,7 +121,13 @@ namespace AerolineaFrba.Compra
         {
             if(clienteSeleccionado != null)
             {
-                compraModel.clientes.Remove(clienteSeleccionado);                
+                List<Model.ClienteModel> clientes = compraModel.clientes;
+                clientes.Remove(clienteSeleccionado);
+                compraModel.butacasSeleccionadas[clienteSeleccionado.butaca.tipo.ToString()].Remove(clienteSeleccionado.butaca.numero);
+                compraModel.clientes = clientes;
+                btnSiguiente.Enabled = false;
+                btnAgregar.Enabled = true;
+                lblPasajerosYaCargados.Text = (Convert.ToInt32(lblPasajerosYaCargados.Text) - 1).ToString();
                 armarGrilla();
             }
         }
