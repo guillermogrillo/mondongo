@@ -248,5 +248,89 @@ namespace AerolineaFrba.Dao
             return paquete;
         }
 
+        public void cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo, int codDevolucion)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.devoluciones(cod_devolucion, venta_pnr, fecha_devolucion, id_pasaje, motivo) "+
+                            "values(@codDevolucion,@ventaPnr,@fechaDevolucion,@idPasaje,@motivo) ";
+                
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
+                    command.Parameters.AddWithValue("@ventaPnr", ventaPnr);
+                    command.Parameters.AddWithValue("@fechaDevolucion", DateTime.Now);
+                    command.Parameters.AddWithValue("@idPasaje", idPasaje);
+                    command.Parameters.AddWithValue("@motivo", motivo);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            };
+        }
+
+        public void cargarDevolucionPaquete(int ventaPnr, int idPaquete, String motivo, int codDevolucion)
+        {
+            Model.PaqueteModel paquete = null;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.devoluciones(cod_devolucion, venta_pnr, fecha_devolucion, id_paquete, motivo) " +
+                            "values(@codDevolucion,@ventaPnr,@fechaDevolucion,@idPaquete,@motivo) ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
+                    command.Parameters.AddWithValue("@ventaPnr", ventaPnr);
+                    command.Parameters.AddWithValue("@fechaDevolucion", DateTime.Now);
+                    command.Parameters.AddWithValue("@idPaquete", idPaquete);
+                    command.Parameters.AddWithValue("@motivo", motivo);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            };
+        }
+
+        public int generarCodigoDevolucion()
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select isnull(max(cod_devolucion), 0) " +
+                            "from mondongo.devoluciones ";
+
+                command = new SqlCommand(query, myConnection);
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int maxDevolucionId = (int)(double)reader.GetDecimal(0);
+                        return maxDevolucionId + 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+            return 1;
+        }
     }
 }

@@ -49,6 +49,9 @@ namespace AerolineaFrba.Model
             this.cantidadKgDisponibles = cantidadKg;
         }
 
+        public ViajeModel()
+        { }
+
         
 
     }

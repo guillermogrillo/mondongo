@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AerolineaFrba.Controller
 {
-    class ViajeController
+    public class ViajeController
     {
         private Dao.ViajeDao viajeDao = null;
 
@@ -47,6 +47,16 @@ namespace AerolineaFrba.Controller
         public Boolean guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
         {
             return viajeDao.guardarViaje(viaje,ruta,aeronave);
+        }
+
+        public List<Model.PasajeModel> pasajesParaDevolucion(String matricula, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return viajeDao.pasajesParaDevolucion(matricula, fechaDesde, fechaHasta);
+        }
+
+        public List<Model.PaqueteModel> paquetesParaDevolucion(String matricula, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return viajeDao.paquetesParaDevolucion(matricula, fechaDesde, fechaHasta);
         }
     }
 }

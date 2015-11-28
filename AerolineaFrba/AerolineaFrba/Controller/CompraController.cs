@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Controller
 {
-    class CompraController
+    public class CompraController
     {
         private Dao.CompraDao _compraDao = null;
         private Dao.ClienteDao _clienteDao = null;
@@ -62,6 +62,20 @@ namespace AerolineaFrba.Controller
         public Model.PaqueteModel buscarPaquetes(int pnr)
         {
             return _compraDao.buscarPaquetes(pnr);
+        }
+
+        public int cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo)
+        {
+            int codDevolucion = _compraDao.generarCodigoDevolucion();
+            _compraDao.cargarDevolucionPasaje(ventaPnr, idPasaje, motivo, codDevolucion);
+            return codDevolucion;
+        }
+
+        public int cargarDevolucionPaquete(int ventaPnr, int idPasaje, String motivo)
+        {
+            int codDevolucion = _compraDao.generarCodigoDevolucion();
+            _compraDao.cargarDevolucionPaquete(ventaPnr, idPasaje, motivo, codDevolucion);
+            return codDevolucion;
         }
     }
 }

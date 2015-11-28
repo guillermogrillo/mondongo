@@ -447,5 +447,98 @@ namespace AerolineaFrba.Dao
 
         }
 
+        public List<Model.PasajeModel> pasajesParaDevolucion(string matricula, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            List<Model.PasajeModel> pasajes = new List<Model.PasajeModel>();
+            Model.PasajeModel pasaje = null;
+            SqlConnection myConnection = null;
+
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select	p.pasaje_venta_pnr, p.pasaje_id " +
+                            "from	mondongo.viajes v, MONDONGO.ventas vta, MONDONGO.pasajes p "+
+                            "where	v.aeronave_matricula = @matricula "+
+	                        "    and v.viaje_id=vta.venta_viaje_id "+
+	                        "    and vta.venta_pnr = p.pasaje_venta_pnr "+
+                            "    and v.fecha_salida between @fechaDesde and @fechaHasta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", matricula);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var pnr = (int)(double)reader.GetDecimal(0);
+                        var pasajeId = (int)(double)reader.GetDecimal(1);
+
+                        pasaje = new Model.PasajeModel();
+                        pasaje.pasajePnr = pnr;
+                        pasaje.pasajeId = pasajeId;
+
+                        pasajes.Add(pasaje);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+            return pasajes;
+        }
+
+        public List<Model.PaqueteModel> paquetesParaDevolucion(string matricula, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            List<Model.PaqueteModel> paquetes = new List<Model.PaqueteModel>();
+            Model.PaqueteModel paquete = null;
+            SqlConnection myConnection = null;
+
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select	p.paquete_venta_pnr, p.paquete_id " +
+                            "from	mondongo.viajes v, MONDONGO.ventas vta, MONDONGO.paquetes p " +
+                            "where	v.aeronave_matricula = @matricula " +
+                            "    and v.viaje_id=vta.venta_viaje_id " +
+                            "    and vta.venta_pnr = p.paquete_venta_pnr " +
+                            "    and v.fecha_salida between @fechaDesde and @fechaHasta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", matricula);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var pnr = (int)(double)reader.GetDecimal(0);
+                        var pasajeId = (int)(double)reader.GetDecimal(1);
+
+                        paquete = new Model.PaqueteModel();
+                        paquete.paquetePnr = pnr;
+                        paquete.paqueteId = pasajeId;
+
+                        paquetes.Add(paquete);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+
+            return paquetes;
+        }
     }
 }
