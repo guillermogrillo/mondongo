@@ -26,5 +26,7 @@ namespace AerolineaFrba.Model
             this.pasajeNroButaca = pasajeNroButaca;
             this.estado = estado;
         }
+        public PasajeModel()
+        {}
     }
 }

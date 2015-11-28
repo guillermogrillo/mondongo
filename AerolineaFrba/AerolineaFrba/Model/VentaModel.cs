@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Model
 {
-    class VentaModel
+    public class VentaModel
     {
         public int ventaPnr { get; set; }
         public DateTime ventaFecha  { get; set; }

@@ -14,6 +14,8 @@ namespace AerolineaFrba.Abm_Aeronave
     {
         public Model.AeronaveModel _aeronave;
         public Controller.AeronaveController _controller;
+        public Controller.ViajeController _viajeController;
+        public Controller.CompraController _compraController;
         //private Boolean fechaHastaEnabled;
         DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
@@ -21,6 +23,8 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             _aeronave = a;
             _controller = new Controller.AeronaveController();
+            _compraController = new Controller.CompraController();
+            _viajeController = new Controller.ViajeController();
             InitializeComponent();
             dpFechaHasta.Visible = fechaVisible;
             labelFechaHasta.Visible = fechaVisible;
@@ -64,7 +68,9 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void cancelar_click(object sender, EventArgs e)
         {
+            Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();
+            abm_aeronaves.Show();
         }
 
         private void btCanelarViajes_Click(object sender, EventArgs e)
@@ -75,6 +81,9 @@ namespace AerolineaFrba.Abm_Aeronave
 
             Dao.ViajeDao daoViajes = new Dao.ViajeDao();
             daoViajes.cancelarViajesAeronave(_aeronave.matricula, fechaDesde, fechaHasta);
+            cargarDevolucionPasajes(fechaDesde, fechaHasta);
+            cargarDevolucionPaquetes(fechaDesde, fechaHasta);
+            
             MessageBox.Show("Se han cancelado todos los viajes para la fecha solicitada");
             Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();
@@ -110,6 +119,23 @@ namespace AerolineaFrba.Abm_Aeronave
                 _controller.fueraServicioAeronave(_aeronave.matricula, dpFechaDesde.Value, dpFechaHasta.Value);
             else
                 _controller.bajaAeronave(_aeronave.matricula, dpFechaDesde.Value);
+        }
+
+        private void cargarDevolucionPasajes(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            List<Model.PasajeModel> pasajes = _viajeController.pasajesParaDevolucion(_aeronave.matricula, fechaDesde, fechaHasta);
+            foreach (Model.PasajeModel pasaje in pasajes)
+            {
+                _compraController.cargarDevolucionPasaje(pasaje.pasajePnr, pasaje.pasajeId, "Cancelacion de viaje");
+            }
+        }
+        private void cargarDevolucionPaquetes(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            List<Model.PaqueteModel> paquetes = _viajeController.paquetesParaDevolucion(_aeronave.matricula, fechaDesde, fechaHasta);
+            foreach (Model.PaqueteModel paquete in paquetes)
+            {
+                _compraController.cargarDevolucionPasaje(paquete.paquetePnr, paquete.paqueteId, "Cancelacion de viaje");
+            }
         }
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Model
 {
-    class PaqueteModel
+    public class PaqueteModel
     {
         public int paqueteId {get;set;}
         public int paquetePnr{get;set;}

@@ -564,7 +564,7 @@ GO
 create procedure mondongo.pr_actualizar_viajes
 as
 begin
-	update mondongo.viajes
+	/*update mondongo.viajes
 	set cantidad_butacas_ventanilla_disponibles = cantidad_butacas_ventanilla_disponibles - b.cantidad
 	from mondongo.viajes v
 	inner join (select		v.venta_viaje_id, count(v.venta_viaje_id) as cantidad
@@ -583,7 +583,7 @@ begin
 				group by	v.venta_viaje_id, p.pasaje_butaca_tipo
 				having		p.pasaje_butaca_tipo = 'Pasillo') b
 	on b.venta_viaje_id = v.viaje_id
-
+	*/
 	update mondongo.viajes
 	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
 	from mondongo.viajes v
@@ -985,5 +985,5 @@ exec mondongo.pr_cargar_paquetes
 go
 exec mondongo.pr_cargar_butacas_viaje
 go
---exec mondongo.pr_actualizar_viajes
---go
+exec mondongo.pr_actualizar_viajes
+go
