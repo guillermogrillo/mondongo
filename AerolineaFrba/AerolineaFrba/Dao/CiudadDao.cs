@@ -38,12 +38,16 @@ namespace AerolineaFrba.Dao
                         ciudades.Add(ciudad);
 
                     }
-                }  
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
-            }       
+            }
+            finally
+            {
+                myConnection.Close();
+            }
             return ciudades;
         }
 
@@ -83,6 +87,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
             return ciudades;
         }

@@ -50,6 +50,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
 
             if(rutas.Count>0)
             {
@@ -98,6 +102,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
             return rutas;
         }
 
@@ -145,6 +153,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
         }
 
         public void editarRuta(Model.RutaModel ruta)
@@ -183,6 +195,10 @@ namespace AerolineaFrba.Dao
             {
                 MessageBox.Show("ERROR" + ex.Message);
             }
+            finally
+            {
+                myConnection.Close();
+            }
         }
 
         public void eliminarRuta(int rutaId)
@@ -208,6 +224,10 @@ namespace AerolineaFrba.Dao
             catch (Exception ex)
             {
                 MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
             }
         }
     }
