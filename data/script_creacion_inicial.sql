@@ -983,28 +983,3 @@ BEGIN
 
 END
 GO
-
-
-
-update mondongo.viajes
-set estado = 2
-where viaje_id = 1
-
-
-select *
-from mondongo.ventas
-where venta_viaje_id = 1;
-
-
-select p.*
-from mondongo.ventas v
-inner join mondongo.pasajes p on p.pasaje_venta_pnr = v.venta_pnr
-where venta_viaje_id = 1;
-
-select p.*
-from mondongo.ventas v
-inner join mondongo.paquetes p on p.paquete_venta_pnr = v.venta_pnr
-where venta_viaje_id = 1;
-
-
-
