@@ -7,7 +7,9 @@ BEGIN
 END
 GO
 
-
+IF OBJECT_ID('mondongo.devoluciones', 'U') IS NOT NULL
+  DROP TABLE mondongo.devoluciones;
+GO
 IF OBJECT_ID('mondongo.pasajes', 'U') IS NOT NULL
   DROP TABLE mondongo.pasajes;
 GO
@@ -804,6 +806,16 @@ create table mondongo.butacas_viaje(
 		[viaje_id] ASC,
 		[butaca_id] ASC
 	)
+)
+GO
+create table mondongo.devoluciones(
+	cod_devolucion numeric(18,0),
+	venta_pnr numeric(18,0),
+	fehca_devolucion datetime,
+	id_pasaje numeric(18,0) refereces mondongo.pasajes(pasaje_id),
+	id_paquete numeric(18,0) refereces mondongo.paquetes(paquete_id),
+	motivo nvarchar(255)
+
 )
 GO
 
