@@ -525,14 +525,12 @@ go
 CREATE PROCEDURE mondongo.pr_cargar_viajes
 as
 begin
-    insert into mondongo.viajes(aeronave_matricula,viaje_ruta_id, fecha_salida, fecha_llegada, fecha_llegada_estimada, cantidad_butacas_ventanilla_disponibles, cantidad_butacas_pasillo_disponibles, cantidad_kg_disponibles,estado)
+    insert into mondongo.viajes(aeronave_matricula,viaje_ruta_id, fecha_salida, fecha_llegada, fecha_llegada_estimada, cantidad_kg_disponibles,estado)
     select  m.Aeronave_Matricula,
             mondongo.fx_busca_id_ruta(RIGHT(UPPER(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1), RIGHT(UPPER(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1), m.Tipo_Servicio) as viaje_ruta_id,
             m.FechaSalida,
             m.FechaLLegada,
             m.Fecha_LLegada_Estimada,
-            mondongo.fx_busca_butacas_ventanilla_disponibles(m.Aeronave_Matricula),
-            mondongo.fx_busca_butacas_pasillo_disponibles(m.Aeronave_Matricula),
             mondongo.fx_busca_kg_disponibles(m.Aeronave_Matricula),
 			0
     from gd_esquema.Maestra m
@@ -731,9 +729,7 @@ create table mondongo.viajes(
     aeronave_matricula nvarchar(255) references mondongo.aeronaves(matricula),
     fecha_salida datetime not null,
     fecha_llegada datetime,
-    fecha_llegada_estimada datetime not null,
-    cantidad_butacas_ventanilla_disponibles numeric(18,0) not null check(cantidad_butacas_ventanilla_disponibles>=0),
-	cantidad_butacas_pasillo_disponibles numeric(18,0) not null check(cantidad_butacas_pasillo_disponibles>=0),
+    fecha_llegada_estimada datetime not null,    
 	cantidad_kg_disponibles numeric(18,0) not null check(cantidad_kg_disponibles>=0),
 	estado numeric(1,0) default 0 check(estado in (0,1,2))
 )
@@ -745,7 +741,7 @@ create table mondongo.ventas(
 	venta_viaje_id numeric(18) not null references mondongo.viajes(viaje_id),
 	venta_id_pagador numeric(18,0) not null references mondongo.clientes(cliente_id),
 	venta_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
-	venta_estado numeric(1,0) check(venta_estado in (0,1))
+	venta_estado numeric(1,0) check(venta_estado in (0,1,2))
 )
 GO
 create table mondongo.butacas(
@@ -762,7 +758,7 @@ create table mondongo.pasajes(
 	pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
 	pasaje_monto numeric(18,2) default 0 check(pasaje_monto >= 0),
 	butaca_id numeric(18,0) references mondongo.butacas(butaca_id),
-	estado numeric(1,0) check(estado in (0,1))
+	estado numeric(1,0) check(estado in (0,1,2))
 )
 GO
 create table mondongo.paquetes(
@@ -771,7 +767,7 @@ create table mondongo.paquetes(
 	paquete_kg numeric(18,0) default 0 check(paquete_kg >= 0),
 	paquete_monto numeric(18,2) default 0 check(paquete_monto >= 0),
 	paquete_piso numeric(18,0) not null default 0 check(paquete_piso = 0),
-	estado numeric(1,0) check(estado in (0,1))
+	estado numeric(1,0) check(estado in (0,1,2))
 )
 GO
 
@@ -866,7 +862,7 @@ BEGIN
 		and i.estado<>d.estado;
 	
 	update MONDONGO.ventas
-	set venta_estado = 1
+	set venta_estado = (select top 1 estado from inserted)
 	where venta_pnr in (select venta_pnr from @tempPNR)
 	
 END
@@ -889,43 +885,13 @@ BEGIN
 		and i.venta_pnr=d.venta_pnr;
 
 	update MONDONGO.paquetes
-	set estado = 1
+	set estado = (select top 1 venta_estado from inserted)
 	where paquete_venta_pnr in (select venta_pnr from @tempPNR)
 
 	update MONDONGO.pasajes
-	set estado = 1
+	set estado = (select top 1 venta_estado from inserted)
 	where pasaje_venta_pnr in (select venta_pnr from @tempPNR)
 	
-END
-GO
-
-create trigger mondongo.tr_generar_butacas
-   ON  [MONDONGO].[aeronaves] 
-   AFTER INSERT
-AS 
-BEGIN
-	DECLARE @I INT, @CANT_PAS INT, @CANT_VEN INT, @MATRICULA nvarchar(255)
-	SET @I = 1
-	SET @CANT_PAS = (select i.cantidad_butacas_pas from inserted i)
-	SET @CANT_VEN = (select i.cantidad_butacas_ven from inserted i)
-	SET @MATRICULA = (select i.matricula from inserted i)
-
-    WHILE @I <= @CANT_PAS
-    BEGIN
-        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@MATRICULA, @I, 1, 'Pasillo')
-
-        SET @I = @I + 1
-    END
-
-	WHILE @I <= (@CANT_PAS + @CANT_VEN)
-    BEGIN
-        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@MATRICULA, @I, 1, 'Ventanilla')
-
-        SET @I = @I + 1
-    END
-
 END
 GO
 
@@ -975,3 +941,58 @@ exec mondongo.pr_cargar_butacas_viaje
 go
 --exec mondongo.pr_actualizar_viajes
 --go
+
+create trigger mondongo.tr_generar_butacas
+   ON  [MONDONGO].[aeronaves] 
+   AFTER INSERT
+AS 
+BEGIN
+	DECLARE @I INT, @CANT_PAS INT, @CANT_VEN INT, @MATRICULA nvarchar(255)
+	SET @I = 1
+	SET @CANT_PAS = (select i.cantidad_butacas_pas from inserted i)
+	SET @CANT_VEN = (select i.cantidad_butacas_ven from inserted i)
+	SET @MATRICULA = (select i.matricula from inserted i)
+
+    WHILE @I <= @CANT_PAS
+    BEGIN
+        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
+        VALUES(@MATRICULA, @I, 1, 'Pasillo')
+
+        SET @I = @I + 1
+    END
+
+	WHILE @I <= (@CANT_PAS + @CANT_VEN)
+    BEGIN
+        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
+        VALUES(@MATRICULA, @I, 1, 'Ventanilla')
+
+        SET @I = @I + 1
+    END
+
+END
+GO
+
+
+
+update mondongo.viajes
+set estado = 2
+where viaje_id = 1
+
+
+select *
+from mondongo.ventas
+where venta_viaje_id = 1;
+
+
+select p.*
+from mondongo.ventas v
+inner join mondongo.pasajes p on p.pasaje_venta_pnr = v.venta_pnr
+where venta_viaje_id = 1;
+
+select p.*
+from mondongo.ventas v
+inner join mondongo.paquetes p on p.paquete_venta_pnr = v.venta_pnr
+where venta_viaje_id = 1;
+
+
+
