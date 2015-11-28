@@ -600,6 +600,14 @@ BEGIN
 	where a.matricula=v.aeronave_matricula
 		and a.matricula=b.aeronave_matricula
 	order by 1,2
+	
+	update bv
+	set estado = 'V'
+	from MONDONGO.butacas_viaje bv, mondongo.pasajes p, MONDONGO.ventas vta, mondongo.viajes v
+	where p.pasaje_venta_pnr=vta.venta_pnr
+		and vta.venta_viaje_id=v.viaje_id
+		and bv.butaca_id = p.butaca_id
+		and bv.viaje_id = v.viaje_id
 END
 GO
 
