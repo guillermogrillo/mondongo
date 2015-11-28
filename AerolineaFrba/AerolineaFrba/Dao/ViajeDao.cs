@@ -429,8 +429,7 @@ namespace AerolineaFrba.Dao
                             "where	v.aeronave_matricula = @matricula "+
 	                        "    and v.viaje_id=vta.venta_viaje_id "+
 	                        "    and vta.venta_pnr = p.pasaje_venta_pnr "+
-                            "    and v.fecha_salida between @fechaDesde and @fechaHasta " +
-	                        "    and v.estado = 0 ";
+                            "    and v.fecha_salida between @fechaDesde and @fechaHasta ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
@@ -477,8 +476,7 @@ namespace AerolineaFrba.Dao
                             "where	v.aeronave_matricula = @matricula " +
                             "    and v.viaje_id=vta.venta_viaje_id " +
                             "    and vta.venta_pnr = p.paquete_venta_pnr " +
-                            "    and v.fecha_salida between @fechaDesde and @fechaHasta " +
-                            "    and v.estado = 0 ";
+                            "    and v.fecha_salida between @fechaDesde and @fechaHasta ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {

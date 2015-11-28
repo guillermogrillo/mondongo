@@ -811,7 +811,7 @@ GO
 create table mondongo.devoluciones(
 	cod_devolucion numeric(18,0),
 	venta_pnr numeric(18,0),
-	fehca_devolucion datetime,
+	fecha_devolucion datetime,
 	id_pasaje numeric(18,0) references mondongo.pasajes(pasaje_id),
 	id_paquete numeric(18,0) references mondongo.paquetes(paquete_id),
 	motivo nvarchar(255)
