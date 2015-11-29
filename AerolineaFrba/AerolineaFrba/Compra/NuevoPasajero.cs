@@ -129,25 +129,32 @@ namespace AerolineaFrba.Compra
                 }
                 else
                 {
-                    clientePantalla.dni = Convert.ToInt32(tbDni.Text);
-                    clientePantalla.nombre = tbNombre.Text;
-                    clientePantalla.apellido = tbApellido.Text;
-                    clientePantalla.fechaNacimiento = dpFNac.Value;
-                    clientePantalla.direccion = tbDireccion.Text;                    
-                    clientePantalla.mail = tbMail.Text;
-                    clientePantalla.telefono = Convert.ToInt32(tbTelefono.Text);
+                    if (!clienteController.clienteTieneOtrosVuelos(Convert.ToInt32(tbDni.Text), tbNombre.Text, tbApellido.Text, compraModel.vueloElegido.fechaHoraSalida, compraModel.vueloElegido.fechaHoraLlegadaEstimada))
+                    {
+                        clientePantalla.dni = Convert.ToInt32(tbDni.Text);
+                        clientePantalla.nombre = tbNombre.Text;
+                        clientePantalla.apellido = tbApellido.Text;
+                        clientePantalla.fechaNacimiento = dpFNac.Value;
+                        clientePantalla.direccion = tbDireccion.Text;
+                        clientePantalla.mail = tbMail.Text;
+                        clientePantalla.telefono = Convert.ToInt32(tbTelefono.Text);
 
-                    String tipoDeButaca = cbTipoButaca.Text;
-                    int numeroDeButaca = Convert.ToInt32(cbNumeroButaca.SelectedValue);
-                    clientePantalla.butaca = new Model.ButacaModel((Model.TipoButaca)cbTipoButaca.SelectedValue, numeroDeButaca);
+                        String tipoDeButaca = cbTipoButaca.Text;
+                        int numeroDeButaca = Convert.ToInt32(cbNumeroButaca.SelectedValue);
+                        clientePantalla.butaca = new Model.ButacaModel((Model.TipoButaca)cbTipoButaca.SelectedValue, numeroDeButaca);
 
-                    compraModel.butacasSeleccionadas[cbTipoButaca.Text].Add(numeroDeButaca);
-                    
-                    
-                   
-                    compraModel.clientes.Add(clientePantalla);
-                    this.Close();
-                    new Compra.Pasajeros(compraModel).Show();
+                        compraModel.butacasSeleccionadas[cbTipoButaca.Text].Add(numeroDeButaca);
+
+
+
+                        compraModel.clientes.Add(clientePantalla);
+                        this.Close();
+                        new Compra.Pasajeros(compraModel).Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El cliente se encuentra en otro vuelo en ese momento");
+                    }
                 }
             }
         }
@@ -165,8 +172,7 @@ namespace AerolineaFrba.Compra
             }
 
             return butacasDisponibles;
-        }
-      
+        }        
 
         private Boolean validarNombre()
         {
