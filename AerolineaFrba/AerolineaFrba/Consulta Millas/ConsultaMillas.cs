@@ -69,7 +69,7 @@ namespace AerolineaFrba.Consulta_Millas
 
             dgvHistorialMillas.Columns[5].HeaderText = "Descripción";
             dgvHistorialMillas.Columns[5].ReadOnly = true;
-            dgvHistorialMillas.Columns[5].Width = 200;
+            dgvHistorialMillas.Columns[5].Width = 300;
         }
 
 

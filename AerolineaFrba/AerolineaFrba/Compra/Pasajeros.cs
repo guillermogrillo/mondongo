@@ -16,10 +16,14 @@ namespace AerolineaFrba.Compra
         Model.CompraModel compraModel = null;
         Model.ClienteModel clienteSeleccionado = null;
 
+        Controller.TipoServicioController tipoServicioController = null;
+
+
         public Pasajeros(Model.CompraModel _compraModel)
         {
             InitializeComponent();
             compraModel = _compraModel;
+            tipoServicioController = new Controller.TipoServicioController();
         }
 
         private void Pasajeros_Load(object sender, EventArgs e)
@@ -42,16 +46,35 @@ namespace AerolineaFrba.Compra
             }
 
             int cantidadPasajerosCargados = compraModel.clientes.Count;
-            double precioPasajes = cantidadPasajerosCargados * compraModel.ruta.precioBasePasaje;
+
+            int costoAdicional = buscarCostoAdicionalPorTipoServicio();
+
+
+            double precioPasajes = cantidadPasajerosCargados * (compraModel.ruta.precioBasePasaje + costoAdicional);
             lblCalculoPasajes.Text = cantidadPasajerosCargados + " x $" + compraModel.ruta.precioBasePasaje + " = $" +precioPasajes.ToString();
 
-            double precioEncomienda = compraModel.cantidadKg * compraModel.ruta.precioBaseKg;
+            double precioEncomienda = compraModel.cantidadKg * (compraModel.ruta.precioBaseKg + costoAdicional);
             lblCalculoEncomienda.Text = compraModel.cantidadKg + " x $" + compraModel.ruta.precioBaseKg+" = $"+ precioEncomienda.ToString();
 
             double precioTotal = precioPasajes + precioEncomienda;
             lblCalculoPrecio.Text = "$" + precioTotal.ToString();
 
             armarGrilla();
+        }
+
+        private int buscarCostoAdicionalPorTipoServicio()
+        {
+            List<Model.TipoServicioModel> TodosLosTiposDeServicio = tipoServicioController.buscarTiposServicio();
+            int costoAdicional = 0;
+            foreach (Model.TipoServicioModel tipoServicio in TodosLosTiposDeServicio)
+            {
+                if (tipoServicio.id == compraModel.ruta.tipoServicio)
+                {
+                    costoAdicional = tipoServicio.costoAdicional;
+                    break;
+                }
+            }
+            return costoAdicional;
         }
 
         private void armarGrilla()

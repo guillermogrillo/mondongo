@@ -142,8 +142,8 @@ namespace AerolineaFrba.Canje_Millas
 
         private void btnCanjear_Click(object sender, EventArgs e)
         {
-            double millasADescontar = Convert.ToInt32(tbCantidad.Text) * productoSeleccionado.costoMillas;
-            double millasActuales = Convert.ToInt32(tbMillasAcum.Text);
+            double millasADescontar = Convert.ToDouble(tbCantidad.Text) * productoSeleccionado.costoMillas;
+            double millasActuales = Convert.ToDouble(tbMillasAcum.Text);
             if (millasADescontar <= millasActuales)
             {
                 Model.HistorialMillasModel histMillas = new Model.HistorialMillasModel(Convert.ToInt32(clienteEncontrado.clienteId), millasADescontar, fechaSistema, Model.TipoOperacion.CANJE, "DESCUENTO POR CANJE DE PRODUCTO");

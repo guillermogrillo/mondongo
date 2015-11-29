@@ -41,7 +41,7 @@
             // lblDni
             // 
             this.lblDni.AutoSize = true;
-            this.lblDni.Location = new System.Drawing.Point(158, 13);
+            this.lblDni.Location = new System.Drawing.Point(209, 13);
             this.lblDni.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDni.Name = "lblDni";
             this.lblDni.Size = new System.Drawing.Size(23, 13);
@@ -50,7 +50,7 @@
             // 
             // tbDni
             // 
-            this.tbDni.Location = new System.Drawing.Point(184, 11);
+            this.tbDni.Location = new System.Drawing.Point(235, 11);
             this.tbDni.Margin = new System.Windows.Forms.Padding(2);
             this.tbDni.MaxLength = 9;
             this.tbDni.Name = "tbDni";
@@ -60,7 +60,7 @@
             // 
             // btnConsultar
             // 
-            this.btnConsultar.Location = new System.Drawing.Point(301, 8);
+            this.btnConsultar.Location = new System.Drawing.Point(352, 8);
             this.btnConsultar.Margin = new System.Windows.Forms.Padding(2);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(58, 24);
@@ -81,13 +81,13 @@
             this.dgvHistorialMillas.Name = "dgvHistorialMillas";
             this.dgvHistorialMillas.ReadOnly = true;
             this.dgvHistorialMillas.RowTemplate.Height = 24;
-            this.dgvHistorialMillas.Size = new System.Drawing.Size(559, 204);
+            this.dgvHistorialMillas.Size = new System.Drawing.Size(660, 204);
             this.dgvHistorialMillas.TabIndex = 3;
             // 
             // lblCantidadMillas
             // 
             this.lblCantidadMillas.AutoSize = true;
-            this.lblCantidadMillas.Location = new System.Drawing.Point(184, 262);
+            this.lblCantidadMillas.Location = new System.Drawing.Point(235, 262);
             this.lblCantidadMillas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCantidadMillas.Name = "lblCantidadMillas";
             this.lblCantidadMillas.Size = new System.Drawing.Size(93, 13);
@@ -97,7 +97,7 @@
             // tbMillasAcumuladas
             // 
             this.tbMillasAcumuladas.Enabled = false;
-            this.tbMillasAcumuladas.Location = new System.Drawing.Point(281, 260);
+            this.tbMillasAcumuladas.Location = new System.Drawing.Point(332, 260);
             this.tbMillasAcumuladas.Margin = new System.Windows.Forms.Padding(2);
             this.tbMillasAcumuladas.Name = "tbMillasAcumuladas";
             this.tbMillasAcumuladas.Size = new System.Drawing.Size(114, 20);
@@ -105,7 +105,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(364, 7);
+            this.btnVolver.Location = new System.Drawing.Point(415, 7);
             this.btnVolver.Margin = new System.Windows.Forms.Padding(2);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(56, 24);
@@ -118,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 288);
+            this.ClientSize = new System.Drawing.Size(681, 288);
             this.ControlBox = false;
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.tbMillasAcumuladas);

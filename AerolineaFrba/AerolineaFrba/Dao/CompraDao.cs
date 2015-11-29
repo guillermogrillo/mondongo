@@ -160,7 +160,8 @@ namespace AerolineaFrba.Dao
                             "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id "+                            
                             "where ve.venta_id_pagador = @idPagador " +
                             "and vi.fecha_salida > @fechaSistema "+
-                            "and ve.venta_estado = 0";
+                            "and ve.venta_estado = 0 "+
+                            "order by vi.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@idPagador", idPagador);

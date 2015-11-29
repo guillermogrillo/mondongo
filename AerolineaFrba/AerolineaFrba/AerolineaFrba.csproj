@@ -291,6 +291,7 @@
     <Compile Include="Model\UsuarioModel.cs" />
     <Compile Include="Model\VentaModel.cs" />
     <Compile Include="Model\ViajeModel.cs" />
+    <Compile Include="Model\ViajeRegistroLlegadaModel.cs" />
     <Compile Include="Mondongo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

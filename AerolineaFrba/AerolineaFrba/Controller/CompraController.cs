@@ -74,7 +74,7 @@ namespace AerolineaFrba.Controller
             foreach (Model.PasajeModel pasaje in pasajesDeEsaCompra)
             {
 
-                this.cargarDevolucionPasaje(pnr, pasaje.pasajeId, "Devolución de pasaje por pedido del cliente");
+                this.cargarDevolucionPasaje(pnr, pasaje.pasajeId, "Devolución de pasaje por pedido del Cliente");
 
             }
 

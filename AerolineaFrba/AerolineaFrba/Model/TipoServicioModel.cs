@@ -10,5 +10,6 @@ namespace AerolineaFrba.Model
     {
         public int id { get; set; }
         public String tipoServicio { get; set; }
+        public int costoAdicional { get; set; }
     }
 }

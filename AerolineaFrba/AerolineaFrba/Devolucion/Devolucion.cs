@@ -20,6 +20,7 @@ namespace AerolineaFrba.Devolucion
         private Model.DevolucionVentaModel devolucionVentaSeleccionada = null;
         private Model.DevolucionPasajeModel devolucionPasajeSeleccionado = null;
         Model.PaqueteModel paqueteDeLaVenta = null;
+        List<Model.DevolucionPasajeModel> pasajesDeLaVenta = null;
 
         private Model.ClienteModel cliente = null;
 
@@ -62,39 +63,44 @@ namespace AerolineaFrba.Devolucion
         {
             String dniPagador = tbDniPagador.Text;
 
-
-            List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(dniPagador);
-
-            if(clientesEncontrados.Count == 1)
+            if (!String.IsNullOrEmpty(dniPagador))
             {
-                
-                cliente = clientesEncontrados[0];
+                List<Model.ClienteModel> clientesEncontrados = clienteController.buscarClientes(dniPagador);
 
-                List<Model.DevolucionVentaModel> comprasRealizadas = compraController.buscarVentasParaDevolucion(cliente.clienteId);
-
-                if (comprasRealizadas.Count > 0)
+                if (clientesEncontrados.Count == 1)
                 {
-                    dgvVentas.DataSource = comprasRealizadas;
-                    dgvVentas.AutoGenerateColumns = true;
-                    dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                    armarGrillaVentas();
+
+                    cliente = clientesEncontrados[0];
+
+                    List<Model.DevolucionVentaModel> comprasRealizadas = compraController.buscarVentasParaDevolucion(cliente.clienteId);
+
+                    if (comprasRealizadas.Count > 0)
+                    {
+                        dgvVentas.DataSource = comprasRealizadas;
+                        dgvVentas.AutoGenerateColumns = true;
+                        dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        armarGrillaVentas();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontraron compras realizadas que puedan ser canceladas");
+                    }
+                }
+                else if (clientesEncontrados.Count == 0)
+                {
+                    MessageBox.Show("No se encontró un cliente con el dni ingresado");
                 }
                 else
                 {
-                    MessageBox.Show("No se encontraron compras realizadas que puedan ser canceladas");
+                    new SeleccionClienteDuplicado(clientesEncontrados, this).Show();
+                    this.Hide();
                 }
-            }
-            else if (clientesEncontrados.Count == 0)
-            {
-                MessageBox.Show("No se encontró un cliente con el dni ingresado");
+
             }
             else
             {
-                new SeleccionClienteDuplicado(clientesEncontrados, this).Show();
-                this.Hide();
+                MessageBox.Show("Debe ingresar un dni");
             }
-            
-
         }
 
         private void armarGrillaVentas()
@@ -125,8 +131,9 @@ namespace AerolineaFrba.Devolucion
             if (pregunta == DialogResult.Yes)
             {
                 compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
-                this.Close();
-                new AerolineasFRBA().Show();
+                dgvVentas.DataSource = null;
+                tbDniPagador.Text = "";
+                    
             }            
         }
 
@@ -138,7 +145,7 @@ namespace AerolineaFrba.Devolucion
 
         private void btnDetalle_Click(object sender, EventArgs e)
         {
-            List<Model.DevolucionPasajeModel> pasajesDeLaVenta = compraController.buscarPasajesDevolucion(devolucionVentaSeleccionada.pnr);
+            pasajesDeLaVenta = compraController.buscarPasajesDevolucion(devolucionVentaSeleccionada.pnr);
             if (pasajesDeLaVenta.Count > 0)
             {
                 gbPasajeros.Visible = true;
@@ -221,32 +228,77 @@ namespace AerolineaFrba.Devolucion
         {
             if (devolucionPasajeSeleccionado != null)
             {
-                compraController.registrarDevolucionPasaje(devolucionVentaSeleccionada.pnr,devolucionPasajeSeleccionado.pasajeId);
-                compraController.cargarDevolucionPasaje(devolucionVentaSeleccionada.pnr, devolucionPasajeSeleccionado.pasajeId, "Devolución de pasaje por pedido del Cliente");
-                MessageBox.Show("Pasaje devuelto con éxito.");
 
-                List<Model.DevolucionPasajeModel> pasajesDeLaVenta = compraController.buscarPasajesDevolucion(devolucionVentaSeleccionada.pnr);
-                
-                gbPasajeros.Visible = (pasajesDeLaVenta.Count > 0);                    
-               
-                dgvPasajeros.DataSource = pasajesDeLaVenta;
-                dgvPasajeros.AutoGenerateColumns = true;
-                dgvPasajeros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                armarGrillaPasajeros();
+                if (paqueteDeLaVenta == null && pasajesDeLaVenta.Count == 1)
+                {
 
-            }
-            
+                    DialogResult pregunta = MessageBox.Show("Si cancela este pasaje, cancelará la venta. Desea continuar?",
+                                                    "Atencion",
+                                                    MessageBoxButtons.YesNo);
+                    if (pregunta == DialogResult.Yes)
+                    {
+                        compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
+                        dgvVentas.DataSource = null;
+                        gbPasajeros.Visible = false;
+                        tbDniPagador.Text = "";
+                    }
+
+                }
+                else
+                {
+                    DialogResult pregunta = MessageBox.Show("Esta seguro de cancelar el pasaje?",
+                                                    "Atencion",
+                                                    MessageBoxButtons.YesNo);
+                    if (pregunta == DialogResult.Yes)
+                    {
+                        compraController.registrarDevolucionPasaje(devolucionVentaSeleccionada.pnr, devolucionPasajeSeleccionado.pasajeId);
+                        compraController.cargarDevolucionPasaje(devolucionVentaSeleccionada.pnr, devolucionPasajeSeleccionado.pasajeId, "Devolución de pasaje por pedido del Cliente");
+                        MessageBox.Show("Pasaje devuelto con éxito.");
+                        pasajesDeLaVenta = compraController.buscarPasajesDevolucion(devolucionVentaSeleccionada.pnr);
+                        gbPasajeros.Visible = (pasajesDeLaVenta.Count > 0);
+                        dgvPasajeros.DataSource = pasajesDeLaVenta;
+                        dgvPasajeros.AutoGenerateColumns = true;
+                        dgvPasajeros.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        armarGrillaPasajeros();
+                    }                                        
+                }                                                 
+            }            
         }
 
         private void btnCancelarPaquete_Click(object sender, EventArgs e)
         {
             if (paqueteDeLaVenta != null)
             {
-                compraController.registrarDevolucionDeEncomienda(devolucionVentaSeleccionada.pnr,paqueteDeLaVenta.paqueteId);                
-                viajeController.sumarKg(paqueteDeLaVenta);
-                compraController.cargarDevolucionPaquete(devolucionVentaSeleccionada.pnr, paqueteDeLaVenta.paqueteId, "Devolución de paquete por pedido del Cliente");
+                if (pasajesDeLaVenta == null || pasajesDeLaVenta.Count == 0)
+                {
+                    DialogResult pregunta = MessageBox.Show("Si cancela esta encomienda, cancelará la venta. Desea continuar?",
+                                                    "Atencion",
+                                                    MessageBoxButtons.YesNo);
+                    if (pregunta == DialogResult.Yes)
+                    {
+                        compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
+                        dgvVentas.DataSource = null;
+                        tbDniPagador.Text = "";
+                    }
+                }
+                else
+                {
+                    DialogResult pregunta = MessageBox.Show("está seguro de cancelar esta encomienda?",
+                                                    "Atencion",
+                                                    MessageBoxButtons.YesNo);
+                    if (pregunta == DialogResult.Yes)
+                    {
+                        compraController.registrarDevolucionDeEncomienda(devolucionVentaSeleccionada.pnr, paqueteDeLaVenta.paqueteId);
+                        compraController.cargarDevolucionPaquete(devolucionVentaSeleccionada.pnr, paqueteDeLaVenta.paqueteId, "Devolución de paquete por pedido del Cliente");                        
+                    }
+                }
+                
                 gbPaquete.Visible = false;
+                viajeController.sumarKg(paqueteDeLaVenta);
+                paqueteDeLaVenta = null;
                 MessageBox.Show("Paquete devuelto con éxito.");
+                
+                
             }
             
         }
