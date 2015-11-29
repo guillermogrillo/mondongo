@@ -126,6 +126,12 @@
     <Compile Include="Dao\MillasDao.cs" />
     <Compile Include="Dao\ProductosDao.cs" />
     <Compile Include="Dao\TarjetaCreditoDao.cs" />
+    <Compile Include="Devolucion\Devolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\Devolucion.Designer.cs">
+      <DependentUpon>Devolucion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Generacion Viaje\BuscadorCiudades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,8 @@
     </Compile>
     <Compile Include="Model\AeronaveBajaModel.cs" />
     <Compile Include="Model\BeneficioTarjetaCredito.cs" />
+    <Compile Include="Model\DevolucionPasajeModel.cs" />
+    <Compile Include="Model\DevolucionVentaModel.cs" />
     <Compile Include="Model\HistorialMillasModel.cs" />
     <Compile Include="Model\FabricanteModel.cs" />
     <Compile Include="Abm Ciudad\AbmCiudad.cs">
@@ -232,12 +240,6 @@
     <Compile Include="Dao\TipoServicioDao.cs" />
     <Compile Include="Dao\RutaDao.cs" />
     <Compile Include="Dao\ViajeDao.cs" />
-    <Compile Include="Devolucion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Devolucion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="GD2C2015DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -386,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Consulta Millas\SeleccionClienteDuplicado.resx">
       <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\Devolucion.resx">
+      <DependentUpon>Devolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\BuscadorCiudades.resx">
       <DependentUpon>BuscadorCiudades.cs</DependentUpon>

@@ -963,3 +963,35 @@ BEGIN
 
 END
 GO
+CREATE TRIGGER [MONDONGO].[tr_ocupar_butaca] 
+   ON  [MONDONGO].[pasajes] 
+   AFTER INSERT
+AS 
+BEGIN
+	
+	DECLARE @tempButacaViaje TABLE
+	(
+		viaje_id numeric(18,0),
+		butaca_id numeric(18,0),
+		estado numeric(18,0)
+	);
+	
+	insert into @tempButacaViaje
+	select (select distinct ve.venta_viaje_id from inserted i inner join mondongo.ventas ve on ve.venta_pnr = i.pasaje_venta_pnr),
+	i.butaca_id,
+	i.estado
+	from inserted i, deleted d
+	where i.pasaje_id = d.pasaje_id
+	and i.estado <> d.estado
+
+	update bv
+	set estado = 
+		( CASE
+			WHEN (tbv.estado = 0) THEN 'V'
+			WHEN (tbv.estado = 1) THEN 'L'
+			END)
+	from mondongo.butacas_viaje bv
+	inner join @tempButacaViaje tbv on tbv.butaca_id = bv.butaca_id and tbv.viaje_id = bv.viaje_id
+
+END
+GO
