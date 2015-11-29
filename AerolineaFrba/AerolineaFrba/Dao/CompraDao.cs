@@ -145,7 +145,7 @@ namespace AerolineaFrba.Dao
             }
         }
 
-        public List<Model.DevolucionVentaModel> buscarVentas(String dniPagador)
+        public List<Model.DevolucionVentaModel> buscarVentasParaDevolucion(int idPagador)
         {
             List<Model.DevolucionVentaModel> ventas = new List<Model.DevolucionVentaModel>();
             SqlConnection myConnection = null;
@@ -157,14 +157,13 @@ namespace AerolineaFrba.Dao
                 var query = "select ve.venta_pnr,ve.venta_fecha_compra,vi.fecha_salida,tp.descripcion "+
                             "from mondongo.ventas ve "+
                             "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
-                            "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id "+
-                            "inner join mondongo.clientes cli on cli.cliente_id = ve.venta_id_pagador "+
-                            "where cli.cliente_dni = @dniPagador " +
+                            "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id "+                            
+                            "where ve.venta_id_pagador = @idPagador " +
                             "and vi.fecha_salida > @fechaSistema "+
                             "and ve.venta_estado = 0";
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@dniPagador", Convert.ToInt32(dniPagador));
+                    command.Parameters.AddWithValue("@idPagador", idPagador);
                     command.Parameters.AddWithValue("@fechaSistema", fechaSistema);
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -291,7 +290,8 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select paquete_id, paquete_venta_pnr, paquete_kg, paquete_monto, estado "+
                             "from mondongo.paquetes "+
-                            "where paquete_venta_pnr = @pnr";
+                            "where paquete_venta_pnr = @pnr "+
+                            "and estado = 0";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
@@ -460,7 +460,8 @@ namespace AerolineaFrba.Dao
                             "from mondongo.pasajes p "+
                             "inner join mondongo.clientes c on c.cliente_id = p.pasaje_pasajero_id "+
                             "inner join mondongo.butacas b on b.butaca_id = p.butaca_id "+
-                            "where p.pasaje_venta_pnr = @pnr";
+                            "where p.pasaje_venta_pnr = @pnr "+
+                            "and p.estado = 0";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);

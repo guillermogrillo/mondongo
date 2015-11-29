@@ -486,6 +486,43 @@ namespace AerolineaFrba.Dao
 
         }
 
+        public Boolean sumarKg(Model.PaqueteModel paquete)
+        {
+            Boolean modificado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update v "+
+                            "set v.cantidad_kg_disponibles = v.cantidad_kg_disponibles + @paqueteKg "+
+                            "from mondongo.viajes v "+
+                            "inner join mondongo.ventas ve on ve.venta_viaje_id = v.viaje_id "+
+                            "inner join mondongo.paquetes paq on paq.paquete_venta_pnr = ve.venta_pnr " +
+                            "where paq.paquete_id = @paqueteId";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@paqueteKg", paquete.paqueteKg);
+                    command.Parameters.AddWithValue("@paqueteId", paquete.paqueteId);
+                }
+
+                var cantidadModificada = command.ExecuteNonQuery();
+
+                modificado = Convert.ToBoolean(cantidadModificada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return modificado;
+        }
+
         public List<Model.PasajeModel> pasajesParaDevolucion(string matricula, DateTime fechaDesde, DateTime fechaHasta)
         {
             List<Model.PasajeModel> pasajes = new List<Model.PasajeModel>();

@@ -132,6 +132,12 @@
     <Compile Include="Devolucion\Devolucion.Designer.cs">
       <DependentUpon>Devolucion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Devolucion\SeleccionClienteDuplicado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\SeleccionClienteDuplicado.Designer.cs">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Generacion Viaje\BuscadorCiudades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -391,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Devolucion\Devolucion.resx">
       <DependentUpon>Devolucion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\SeleccionClienteDuplicado.resx">
+      <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\BuscadorCiudades.resx">
       <DependentUpon>BuscadorCiudades.cs</DependentUpon>

@@ -36,23 +36,21 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.tbDniPagador = new System.Windows.Forms.TextBox();
             this.lblDniPagador = new System.Windows.Forms.Label();
-            this.flpPasajeros = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpDevolucion = new System.Windows.Forms.FlowLayoutPanel();
             this.gbPasajeros = new System.Windows.Forms.GroupBox();
-            this.dgvPasajeros = new System.Windows.Forms.DataGridView();
             this.btnCancelarPasaje = new System.Windows.Forms.Button();
-            this.flpPaquetes = new System.Windows.Forms.FlowLayoutPanel();
+            this.dgvPasajeros = new System.Windows.Forms.DataGridView();
             this.gbPaquete = new System.Windows.Forms.GroupBox();
-            this.lblTextoCantidadKg = new System.Windows.Forms.Label();
-            this.lblCantKg = new System.Windows.Forms.Label();
-            this.btnCancelarPaquete = new System.Windows.Forms.Button();
-            this.lblTextoMonto = new System.Windows.Forms.Label();
             this.lblMonto = new System.Windows.Forms.Label();
+            this.lblTextoMonto = new System.Windows.Forms.Label();
+            this.btnCancelarPaquete = new System.Windows.Forms.Button();
+            this.lblCantKg = new System.Windows.Forms.Label();
+            this.lblTextoCantidadKg = new System.Windows.Forms.Label();
             this.gbVentas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
-            this.flpPasajeros.SuspendLayout();
+            this.flpDevolucion.SuspendLayout();
             this.gbPasajeros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasajeros)).BeginInit();
-            this.flpPaquetes.SuspendLayout();
             this.gbPaquete.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,14 +142,15 @@
             this.lblDniPagador.TabIndex = 0;
             this.lblDniPagador.Text = "Dni (Pagador)";
             // 
-            // flpPasajeros
+            // flpDevolucion
             // 
-            this.flpPasajeros.Controls.Add(this.gbPasajeros);
-            this.flpPasajeros.Location = new System.Drawing.Point(13, 270);
-            this.flpPasajeros.Name = "flpPasajeros";
-            this.flpPasajeros.Size = new System.Drawing.Size(572, 185);
-            this.flpPasajeros.TabIndex = 1;
-            this.flpPasajeros.VisibleChanged += new System.EventHandler(this.flpPasajeros_VisibleChanged);
+            this.flpDevolucion.Controls.Add(this.gbPasajeros);
+            this.flpDevolucion.Controls.Add(this.gbPaquete);
+            this.flpDevolucion.Location = new System.Drawing.Point(13, 270);
+            this.flpDevolucion.Name = "flpDevolucion";
+            this.flpDevolucion.Size = new System.Drawing.Size(572, 250);
+            this.flpDevolucion.TabIndex = 1;
+            this.flpDevolucion.VisibleChanged += new System.EventHandler(this.flpPasajeros_VisibleChanged);
             // 
             // gbPasajeros
             // 
@@ -163,6 +162,16 @@
             this.gbPasajeros.TabIndex = 0;
             this.gbPasajeros.TabStop = false;
             this.gbPasajeros.Text = "Pasajeros";
+            // 
+            // btnCancelarPasaje
+            // 
+            this.btnCancelarPasaje.Location = new System.Drawing.Point(231, 146);
+            this.btnCancelarPasaje.Name = "btnCancelarPasaje";
+            this.btnCancelarPasaje.Size = new System.Drawing.Size(100, 30);
+            this.btnCancelarPasaje.TabIndex = 5;
+            this.btnCancelarPasaje.Text = "Cancelar Pasaje";
+            this.btnCancelarPasaje.UseVisualStyleBackColor = true;
+            this.btnCancelarPasaje.Click += new System.EventHandler(this.btnCancelarPasaje_Click);
             // 
             // dgvPasajeros
             // 
@@ -176,25 +185,6 @@
             this.dgvPasajeros.TabIndex = 0;
             this.dgvPasajeros.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvPasajeros_CellMouseClick);
             // 
-            // btnCancelarPasaje
-            // 
-            this.btnCancelarPasaje.Location = new System.Drawing.Point(231, 146);
-            this.btnCancelarPasaje.Name = "btnCancelarPasaje";
-            this.btnCancelarPasaje.Size = new System.Drawing.Size(100, 30);
-            this.btnCancelarPasaje.TabIndex = 5;
-            this.btnCancelarPasaje.Text = "Cancelar Pasaje";
-            this.btnCancelarPasaje.UseVisualStyleBackColor = true;
-            this.btnCancelarPasaje.Click += new System.EventHandler(this.btnCancelarPasaje_Click);
-            // 
-            // flpPaquetes
-            // 
-            this.flpPaquetes.Controls.Add(this.gbPaquete);
-            this.flpPaquetes.Location = new System.Drawing.Point(12, 461);
-            this.flpPaquetes.Name = "flpPaquetes";
-            this.flpPaquetes.Size = new System.Drawing.Size(572, 62);
-            this.flpPaquetes.TabIndex = 2;
-            this.flpPaquetes.VisibleChanged += new System.EventHandler(this.flpPaquetes_VisibleChanged);
-            // 
             // gbPaquete
             // 
             this.gbPaquete.Controls.Add(this.lblMonto);
@@ -202,30 +192,30 @@
             this.gbPaquete.Controls.Add(this.btnCancelarPaquete);
             this.gbPaquete.Controls.Add(this.lblCantKg);
             this.gbPaquete.Controls.Add(this.lblTextoCantidadKg);
-            this.gbPaquete.Location = new System.Drawing.Point(3, 3);
+            this.gbPaquete.Location = new System.Drawing.Point(3, 191);
             this.gbPaquete.Name = "gbPaquete";
             this.gbPaquete.Size = new System.Drawing.Size(563, 49);
             this.gbPaquete.TabIndex = 0;
             this.gbPaquete.TabStop = false;
             this.gbPaquete.Text = "Encomiendas";
             // 
-            // lblTextoCantidadKg
+            // lblMonto
             // 
-            this.lblTextoCantidadKg.AutoSize = true;
-            this.lblTextoCantidadKg.Location = new System.Drawing.Point(88, 22);
-            this.lblTextoCantidadKg.Name = "lblTextoCantidadKg";
-            this.lblTextoCantidadKg.Size = new System.Drawing.Size(83, 13);
-            this.lblTextoCantidadKg.TabIndex = 0;
-            this.lblTextoCantidadKg.Text = "Cantidad de Kg.";
+            this.lblMonto.AutoSize = true;
+            this.lblMonto.Location = new System.Drawing.Point(303, 22);
+            this.lblMonto.Name = "lblMonto";
+            this.lblMonto.Size = new System.Drawing.Size(36, 13);
+            this.lblMonto.TabIndex = 8;
+            this.lblMonto.Text = "monto";
             // 
-            // lblCantKg
+            // lblTextoMonto
             // 
-            this.lblCantKg.AutoSize = true;
-            this.lblCantKg.Location = new System.Drawing.Point(177, 22);
-            this.lblCantKg.Name = "lblCantKg";
-            this.lblCantKg.Size = new System.Drawing.Size(52, 13);
-            this.lblCantKg.TabIndex = 1;
-            this.lblCantKg.Text = "lblCantKg";
+            this.lblTextoMonto.AutoSize = true;
+            this.lblTextoMonto.Location = new System.Drawing.Point(249, 22);
+            this.lblTextoMonto.Name = "lblTextoMonto";
+            this.lblTextoMonto.Size = new System.Drawing.Size(37, 13);
+            this.lblTextoMonto.TabIndex = 7;
+            this.lblTextoMonto.Text = "Monto";
             // 
             // btnCancelarPaquete
             // 
@@ -237,32 +227,31 @@
             this.btnCancelarPaquete.UseVisualStyleBackColor = true;
             this.btnCancelarPaquete.Click += new System.EventHandler(this.btnCancelarPaquete_Click);
             // 
-            // lblTextoMonto
+            // lblCantKg
             // 
-            this.lblTextoMonto.AutoSize = true;
-            this.lblTextoMonto.Location = new System.Drawing.Point(249, 22);
-            this.lblTextoMonto.Name = "lblTextoMonto";
-            this.lblTextoMonto.Size = new System.Drawing.Size(37, 13);
-            this.lblTextoMonto.TabIndex = 7;
-            this.lblTextoMonto.Text = "Monto";
+            this.lblCantKg.AutoSize = true;
+            this.lblCantKg.Location = new System.Drawing.Point(177, 22);
+            this.lblCantKg.Name = "lblCantKg";
+            this.lblCantKg.Size = new System.Drawing.Size(52, 13);
+            this.lblCantKg.TabIndex = 1;
+            this.lblCantKg.Text = "lblCantKg";
             // 
-            // lblMonto
+            // lblTextoCantidadKg
             // 
-            this.lblMonto.AutoSize = true;
-            this.lblMonto.Location = new System.Drawing.Point(303, 22);
-            this.lblMonto.Name = "lblMonto";
-            this.lblMonto.Size = new System.Drawing.Size(36, 13);
-            this.lblMonto.TabIndex = 8;
-            this.lblMonto.Text = "monto";
+            this.lblTextoCantidadKg.AutoSize = true;
+            this.lblTextoCantidadKg.Location = new System.Drawing.Point(88, 22);
+            this.lblTextoCantidadKg.Name = "lblTextoCantidadKg";
+            this.lblTextoCantidadKg.Size = new System.Drawing.Size(83, 13);
+            this.lblTextoCantidadKg.TabIndex = 0;
+            this.lblTextoCantidadKg.Text = "Cantidad de Kg.";
             // 
             // Devolucion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 535);
+            this.ClientSize = new System.Drawing.Size(597, 532);
             this.ControlBox = false;
-            this.Controls.Add(this.flpPaquetes);
-            this.Controls.Add(this.flpPasajeros);
+            this.Controls.Add(this.flpDevolucion);
             this.Controls.Add(this.gbVentas);
             this.Name = "Devolucion";
             this.Text = "Devolucion";
@@ -270,10 +259,9 @@
             this.gbVentas.ResumeLayout(false);
             this.gbVentas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).EndInit();
-            this.flpPasajeros.ResumeLayout(false);
+            this.flpDevolucion.ResumeLayout(false);
             this.gbPasajeros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasajeros)).EndInit();
-            this.flpPaquetes.ResumeLayout(false);
             this.gbPaquete.ResumeLayout(false);
             this.gbPaquete.PerformLayout();
             this.ResumeLayout(false);
@@ -290,11 +278,10 @@
         private System.Windows.Forms.Button btnCancelarVenta;
         private System.Windows.Forms.Button btnDetalle;
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.FlowLayoutPanel flpPasajeros;
+        private System.Windows.Forms.FlowLayoutPanel flpDevolucion;
         private System.Windows.Forms.GroupBox gbPasajeros;
         private System.Windows.Forms.DataGridView dgvPasajeros;
         private System.Windows.Forms.Button btnCancelarPasaje;
-        private System.Windows.Forms.FlowLayoutPanel flpPaquetes;
         private System.Windows.Forms.GroupBox gbPaquete;
         private System.Windows.Forms.Label lblTextoCantidadKg;
         private System.Windows.Forms.Label lblCantKg;

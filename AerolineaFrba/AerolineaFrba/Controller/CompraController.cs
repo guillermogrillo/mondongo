@@ -50,9 +50,9 @@ namespace AerolineaFrba.Controller
             return _compraDao.buscarVentas(viajeId);
         }
 
-        public List<Model.DevolucionVentaModel> buscarVentas(String dniPagador)
+        public List<Model.DevolucionVentaModel> buscarVentasParaDevolucion(int idPagador)
         {
-            return _compraDao.buscarVentas(dniPagador);
+            return _compraDao.buscarVentasParaDevolucion(idPagador);
         }
 
         public List<Model.PasajeModel> buscarPasajes(int pnr)
@@ -109,8 +109,7 @@ namespace AerolineaFrba.Controller
 
         public void registrarDevolucionDeEncomienda(int pnr, int paqueteId)
         {
-            _compraDao.registrarDevolucionDeEncomienda(paqueteId);
-            _compraDao.cargarDevolucionPaquete();
+            _compraDao.registrarDevolucionDeEncomienda(paqueteId);            
         }
 
         public void registrarDevolucionPasaje(int pnr,int pasajeId)

@@ -13,13 +13,10 @@ namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class AbmAeronaves : Form
     {
-        Controller.AeronaveController _controller;
-
-        private Boolean isBack;
+        Controller.AeronaveController _controller;        
 
         public AbmAeronaves()
-        {
-            isBack = true;
+        {            
             _controller = new Controller.AeronaveController();
             InitializeComponent();
         }
