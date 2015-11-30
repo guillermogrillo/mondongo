@@ -67,7 +67,7 @@ namespace AerolineaFrba.Controller
 
         public void registrarDevolucionDeCompra(int pnr)
         {
-            _compraDao.registrarDevolucionDeCompra(pnr);
+            
 
             List<Model.PasajeModel> pasajesDeEsaCompra = this.buscarPasajes(pnr);
 
@@ -86,6 +86,8 @@ namespace AerolineaFrba.Controller
 
             }
 
+            _compraDao.registrarDevolucionDeCompra(pnr);
+
         }
 
         public int cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo)
@@ -99,6 +101,7 @@ namespace AerolineaFrba.Controller
         {
             int codDevolucion = _compraDao.generarCodigoDevolucion();
             _compraDao.cargarDevolucionPaquete(ventaPnr, idPasaje, motivo, codDevolucion);
+            _compraDao.registrarDevolucionDeEncomienda(idPasaje);
             return codDevolucion;
         }
 

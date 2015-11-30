@@ -56,12 +56,13 @@ namespace AerolineaFrba.Dao
 		                    "inner join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen  "+
 		                    "inner join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino  "+
 		                    "inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio	 "+
-                            "where	r.id_ruta = @idRuta  "+		
+                            "where	r.id_ruta = @idRuta  "+
+                            "and v.estado = 0 " +
 		                    "and cantidad_kg_disponibles > @kg  "+
 		                    "and Convert(date, fecha_salida) = @fechaViaje  "+
 		                    "and Convert(date, fecha_salida) > @fechaSistema  "+
 		                    ") as  viajesDisp "+
-                            "where viajesDisp.cantPasillo + viajesDisp.cantVentanilla > @cantidadPax "+
+                            "where viajesDisp.cantPasillo + viajesDisp.cantVentanilla > @cantidadPax "+                            
                             "order by viajesDisp.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
@@ -436,31 +437,34 @@ namespace AerolineaFrba.Dao
             return modificado;
         }
 
-        public Boolean guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
-        {
-            Boolean guardado = false;
+        public int guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
+        {            
+            List<Model.ViajeRegistroLlegadaModel> viajes = null;
             SqlConnection myConnection = null;
+            int viajeId = 0;
             try
             {
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.viajes (viaje_ruta_id, aeronave_matricula, fecha_salida, fecha_llegada_estimada, cantidad_butacas_ventanilla_disponibles, cantidad_butacas_pasillo_disponibles, cantidad_kg_disponibles) "+
-                            "values (@rutaId, @aeronaveMatricula, @fechaSalida, @fechaLlegadaEstimada, @cantidadVentanilla, @cantidadPasillo, @cantidadKg)";
+                var query = "insert into mondongo.viajes (viaje_ruta_id, aeronave_matricula, fecha_salida, fecha_llegada_estimada, cantidad_kg_disponibles) "+
+                            "values (@rutaId, @aeronaveMatricula, @fechaSalida, @fechaLlegadaEstimada, @cantidadKg)";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@rutaId", ruta.idRuta);
                     command.Parameters.AddWithValue("@aeronaveMatricula", viaje.aeronaveMatricula);
                     command.Parameters.AddWithValue("@fechaSalida", viaje.fechaHoraSalida);
                     command.Parameters.AddWithValue("@fechaLlegadaEstimada", viaje.fechaHoraLlegadaEstimada);
-                    command.Parameters.AddWithValue("@cantidadVentanilla", aeronave.cantButacasVen);
-                    command.Parameters.AddWithValue("@cantidadPasillo", aeronave.cantButacasPas);
                     command.Parameters.AddWithValue("@cantidadKg", aeronave.capacidadKg);
                 }
 
-                var cantidadModificada = command.ExecuteNonQuery();
-
-                guardado = Convert.ToBoolean(cantidadModificada);
+                var cantidad = command.ExecuteNonQuery();
+                
+                if (cantidad > 0)
+                {
+                    viajes = buscarViajes(ruta.idRuta, viaje.aeronaveMatricula, viaje.fechaHoraSalida);
+                    viajeId = viajes[0].viajeId;
+                }
 
             }
             catch (Exception ex)
@@ -471,7 +475,7 @@ namespace AerolineaFrba.Dao
             {
                 myConnection.Close();
             }
-            return guardado;
+            return viajeId;
 
         }
 
