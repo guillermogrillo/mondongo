@@ -19,12 +19,12 @@ namespace AerolineaFrba.Controller
             return viajeDao.buscarViajes(idRuta, fechaViaje, cantidadPax, kg);
         }
 
-        public List<Model.ViajeModel> buscarViajes(int idRuta, String matricula, DateTime fechaSalida)
+        public List<Model.ViajeRegistroLlegadaModel> buscarViajes(int idRuta, String matricula, DateTime fechaSalida)
         {
             return viajeDao.buscarViajes(idRuta, matricula, fechaSalida);
         }
 
-        public Boolean actualizarViaje(Model.ViajeModel viaje)
+        public Boolean actualizarViaje(Model.ViajeRegistroLlegadaModel viaje)
         {
             return viajeDao.actualizarViaje(viaje);
         }
@@ -42,6 +42,11 @@ namespace AerolineaFrba.Controller
         public Boolean descontarKg(int viajeId, int kg)
         {
             return viajeDao.descontarKg(viajeId, kg);
+        }
+
+        public Boolean sumarKg(Model.PaqueteModel paquete)
+        {
+            return viajeDao.sumarKg(paquete);
         }
 
         public Boolean guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)

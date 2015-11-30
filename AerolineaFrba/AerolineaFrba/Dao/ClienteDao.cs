@@ -12,6 +12,7 @@ namespace AerolineaFrba.Dao
     class ClienteDao
     {
         String stringConexion = System.Configuration.ConfigurationManager.AppSettings.Get("stringConexion");
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
   
         public List<Model.ClienteModel> buscarClientes(String dni)
         {
@@ -208,5 +209,55 @@ namespace AerolineaFrba.Dao
             return idPagador;
         }
 
+
+        public bool clienteTieneOtrosVuelos(int clienteDni, String clienteNombre, String clienteApellido, DateTime fechaSalidaPasaje, DateTime fechaLlegadaEstimadaPasaje)
+        {
+            Boolean tieneOtrosVuelos = false;
+            int cantidadViajes = 0;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select count(*) as cantidad " +
+                        "from mondongo.pasajes pas " +
+                        "inner join mondongo.ventas ve on ve.venta_pnr = pas.pasaje_venta_pnr " +
+                        "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id " +
+                        "inner join mondongo.clientes cli on cli.cliente_id = pas.pasaje_pasajero_id " +
+                        "where cli.cliente_dni = @clienteDni and cli.cliente_nombre = @clienteNombre and cli.cliente_apellido = @clienteApellido " +
+                        "and ( " +
+                        "(vi.fecha_salida between @fechaSalidaPasaje and @fechaLlegadaEstimadaPasaje) " +
+                        "or (vi.fecha_llegada_estimada between @fechaSalidaPasaje and @fechaLlegadaEstimadaPasaje) " +
+                        ")";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@clienteDni", clienteDni);
+                    command.Parameters.AddWithValue("@clienteNombre", clienteNombre);
+                    command.Parameters.AddWithValue("@clienteApellido", clienteApellido);
+                    command.Parameters.AddWithValue("@fechaSalidaPasaje", fechaSalidaPasaje);
+                    command.Parameters.AddWithValue("@fechaLlegadaEstimadaPasaje", fechaLlegadaEstimadaPasaje);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cantidadViajes = reader.GetInt32(0);                        
+                    }
+                }
+
+                tieneOtrosVuelos = Convert.ToBoolean(cantidadViajes);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }            
+
+            return tieneOtrosVuelos;
+        }
     }
 }

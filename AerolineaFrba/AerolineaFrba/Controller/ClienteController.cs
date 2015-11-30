@@ -41,5 +41,10 @@ namespace AerolineaFrba.Controller
             }
             return pagadores;
         }
+
+        public bool clienteTieneOtrosVuelos(int clienteDni, String clienteNombre, String clienteApellido, DateTime fechaSalidaPasaje, DateTime fechaLlegadaEstimadaPasaje)
+        {
+            return clienteDao.clienteTieneOtrosVuelos(clienteDni, clienteNombre, clienteApellido, fechaSalidaPasaje, fechaLlegadaEstimadaPasaje);
+        }
     }
 }

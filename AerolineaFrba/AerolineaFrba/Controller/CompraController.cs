@@ -50,6 +50,11 @@ namespace AerolineaFrba.Controller
             return _compraDao.buscarVentas(viajeId);
         }
 
+        public List<Model.DevolucionVentaModel> buscarVentasParaDevolucion(int idPagador)
+        {
+            return _compraDao.buscarVentasParaDevolucion(idPagador);
+        }
+
         public List<Model.PasajeModel> buscarPasajes(int pnr)
         {
             return _compraDao.buscarPasajes(pnr);
@@ -58,6 +63,29 @@ namespace AerolineaFrba.Controller
         public Model.PaqueteModel buscarPaquetes(int pnr)
         {
             return _compraDao.buscarPaquetes(pnr);
+        }
+
+        public void registrarDevolucionDeCompra(int pnr)
+        {
+            _compraDao.registrarDevolucionDeCompra(pnr);
+
+            List<Model.PasajeModel> pasajesDeEsaCompra = this.buscarPasajes(pnr);
+
+            foreach (Model.PasajeModel pasaje in pasajesDeEsaCompra)
+            {
+
+                this.cargarDevolucionPasaje(pnr, pasaje.pasajeId, "Devolución de pasaje por pedido del Cliente");
+
+            }
+
+            Model.PaqueteModel paqueteDeLaCompra = this.buscarPaquetes(pnr);
+
+            if(paqueteDeLaCompra != null){
+
+                this.cargarDevolucionPaquete(pnr, paqueteDeLaCompra.paqueteId, "Devolución de paquete por pedido del Cliente");
+
+            }
+
         }
 
         public int cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo)
@@ -72,6 +100,21 @@ namespace AerolineaFrba.Controller
             int codDevolucion = _compraDao.generarCodigoDevolucion();
             _compraDao.cargarDevolucionPaquete(ventaPnr, idPasaje, motivo, codDevolucion);
             return codDevolucion;
+        }
+
+        public List<Model.DevolucionPasajeModel> buscarPasajesDevolucion(int pnr)
+        {
+            return _compraDao.buscarPasajesDevolucion(pnr);
+        }
+
+        public void registrarDevolucionDeEncomienda(int pnr, int paqueteId)
+        {
+            _compraDao.registrarDevolucionDeEncomienda(paqueteId);            
+        }
+
+        public void registrarDevolucionPasaje(int pnr,int pasajeId)
+        {
+            _compraDao.registrarDevolucionPasaje(pasajeId);
         }
     }
 }

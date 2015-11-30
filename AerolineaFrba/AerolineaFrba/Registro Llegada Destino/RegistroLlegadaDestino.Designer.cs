@@ -164,12 +164,13 @@
             this.lblFechaLlegada.AutoSize = true;
             this.lblFechaLlegada.Location = new System.Drawing.Point(71, 315);
             this.lblFechaLlegada.Name = "lblFechaLlegada";
-            this.lblFechaLlegada.Size = new System.Drawing.Size(89, 13);
+            this.lblFechaLlegada.Size = new System.Drawing.Size(82, 13);
             this.lblFechaLlegada.TabIndex = 9;
-            this.lblFechaLlegada.Text = "Fecha de llegada";
+            this.lblFechaLlegada.Text = "Hora de llegada";
             // 
             // dpFechaLlegada
             // 
+            this.dpFechaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dpFechaLlegada.Location = new System.Drawing.Point(162, 311);
             this.dpFechaLlegada.Name = "dpFechaLlegada";
             this.dpFechaLlegada.Size = new System.Drawing.Size(194, 20);

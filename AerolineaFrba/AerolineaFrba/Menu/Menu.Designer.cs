@@ -160,6 +160,7 @@
             this.btnCancelarPasajes.Text = "Cancelar Pasaje/Encomienda";
             this.btnCancelarPasajes.UseVisualStyleBackColor = true;
             this.btnCancelarPasajes.Visible = false;
+            this.btnCancelarPasajes.Click += new System.EventHandler(this.btnCancelarPasajes_Click);
             // 
             // btnComprarPasajes
             // 

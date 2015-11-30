@@ -27,7 +27,7 @@ namespace AerolineaFrba.Dao
                             "from mondongo.historial_millas hm "+
                             "inner join mondongo.clientes c on hm.id_cliente = c.cliente_id "+
                             "where c.cliente_id = @clienteId " +
-                            "and DATEDIFF(DAY,fecha_operacion, @fechaSistema) < 365 and DATEDIFF(DAY,fecha_operacion, @fechaSistema) > 0";
+                            "and DATEDIFF(DAY,fecha_operacion, @fechaSistema) <= 365 and DATEDIFF(DAY,fecha_operacion, @fechaSistema) >= 0";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@clienteId", clienteId);

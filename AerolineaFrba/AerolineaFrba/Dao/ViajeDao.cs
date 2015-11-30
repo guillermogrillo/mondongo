@@ -164,10 +164,10 @@ namespace AerolineaFrba.Dao
             }
         }
 
-        public List<Model.ViajeModel> buscarViajes(int idRuta, String matricula, DateTime fechaSalidaFiltro)
+        public List<Model.ViajeRegistroLlegadaModel> buscarViajes(int idRuta, String matricula, DateTime fechaSalidaFiltro)
         {
-            List<Model.ViajeModel> viajes = new List<Model.ViajeModel>();
-            Model.ViajeModel viaje = null;
+            List<Model.ViajeRegistroLlegadaModel> viajes = new List<Model.ViajeRegistroLlegadaModel>();
+            Model.ViajeRegistroLlegadaModel viaje = null;
             SqlConnection myConnection = null;
 
             string fechaSalidaFormateado = fechaSalidaFiltro.ToString("dd/MM/yyyy");
@@ -176,13 +176,9 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada_estimada, c1.nombre, c2.nombre, " +
-                            "ts.tipo_servicio,v.aeronave_matricula, v.cantidad_butacas_pasillo_disponibles as cantidad_butacas_pasillo, v.cantidad_butacas_ventanilla_disponibles as cantidad_butacas_ventanilla, " +
-                            "v.cantidad_kg_disponibles " +
+                var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada_estimada " +                           
                             "from	mondongo.viajes v " +
                             "join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id " +
-                            "join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen " +
-                            "join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino " +
                             "join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio " +
                             "where	r.id_ruta = @idRuta " +
                             "and v.aeronave_matricula = @matricula "+
@@ -203,15 +199,8 @@ namespace AerolineaFrba.Dao
                         var idViaje = (int)(double)reader.GetDecimal(0);
                         var fechaSalida = reader.GetDateTime(1);                        
                         var fechaLlegadaEstimada = reader.GetDateTime(2);
-                        var ciudadOrigen = reader.GetString(3);
-                        var ciudadDestino = reader.GetString(4);
-                        var tipoServicio = reader.GetString(5);
-                        var aeronaveMatricula = reader.GetString(6);
-                        var cantidadButacasPasillo = (int)(double)reader.GetDecimal(7);
-                        var cantidadButacasVentanilla = (int)(double)reader.GetDecimal(8);
-                        var cantidadKgDisponibles = (int)(double)reader.GetDecimal(9);
 
-                        viaje = new Model.ViajeModel(idViaje, fechaSalida, fechaLlegadaEstimada, ciudadOrigen, ciudadDestino, tipoServicio, aeronaveMatricula, cantidadButacasPasillo, cantidadButacasVentanilla, cantidadKgDisponibles);
+                        viaje = new Model.ViajeRegistroLlegadaModel(idViaje, fechaSalida, fechaLlegadaEstimada);
                         viajes.Add(viaje);
                     }
                 }
@@ -229,7 +218,7 @@ namespace AerolineaFrba.Dao
         }
 
 
-        public Boolean actualizarViaje(Model.ViajeModel viaje)
+        public Boolean actualizarViaje(Model.ViajeRegistroLlegadaModel viaje)
         {
             Boolean modificado = false;
             SqlConnection myConnection = null;
@@ -243,8 +232,8 @@ namespace AerolineaFrba.Dao
                             "WHERE viaje_id = @idViaje";
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@fechaLlegada", viaje.fechaHoraLlegada);
-                    command.Parameters.AddWithValue("@idViaje", viaje.idViaje);
+                    command.Parameters.AddWithValue("@fechaLlegada", viaje.fechaLlegada);
+                    command.Parameters.AddWithValue("@idViaje", viaje.viajeId);
                 }
 
                 var cantidadModificada = command.ExecuteNonQuery();
@@ -484,6 +473,43 @@ namespace AerolineaFrba.Dao
             }
             return guardado;
 
+        }
+
+        public Boolean sumarKg(Model.PaqueteModel paquete)
+        {
+            Boolean modificado = false;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update v "+
+                            "set v.cantidad_kg_disponibles = v.cantidad_kg_disponibles + @paqueteKg "+
+                            "from mondongo.viajes v "+
+                            "inner join mondongo.ventas ve on ve.venta_viaje_id = v.viaje_id "+
+                            "inner join mondongo.paquetes paq on paq.paquete_venta_pnr = ve.venta_pnr " +
+                            "where paq.paquete_id = @paqueteId";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@paqueteKg", paquete.paqueteKg);
+                    command.Parameters.AddWithValue("@paqueteId", paquete.paqueteId);
+                }
+
+                var cantidadModificada = command.ExecuteNonQuery();
+
+                modificado = Convert.ToBoolean(cantidadModificada);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return modificado;
         }
 
         public List<Model.PasajeModel> pasajesParaDevolucion(string matricula, DateTime fechaDesde, DateTime fechaHasta)

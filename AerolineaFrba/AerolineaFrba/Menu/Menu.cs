@@ -90,6 +90,12 @@ namespace AerolineaFrba.Menu
         {
             this.Close();
             new Canje_Millas.CanjeMillas().Show();
+        }
+
+        private void btnCancelarPasajes_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new Devolucion.Devolucion().Show();
         }       
     }
 }

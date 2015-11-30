@@ -20,8 +20,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         Controller.CompraController compraController = null;
         public Model.CiudadModel ciudadOrigen = null;
         public Model.CiudadModel ciudadDestino = null;
-        public List<Model.ViajeModel> vuelosEncontrados = null;
-        Model.ViajeModel vueloSeleccionado = null;
+        public List<Model.ViajeRegistroLlegadaModel> vuelosEncontrados = null;
+        Model.ViajeRegistroLlegadaModel vueloSeleccionado = null;
         Model.TipoServicioModel tipoServicioSeleccionado = null;
         DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
@@ -89,26 +89,16 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                     dgvViajes.Columns[0].HeaderText = "Id. de Viaje";
                     dgvViajes.Columns[0].ReadOnly = true;
                     dgvViajes.Columns[0].Width = 75;
+                   
+                    dgvViajes.Columns[1].HeaderText = "Fecha Salida";
+                    dgvViajes.Columns[1].ReadOnly = true;
+                    dgvViajes.Columns[1].Width = 135;
 
-                    dgvViajes.Columns[1].Visible = false;
-                    
-                    dgvViajes.Columns[2].Visible = false;
+                    dgvViajes.Columns[2].HeaderText = "Fecha Llegada Estimada";
+                    dgvViajes.Columns[2].ReadOnly = true;
+                    dgvViajes.Columns[2].Width = 135;
+
                     dgvViajes.Columns[3].Visible = false;
-                    dgvViajes.Columns[4].Visible = false;
-                    dgvViajes.Columns[5].Visible = false;
-                    dgvViajes.Columns[6].Visible = false;
-                    dgvViajes.Columns[7].Visible = false;
-                    dgvViajes.Columns[8].Visible = false;
-
-                    dgvViajes.Columns[9].HeaderText = "Fecha Salida";
-                    dgvViajes.Columns[9].ReadOnly = true;
-                    dgvViajes.Columns[9].Width = 135;
-
-                    dgvViajes.Columns[10].HeaderText = "Fecha Llegada Estimada";
-                    dgvViajes.Columns[10].ReadOnly = true;
-                    dgvViajes.Columns[10].Width = 135;
-
-                    dgvViajes.Columns[11].Visible = false;
 
                 }
                 else
@@ -129,9 +119,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             btnRegistrar.Enabled = false;
             dpFechaSalida.Format = DateTimePickerFormat.Custom;
             dpFechaSalida.CustomFormat = "dd'/'MM'/'yyyy";
-
-            dpFechaLlegada.Format = DateTimePickerFormat.Custom;
-            dpFechaLlegada.CustomFormat = "dd'/'MM'/'yyyy hh':'mm':'ss";
+            
             cbTipoServicio.DataSource = tipoServicioController.buscarTiposServicio();
             cbTipoServicio.DisplayMember = "tipoServicio";
             cbTipoServicio.SelectedIndex = 0;
@@ -139,17 +127,18 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         private void dgvViajes_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            vueloSeleccionado = (Model.ViajeModel)dgvViajes.CurrentRow.DataBoundItem;            
+            vueloSeleccionado = (Model.ViajeRegistroLlegadaModel)dgvViajes.CurrentRow.DataBoundItem;            
             btnRegistrar.Enabled = true;
             dpFechaLlegada.Enabled = true;
-            dpFechaLlegada.Value = vueloSeleccionado.fechaHoraLlegadaEstimada;
+            dpFechaLlegada.Value = vueloSeleccionado.fechaLlegadaEstimada;
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
 
-            DateTime fechaLlegada = dpFechaLlegada.Value;
-            if (fechaLlegada < vueloSeleccionado.fechaHoraSalida)
+            DateTime fechaLlegada = fechaSistema.Date.Add(dpFechaLlegada.Value.TimeOfDay);
+          
+            if (fechaLlegada < vueloSeleccionado.fechaSalida)
             {
                 MessageBox.Show("La fecha y hora de llegada no puede ser previa a la de salida");
             }
@@ -162,10 +151,10 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 else
                 {
                     var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");
-                    vueloSeleccionado.fechaHoraLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
+                    vueloSeleccionado.fechaLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
                     Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
 
-                    List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.idViaje);
+                    List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.viajeId);
 
                     foreach (Model.VentaModel venta in ventasDelViaje)
                     {

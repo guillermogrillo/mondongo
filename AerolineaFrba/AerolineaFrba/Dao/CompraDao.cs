@@ -145,6 +145,52 @@ namespace AerolineaFrba.Dao
             }
         }
 
+        public List<Model.DevolucionVentaModel> buscarVentasParaDevolucion(int idPagador)
+        {
+            List<Model.DevolucionVentaModel> ventas = new List<Model.DevolucionVentaModel>();
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select ve.venta_pnr,ve.venta_fecha_compra,vi.fecha_salida,tp.descripcion "+
+                            "from mondongo.ventas ve "+
+                            "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
+                            "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id "+                            
+                            "where ve.venta_id_pagador = @idPagador " +
+                            "and vi.fecha_salida > @fechaSistema "+
+                            "and ve.venta_estado = 0 "+
+                            "order by vi.fecha_salida asc";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@idPagador", idPagador);
+                    command.Parameters.AddWithValue("@fechaSistema", fechaSistema);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var ventaPnr = (int)(double)reader.GetDecimal(0);
+                        var ventaFechaCompra = reader.GetDateTime(1);
+                        var viajeFechaSalida = reader.GetDateTime(2);
+                        var formaDePago = reader.GetString(3);
+
+                        ventas.Add(new Model.DevolucionVentaModel(ventaPnr, ventaFechaCompra, viajeFechaSalida, formaDePago));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+
+            return ventas;
+        }
 
         public List<Model.VentaModel> buscarVentas(int viajeId)
         {
@@ -198,9 +244,10 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select pasaje_id, pasaje_venta_pnr, pasaje_pasajero_id, pasaje_monto, pasaje_butaca_tipo, pasaje_butaca_numero, estado "+
-                            "from mondongo.pasajes "+
-                            "where pasaje_venta_pnr = @pnr";
+                var query = "select p.pasaje_id, p.pasaje_venta_pnr, p.pasaje_pasajero_id, p.pasaje_monto, b.butaca_tipo, b.butaca_nro, p.estado "+
+                            "from mondongo.pasajes p "+
+                            "inner join mondongo.butacas b on p.butaca_id = b.butaca_id "+
+                            "where p.pasaje_venta_pnr = @pnr";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
@@ -244,7 +291,8 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select paquete_id, paquete_venta_pnr, paquete_kg, paquete_monto, estado "+
                             "from mondongo.paquetes "+
-                            "where paquete_venta_pnr = @pnr";
+                            "where paquete_venta_pnr = @pnr "+
+                            "and estado = 0";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
@@ -306,8 +354,7 @@ namespace AerolineaFrba.Dao
         }
 
         public void cargarDevolucionPaquete(int ventaPnr, int idPaquete, String motivo, int codDevolucion)
-        {
-            Model.PaqueteModel paquete = null;
+        {            
             SqlConnection myConnection = null;
             try
             {
@@ -369,6 +416,139 @@ namespace AerolineaFrba.Dao
             }
 
             return 1;
+        }
+
+
+        public void registrarDevolucionDeCompra(int pnr)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update MONDONGO.ventas "+
+	                        "set venta_estado = 1 "+
+	                        "where venta_pnr = @ventaPnr";
+
+                using (command = new SqlCommand(query, myConnection))
+                {                    
+                    command.Parameters.AddWithValue("@ventaPnr", pnr);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        public List<Model.DevolucionPasajeModel> buscarPasajesDevolucion(int pnr)
+        {
+            List<Model.DevolucionPasajeModel> pasajesDevolucion = new List<Model.DevolucionPasajeModel>();
+
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select p.pasaje_id, c.cliente_nombre, c.cliente_apellido, c.cliente_dni, b.butaca_nro, b.butaca_tipo "+
+                            "from mondongo.pasajes p "+
+                            "inner join mondongo.clientes c on c.cliente_id = p.pasaje_pasajero_id "+
+                            "inner join mondongo.butacas b on b.butaca_id = p.butaca_id "+
+                            "where p.pasaje_venta_pnr = @pnr "+
+                            "and p.estado = 0";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@pnr", pnr);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = (int)(double)reader.GetDecimal(0);
+                        var nombre = reader.GetString(1);
+                        var apellido = reader.GetString(2);
+                        var dni = (int)(double)reader.GetDecimal(3);
+                        var butacaNro = (int)(double)reader.GetDecimal(4);
+                        var butacaTipo = reader.GetString(5);                        
+                        pasajesDevolucion.Add(new Model.DevolucionPasajeModel(id,nombre,apellido,dni,butacaNro,butacaTipo));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+
+            return pasajesDevolucion;
+        }
+
+
+
+        public void registrarDevolucionDeEncomienda(int paqueteId)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update MONDONGO.paquetes " +
+                            "set estado = 1 " +
+                            "where paquete_id = @paqueteId";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@paqueteId", paqueteId);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        public void registrarDevolucionPasaje(int pasajeId)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "update MONDONGO.pasajes " +
+                            "set estado = 1 " +
+                            "where pasaje_id = @pasajeId";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@pasajeId", pasajeId);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
         }
     }
 }
