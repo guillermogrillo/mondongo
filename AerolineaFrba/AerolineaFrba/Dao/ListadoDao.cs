@@ -111,8 +111,48 @@ namespace AerolineaFrba.Dao
         public List<Model.ListadoDestinoModel> listarDestinosConMasPasajesCancelados(int año, int semestre)
         {
             List<Model.ListadoDestinoModel> destinos = new List<Model.ListadoDestinoModel>();
-            
-            return destinos;
+            Model.ListadoDestinoModel destino = null;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select top 5 c.nombre , count(c.nombre) as cantidad " +
+                        "from mondongo.devoluciones d " +
+                        "inner join mondongo.ventas ve on ve.venta_pnr = d.venta_pnr " +
+                        "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id " +
+                        "inner join mondongo.rutas r on r.id_ruta = vi.viaje_ruta_id " +
+                        "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino " +
+                        "group by c.nombre, case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end, year(vi.fecha_salida) " +
+                        "having (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) = @semestre  " +
+                        "and year(vi.fecha_salida) = @año  " +
+                        "order by cantidad desc ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@año", año);
+                    command.Parameters.AddWithValue("@semestre", semestre);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var destinoNombre = reader.GetString(0);
+                        var destinoCantidad = reader.GetInt32(1);
+                        destino = new Model.ListadoDestinoModel(destinoNombre, destinoCantidad);
+                        destinos.Add(destino);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return destinos;                       
         }
 
 
@@ -178,6 +218,44 @@ namespace AerolineaFrba.Dao
         public List<Model.AeronaveModel> listarAeronaves(int año, int semestre)
         {
             List<Model.AeronaveModel> aeronaves = new List<Model.AeronaveModel>();
+            
+            Model.AeronaveModel aeronave = null;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select top 5	aeronave_matricula, "+
+                            "sum(datediff(DAY,fecha_reinicio_servicio,fecha_fuera_servicio)) as cantidad_dias " +
+	                        "from			MONDONGO.aeronaves_bajas "+
+	                        "group by		aeronave_matricula "+
+	                        "order by		cantidad_dias desc";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@año", año);
+                    command.Parameters.AddWithValue("@semestre", semestre);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var destinoNombre = reader.GetString(0);
+                        var destinoCantidad = reader.GetInt32(1);
+                        aeronave = new Model.AeronaveModel();
+                        aeronaves.Add(aeronave);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            
 
             return aeronaves;
         }

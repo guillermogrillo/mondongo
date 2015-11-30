@@ -131,8 +131,16 @@ namespace AerolineaFrba.Devolucion
             if (pregunta == DialogResult.Yes)
             {
                 compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
-                dgvVentas.DataSource = null;
-                tbDniPagador.Text = "";
+
+                List<Model.DevolucionVentaModel> comprasRealizadas = compraController.buscarVentasParaDevolucion(cliente.clienteId);
+
+                if (comprasRealizadas.Count > 0)
+                {
+                    dgvVentas.DataSource = comprasRealizadas;
+                    dgvVentas.AutoGenerateColumns = true;
+                    dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    armarGrillaVentas();
+                }
                     
             }            
         }
