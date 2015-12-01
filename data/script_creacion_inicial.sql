@@ -702,7 +702,8 @@ create table MONDONGO.aeronaves_bajas(
 	fecha_proceso date not null DEFAULT (getdate()),
 	fecha_fuera_servicio date,
 	fecha_reinicio_servicio date,
-	fecha_baja_definitiva date
+	fecha_baja_definitiva date,
+	tipo_baja nvarchar(255)
 )
 GO
 create table mondongo.viajes(
