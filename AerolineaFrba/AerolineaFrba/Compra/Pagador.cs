@@ -35,15 +35,17 @@ namespace AerolineaFrba.Compra
             gbDatosPersonales.Enabled = false;
             gbDatosTarjeta.Enabled = false;
             btnSiguiente.Enabled = false;
-            if(Controller.Utils.GetInstance.isAdmin())
-                cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModel));
-            else
-                cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModelCliente));
             cbTarjetas.Enabled = false;
             cbCuotas.Enabled = false;
             tbNumeroTarjeta.Enabled = false;
             tbVencimiento.Enabled = false;
             tbCodSeguridad.Enabled = false;
+
+            if(Controller.Utils.GetInstance.isAdmin())
+                cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModel));
+            else
+                cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModelCliente));
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -243,21 +245,21 @@ namespace AerolineaFrba.Compra
 
         private Boolean validarNumeroTarjeta()
         {
-            Boolean bDireccion = true;
+            Boolean bNroTarjeta = true;
             var formaDePago = (Model.TipoPagoModel)cbTipoPago.SelectedValue;
             if (formaDePago.Equals(Model.TipoPagoModel.Tarjeta))
             {
-                if (string.IsNullOrWhiteSpace(tbDireccion.Text))
+                if (string.IsNullOrWhiteSpace(tbNumeroTarjeta.Text))
                 {
-                    epDireccion.SetError(tbDireccion, "Campo Obligatorio");
-                    bDireccion = false;
+                    epNroTarjeta.SetError(tbNumeroTarjeta, "Campo Obligatorio");
+                    bNroTarjeta = false;
                 }
                 else
                 {
-                    epDireccion.SetError(tbDireccion, "");
+                    epNroTarjeta.SetError(tbNumeroTarjeta, "");
                 }
             }
-            return bDireccion;
+            return bNroTarjeta;
         }
 
         private Boolean validarVencimiento()
@@ -393,7 +395,7 @@ namespace AerolineaFrba.Compra
 
         private void cbTipoPago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Boolean esTarjeta = cbTipoPago.SelectedItem.Equals(Model.TipoPagoModel.Tarjeta);            
+            Boolean esTarjeta = cbTipoPago.SelectedItem.Equals(Model.TipoPagoModel.Tarjeta) || cbTipoPago.SelectedItem.Equals(Model.TipoPagoModelCliente.Tarjeta);            
             cbTarjetas.Enabled = esTarjeta;
             cbCuotas.Enabled = esTarjeta;
             tbCodSeguridad.Enabled = esTarjeta;
