@@ -337,7 +337,7 @@ namespace AerolineaFrba.Dao
                 {
                     command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
                     command.Parameters.AddWithValue("@ventaPnr", ventaPnr);
-                    command.Parameters.AddWithValue("@fechaDevolucion", DateTime.Now);
+                    command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
                     command.Parameters.AddWithValue("@idPasaje", idPasaje);
                     command.Parameters.AddWithValue("@motivo", motivo);
                 }
@@ -368,7 +368,7 @@ namespace AerolineaFrba.Dao
                 {
                     command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
                     command.Parameters.AddWithValue("@ventaPnr", ventaPnr);
-                    command.Parameters.AddWithValue("@fechaDevolucion", DateTime.Now);
+                    command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
                     command.Parameters.AddWithValue("@idPaquete", idPaquete);
                     command.Parameters.AddWithValue("@motivo", motivo);
                 }

@@ -10,12 +10,17 @@ namespace AerolineaFrba.Model
     {
         public TipoButaca tipo { get; set; }
         public int numero { get; set; }
-
+        public int id { get; set; }
 
         public ButacaModel(TipoButaca _tipo, int _numero)
         {
             tipo = _tipo;
             numero = _numero;            
+        }
+
+        public ButacaModel(int _id)
+        {
+            id = _id;
         }
 
     }

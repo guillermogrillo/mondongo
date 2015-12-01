@@ -19,6 +19,7 @@ namespace AerolineaFrba.Generacion_Viaje
         private Controller.TipoServicioController tipoServicioController = null;
         private Controller.AeronaveController aeronaveController = null;
         private Controller.ViajeController viajeController = null;
+        private Controller.ButacaController butacaController = null;
         private Model.RutaModel rutaEncontrada = null;
         private Model.AeronaveModel aeronaveSeleccionada = null;
         DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
@@ -39,6 +40,7 @@ namespace AerolineaFrba.Generacion_Viaje
             tipoServicioController = new Controller.TipoServicioController();
             aeronaveController = new Controller.AeronaveController();
             viajeController = new Controller.ViajeController();
+            butacaController = new Controller.ButacaController();
         }
 
 
@@ -151,7 +153,9 @@ namespace AerolineaFrba.Generacion_Viaje
                 MessageBox.Show("Las fechas de salida y de llegada estimada deben ser posteriores a la fecha de sistema.");
             }else{
                 Model.ViajeModel viaje = new Model.ViajeModel(rutaEncontrada.idRuta,aeronaveSeleccionada.matricula,fechaSalida, fechaLlegadaEstimada ,aeronaveSeleccionada.cantButacasPas,aeronaveSeleccionada.cantButacasVen,aeronaveSeleccionada.capacidadKg);                                   
-                viajeController.guardarViaje(viaje, rutaEncontrada, aeronaveSeleccionada);
+                int idViaje = viajeController.guardarViaje(viaje, rutaEncontrada, aeronaveSeleccionada);
+                List<Model.ButacaModel> butacas = butacaController.buscarButacas(aeronaveSeleccionada.matricula);
+                butacaController.guardarButacasViaje(idViaje, butacas);
                 this.Close();
                 new AerolineasFRBA().Show();
             }            

@@ -49,7 +49,7 @@ namespace AerolineaFrba.Controller
             return viajeDao.sumarKg(paquete);
         }
 
-        public Boolean guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
+        public int guardarViaje(Model.ViajeModel viaje, Model.RutaModel ruta, Model.AeronaveModel aeronave)
         {
             return viajeDao.guardarViaje(viaje,ruta,aeronave);
         }

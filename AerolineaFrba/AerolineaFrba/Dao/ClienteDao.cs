@@ -226,6 +226,7 @@ namespace AerolineaFrba.Dao
                         "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id " +
                         "inner join mondongo.clientes cli on cli.cliente_id = pas.pasaje_pasajero_id " +
                         "where cli.cliente_dni = @clienteDni and cli.cliente_nombre = @clienteNombre and cli.cliente_apellido = @clienteApellido " +
+                        "and pas.estado = 0 "+
                         "and ( " +
                         "(vi.fecha_salida between @fechaSalidaPasaje and @fechaLlegadaEstimadaPasaje) " +
                         "or (vi.fecha_llegada_estimada between @fechaSalidaPasaje and @fechaLlegadaEstimadaPasaje) " +

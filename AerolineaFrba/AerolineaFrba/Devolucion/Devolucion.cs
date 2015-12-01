@@ -131,15 +131,26 @@ namespace AerolineaFrba.Devolucion
             if (pregunta == DialogResult.Yes)
             {
                 compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
-
+                if (paqueteDeLaVenta != null)
+                {
+                    viajeController.sumarKg(paqueteDeLaVenta);
+                }                
                 List<Model.DevolucionVentaModel> comprasRealizadas = compraController.buscarVentasParaDevolucion(cliente.clienteId);
-
+                gbPasajeros.Visible = false;
+                gbPaquete.Visible = false;
+                btnCancelarVenta.Enabled = false;
+                btnDetalle.Enabled = false;
                 if (comprasRealizadas.Count > 0)
                 {
                     dgvVentas.DataSource = comprasRealizadas;
                     dgvVentas.AutoGenerateColumns = true;
                     dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     armarGrillaVentas();
+                }
+                else
+                {
+                    dgvVentas.DataSource = null;
+                    tbDniPagador.Text = "";
                 }
                     
             }            
@@ -212,7 +223,9 @@ namespace AerolineaFrba.Devolucion
 
         private void dgvVentas_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            devolucionVentaSeleccionada = (Model.DevolucionVentaModel)dgvVentas.CurrentRow.DataBoundItem;
+            gbPasajeros.Visible = false;
+            gbPaquete.Visible = false;
+            devolucionVentaSeleccionada = (Model.DevolucionVentaModel)dgvVentas.CurrentRow.DataBoundItem;            
             btnDetalle.Enabled = true;
             btnCancelarVenta.Enabled = true;
         }
@@ -248,6 +261,8 @@ namespace AerolineaFrba.Devolucion
                         compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
                         dgvVentas.DataSource = null;
                         gbPasajeros.Visible = false;
+                        btnDetalle.Enabled = false;
+                        btnCancelarVenta.Enabled = false;
                         tbDniPagador.Text = "";
                     }
 
@@ -287,6 +302,8 @@ namespace AerolineaFrba.Devolucion
                         compraController.registrarDevolucionDeCompra(devolucionVentaSeleccionada.pnr);
                         dgvVentas.DataSource = null;
                         tbDniPagador.Text = "";
+                        btnDetalle.Enabled = false;
+                        btnCancelarVenta.Enabled = false;
                     }
                 }
                 else

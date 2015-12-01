@@ -117,12 +117,14 @@
     <Compile Include="Consulta Millas\SeleccionClienteDuplicado.Designer.cs">
       <DependentUpon>SeleccionClienteDuplicado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controller\ButacaController.cs" />
     <Compile Include="Controller\ListadoController.cs" />
     <Compile Include="Controller\MillasController.cs" />
     <Compile Include="Controller\ProductosController.cs" />
     <Compile Include="Controller\TarjetaCreditoController.cs" />
     <Compile Include="Controller\TipoServicioController.cs" />
     <Compile Include="Controller\Utils.cs" />
+    <Compile Include="Dao\ButacaDao.cs" />
     <Compile Include="Dao\ListadoDao.cs" />
     <Compile Include="Dao\MillasDao.cs" />
     <Compile Include="Dao\ProductosDao.cs" />
