@@ -26,6 +26,7 @@ namespace AerolineaFrba
         private void btnLoginAdministrador_Click(object sender, EventArgs e)
         {            
             this.Hide();
+            Controller.Utils.GetInstance.isAdmin(true);
             new Login.LoginAdministrador().Show();
         }
 
@@ -33,6 +34,7 @@ namespace AerolineaFrba
         {
             List<Model.FuncionalidadModel> funcionalidades = rolController.buscarFuncionalidadesDelRol(2, false);
             this.Hide();
+            Controller.Utils.GetInstance.isAdmin(false);
             new Menu.Menu(funcionalidades).Show();
 
         }

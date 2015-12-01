@@ -123,6 +123,7 @@
     <Compile Include="Controller\ProductosController.cs" />
     <Compile Include="Controller\TarjetaCreditoController.cs" />
     <Compile Include="Controller\TipoServicioController.cs" />
+    <Compile Include="Controller\Utils.cs" />
     <Compile Include="Dao\ButacaDao.cs" />
     <Compile Include="Dao\ListadoDao.cs" />
     <Compile Include="Dao\MillasDao.cs" />
