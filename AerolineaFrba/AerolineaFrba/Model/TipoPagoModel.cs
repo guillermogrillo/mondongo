@@ -11,4 +11,8 @@ namespace AerolineaFrba.Model
         Efectivo = 1,
         Tarjeta = 2
     }
+    public enum TipoPagoModelCliente
+    {
+        Tarjeta = 2
+    }
 }

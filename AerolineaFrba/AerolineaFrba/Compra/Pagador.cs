@@ -35,7 +35,10 @@ namespace AerolineaFrba.Compra
             gbDatosPersonales.Enabled = false;
             gbDatosTarjeta.Enabled = false;
             btnSiguiente.Enabled = false;
-            cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModel));
+            if(Controller.Utils.GetInstance.isAdmin())
+                cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModel));
+            else
+                cbTipoPago.DataSource = Enum.GetValues(typeof(Model.TipoPagoModelCliente));
             cbTarjetas.Enabled = false;
             cbCuotas.Enabled = false;
             tbNumeroTarjeta.Enabled = false;
