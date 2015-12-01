@@ -119,5 +119,10 @@ namespace AerolineaFrba.Controller
         {
             _compraDao.registrarDevolucionPasaje(pasajeId);
         }
+
+        public Model.PaqueteModel buscarPaquetesActivos(int pnr)
+        {
+            return _compraDao.buscarPaquetesActivos(pnr);
+        }
     }
 }

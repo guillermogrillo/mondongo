@@ -63,5 +63,10 @@ namespace AerolineaFrba.Controller
         {
             return viajeDao.paquetesParaDevolucion(matricula, fechaDesde, fechaHasta);
         }
+
+        public List<int> buscarViajesDeLaRuta(int rutaId)
+        {
+            return viajeDao.buscarViajesDeLaRuta(rutaId);
+        }
     }
 }

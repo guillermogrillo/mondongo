@@ -13,13 +13,18 @@ namespace AerolineaFrba.Abm_Ruta
     public partial class AbmRuta : Form
     {
         private Controller.RutaController _controller;
+        private Controller.ViajeController viajeController;
+        private Controller.CompraController compraController;
+
 
         private Boolean isBack = true;
 
         public AbmRuta()
-        {
-            _controller = new Controller.RutaController();
+        {            
             InitializeComponent();
+            _controller = new Controller.RutaController();
+            viajeController = new Controller.ViajeController();
+            compraController = new Controller.CompraController();
         }
 
         private void AbmRuta_Load(object sender, EventArgs e)
@@ -59,10 +64,39 @@ namespace AerolineaFrba.Abm_Ruta
             if (pregunta == DialogResult.No)
                 return;
 
-            Model.RutaModel ruta = (Model.RutaModel)dgRutas.CurrentRow.DataBoundItem;
+            Model.RutaModel ruta = (Model.RutaModel)dgRutas.CurrentRow.DataBoundItem;            
             _controller.eliminarRuta(ruta.idRuta);
+            cargarDevoluciones(ruta);
             dgRutas.DataSource = _controller.buscarTodasLasRutas();
             MessageBox.Show("Ruta eliminada");
+        }
+
+        private void cargarDevoluciones(Model.RutaModel ruta)
+        {
+            List<int> viajesDeLaRuta = viajeController.buscarViajesDeLaRuta(ruta.idRuta);
+            foreach (int viajeId in viajesDeLaRuta)
+            {
+                List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(viajeId);
+
+                foreach (Model.VentaModel venta in ventasDelViaje)
+                {
+                    List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);                    
+
+                    foreach (Model.PasajeModel pasaje in pasajesDeLaVenta)
+                    {
+                        compraController.cargarDevolucionPasaje(venta.ventaPnr, pasaje.pasajeId, "Devolución de pasaje por cancelación de la Ruta");
+                    }
+
+                    Model.PaqueteModel paquete = compraController.buscarPaquetesActivos(venta.ventaPnr);
+
+                    if (paquete != null)
+                    {
+                        compraController.cargarDevolucionPaquete(venta.ventaPnr, paquete.paqueteId, "Devolución de paquete por cancelación de la Ruta");
+                    }
+
+                }
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
