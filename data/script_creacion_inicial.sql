@@ -728,7 +728,7 @@ create table mondongo.ventas(
 GO
 create table mondongo.butacas(
 	butaca_id numeric(18,0) primary key identity,
-	aeronave_matricula nvarchar(255),
+	aeronave_matricula nvarchar(255) references mondongo.aeronaves(matricula),
 	butaca_nro numeric(18,0),
 	butaca_tipo nvarchar(255),
 	butaca_piso numeric(18,0) default 1
@@ -789,7 +789,7 @@ create table mondongo.butacas_viaje(
 )
 GO
 create table mondongo.devoluciones(
-	cod_devolucion numeric(18,0),
+	cod_devolucion numeric(18,0) primary key,
 	venta_pnr numeric(18,0),
 	fecha_devolucion datetime,
 	id_pasaje numeric(18,0) references mondongo.pasajes(pasaje_id),
