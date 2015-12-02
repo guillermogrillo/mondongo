@@ -70,17 +70,19 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                String query = "select top 5 dif.nombre, min(dif.diferencia) as diferencia_minima " +
-                                "from " +
-                                "(select c.nombre, (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) as semestre, (a.cantidad_butacas_ven + a.cantidad_butacas_pas)-(vi.cantidad_butacas_ventanilla_disponibles + vi.cantidad_butacas_pasillo_disponibles) as diferencia " +
-                                "from mondongo.viajes vi " +
-                                "inner join mondongo.aeronaves a on vi.aeronave_matricula = a.matricula " +
-                                "inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta " +
-                                "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino " +
-                                "where (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) = @semestre " +
-                                "and year(vi.fecha_salida) = @año) dif " +
-                                "group by dif.nombre " +
-                                "order by diferencia_minima asc";
+                String query = "select top 5 a.matricula, sum(libres.cantidad) as sin_vender " +
+                                "from  " +
+                                "(select bv.viaje_id, count(bv.butaca_id) as cantidad " +
+                                "from mondongo.butacas_viaje bv " +
+                                "inner join mondongo.butacas b on b.butaca_id = bv.butaca_id " +
+                                "where bv.estado = 'L' " +
+                                "group by bv.viaje_id,bv.estado) libres " +
+                                "inner join mondongo.viajes v on v.viaje_id = libres.viaje_id " +
+                                "inner join mondongo.aeronaves a on a.matricula = v.aeronave_matricula " +
+                                "where (case when month(v.fecha_salida) between 1 and 6 then 1 else 2 end) = @semestre " +
+                                "and year(v.fecha_salida) = @año " +
+                                "group by a.matricula " +
+                                "order by sin_vender desc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@año", año);
@@ -91,7 +93,7 @@ namespace AerolineaFrba.Dao
                     while (reader.Read())
                     {
                         var destinoNombre = reader.GetString(0);
-                        var destinoCantidad = (int)(double)reader.GetDecimal(1);
+                        var destinoCantidad = reader.GetInt32(1);
                         destino = new Model.ListadoDestinoModel(destinoNombre, destinoCantidad);
                         destinos.Add(destino);
                     }
