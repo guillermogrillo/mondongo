@@ -106,14 +106,28 @@ namespace AerolineaFrba.Abm_Ruta
             else
             {
                 Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
-                if (rutaExistente != null && rutaExistente.estado==0)
+                if (rutaExistente != null && rutaExistente.estado == 0)
                 {
                     MessageBox.Show("Ya existe una ruta con esas caracteristicas");
                     return;
                 }
-                _controller.guardarRuta(ruta);
+                else
+                {
+                    int idCiudadOrigen = (cbOrigen.SelectedValue as Model.CiudadModel).ciudadId;
+                    int idCiudadDestino = (cbDestino.SelectedValue as Model.CiudadModel).ciudadId;
+                    if (idCiudadOrigen != idCiudadDestino)
+                    {
+                        _controller.guardarRuta(ruta);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede crear una ruta con igual ciudad origen y destino");
+                    }
+                }
+                
             }
-            this.Close();
+            
         }
 
         private Model.RutaModel armarRuta()

@@ -617,5 +617,45 @@ namespace AerolineaFrba.Dao
 
             return paquetes;
         }
+
+        public List<int> buscarViajesDeLaRuta(int rutaId)
+        {
+            List<int> viajes = new List<int>();            
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select viaje_id " +
+                            "from mondongo.viajes " +
+                            "where viaje_ruta_id = @rutaId " +
+                            "and estado = 1 "+
+                            "and fecha_salida > @fechaSistema";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@rutaId", rutaId);
+                    command.Parameters.AddWithValue("@fechaSistema", fechaSistema);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        var idViaje = (int)(double)reader.GetDecimal(0);
+                        viajes.Add(idViaje);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return viajes;
+        }
     }
 }

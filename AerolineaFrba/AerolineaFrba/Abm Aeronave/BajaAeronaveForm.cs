@@ -79,12 +79,14 @@ namespace AerolineaFrba.Abm_Aeronave
             DateTime fechaHasta = DateTime.MaxValue;
             if (dpFechaHasta.Visible) fechaHasta = dpFechaHasta.Value;
 
-            Dao.ViajeDao daoViajes = new Dao.ViajeDao();
-            //daoViajes.cancelarViajesAeronave(_aeronave.matricula, fechaDesde, fechaHasta);
             actualizarAeronave();
+
+            this.Enabled = false;
+            Cursor.Current = Cursors.WaitCursor;
             cargarDevolucionPasajes(fechaDesde, fechaHasta);
             cargarDevolucionPaquetes(fechaDesde, fechaHasta);
-            
+            Cursor.Current = Cursors.Default;
+            this.Enabled = true;
             MessageBox.Show("Se han cancelado todos los viajes para la fecha solicitada");
             Abm_Aeronave.AbmAeronaves abm_aeronaves = new Abm_Aeronave.AbmAeronaves();
             this.Close();

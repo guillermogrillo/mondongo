@@ -550,5 +550,46 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
+
+        public Model.PaqueteModel buscarPaquetesActivos(int pnr)
+        {
+            Model.PaqueteModel paquete = null;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select paquete_id, paquete_venta_pnr, paquete_kg, paquete_monto, estado " +
+                            "from mondongo.paquetes " +
+                            "where paquete_venta_pnr = @pnr ";                            
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@pnr", pnr);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var paqueteId = (int)(double)reader.GetDecimal(0);
+                        var paquetePnr = (int)(double)reader.GetDecimal(1);
+                        var paqueteKg = (int)(double)reader.GetDecimal(2);
+                        var paqueteMonto = (double)reader.GetDecimal(3);
+                        var paqueteEstado = (int)(double)reader.GetDecimal(4);
+                        paquete = new Model.PaqueteModel(paqueteId, paquetePnr, paqueteKg, paqueteMonto, paqueteEstado);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+
+            return paquete;            
+        }
     }
 }

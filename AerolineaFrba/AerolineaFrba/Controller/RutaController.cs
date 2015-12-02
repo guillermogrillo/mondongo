@@ -24,7 +24,7 @@ namespace AerolineaFrba.Controller
         public List<Model.RutaModel> buscarTodasLasRutas()
         {
             return _rutaDao.buscarTodasLasRutas();
-        }
+        }        
 
         public void guardarRuta(Model.RutaModel ruta)
         {
@@ -39,6 +39,7 @@ namespace AerolineaFrba.Controller
         public void eliminarRuta(int rutaId)
         {
             _rutaDao.eliminarRuta(rutaId);
-        }
+        }        
+
     }
 }

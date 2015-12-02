@@ -836,8 +836,30 @@ CREATE INDEX index_cliente
 ON mondongo.clientes (cliente_id)
 GO
 
+
+create trigger mondongo.tr_cancelar_ruta
+on mondongo.rutas
+after update
+as
+begin
+	DECLARE @tempRuta TABLE
+	(
+		ruta_id numeric(18,0)
+	);
+
+	insert into @tempRuta
+	select r.id_ruta
+	from inserted i, MONDONGO.rutas r, deleted d
+	where i.id_ruta=r.id_ruta
+		and i.estado<>d.estado;	
+	
+	update MONDONGO.viajes
+	set estado = (select top 1 estado from inserted)
+	where viaje_ruta_id in (select ruta_id from @tempRuta)
+end
+go
 /* TRIGGERS */
-CREATE TRIGGER [MONDONGO].[tr_cancelar_viajes] 
+create TRIGGER [MONDONGO].[tr_cancelar_viajes] 
    ON  [MONDONGO].[viajes] 
    AFTER UPDATE
 AS 
@@ -1003,9 +1025,7 @@ BEGIN
 		viaje_id numeric(18,0),
 		butaca_id numeric(18,0),
 		estado numeric(18,0)
-	);
-	
-	--select distinct ve.venta_viaje_id from inserted i inner join mondongo.ventas ve on ve.venta_pnr = i.pasaje_venta_pnr;
+	);		
 		
 	insert into @tempButacaViaje
 	select v.venta_viaje_id,
