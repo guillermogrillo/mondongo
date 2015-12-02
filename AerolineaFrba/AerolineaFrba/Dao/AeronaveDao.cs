@@ -23,11 +23,21 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "SELECT matricula, modelo, capacidad_kg, cantidad_butacas_pas, cantidad_butacas_ven, " +
-                            "   id_tipo_servicio, id_fabricante, estado " +
-                            "FROM MONDONGO.AERONAVES "+
-                            "WHERE estado=0 ";
-                command = new SqlCommand(query, myConnection);
+                var query = "SELECT a.matricula, a.modelo, a.capacidad_kg, a.cantidad_butacas_pas, a.cantidad_butacas_ven, " +
+                            "   a.id_tipo_servicio, a.id_fabricante "+
+                            "FROM MONDONGO.AERONAVES a "+
+                            "where a.matricula not in (select aeronave_matricula from MONDONGO.aeronaves_bajas "+
+                            "                            where (fecha_fuera_servicio <= @fechaSistma  "+
+                            "                                and fecha_reinicio_servicio >= @fechaSistma  " +
+	                        "                                and tipo_baja='FS') "+
+	                        "                                or "+
+                            "                                (fecha_baja_definitiva <= @fechaSistma " +
+	                        "                                and tipo_baja='BD') "+
+                            " ) ";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@fechaSistma", fechaSistema);
+                }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -94,8 +104,8 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "INSERT INTO MONDONGO.aeronaves (matricula, modelo, capacidad_kg, id_fabricante, id_tipo_servicio, cantidad_butacas_ven, cantidad_butacas_pas, fecha_alta, estado)  " +
-                            "VALUES(@matricula, @modelo, @capacidadKg, @idFabricante, @idTipoServicio, @butacasVen, @butacasPas, @fechaAlta, @estado) ";
+                var query = "INSERT INTO MONDONGO.aeronaves (matricula, modelo, capacidad_kg, id_fabricante, id_tipo_servicio, cantidad_butacas_ven, cantidad_butacas_pas, fecha_alta)  " +
+                            "VALUES(@matricula, @modelo, @capacidadKg, @idFabricante, @idTipoServicio, @butacasVen, @butacasPas, @fechaAlta) ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
@@ -107,7 +117,7 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@butacasVen", aeronave.cantButacasVen);
                     command.Parameters.AddWithValue("@butacasPas", aeronave.cantButacasPas);
                     command.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
-                    command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.ACTIVA);
+                    //command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.ACTIVA);
                 }
 
                 command.ExecuteNonQuery();
@@ -122,7 +132,7 @@ namespace AerolineaFrba.Dao
             }
         }
 
-        internal void eliminarAeronave(String matricula)
+        /*internal void eliminarAeronave(String matricula)
         {
             SqlConnection myConnection = null;
             try
@@ -153,7 +163,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
-
+        
         public void fueraServicioAeronave(string matricula, DateTime fechaDesde, DateTime fechaReinicio)
         {
             SqlConnection myConnection = null;
@@ -185,7 +195,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
-
+        */
         public void grabarBajaAeronave(string matricula, DateTime fueraServ, DateTime reinicio, String tipoBaja)
         {
             SqlConnection myConnection = null;
@@ -247,7 +257,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
-
+        /*
         public void bajaAeronave(string matricula, DateTime fechaBaja)
         {
             SqlConnection myConnection = null;
@@ -277,7 +287,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
-
+        */
         internal Model.AeronaveModel buscarAeronavePorMatricula(string matricula)
         {
             SqlConnection myConnection = null;
@@ -327,7 +337,6 @@ namespace AerolineaFrba.Dao
             a.cantidadButacas = (a.cantButacasPas + a.cantButacasVen);
             a.idTipoServicio = (int)(double)reader.GetDecimal(5);
             a.idFabricante = (int)(double)reader.GetDecimal(6);
-            a.estado = (int)(double)reader.GetDecimal(7);
 
             return a;
         }
@@ -340,11 +349,12 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select count(*) "+
+                var query = "select count(*) as cantidad_vuelos " +
                             "from MONDONGO.viajes v "+
                             "where v.aeronave_matricula=@matricula "+
-                            "    and v.fecha_salida >= @fechaDesde " +
-	                        "    and v.fecha_salida <= @fechaReinicio ";
+                            "and (v.fecha_salida between @fechaDesde and @fechaHasta "+
+                            "or v.fecha_llegada_estimada between @fechaDesde and @fechaHasta "+
+                            "or (v.fecha_salida > @fechaDesde and v.fecha_llegada_estimada < @fechaHasta))";
 
                 command = new SqlCommand(query, myConnection);
 
@@ -352,7 +362,7 @@ namespace AerolineaFrba.Dao
                 {
                     command.Parameters.AddWithValue("@matricula", matricula);
                     command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
-                    command.Parameters.AddWithValue("@fechaReinicio", fechaReinicio);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaReinicio);
                 }
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

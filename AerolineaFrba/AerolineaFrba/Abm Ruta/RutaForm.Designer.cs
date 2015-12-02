@@ -107,6 +107,7 @@
             this.tbCodigoRuta.Name = "tbCodigoRuta";
             this.tbCodigoRuta.Size = new System.Drawing.Size(121, 20);
             this.tbCodigoRuta.TabIndex = 1;
+            this.tbCodigoRuta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // tbHorasVuelo
             // 
@@ -115,7 +116,7 @@
             this.tbHorasVuelo.Name = "tbHorasVuelo";
             this.tbHorasVuelo.Size = new System.Drawing.Size(121, 20);
             this.tbHorasVuelo.TabIndex = 5;
-            this.tbHorasVuelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.horasVuelo_onKeyPress);
+            this.tbHorasVuelo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onKeyPress);
             // 
             // tbPasajePrecio
             // 

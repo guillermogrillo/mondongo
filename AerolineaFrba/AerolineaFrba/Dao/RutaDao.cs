@@ -25,7 +25,8 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado " +
                             "from mondongo.rutas "+
-                            "where id_ciudad_origen = @idCiudadOrigen and id_ciudad_destino = @idCiudadDestino ";
+                            "where id_ciudad_origen = @idCiudadOrigen and id_ciudad_destino = @idCiudadDestino "+
+                            "   and estado=0 ";
                 
                 if(idTipoServicio!=0)
                     query = query + " and id_tipo_servicio=@idTipoServicio ";

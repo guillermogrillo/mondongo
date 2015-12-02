@@ -89,6 +89,7 @@
             // 
             // tbCiudadOrigen
             // 
+            this.tbCiudadOrigen.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbCiudadOrigen.Enabled = false;
             this.tbCiudadOrigen.Location = new System.Drawing.Point(159, 5);
             this.tbCiudadOrigen.Name = "tbCiudadOrigen";
@@ -97,6 +98,7 @@
             // 
             // tbCiudadDestino
             // 
+            this.tbCiudadDestino.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbCiudadDestino.Enabled = false;
             this.tbCiudadDestino.Location = new System.Drawing.Point(159, 31);
             this.tbCiudadDestino.Name = "tbCiudadDestino";

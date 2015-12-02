@@ -93,7 +93,8 @@ namespace AerolineaFrba.Generacion_Viaje
             if(rutaEncontrada != null){
                 DateTime fechaSalida = dpFechaSalida.Value;
                 DateTime fechaLlegadaEstimada = fechaSalida.AddHours(rutaEncontrada.horasVuelo);
-                dpFechaLlegadaEstimada.Value = fechaLlegadaEstimada;            
+                dpFechaLlegadaEstimada.Value = fechaLlegadaEstimada;
+                cargarAeronaves();
             }
             
         }
@@ -105,28 +106,35 @@ namespace AerolineaFrba.Generacion_Viaje
 
             if (rutaEncontrada != null)
             {
-                gbViajePasoDos.Visible = true;                                               
+                gbViajePasoDos.Visible = true;
 
-                List<Model.AeronaveModel> todasLasAeronaves =  aeronaveController.buscarAeronaves();
-                List<Model.AeronaveModel> aeronavesDisponibles = new List<Model.AeronaveModel>();
-                DateTime fechaSalida = dpFechaSalida.Value;
-                foreach (Model.AeronaveModel aeronave in todasLasAeronaves)
-                {
-                    Boolean tieneViajesAsignados = aeronaveController.chequearViajesAsignados(aeronave.matricula, fechaSalida, fechaSalida.AddDays(1));
-                    Model.TipoServicioModel tipoDeServicio = cbTipoServicio.SelectedValue as Model.TipoServicioModel;
-                    if (!tieneViajesAsignados && aeronave.idTipoServicio == tipoDeServicio.id)
-                    {
-                        aeronavesDisponibles.Add(aeronave);
-                    }
-                }
+                cargarAeronaves();
 
-                cbAeronaves.DataSource = aeronavesDisponibles;
-                cbAeronaves.DisplayMember = "matricula";
+                dpFechaLlegadaEstimada.Value = dpFechaLlegadaEstimada.Value.AddHours(rutaEncontrada.horasVuelo);
 
             }else{
                 MessageBox.Show("No se encontraron rutas con los parámetros ingresados");
             }
            
+        }
+
+        private void cargarAeronaves()
+        {
+            List<Model.AeronaveModel> todasLasAeronaves = aeronaveController.buscarAeronaves();
+            List<Model.AeronaveModel> aeronavesDisponibles = new List<Model.AeronaveModel>();
+            DateTime fechaSalida = dpFechaSalida.Value;
+            foreach (Model.AeronaveModel aeronave in todasLasAeronaves)
+            {
+                Boolean tieneViajesAsignados = aeronaveController.chequearViajesAsignados(aeronave.matricula, fechaSalida, fechaSalida.AddHours(rutaEncontrada.horasVuelo));
+                Model.TipoServicioModel tipoDeServicio = cbTipoServicio.SelectedValue as Model.TipoServicioModel;
+                if (!tieneViajesAsignados && aeronave.idTipoServicio == tipoDeServicio.id)
+                {
+                    aeronavesDisponibles.Add(aeronave);
+                }
+            }
+
+            cbAeronaves.DataSource = aeronavesDisponibles;
+            cbAeronaves.DisplayMember = "matricula";
         }
 
         private void tbCiudadOrigen_TextChanged(object sender, EventArgs e)

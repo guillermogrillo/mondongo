@@ -692,8 +692,7 @@ CREATE TABLE [MONDONGO].[aeronaves](
     [id_tipo_servicio] [numeric](18, 0) NULL,
     [fecha_alta] [date] NULL,
     [cantidad_butacas_ven] [numeric](18, 0) NULL,
-    [cantidad_butacas_pas] [numeric](18, 0) NULL,
-	[estado] [numeric](18,0) default 0 check(estado in (0,1,2))
+    [cantidad_butacas_pas] [numeric](18, 0) NULL
 ) ON [PRIMARY]
 GO
 create table MONDONGO.aeronaves_bajas(

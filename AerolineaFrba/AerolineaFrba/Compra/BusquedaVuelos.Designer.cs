@@ -44,12 +44,14 @@
             this.cbEncomienda = new System.Windows.Forms.CheckBox();
             this.tbKg = new System.Windows.Forms.TextBox();
             this.lblKgs = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbTipoServicio = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblCiudadOrigen
             // 
             this.lblCiudadOrigen.AutoSize = true;
-            this.lblCiudadOrigen.Location = new System.Drawing.Point(46, 33);
+            this.lblCiudadOrigen.Location = new System.Drawing.Point(51, 34);
             this.lblCiudadOrigen.Name = "lblCiudadOrigen";
             this.lblCiudadOrigen.Size = new System.Drawing.Size(74, 13);
             this.lblCiudadOrigen.TabIndex = 0;
@@ -58,7 +60,7 @@
             // lblCiudadDestino
             // 
             this.lblCiudadDestino.AutoSize = true;
-            this.lblCiudadDestino.Location = new System.Drawing.Point(46, 58);
+            this.lblCiudadDestino.Location = new System.Drawing.Point(51, 59);
             this.lblCiudadDestino.Name = "lblCiudadDestino";
             this.lblCiudadDestino.Size = new System.Drawing.Size(79, 13);
             this.lblCiudadDestino.TabIndex = 2;
@@ -67,7 +69,7 @@
             // lblFechaViaje
             // 
             this.lblFechaViaje.AutoSize = true;
-            this.lblFechaViaje.Location = new System.Drawing.Point(46, 80);
+            this.lblFechaViaje.Location = new System.Drawing.Point(51, 115);
             this.lblFechaViaje.Name = "lblFechaViaje";
             this.lblFechaViaje.Size = new System.Drawing.Size(78, 13);
             this.lblFechaViaje.TabIndex = 4;
@@ -76,7 +78,7 @@
             // tbCiudadDestino
             // 
             this.tbCiudadDestino.Enabled = false;
-            this.tbCiudadDestino.Location = new System.Drawing.Point(150, 54);
+            this.tbCiudadDestino.Location = new System.Drawing.Point(150, 56);
             this.tbCiudadDestino.Name = "tbCiudadDestino";
             this.tbCiudadDestino.Size = new System.Drawing.Size(153, 20);
             this.tbCiudadDestino.TabIndex = 3;
@@ -92,7 +94,7 @@
             // dpFechaViaje
             // 
             this.dpFechaViaje.CustomFormat = "dd/MM/yyyy";
-            this.dpFechaViaje.Location = new System.Drawing.Point(150, 80);
+            this.dpFechaViaje.Location = new System.Drawing.Point(150, 109);
             this.dpFechaViaje.Name = "dpFechaViaje";
             this.dpFechaViaje.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dpFechaViaje.Size = new System.Drawing.Size(153, 20);
@@ -102,7 +104,7 @@
             // lblCantidadPasajeros
             // 
             this.lblCantidadPasajeros.AutoSize = true;
-            this.lblCantidadPasajeros.Location = new System.Drawing.Point(31, 106);
+            this.lblCantidadPasajeros.Location = new System.Drawing.Point(31, 135);
             this.lblCantidadPasajeros.Name = "lblCantidadPasajeros";
             this.lblCantidadPasajeros.Size = new System.Drawing.Size(113, 13);
             this.lblCantidadPasajeros.TabIndex = 6;
@@ -110,7 +112,7 @@
             // 
             // tbCantidadPasajeros
             // 
-            this.tbCantidadPasajeros.Location = new System.Drawing.Point(150, 104);
+            this.tbCantidadPasajeros.Location = new System.Drawing.Point(150, 133);
             this.tbCantidadPasajeros.MaxLength = 2;
             this.tbCantidadPasajeros.Name = "tbCantidadPasajeros";
             this.tbCantidadPasajeros.Size = new System.Drawing.Size(49, 20);
@@ -119,7 +121,7 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(71, 156);
+            this.btnBuscar.Location = new System.Drawing.Point(71, 185);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(94, 30);
             this.btnBuscar.TabIndex = 8;
@@ -129,7 +131,7 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(180, 156);
+            this.btnCancelar.Location = new System.Drawing.Point(180, 185);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(94, 30);
             this.btnCancelar.TabIndex = 9;
@@ -171,7 +173,7 @@
             // cbEncomienda
             // 
             this.cbEncomienda.AutoSize = true;
-            this.cbEncomienda.Location = new System.Drawing.Point(40, 131);
+            this.cbEncomienda.Location = new System.Drawing.Point(40, 160);
             this.cbEncomienda.Name = "cbEncomienda";
             this.cbEncomienda.Size = new System.Drawing.Size(91, 17);
             this.cbEncomienda.TabIndex = 13;
@@ -181,7 +183,7 @@
             // 
             // tbKg
             // 
-            this.tbKg.Location = new System.Drawing.Point(150, 130);
+            this.tbKg.Location = new System.Drawing.Point(150, 159);
             this.tbKg.MaxLength = 2;
             this.tbKg.Name = "tbKg";
             this.tbKg.Size = new System.Drawing.Size(52, 20);
@@ -191,18 +193,37 @@
             // lblKgs
             // 
             this.lblKgs.AutoSize = true;
-            this.lblKgs.Location = new System.Drawing.Point(208, 135);
+            this.lblKgs.Location = new System.Drawing.Point(208, 164);
             this.lblKgs.Name = "lblKgs";
             this.lblKgs.Size = new System.Drawing.Size(28, 13);
             this.lblKgs.TabIndex = 15;
             this.lblKgs.Text = "Kgs.";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(51, 85);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Tipo Servicio";
+            // 
+            // cbTipoServicio
+            // 
+            this.cbTipoServicio.FormattingEnabled = true;
+            this.cbTipoServicio.Location = new System.Drawing.Point(150, 82);
+            this.cbTipoServicio.Name = "cbTipoServicio";
+            this.cbTipoServicio.Size = new System.Drawing.Size(153, 21);
+            this.cbTipoServicio.TabIndex = 17;
+            // 
             // BusquedaVuelos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(360, 206);
+            this.ClientSize = new System.Drawing.Size(360, 244);
             this.ControlBox = false;
+            this.Controls.Add(this.cbTipoServicio);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblKgs);
             this.Controls.Add(this.tbKg);
             this.Controls.Add(this.cbEncomienda);
@@ -245,5 +266,7 @@
         private System.Windows.Forms.CheckBox cbEncomienda;
         private System.Windows.Forms.TextBox tbKg;
         private System.Windows.Forms.Label lblKgs;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbTipoServicio;
     }
 }

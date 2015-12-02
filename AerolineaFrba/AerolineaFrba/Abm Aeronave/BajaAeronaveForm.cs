@@ -80,7 +80,8 @@ namespace AerolineaFrba.Abm_Aeronave
             if (dpFechaHasta.Visible) fechaHasta = dpFechaHasta.Value;
 
             Dao.ViajeDao daoViajes = new Dao.ViajeDao();
-            daoViajes.cancelarViajesAeronave(_aeronave.matricula, fechaDesde, fechaHasta);
+            //daoViajes.cancelarViajesAeronave(_aeronave.matricula, fechaDesde, fechaHasta);
+            actualizarAeronave();
             cargarDevolucionPasajes(fechaDesde, fechaHasta);
             cargarDevolucionPaquetes(fechaDesde, fechaHasta);
             

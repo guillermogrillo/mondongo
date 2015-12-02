@@ -18,6 +18,8 @@ namespace AerolineaFrba.Compra
         Controller.ViajeController viajeController = null;
         public List<Model.ViajeModel> vuelosEncontrados = null;
         public Model.CompraModel compraModel = null;
+        List<Model.TipoServicioModel> listaTipoServicio;
+        Controller.TipoServicioController tipoServicioController;
 
         DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
@@ -28,6 +30,7 @@ namespace AerolineaFrba.Compra
             dpFechaViaje.CustomFormat = "dd/MM/yyyy";
             rutaController = new Controller.RutaController();
             viajeController = new Controller.ViajeController();
+            tipoServicioController = new Controller.TipoServicioController();
             tbCantidadPasajeros.Text = Convert.ToString(0);
             tbKg.Text = Convert.ToString(0);
             compraModel = new Model.CompraModel();
@@ -76,7 +79,8 @@ namespace AerolineaFrba.Compra
                 if (validarFechaDeViaje())
                 {
                     lblError.Text = "";
-                    Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId, 0);
+                    int tipoServicioId = ((Model.TipoServicioModel)cbTipoServicio.SelectedItem).id;
+                    Model.RutaModel ruta = rutaController.buscarRuta(ciudadOrigen.ciudadId, ciudadDestino.ciudadId, tipoServicioId);
                     if (ruta != null)
                     {
                         int cantidadDePasajeros = 0;
@@ -115,7 +119,7 @@ namespace AerolineaFrba.Compra
                     }
                     else
                     {
-                        MessageBox.Show("No existe ningun vuelo entre las ciudades pedidas.", "Búsqueda de viajes", MessageBoxButtons.OK);
+                        MessageBox.Show("No existe ninguna ruta entre las ciudades seleccionadas.", "Búsqueda de viajes", MessageBoxButtons.OK);
                     }
                 }
                 else
@@ -169,6 +173,12 @@ namespace AerolineaFrba.Compra
             this.dpFechaViaje.Value = fechaSistema;
             tbKg.Enabled = false;            
             btnBuscarCiudadDesde.Focus();
+            if (listaTipoServicio == null)
+            {
+                listaTipoServicio = tipoServicioController.buscarTiposServicio();
+                cbTipoServicio.DataSource = listaTipoServicio;
+                cbTipoServicio.DisplayMember = "tipoServicio";
+            }
         }
 
         private void cbEncomienda_CheckedChanged(object sender, EventArgs e)

@@ -85,6 +85,7 @@
             // 
             // tbCiudad
             // 
+            this.tbCiudad.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.tbCiudad.Location = new System.Drawing.Point(55, 6);
             this.tbCiudad.Margin = new System.Windows.Forms.Padding(2);
             this.tbCiudad.Name = "tbCiudad";

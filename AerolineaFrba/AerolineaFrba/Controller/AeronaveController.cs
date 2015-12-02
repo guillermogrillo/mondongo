@@ -44,13 +44,13 @@ namespace AerolineaFrba.Controller
         
         public void fueraServicioAeronave(string matricula, DateTime fechaDesde, DateTime fechaHasta)
         {
-            _dao.fueraServicioAeronave(matricula, fechaDesde, fechaHasta);
+            //_dao.fueraServicioAeronave(matricula, fechaDesde, fechaHasta);
             _dao.grabarBajaAeronave(matricula,fechaDesde,fechaHasta,"FS");
         }
 
         public void bajaAeronave(string matricula, DateTime fechaDesde)
         {
-            _dao.bajaAeronave(matricula, fechaDesde);
+            //_dao.bajaAeronave(matricula, fechaDesde);
             _dao.grabarBajaDefinitivaAeronave(matricula, fechaDesde, "BD");
         }
 
