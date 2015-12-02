@@ -118,16 +118,17 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select top 5 c.nombre , count(c.nombre) as cantidad " +
-                        "from mondongo.devoluciones d " +
-                        "inner join mondongo.ventas ve on ve.venta_pnr = d.venta_pnr " +
-                        "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id " +
-                        "inner join mondongo.rutas r on r.id_ruta = vi.viaje_ruta_id " +
-                        "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino " +
-                        "group by c.nombre, case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end, year(vi.fecha_salida) " +
-                        "having (case when month(vi.fecha_salida) between 1 and 6 then 1 else 2 end) = @semestre  " +
-                        "and year(vi.fecha_salida) = @año  " +
-                        "order by cantidad desc ";
+                var query = "select top 5 c.nombre as destino, count(*) as cantidad "+
+                            "from mondongo.devoluciones d " +
+                            "inner join mondongo.pasajes p on p.pasaje_id = d.id_pasaje "+
+                            "inner join mondongo.ventas ve on ve.venta_pnr = p.pasaje_venta_pnr "+
+                            "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
+                            "inner join mondongo.rutas r on r.id_ruta = vi.viaje_ruta_id "+
+                            "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino "+
+                            "where (case when month(d.fecha_devolucion) between 1 and 6 then 1 else 2 end) = @semestre "+
+                            "and year(d.fecha_devolucion) = @año  "+
+                            "group by c.nombre "+
+                            "order by cantidad desc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@año", año);
