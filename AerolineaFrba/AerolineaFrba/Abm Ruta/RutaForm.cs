@@ -97,7 +97,14 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void btAceptar_Click(object sender, EventArgs e)
         {
+            lbError.Text = "";
             Model.RutaModel ruta = armarRuta();
+
+            if (ruta.horasVuelo > 24)
+            {
+                lbError.Text = "Las horas de vuelo no pueden superar las 24 horas";
+                return;
+            }
 
             if (isEdit)
             {
