@@ -132,70 +132,6 @@ namespace AerolineaFrba.Dao
             }
         }
 
-        /*internal void eliminarAeronave(String matricula)
-        {
-            SqlConnection myConnection = null;
-            try
-            {
-                myConnection = new SqlConnection(stringConexion);
-                myConnection.Open();
-                SqlCommand command = null;
-                var query = "UPDATE MONDONGO.AERONAVES " +
-                            "   SET fecha_baja_definitiva=@fecha_baja, "+
-                            "       estado=@estado "+
-                            "WHERE matricula=@matricula";
-
-                using (command = new SqlCommand(query, myConnection))
-                {
-                    command.Parameters.AddWithValue("@matricula", matricula);
-                    command.Parameters.AddWithValue("@fecha_baja", DateTime.Now);
-                    command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.ELIMINADA);
-                }
-
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.Message);
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-        }
-        
-        public void fueraServicioAeronave(string matricula, DateTime fechaDesde, DateTime fechaReinicio)
-        {
-            SqlConnection myConnection = null;
-            try
-            {
-                myConnection = new SqlConnection(stringConexion);
-                myConnection.Open();
-                SqlCommand command = null;
-                var query = "UPDATE MONDONGO.AERONAVES " +
-                            "SET estado=@estado " +
-                            "WHERE matricula=@matricula";
-
-                using (command = new SqlCommand(query, myConnection))
-                {
-                    command.Parameters.AddWithValue("@matricula", matricula);
-                    command.Parameters.AddWithValue("@fechaFueraServicio", fechaDesde);
-                    command.Parameters.AddWithValue("@fechaReinicio", fechaReinicio);
-                    command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.FUERA_SERVICIO);
-                }
-
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.Message);
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-        }
-        */
         public void grabarBajaAeronave(string matricula, DateTime fueraServ, DateTime reinicio, String tipoBaja)
         {
             SqlConnection myConnection = null;
@@ -257,37 +193,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
-        /*
-        public void bajaAeronave(string matricula, DateTime fechaBaja)
-        {
-            SqlConnection myConnection = null;
-            try
-            {
-                myConnection = new SqlConnection(stringConexion);
-                myConnection.Open();
-                SqlCommand command = null;
-                var query = "UPDATE MONDONGO.AERONAVES " +
-                            "SET estado=@estado " +
-                            "WHERE matricula=@matricula";
-
-                using (command = new SqlCommand(query, myConnection))
-                {
-                    command.Parameters.AddWithValue("@matricula", matricula);
-                    command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.ELIMINADA);
-                }
-
-                command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.Message);
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-        }
-        */
+        
         internal Model.AeronaveModel buscarAeronavePorMatricula(string matricula)
         {
             SqlConnection myConnection = null;
@@ -297,7 +203,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "SELECT matricula, modelo, capacidad_kg, cantidad_butacas_pas, cantidad_butacas_ven, " +
-                            "   id_tipo_servicio, id_fabricante, estado " +
+                            "   id_tipo_servicio, id_fabricante " +
                             "FROM MONDONGO.AERONAVES " +
                             "WHERE matricula=@matricula ";
                 command = new SqlCommand(query, myConnection);
@@ -446,18 +352,19 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select pasaje_butaca_tipo, max(pasajes)  " +
-                            "from ( "+
-                            "    select viaje_id,pasaje_butaca_tipo, count(*) as pasajes " +
-                            "    from mondongo.pasajes pas, mondongo.ventas vta, mondongo.viajes v " +
-	                        "    where v.fecha_salida between @fechaDesde and @fechaHasta "+
-                            "        and v.viaje_id = vta.venta_viaje_id " +
-                            "        and vta.venta_pnr = pas.pasaje_venta_pnr "+
-		                    "        and v.aeronave_matricula=@matricula "+
-                            "    group by viaje_id,pasaje_butaca_tipo " +
+                var query = "select asd.butaca_tipo, max(pasajes)   " +
+                            "from (  "+
+                            "    select viaje_id,b.butaca_tipo, count(*) as pasajes  "+
+                            "    from mondongo.pasajes pas , mondongo.ventas vta, mondongo.viajes v , mondongo.butacas b "+
+                            "where v.fecha_salida between @fechaDesde and @fechaHasta  "+
+                            "        and v.viaje_id = vta.venta_viaje_id  "+
+                            "        and vta.venta_pnr = pas.pasaje_venta_pnr  "+
+                            "        and b.butaca_id = pas.butaca_id "+
+                            "and v.aeronave_matricula=@matricula  "+
+                            "    group by viaje_id,b.butaca_tipo  "+
                             ") asd "+
-                            "group by pasaje_butaca_tipo "+
-                            "order by pasaje_butaca_tipo";
+                            "group by asd.butaca_tipo "+
+                            "order by asd.butaca_tipo";
 
                 command = new SqlCommand(query, myConnection);
 
