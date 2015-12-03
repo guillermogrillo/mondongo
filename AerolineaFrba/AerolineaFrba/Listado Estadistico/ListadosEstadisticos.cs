@@ -86,6 +86,13 @@ namespace AerolineaFrba.Listado_Estadistico
                 else if (rbAeronavesFueraServicio.Checked)
                 {
                     dgvListado.DataSource = listadoController.listarAeronaves(año, semestre);
+                    dgvListado.Columns[0].HeaderText = "Matricula";
+                    dgvListado.Columns[0].ReadOnly = true;
+                    dgvListado.Columns[0].Width = 125;
+
+                    dgvListado.Columns[1].HeaderText = "Cantidad días de baja";
+                    dgvListado.Columns[1].ReadOnly = true;
+                    dgvListado.Columns[1].Width = 125;
                 }
             }
                 

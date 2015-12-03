@@ -222,22 +222,26 @@ namespace AerolineaFrba.Dao
             return clientes;
         }
 
-        public List<Model.AeronaveModel> listarAeronaves(int año, int semestre)
+        public List<Model.ListadoAeronavesModel> listarAeronaves(int año, int semestre)
         {
-            List<Model.AeronaveModel> aeronaves = new List<Model.AeronaveModel>();
-            
-            Model.AeronaveModel aeronave = null;
+            List<Model.ListadoAeronavesModel> aeronaves = new List<Model.ListadoAeronavesModel>();
+
+            Model.ListadoAeronavesModel aeronave = null;
             SqlConnection myConnection = null;
             try
             {
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select top 5	aeronave_matricula, "+
-                            "sum(datediff(DAY,fecha_reinicio_servicio,fecha_fuera_servicio)) as cantidad_dias " +
-	                        "from			MONDONGO.aeronaves_bajas "+
-	                        "group by		aeronave_matricula "+
-	                        "order by		cantidad_dias desc";
+                var query = "select top 5 bajas.aeronave_matricula,sum(bajas.dias_baja) as suma_dias " +
+                            "from( "+
+                            "select ab.aeronave_matricula, DATEDIFF(DAY,ab.fecha_fuera_servicio,ab.fecha_reinicio_servicio) as dias_baja "+
+                            "from mondongo.aeronaves_bajas ab "+
+                            "where (case when month(ab.fecha_fuera_servicio) between 1 and 6 then 1 else 2 end) = @semestre  "+
+                            "and year(ab.fecha_fuera_servicio) = @año  "+
+                            ") bajas "+
+                            "group by bajas.aeronave_matricula "+
+                            "order by suma_dias desc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@año", año);
@@ -247,9 +251,9 @@ namespace AerolineaFrba.Dao
                 {
                     while (reader.Read())
                     {
-                        var destinoNombre = reader.GetString(0);
-                        var destinoCantidad = reader.GetInt32(1);
-                        aeronave = new Model.AeronaveModel();
+                        var matricula = reader.GetString(0);
+                        var cantidadDias = reader.GetInt32(1);
+                        aeronave = new Model.ListadoAeronavesModel(matricula, cantidadDias);
                         aeronaves.Add(aeronave);
                     }
                 }

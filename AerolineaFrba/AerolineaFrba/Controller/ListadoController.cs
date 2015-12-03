@@ -36,7 +36,7 @@ namespace AerolineaFrba.Controller
             return _listadoDao.listarClientes(año, semestre);
         }
 
-        public List<Model.AeronaveModel> listarAeronaves(int año, int semestre)
+        public List<Model.ListadoAeronavesModel> listarAeronaves(int año, int semestre)
         {
             return _listadoDao.listarAeronaves(año, semestre);
         }
