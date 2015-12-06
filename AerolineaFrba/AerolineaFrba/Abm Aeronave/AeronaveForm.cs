@@ -99,6 +99,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void onClickGuardar(object sender, EventArgs e)
         {
+            if (Convert.ToInt32(tbKilos.Text) == 0 || Convert.ToInt32(tbVentanilla.Text) == 0 || Convert.ToInt32(tbPasillo.Text) == 0)
+            {
+                MessageBox.Show("Cantidad de kilos y butacas no pueden ser cero.");
+                return;
+            }
+
+
             if (isEdit)
                 actualizar();
             else
