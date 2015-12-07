@@ -129,7 +129,7 @@ namespace AerolineaFrba.Dao
         }
 
 
-        public Boolean registrarCanje(int idProducto, int idHistorial, int cantidad)
+        public Boolean registrarCanje(int idProducto, int idCliente, int cantidad)
         {
             Boolean agregado = false;
             SqlConnection myConnection = null;
@@ -138,12 +138,12 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.canje_millas(id_producto, id_historial, cantidad, fecha_canje) "+
-                            "values (@idProducto, @idHistorial, @cantidad, @fechaCanje)";
+                var query = "insert into mondongo.canje_millas(id_producto, id_cliente, cantidad, fecha_canje) "+
+                            "values (@idProducto, @idCliente, @cantidad, @fechaCanje)";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@idProducto", idProducto);
-                    command.Parameters.AddWithValue("@idHistorial", idHistorial);
+                    command.Parameters.AddWithValue("@idCliente", idCliente);
                     command.Parameters.AddWithValue("@cantidad", cantidad);
                     command.Parameters.AddWithValue("@fechaCanje", fechaSistema);                    
                 }

@@ -103,7 +103,14 @@ namespace AerolineaFrba.Consulta_Millas
                             }
                         }
 
-                        tbMillasAcumuladas.Text = millasTotales.ToString();
+                        if (millasTotales > 0)
+                        {
+                            tbMillasAcumuladas.Text = millasTotales.ToString();
+                        }
+                        else
+                        {
+                            tbMillasAcumuladas.Text = "0";
+                        }
                     }
                     else
                     {

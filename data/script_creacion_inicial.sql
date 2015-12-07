@@ -595,7 +595,7 @@ GO
 create table mondongo.roles
 (rol_id numeric(18,0) identity primary key,
 rol_nombre nvarchar(20) not null,
-rol_habilitado int not null default 1 check(rol_habilitado in (0,1))
+rol_habilitado int not null default 1 check(rol_habilitado in (0,1,2))
 )
 GO
 create table mondongo.usuarios
@@ -773,7 +773,7 @@ go
 create table mondongo.canje_millas(
 	id_canje numeric(18,0) primary key identity,
 	id_producto numeric(18,0) not null references mondongo.productos(id_producto),
-	id_historial numeric(18,0) not null references mondongo.historial_millas(id_historial),
+	id_cliente numeric(18,0) not null references mondongo.clientes(cliente_id),
 	cantidad numeric(2) not null check(cantidad >= 0),
 	fecha_canje datetime default getdate()
 )

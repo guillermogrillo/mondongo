@@ -152,6 +152,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 {
                     var fechaHoraLlegadaFormateada = fechaLlegada.ToString("dd'/'MM'/'yyyy HH':'mm':'ss");
                     vueloSeleccionado.fechaLlegada = Convert.ToDateTime(fechaHoraLlegadaFormateada);
+                    this.Enabled = false;
+                    Cursor.Current = Cursors.WaitCursor;
                     Boolean modificado = viajeController.actualizarViaje(vueloSeleccionado);
 
                     List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(vueloSeleccionado.viajeId);
@@ -180,7 +182,9 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
                     }
 
-
+                    MessageBox.Show("Se registró correctamente la llegada a destino del vuelo.");
+                    Cursor.Current = Cursors.Default;
+                    this.Enabled = true;
 
                     this.Close();
                     new AerolineasFRBA().Show();
