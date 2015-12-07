@@ -97,6 +97,11 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void btAceptar_Click(object sender, EventArgs e)
         {
+            if (Convert.ToInt32(tbHorasVuelo.Text) == 0 || Convert.ToInt32(tbPasajePrecio.Text) == 0 || Convert.ToInt32(tbPrecioKg.Text) == 0)
+            {
+                MessageBox.Show("Los precios y las horas de vuelo no pueden ser cero.");
+                return;
+            }
             lbError.Text = "";
             Model.RutaModel ruta = armarRuta();
 

@@ -34,6 +34,7 @@ namespace AerolineaFrba.Controller
         public String actualizarAeronave(Model.AeronaveModel aeronave)
         {
             _dao.actualizarAeronave(aeronave);
+            _dao.generarButacas(aeronave);
             return "OK";
         }
 
