@@ -160,6 +160,7 @@ namespace AerolineaFrba.Canje_Millas
                 int idHistorial = millasController.buscarUltimoRegistroMillas();
                 millasController.registrarCanje(productoSeleccionado.idProducto, Convert.ToInt32(clienteEncontrado.clienteId), Convert.ToInt32(tbCantidad.Text));
                 millasActuales = millasActuales - millasADescontar;
+                MessageBox.Show("Canje realizado con éxito");
                 tbMillasAcum.Text = millasActuales.ToString();
             }
             else
