@@ -148,6 +148,9 @@ GO
 IF OBJECT_ID('MONDONGO.pr_actualizar_viajes', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_actualizar_viajes;
 GO
+IF OBJECT_ID('MONDONGO.pr_generar_butacas', 'P') IS NOT NULL
+  DROP PROCEDURE mondongo.pr_generar_butacas;
+GO
 IF OBJECT_ID('MONDONGO.fx_get_tipo_servicio', 'FN') IS NOT NULL
   DROP FUNCTION mondongo.fx_get_tipo_servicio;
 GO
