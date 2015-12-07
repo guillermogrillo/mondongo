@@ -271,14 +271,14 @@ begin
     return @ID_CIUDAD
 end
 GO
-create function mondongo.fx_busca_id_viaje(@ciudad_desde nvarchar(255),@ciudad_hasta nvarchar(255),@fecha_llegada datetime, @aeronave_matricula nvarchar(255), @tipo_servicio nvarchar(255))
+create function mondongo.fx_busca_id_viaje(@ciudad_desde nvarchar(255),@ciudad_hasta nvarchar(255),@fecha_salida datetime, @aeronave_matricula nvarchar(255), @tipo_servicio nvarchar(255))
 returns numeric(18,0)
 as
 begin
     declare @ID_VIAJE numeric(18,0)
     declare @ID_RUTA numeric(18,0)
     set @ID_RUTA = mondongo.fx_busca_id_ruta(@ciudad_desde,@ciudad_hasta,@tipo_servicio)
-    set @ID_VIAJE = (select viaje_id from MONDONGO.viajes where viaje_ruta_id = @ID_RUTA and aeronave_matricula = @aeronave_matricula and fecha_llegada = @fecha_llegada)
+    set @ID_VIAJE = (select viaje_id from MONDONGO.viajes where viaje_ruta_id = @ID_RUTA and aeronave_matricula = @aeronave_matricula and fecha_salida = @fecha_salida)
     return @ID_VIAJE
 end
 go
@@ -465,8 +465,19 @@ GO
 create PROCEDURE [MONDONGO].[pr_cargar_pasajes]
 AS
 BEGIN
-    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_pasajero_id,pasaje_monto,butaca_id,estado)
+    insert into mondongo.pasajes(pasaje_venta_pnr,pasaje_viaje_id, pasaje_pasajero_id,pasaje_monto,butaca_id,estado)
 	select	m.pasaje_codigo,
+			(select v.viaje_id
+			from mondongo.viajes v
+			inner join mondongo.rutas r on v.viaje_ruta_id = r.id_ruta
+			inner join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen
+			inner join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino
+			inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio
+			where c1.nombre = RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)
+			and c2.nombre = RIGHT(upper(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)
+			and v.fecha_salida = m.FechaSalida
+			and v.aeronave_matricula = m.aeronave_matricula
+			and ts.tipo_servicio = m.Tipo_Servicio) as pasaje_viaje_id,
 			c.cliente_id,
 			m.pasaje_precio,
 			(select butaca_id from mondongo.butacas b where b.butaca_tipo=m.Butaca_Tipo and	b.butaca_nro = m.Butaca_Nro and b.butaca_piso=1 and b.aeronave_matricula=m.Aeronave_Matricula),
@@ -478,8 +489,19 @@ GO
 CREATE PROCEDURE [MONDONGO].[pr_cargar_paquetes]
 AS
 BEGIN
-    insert into mondongo.paquetes(paquete_venta_pnr,paquete_kg,paquete_monto,paquete_piso,estado)
+    insert into mondongo.paquetes(paquete_venta_pnr,paquete_viaje_id, paquete_kg,paquete_monto,paquete_piso,estado)
 	select	m.paquete_codigo,
+			(select v.viaje_id
+			from mondongo.viajes v
+			inner join mondongo.rutas r on v.viaje_ruta_id = r.id_ruta
+			inner join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen
+			inner join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino
+			inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio
+			where c1.nombre = RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)
+			and c2.nombre = RIGHT(upper(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)
+			and v.fecha_salida = m.FechaSalida
+			and v.aeronave_matricula = m.aeronave_matricula
+			and ts.tipo_servicio = m.Tipo_Servicio) as paquete_viaje_id,
 			m.paquete_kg,
 			m.paquete_precio,
 			0,
@@ -491,12 +513,11 @@ go
 CREATE PROCEDURE mondongo.pr_cargar_ventas
 as
 begin
-	insert into mondongo.ventas (venta_fecha_compra, venta_viaje_id, venta_id_pagador, venta_tipo_pago_id, venta_estado, venta_pnr)
+	insert into mondongo.ventas (venta_fecha_compra, venta_id_pagador, venta_tipo_pago_id, venta_estado, venta_pnr)
 	(select		(case when m.pasaje_codigo>0 
 					then m.pasaje_fechaCompra 
 					else m.paquete_fechaCompra 
-				end) as fechaCompra,
-				v.viaje_id,
+				end) as fechaCompra,				
 				c.cliente_id,
 				1,
 				0,
@@ -504,19 +525,13 @@ begin
 					then m.pasaje_codigo 
 					else m.paquete_codigo 
 				end) as venta_pnr		
-	from		gd_esquema.Maestra m
-	inner join	mondongo.ciudades c1 on c1.nombre = RIGHT(upper(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1)
-	inner join	mondongo.ciudades c2 on c2.nombre = RIGHT(upper(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1)
-	inner join	mondongo.tipos_servicio ts on ts.tipo_servicio = m.Tipo_Servicio
-	inner join	mondongo.rutas r on (r.codigo_ruta = m.ruta_codigo and r.id_ciudad_origen = c1.id_ciudad and r.id_ciudad_destino = c2.id_ciudad and r.id_tipo_servicio = ts.id_tipo_servicio)
-	inner join	mondongo.viajes v on (v.viaje_ruta_id = r.id_ruta and v.fecha_salida = m.fechaSalida and v.aeronave_matricula = m.aeronave_matricula)
+	from		gd_esquema.Maestra m	
 	inner join	mondongo.clientes c on (m.Cli_dni = c.cliente_dni and m.cli_apellido = c.cliente_apellido)
 	group by	(case when pasaje_codigo>0 
 					then m.pasaje_fechaCompra 
 					else m.paquete_fechaCompra 
 				end), 
-				m.fechaSalida,
-				v.viaje_id,
+				m.fechaSalida,				
 				c.cliente_id,
 				(case when m.pasaje_codigo>0 
 					then m.pasaje_codigo 
@@ -565,10 +580,10 @@ begin
 	update mondongo.viajes
 	set cantidad_kg_disponibles = cantidad_kg_disponibles - q.cantidad
 	from mondongo.viajes v
-	inner join (select ve.venta_viaje_id, sum(pq.paquete_kg) as cantidad
-				from mondongo.paquetes pq inner join mondongo.ventas ve on ve.venta_pnr = pq.paquete_venta_pnr
-				group by ve.venta_viaje_id) q
-	on q.venta_viaje_id = v.viaje_id
+	inner join (select pq.paquete_viaje_id, sum(pq.paquete_kg) as cantidad
+				from mondongo.paquetes pq
+				group by pq.paquete_viaje_id) q
+	on q.paquete_viaje_id = v.viaje_id
 end
 go
 create procedure mondongo.pr_cargar_butacas_viaje
@@ -583,9 +598,8 @@ BEGIN
 	
 	update bv
 	set estado = 'V'
-	from MONDONGO.butacas_viaje bv, mondongo.pasajes p, MONDONGO.ventas vta, mondongo.viajes v
-	where p.pasaje_venta_pnr=vta.venta_pnr
-		and vta.venta_viaje_id=v.viaje_id
+	from MONDONGO.butacas_viaje bv, mondongo.pasajes p,  mondongo.viajes v
+	where p.pasaje_viaje_id= v.viaje_id
 		and bv.butaca_id = p.butaca_id
 		and bv.viaje_id = v.viaje_id
 END
@@ -719,8 +733,7 @@ GO
 
 create table mondongo.ventas(
 	venta_pnr numeric(18,0) primary key,
-	venta_fecha_compra datetime not null default getdate(),
-	venta_viaje_id numeric(18) not null references mondongo.viajes(viaje_id),
+	venta_fecha_compra datetime not null default getdate(),	
 	venta_id_pagador numeric(18,0) not null references mondongo.clientes(cliente_id),
 	venta_tipo_pago_id numeric(18,0) references mondongo.tipos_pago(tipo_pago_id),
 	venta_estado numeric(1,0) check(venta_estado in (0,1,2))
@@ -737,6 +750,7 @@ GO
 create table mondongo.pasajes(
 	pasaje_id numeric(18,0) primary key identity,
 	pasaje_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
+	pasaje_viaje_id numeric(18,0) not null references mondongo.viajes(viaje_id),
 	pasaje_pasajero_id numeric(18,0) references mondongo.clientes(cliente_id),
 	pasaje_monto numeric(18,2) default 0 check(pasaje_monto >= 0),
 	butaca_id numeric(18,0) references mondongo.butacas(butaca_id),
@@ -746,6 +760,7 @@ GO
 create table mondongo.paquetes(
 	paquete_id numeric(18,0) primary key identity,
 	paquete_venta_pnr numeric(18,0) not null references mondongo.ventas(venta_pnr),
+	paquete_viaje_id numeric(18,0) not null references mondongo.viajes(viaje_id),
 	paquete_kg numeric(18,0) default 0 check(paquete_kg >= 0),
 	paquete_monto numeric(18,2) default 0 check(paquete_monto >= 0),
 	paquete_piso numeric(18,0) not null default 0 check(paquete_piso = 0),
@@ -864,20 +879,24 @@ create TRIGGER [MONDONGO].[tr_cancelar_viajes]
    AFTER UPDATE
 AS 
 BEGIN
-	DECLARE @tempPNR TABLE
+	DECLARE @tempTable TABLE
 	(
-		venta_pnr numeric(18,0)
+		viaje_id numeric(18,0)
 	);
-
-	insert into @tempPNR
-	select v.venta_pnr
-	from inserted i, MONDONGO.ventas v, deleted d
-	where i.viaje_id=v.venta_viaje_id
-		and i.estado<>d.estado;	
 	
-	update MONDONGO.ventas
-	set venta_estado = (select top 1 estado from inserted)
-	where venta_pnr in (select venta_pnr from @tempPNR)
+	insert into @tempTable
+	select i.viaje_id
+	from inserted i, deleted d
+	where i.estado<>d.estado
+		and i.viaje_id=d.viaje_id;
+	
+	update MONDONGO.paquetes
+	set estado = (select top 1 estado from inserted)
+	where paquete_viaje_id in (select viaje_id from @tempTable)
+
+	update MONDONGO.pasajes
+	set estado = (select top 1 estado from inserted)
+	where pasaje_viaje_id in (select viaje_id from @tempTable)
 	
 END
 GO
@@ -999,7 +1018,8 @@ BEGIN
 	);
 	
 	insert into @tempButacaViaje
-	select (select distinct ve.venta_viaje_id from inserted i inner join mondongo.ventas ve on ve.venta_pnr = i.pasaje_venta_pnr),
+	select
+	i.pasaje_viaje_id,
 	i.butaca_id,
 	i.estado
 	from inserted i
@@ -1028,13 +1048,12 @@ BEGIN
 	);		
 		
 	insert into @tempButacaViaje
-	select v.venta_viaje_id,
+	select i.pasaje_viaje_id,
 	i.butaca_id,
 	i.estado
-	from inserted i, deleted d, MONDONGO.ventas v
+	from inserted i, deleted d
 	where i.estado <> d.estado
-	and i.pasaje_id = d.pasaje_id
-	and v.venta_pnr=i.pasaje_venta_pnr;
+	and i.pasaje_id = d.pasaje_id;
 	
 	update bv
 	set estado = 
