@@ -132,7 +132,16 @@ namespace AerolineaFrba.Canje_Millas
                     cantidadMillas = cantidadMillas - millas.millas;
                 }
             }
-            return cantidadMillas;
+
+            if (cantidadMillas > 0)
+            {
+                return cantidadMillas;
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
 
         private void dgvProductos_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -149,7 +158,7 @@ namespace AerolineaFrba.Canje_Millas
                 Model.HistorialMillasModel histMillas = new Model.HistorialMillasModel(Convert.ToInt32(clienteEncontrado.clienteId), millasADescontar, fechaSistema, Model.TipoOperacion.CANJE, "DESCUENTO POR CANJE DE PRODUCTO");
                 millasController.registrarMillas(histMillas);
                 int idHistorial = millasController.buscarUltimoRegistroMillas();
-                millasController.registrarCanje(productoSeleccionado.idProducto, idHistorial, Convert.ToInt32(tbCantidad.Text));
+                millasController.registrarCanje(productoSeleccionado.idProducto, Convert.ToInt32(clienteEncontrado.clienteId), Convert.ToInt32(tbCantidad.Text));
                 millasActuales = millasActuales - millasADescontar;
                 tbMillasAcum.Text = millasActuales.ToString();
             }

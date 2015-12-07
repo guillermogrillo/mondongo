@@ -33,9 +33,9 @@ namespace AerolineaFrba.Controller
             return millasDao.buscarUltimoRegistroMillas();
         }
 
-        public Boolean registrarCanje(int idProducto, int idHistorial, int cantidad)
+        public Boolean registrarCanje(int idProducto, int idCliente, int cantidad)
         {
-            return millasDao.registrarCanje(idProducto, idHistorial, cantidad);
+            return millasDao.registrarCanje(idProducto, idCliente, cantidad);
         }
 
     }
