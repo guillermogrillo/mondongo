@@ -46,6 +46,7 @@ namespace AerolineaFrba.Abm_Ruta
         {
             cbOrigen.Enabled = enabled;
             cbDestino.Enabled = enabled;
+            tbCodigoRuta.Enabled = enabled;
         }
 
         private void cargarRuta(Model.RutaModel ruta)
@@ -97,12 +98,13 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void btAceptar_Click(object sender, EventArgs e)
         {
+            lbError.Text = "";
             if (Convert.ToInt32(tbHorasVuelo.Text) == 0 || Convert.ToInt32(tbPasajePrecio.Text) == 0 || Convert.ToInt32(tbPrecioKg.Text) == 0)
             {
-                MessageBox.Show("Los precios y las horas de vuelo no pueden ser cero.");
+                lbError.Text = "Los precios y las horas de vuelo no pueden ser cero.";
                 return;
             }
-            lbError.Text = "";
+            
             Model.RutaModel ruta = armarRuta();
 
             if (ruta.horasVuelo > 24)
@@ -120,23 +122,29 @@ namespace AerolineaFrba.Abm_Ruta
                 Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
                 if (rutaExistente != null && rutaExistente.estado == 0)
                 {
-                    MessageBox.Show("Ya existe una ruta con esas caracteristicas");
+                    lbError.Text = "Ya existe una ruta con esas caracteristicas";
                     return;
+                }
+
+                Boolean existeCodigo = (_controller.buscarRutaPorCodigo(ruta.codigoRuta) != null);
+                if (existeCodigo)
+                {
+                    lbError.Text = "Ya existe ese codigo de ruta";
+                    return;
+                }
+                
+                int idCiudadOrigen = (cbOrigen.SelectedValue as Model.CiudadModel).ciudadId;
+                int idCiudadDestino = (cbDestino.SelectedValue as Model.CiudadModel).ciudadId;
+                if (idCiudadOrigen != idCiudadDestino)
+                {
+                    _controller.guardarRuta(ruta);
+                    this.Close();
                 }
                 else
                 {
-                    int idCiudadOrigen = (cbOrigen.SelectedValue as Model.CiudadModel).ciudadId;
-                    int idCiudadDestino = (cbDestino.SelectedValue as Model.CiudadModel).ciudadId;
-                    if (idCiudadOrigen != idCiudadDestino)
-                    {
-                        _controller.guardarRuta(ruta);
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se puede crear una ruta con igual ciudad origen y destino");
-                    }
+                    lbError.Text = "No se puede crear una ruta con igual ciudad origen y destino";
                 }
+                
                 
             }
             
