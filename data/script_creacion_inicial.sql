@@ -981,7 +981,7 @@ create trigger mondongo.tr_generar_butacas
 AS 
 BEGIN
 	DECLARE @I INT, @CANT_PAS INT, @CANT_VEN INT, @MATRICULA nvarchar(255)
-	SET @I = 1
+	/*SET @I = 1
 	SET @CANT_PAS = (select i.cantidad_butacas_pas from inserted i)
 	SET @CANT_VEN = (select i.cantidad_butacas_ven from inserted i)
 	SET @MATRICULA = (select i.matricula from inserted i)
@@ -1001,7 +1001,7 @@ BEGIN
 
         SET @I = @I + 1
     END
-
+	*/
 END
 GO
 CREATE TRIGGER [MONDONGO].[tr_ocupar_butaca] 
@@ -1065,3 +1065,31 @@ BEGIN
 	inner join @tempButacaViaje tbv on tbv.butaca_id = bv.butaca_id and tbv.viaje_id = bv.viaje_id
 END
 GO
+
+create procedure [MONDONGO].[pr_generar_butacas](@MATRICULA nvarchar(255), @CANT_PAS INT, @CANT_VEN INT)
+AS 
+BEGIN
+	
+	delete from MONDONGO.butacas
+	where aeronave_matricula=@MATRICULA
+
+	DECLARE @I INT
+	SET @I = 1
+
+    WHILE @I <= @CANT_PAS
+    BEGIN
+        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
+        VALUES(@MATRICULA, @I, 1, 'PASILLO')
+
+        SET @I = @I + 1
+    END
+
+	WHILE @I <= (@CANT_PAS + @CANT_VEN)
+    BEGIN
+        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
+        VALUES(@MATRICULA, @I, 1, 'VENTANILLA')
+
+        SET @I = @I + 1
+    END
+
+END
