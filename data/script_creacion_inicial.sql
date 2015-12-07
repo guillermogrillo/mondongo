@@ -64,6 +64,9 @@ GO
 IF OBJECT_ID('mondongo.viajes', 'U') IS NOT NULL
   DROP TABLE mondongo.viajes;
 GO
+IF OBJECT_ID('mondongo.ruta_tipo_servicio', 'U') IS NOT NULL
+  DROP TABLE mondongo.ruta_tipo_servicio;
+GO
 IF OBJECT_ID('mondongo.rutas', 'U') IS NOT NULL
   DROP TABLE mondongo.rutas;
 GO
@@ -126,6 +129,9 @@ IF OBJECT_ID('MONDONGO.pr_cargar_beneficios', 'P') IS NOT NULL
 GO
 IF OBJECT_ID('MONDONGO.pr_cargar_aeronaves', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_aeronaves;
+GO
+IF OBJECT_ID('MONDONGO.pr_cargar_ruta_tipo_servicio', 'P') IS NOT NULL
+  DROP PROCEDURE mondongo.pr_cargar_ruta_tipo_servicio;
 GO
 IF OBJECT_ID('MONDONGO.pr_cargar_rutas', 'P') IS NOT NULL
   DROP PROCEDURE mondongo.pr_cargar_rutas;
@@ -459,7 +465,7 @@ BEGIN
     select ruta_codigo,
         mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)),
         mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)),
-        mondongo.fx_busca_id_tipo_servicio(Tipo_Servicio),
+        --mondongo.fx_busca_id_tipo_servicio(Tipo_Servicio),
         max(Ruta_Precio_BasePasaje),
         max(Ruta_Precio_BaseKG),
         datediff(hh, FechaSalida,FechaLLegada)
@@ -468,6 +474,22 @@ BEGIN
     order by Ruta_Ciudad_Origen
 END
 GO
+
+create procedure mondongo.pr_cargar_ruta_tipo_servicio
+AS
+BEGIN
+	insert into MONDONGO.ruta_tipo_servicio
+	select a.idr, a.idts
+	from (
+		select r.id_ruta as idr, mondongo.fx_busca_id_tipo_servicio(m.Tipo_Servicio) as idts 
+		from gd_esquema.Maestra m, MONDONGO.rutas r
+		where mondongo.fx_busca_id_ciudad(RIGHT(UPPER(m.Ruta_Ciudad_Origen), LEN(m.Ruta_Ciudad_Origen) - 1)) = r.id_ciudad_origen
+			 and mondongo.fx_busca_id_ciudad(RIGHT(UPPER(m.Ruta_Ciudad_Destino), LEN(m.Ruta_Ciudad_Destino) - 1)) = r.id_ciudad_destino
+	) a
+	group by a.idr, a.idts
+END
+GO
+
 create PROCEDURE [MONDONGO].[pr_cargar_pasajes]
 AS
 BEGIN
@@ -697,6 +719,11 @@ create table MONDONGO.rutas(
     precio_base_pasaje numeric(18,2) check(precio_base_pasaje >= 0),
 	horas_vuelo numeric(18, 0) NULL,
 	estado numeric(1,0) default 0 check(estado in (0,1))
+)
+GO
+create table mondongo.ruta_tipo_servicio(
+	id_ruta numeric(18,0) references mondongo.rutas(id_ruta),
+	id_tipo_servicio numeric(8,0) references mondongo.tipos_servicio(id_tipo_servicio)
 )
 GO
 CREATE TABLE MONDONGO.fabricantes(
