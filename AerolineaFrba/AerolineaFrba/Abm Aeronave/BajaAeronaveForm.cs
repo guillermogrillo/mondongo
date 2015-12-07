@@ -126,19 +126,11 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void cargarDevolucionPasajes(DateTime fechaDesde, DateTime fechaHasta)
         {
-            List<Model.PasajeModel> pasajes = _viajeController.pasajesParaDevolucion(_aeronave.matricula, fechaDesde, fechaHasta);
-            foreach (Model.PasajeModel pasaje in pasajes)
-            {
-                _compraController.cargarDevolucionPasaje(pasaje.pasajePnr, pasaje.pasajeId, "Cancelacion de viaje");
-            }
+            _compraController.cargarDevolucionesPasajesVenta(_aeronave, "Devolución de pasaje por cancelación de viaje", fechaDesde, fechaHasta);
         }
         private void cargarDevolucionPaquetes(DateTime fechaDesde, DateTime fechaHasta)
         {
-            List<Model.PaqueteModel> paquetes = _viajeController.paquetesParaDevolucion(_aeronave.matricula, fechaDesde, fechaHasta);
-            foreach (Model.PaqueteModel paquete in paquetes)
-            {
-                _compraController.cargarDevolucionPaquete(paquete.paquetePnr, paquete.paqueteId, "Cancelacion de viaje");
-            }
+            _compraController.cargarDevolucionesPaquetesVenta(_aeronave, "Devolución de paquete por cancelación de viaje", fechaDesde, fechaHasta);
         }
 
     }

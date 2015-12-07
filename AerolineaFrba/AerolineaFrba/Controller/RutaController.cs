@@ -44,7 +44,7 @@ namespace AerolineaFrba.Controller
         public void eliminarRuta(int rutaId)
         {
             _rutaDao.eliminarRuta(rutaId);
-        }        
+        }
 
     }
 }

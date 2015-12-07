@@ -7,8 +7,11 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID('mondongo.devoluciones', 'U') IS NOT NULL
-  DROP TABLE mondongo.devoluciones;
+IF OBJECT_ID('mondongo.devoluciones_pasajes', 'U') IS NOT NULL
+  DROP TABLE mondongo.devoluciones_pasajes;
+GO
+IF OBJECT_ID('mondongo.devoluciones_paquetes', 'U') IS NOT NULL
+  DROP TABLE mondongo.devoluciones_paquetes;
 GO
 IF OBJECT_ID('mondongo.pasajes', 'U') IS NOT NULL
   DROP TABLE mondongo.pasajes;
@@ -806,15 +809,43 @@ create table mondongo.butacas_viaje(
 	)
 )
 GO
-create table mondongo.devoluciones(
-	cod_devolucion numeric(18,0) primary key,
-	venta_pnr numeric(18,0),
-	fecha_devolucion datetime,
-	id_pasaje numeric(18,0) references mondongo.pasajes(pasaje_id),
-	id_paquete numeric(18,0) references mondongo.paquetes(paquete_id),
-	motivo nvarchar(255)
 
-)
+CREATE TABLE [MONDONGO].[devoluciones_pasajes](
+	[cod_devolucion] [numeric](18, 0) NOT NULL identity,
+	[venta_pnr] [numeric](18, 0) NULL,
+	[fecha_devolucion] [datetime] NULL,
+	[id_pasaje] [numeric](18, 0) NULL,
+	[motivo] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[cod_devolucion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [MONDONGO].[devoluciones_pasajes]  WITH CHECK ADD FOREIGN KEY([id_pasaje])
+REFERENCES [MONDONGO].[pasajes] ([pasaje_id])
+GO
+
+
+
+CREATE TABLE [MONDONGO].[devoluciones_paquetes](
+	[cod_devolucion] [numeric](18, 0) NOT NULL identity,
+	[venta_pnr] [numeric](18, 0) NULL,
+	[fecha_devolucion] [datetime] NULL,
+	[id_paquete] [numeric](18, 0) NULL,
+	[motivo] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[cod_devolucion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [MONDONGO].[devoluciones_paquetes]  WITH CHECK ADD FOREIGN KEY([id_paquete])
+REFERENCES [MONDONGO].[paquetes] ([paquete_id])
 GO
 
 /* INDICES */

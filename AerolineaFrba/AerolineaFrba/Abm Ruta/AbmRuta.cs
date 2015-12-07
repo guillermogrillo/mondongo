@@ -73,30 +73,8 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void cargarDevoluciones(Model.RutaModel ruta)
         {
-            List<int> viajesDeLaRuta = viajeController.buscarViajesDeLaRuta(ruta.idRuta);
-            foreach (int viajeId in viajesDeLaRuta)
-            {
-                List<Model.VentaModel> ventasDelViaje = compraController.buscarVentas(viajeId);
-
-                foreach (Model.VentaModel venta in ventasDelViaje)
-                {
-                    List<Model.PasajeModel> pasajesDeLaVenta = compraController.buscarPasajes(venta.ventaPnr);                    
-
-                    foreach (Model.PasajeModel pasaje in pasajesDeLaVenta)
-                    {
-                        compraController.cargarDevolucionPasaje(venta.ventaPnr, pasaje.pasajeId, "Devolución de pasaje por cancelación de la Ruta");
-                    }
-
-                    Model.PaqueteModel paquete = compraController.buscarPaquetesActivos(venta.ventaPnr);
-
-                    if (paquete != null)
-                    {
-                        compraController.cargarDevolucionPaquete(venta.ventaPnr, paquete.paqueteId, "Devolución de paquete por cancelación de la Ruta");
-                    }
-
-                }
-
-            }
+            compraController.cargarDevolucionesPasajes(ruta, "Devolución de pasaje por cancelación de la Ruta");
+            compraController.cargarDevolucionesPaquetes(ruta, "Devolución de paquete por cancelación de la Ruta");
         }
 
         private void button1_Click(object sender, EventArgs e)

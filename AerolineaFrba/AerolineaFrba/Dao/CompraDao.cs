@@ -591,5 +591,137 @@ namespace AerolineaFrba.Dao
 
             return paquete;            
         }
+
+        public void cargarDevolucionesPasajes(Model.RutaModel ruta, string motivo)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.devoluciones_pasajes(venta_pnr, fecha_devolucion, id_pasaje, motivo) " +
+                            "select p.pasaje_venta_pnr, @fechaDevolucion, p.pasaje_id, @motivo "+
+                            "from MONDONGO.pasajes p "+
+                            "where p.pasaje_viaje_id in (select viaje_id from MONDONGO.viajes v where v.viaje_ruta_id=@rutaId) ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
+                    command.Parameters.AddWithValue("@rutaId", ruta.idRuta);
+                    command.Parameters.AddWithValue("@motivo", motivo);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        public void cargarDevolucionesPaquetes(Model.RutaModel ruta, string motivo)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into mondongo.devoluciones_paquetes(venta_pnr, fecha_devolucion, id_paquete, motivo) " +
+                            "select p.paquete_venta_pnr, @fechaDevolucion, p.paquete_id, @motivo " +
+                            "from MONDONGO.paquetes p " +
+                            "where p.paquete_viaje_id in (select viaje_id from MONDONGO.viajes v where v.viaje_ruta_id=@rutaId) ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
+                    command.Parameters.AddWithValue("@rutaId", ruta.idRuta);
+                    command.Parameters.AddWithValue("@motivo", motivo);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        public void cargarDevolucionesPasajesVenta(Model.AeronaveModel aeronave, string motivo, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into MONDONGO.devoluciones_pasajes(venta_pnr, fecha_devolucion, id_pasaje, motivo) " +
+                            "select p.pasaje_venta_pnr, @fechaDevolucion, p.pasaje_id, @motivo " +
+                            "from MONDONGO.pasajes p, MONDONGO.viajes v "+
+                            "where p.pasaje_viaje_id=v.viaje_id "+
+                            "    and v.aeronave_matricula=@matricula " +
+	                        "    and v.fecha_salida between @fechaDesde and @fechaHasta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
+                    command.Parameters.AddWithValue("@matricula", aeronave.matricula);
+                    command.Parameters.AddWithValue("@motivo", motivo);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
+
+        public void cargarDevolucionesPaquetesVenta(Model.AeronaveModel aeronave, string motivo, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "insert into MONDONGO.devoluciones_paquetes(venta_pnr, fecha_devolucion, id_paquete, motivo) " +
+                            "select p.paquete_venta_pnr, @fechaDevolucion, p.paquete_id, @motivo " +
+                            "from MONDONGO.paquetes p, MONDONGO.viajes v " +
+                            "where p.paquete_viaje_id=v.viaje_id " +
+                            "    and v.aeronave_matricula=@matricula " +
+                            "    and v.fecha_salida between @fechaDesde and @fechaHasta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
+                    command.Parameters.AddWithValue("@matricula", aeronave.matricula);
+                    command.Parameters.AddWithValue("@motivo", motivo);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
     }
 }

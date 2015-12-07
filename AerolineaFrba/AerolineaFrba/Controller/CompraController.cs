@@ -124,5 +124,25 @@ namespace AerolineaFrba.Controller
         {
             return _compraDao.buscarPaquetesActivos(pnr);
         }
+
+        public void cargarDevolucionesPasajes(Model.RutaModel ruta, string motivo)
+        {
+            _compraDao.cargarDevolucionesPasajes(ruta, motivo);
+        }
+
+        public void cargarDevolucionesPaquetes(Model.RutaModel ruta, string motivo)
+        {
+            _compraDao.cargarDevolucionesPaquetes(ruta, motivo);
+        }
+
+        public void cargarDevolucionesPaquetesVenta(Model.AeronaveModel aeronave, string motivo, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            _compraDao.cargarDevolucionesPaquetesVenta(aeronave, motivo, fechaDesde, fechaHasta);
+        }
+
+        public void cargarDevolucionesPasajesVenta(Model.AeronaveModel aeronave, string motivo, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            _compraDao.cargarDevolucionesPasajesVenta(aeronave, motivo, fechaDesde, fechaHasta);
+        }
     }
 }
