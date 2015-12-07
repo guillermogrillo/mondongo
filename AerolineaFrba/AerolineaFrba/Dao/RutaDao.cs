@@ -24,9 +24,8 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado " +
-                            "from mondongo.rutas "+
-                            "where id_ciudad_origen = @idCiudadOrigen and id_ciudad_destino = @idCiudadDestino "+
-                            "   and estado=0 ";
+                            "from mondongo.rutas " +
+                            "where id_ciudad_origen = @idCiudadOrigen and id_ciudad_destino = @idCiudadDestino ";
                 
                 if(idTipoServicio!=0)
                     query = query + " and id_tipo_servicio=@idTipoServicio ";
@@ -230,6 +229,43 @@ namespace AerolineaFrba.Dao
             {
                 myConnection.Close();
             }
+        }
+
+        public Model.RutaModel buscarRutaPorCodigo(int codigoRuta)
+        {
+            Model.RutaModel ruta = null;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select r.codigo_ruta " +
+                            "from mondongo.rutas r "+
+                            "where r.codigo_ruta = @codRuta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@codRuta", codigoRuta);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ruta = new Model.RutaModel(); ;
+                        ruta.codigoRuta = (int)(double)reader.GetDecimal(0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return ruta;
         }
     }
 }
