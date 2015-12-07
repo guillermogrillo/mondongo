@@ -312,49 +312,7 @@ namespace AerolineaFrba.Dao
 
             return mapaButacasDisponibles;
         }
-
-        private List<int> buscarButacasVendidas(int idViaje, string tipoButaca)
-        {
-            List<int> butacasVendidas = new List<int>();
-            SqlConnection myConnection = null;
-            try
-            {
-                myConnection = new SqlConnection(stringConexion);
-                myConnection.Open();
-                SqlCommand command = null;
-                var query = "select p.pasaje_butaca_numero " +
-                            "from mondongo.pasajes p " +
-                            "inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr " +
-                            "where ve.venta_viaje_id = @idViaje " +
-                            "and p.pasaje_butaca_tipo = @tipoButaca";
-                using (command = new SqlCommand(query, myConnection))
-                {
-                    command.Parameters.AddWithValue("@idViaje", idViaje);
-                    command.Parameters.AddWithValue("@tipoButaca", tipoButaca);
-                }
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var numeroButaca = (int)(double)reader.GetDecimal(0);
-                        butacasVendidas.Add(numeroButaca);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ERROR" + ex.Message);
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-
-            return butacasVendidas;
-        }
-
-
-
+       
         private List<int> cargarListaButacas(int cantidad)
         {
             List<int> butacas = new List<int>();

@@ -25,8 +25,7 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 String query =  "select top 5 c.nombre, count(c.nombre) as cantidad, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end) as semestre "+
                                 "from mondongo.pasajes p  "+
-                                "inner join mondongo.ventas ve on p.pasaje_venta_pnr = ve.venta_pnr  "+
-                                "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id  "+
+                                "inner join mondongo.viajes vi on vi.viaje_id = p.pasaje_viaje_id "+
                                 "inner join mondongo.rutas r on vi.viaje_ruta_id = r.id_ruta  "+
                                 "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino  "+
                                 "group by c.nombre, (case when month(ve.venta_fecha_compra) between 1 and 6 then 1 else 2 end),year(ve.venta_Fecha_compra)  "+
@@ -123,8 +122,7 @@ namespace AerolineaFrba.Dao
                 var query = "select top 5 c.nombre as destino, count(*) as cantidad "+
                             "from mondongo.devoluciones d " +
                             "inner join mondongo.pasajes p on p.pasaje_id = d.id_pasaje "+
-                            "inner join mondongo.ventas ve on ve.venta_pnr = p.pasaje_venta_pnr "+
-                            "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
+                            "inner join mondongo.viajes vi on vi.viaje_id = p.pasaje_viaje_id "+
                             "inner join mondongo.rutas r on r.id_ruta = vi.viaje_ruta_id "+
                             "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino "+
                             "where (case when month(d.fecha_devolucion) between 1 and 6 then 1 else 2 end) = @semestre "+
