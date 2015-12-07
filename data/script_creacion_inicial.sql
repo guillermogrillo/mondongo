@@ -267,10 +267,12 @@ begin
     set @ID_CIUDAD_DESTINO = (select id_ciudad from mondongo.ciudades where upper(nombre) = upper(@destino))
     set @ID_TIPO_SERVICIO = (select id_tipo_servicio from mondongo.tipos_servicio where upper(tipo_servicio) = upper(@tipo_servicio))
 
-    set @ID_RUTA = (select id_ruta from MONDONGO.rutas
-                    where id_tipo_servicio=@ID_TIPO_SERVICIO
-                        and id_ciudad_origen = @ID_CIUDAD_ORIGEN
-                        and id_ciudad_destino = @ID_CIUDAD_DESTINO)
+    set @ID_RUTA = (select r.id_ruta from MONDONGO.rutas r, MONDONGO.ruta_tipo_servicio rts
+                    where rts.id_tipo_servicio=@ID_TIPO_SERVICIO
+                        and r.id_ciudad_origen = @ID_CIUDAD_ORIGEN
+                        and r.id_ciudad_destino = @ID_CIUDAD_DESTINO
+						and rts.id_ruta = r.id_ruta)
+
     return @ID_RUTA
 end
 GO
@@ -461,7 +463,7 @@ GO
 CREATE PROCEDURE [MONDONGO].[pr_cargar_rutas]
 AS
 BEGIN
-    insert into MONDONGO.rutas(codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_pasaje, precio_base_kg, horas_vuelo)
+    insert into MONDONGO.rutas(codigo_ruta, id_ciudad_origen, id_ciudad_destino, precio_base_pasaje, precio_base_kg, horas_vuelo)
     select ruta_codigo,
         mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)),
         mondongo.fx_busca_id_ciudad(RIGHT(UPPER(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)),
@@ -500,7 +502,9 @@ BEGIN
 			inner join mondongo.rutas r on v.viaje_ruta_id = r.id_ruta
 			inner join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen
 			inner join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino
-			inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio
+			--inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio
+			inner join MONDONGO.ruta_tipo_servicio rts on r.id_ruta=rts.id_ruta
+			inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = rts.id_tipo_servicio
 			where c1.nombre = RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)
 			and c2.nombre = RIGHT(upper(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)
 			and v.fecha_salida = m.FechaSalida
@@ -524,7 +528,9 @@ BEGIN
 			inner join mondongo.rutas r on v.viaje_ruta_id = r.id_ruta
 			inner join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen
 			inner join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino
-			inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio
+			--inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio
+			inner join MONDONGO.ruta_tipo_servicio rts on r.id_ruta=rts.id_ruta
+			inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = rts.id_tipo_servicio
 			where c1.nombre = RIGHT(upper(Ruta_Ciudad_Origen), LEN(Ruta_Ciudad_Origen) - 1)
 			and c2.nombre = RIGHT(upper(Ruta_Ciudad_Destino), LEN(Ruta_Ciudad_Destino) - 1)
 			and v.fecha_salida = m.FechaSalida
@@ -714,7 +720,7 @@ create table MONDONGO.rutas(
     codigo_ruta numeric(18) not null,
     id_ciudad_origen numeric(18,0) not null REFERENCES mondongo.ciudades(id_ciudad),
     id_ciudad_destino numeric(18,0) not null REFERENCES mondongo.ciudades(id_ciudad),
-    id_tipo_servicio numeric(8) REFERENCES mondongo.tipos_servicio(id_tipo_servicio),
+    --id_tipo_servicio numeric(8) REFERENCES mondongo.tipos_servicio(id_tipo_servicio),
     precio_base_kg numeric(18,2) check(precio_base_kg >= 0),
     precio_base_pasaje numeric(18,2) check(precio_base_pasaje >= 0),
 	horas_vuelo numeric(18, 0) NULL,
@@ -1022,6 +1028,8 @@ go
 exec mondongo.pr_cargar_ciudades
 go
 exec mondongo.pr_cargar_rutas
+go
+exec mondongo.pr_cargar_ruta_tipo_servicio
 go
 exec mondongo.pr_cargar_viajes
 go
