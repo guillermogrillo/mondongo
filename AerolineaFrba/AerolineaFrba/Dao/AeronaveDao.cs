@@ -116,7 +116,7 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@idTipoServicio", aeronave.idTipoServicio);
                     command.Parameters.AddWithValue("@butacasVen", aeronave.cantButacasVen);
                     command.Parameters.AddWithValue("@butacasPas", aeronave.cantButacasPas);
-                    command.Parameters.AddWithValue("@fechaAlta", DateTime.Now);
+                    command.Parameters.AddWithValue("@fechaAlta", fechaSistema);
                     //command.Parameters.AddWithValue("@estado", Model.AeronaveEstado.ACTIVA);
                 }
 
@@ -440,6 +440,35 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
             return 100;
+        }
+
+        public void generarButacas(Model.AeronaveModel aeronave)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "exec mondongo.pr_generar_butacas @matricula, @cantPas, @cantVen ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", aeronave.matricula);
+                    command.Parameters.AddWithValue("@cantVen", aeronave.cantButacasVen);
+                    command.Parameters.AddWithValue("@cantPas", aeronave.cantButacasPas);
+                }
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
         }
     }
 }

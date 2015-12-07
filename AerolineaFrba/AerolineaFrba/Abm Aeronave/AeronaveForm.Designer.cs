@@ -46,6 +46,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.cbFabricantes = new System.Windows.Forms.ComboBox();
+            this.lbTexto = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -217,12 +218,22 @@
             this.cbFabricantes.Size = new System.Drawing.Size(100, 21);
             this.cbFabricantes.TabIndex = 21;
             // 
+            // lbTexto
+            // 
+            this.lbTexto.AutoSize = true;
+            this.lbTexto.ForeColor = System.Drawing.Color.Red;
+            this.lbTexto.Location = new System.Drawing.Point(29, 155);
+            this.lbTexto.Name = "lbTexto";
+            this.lbTexto.Size = new System.Drawing.Size(0, 13);
+            this.lbTexto.TabIndex = 22;
+            // 
             // AeronaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(371, 261);
             this.ControlBox = false;
+            this.Controls.Add(this.lbTexto);
             this.Controls.Add(this.cbFabricantes);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -266,5 +277,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox cbFabricantes;
+        private System.Windows.Forms.Label lbTexto;
     }
 }

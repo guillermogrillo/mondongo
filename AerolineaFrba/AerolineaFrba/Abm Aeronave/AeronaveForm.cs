@@ -18,6 +18,7 @@ namespace AerolineaFrba.Abm_Aeronave
         Dao.TipoServicioDao tipoServicioDao;
         Dao.FabricanteDao fabricantesDao;
         Controller.AeronaveController _controller;
+        DateTime fechaSistema = Convert.ToDateTime(System.Configuration.ConfigurationManager.AppSettings.Get("fechaSistema"));
 
         private Boolean isEdit = false;
 
@@ -44,8 +45,23 @@ namespace AerolineaFrba.Abm_Aeronave
                 this.tbVentanilla.Text = aeronave.cantButacasVen.ToString();
                 this.cbTipoServicio.SelectedItem = getTipoServicio(aeronave.idTipoServicio);
 
-                this.tbMatricula.Enabled = false;
-                this.cbFabricantes.Enabled = false;
+                Boolean tieneViajesAsignados = _controller.chequearViajesAsignados(aeronave.matricula, fechaSistema, DateTime.MaxValue);
+                if (tieneViajesAsignados)
+                {
+                    this.tbMatricula.Enabled = false;
+                    this.cbFabricantes.Enabled = false;
+                    this.tbModelo.Enabled = false;
+                    this.cbTipoServicio.Enabled = false;
+                    this.tbKilos.Enabled = false;
+                    this.tbPasillo.Enabled = false;
+                    this.tbVentanilla.Enabled = false;
+                    this.button1.Enabled = false;
+                    this.lbTexto.Text = "La aeronave no puede ser editada porque tiene viajes asignados";
+                }
+                else
+                {
+                    this.tbMatricula.Enabled = false;
+                }
             }
         }
 
@@ -99,6 +115,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void onClickGuardar(object sender, EventArgs e)
         {
+            if (Convert.ToInt32(tbKilos.Text) == 0 || Convert.ToInt32(tbVentanilla.Text) == 0 || Convert.ToInt32(tbPasillo.Text) == 0)
+            {
+                MessageBox.Show("Cantidad de kilos y butacas no pueden ser cero.");
+                return;
+            }
+
             if (isEdit)
                 actualizar();
             else
