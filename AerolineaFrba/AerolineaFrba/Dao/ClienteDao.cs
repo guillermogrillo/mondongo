@@ -222,8 +222,7 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select count(*) as cantidad " +
                         "from mondongo.pasajes pas " +
-                        "inner join mondongo.ventas ve on ve.venta_pnr = pas.pasaje_venta_pnr " +
-                        "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id " +
+                        "inner join mondongo.viajes vi on vi.viaje_id = pas.pasaje_viaje_id " +
                         "inner join mondongo.clientes cli on cli.cliente_id = pas.pasaje_pasajero_id " +
                         "where cli.cliente_dni = @clienteDni and cli.cliente_nombre = @clienteNombre and cli.cliente_apellido = @clienteApellido " +
                         "and pas.estado = 0 "+

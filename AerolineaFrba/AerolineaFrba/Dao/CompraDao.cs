@@ -55,13 +55,12 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.ventas(venta_pnr, venta_fecha_compra, venta_viaje_id, venta_id_pagador, venta_tipo_pago_id, venta_estado) "+
-                            "values (@pnr, @fechaCompra, @viajeId, @idPagador, @tipoPagoId, @estado)";
+                var query = "insert into mondongo.ventas(venta_pnr, venta_fecha_compra, venta_id_pagador, venta_tipo_pago_id, venta_estado) "+
+                            "values (@pnr, @fechaCompra, @idPagador, @tipoPagoId, @estado)";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
-                    command.Parameters.AddWithValue("@fechaCompra", fechaSistema);
-                    command.Parameters.AddWithValue("@viajeId", compraModel.vueloElegido.idViaje);
+                    command.Parameters.AddWithValue("@fechaCompra", fechaSistema);                    
                     command.Parameters.AddWithValue("@idPagador", idPagador);
                     command.Parameters.AddWithValue("@tipoPagoId", compraModel.pagador.formaPago);                
                     command.Parameters.AddWithValue("@estado", 0);
@@ -154,14 +153,22 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select ve.venta_pnr,ve.venta_fecha_compra,vi.fecha_salida,tp.descripcion "+
+                var query = "select a.venta_pnr,a.venta_fecha_compra,a.fecha_salida,a.descripcion,a.venta_id_pagador,a.venta_estado from  " +
+                            "(select ve.venta_pnr,ve.venta_fecha_compra,vi.fecha_salida,tp.descripcion,ve.venta_id_pagador,ve.venta_estado  "+
                             "from mondongo.ventas ve "+
-                            "inner join mondongo.viajes vi on vi.viaje_id = ve.venta_viaje_id "+
-                            "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id "+                            
-                            "where ve.venta_id_pagador = @idPagador " +
-                            "and vi.fecha_salida > @fechaSistema "+
-                            "and ve.venta_estado = 0 "+
-                            "order by vi.fecha_salida asc";
+                            "inner join mondongo.pasajes pas on ve.venta_pnr = pas.pasaje_venta_pnr "+
+                            "inner join mondongo.viajes vi on pas.pasaje_viaje_id = vi.viaje_id "+
+                            "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id "+
+                            "union "+
+                            "select ve.venta_pnr,ve.venta_fecha_compra,vi.fecha_salida,tp.descripcion,ve.venta_id_pagador,ve.venta_estado "+
+                            "from mondongo.ventas ve "+
+                            "inner join mondongo.paquetes paq on ve.venta_pnr = paq.paquete_venta_pnr "+
+                            "inner join mondongo.viajes vi on paq.paquete_viaje_id = vi.viaje_id "+
+                            "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id) a "+
+                            "where a.venta_id_pagador = 1998  "+
+                            "and a.fecha_salida > '12/02/2016'  "+
+                            "and a.venta_estado = 0 "+
+                            "order by a.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@idPagador", idPagador);
@@ -201,9 +208,17 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select ve.venta_pnr, ve.venta_fecha_compra, ve.venta_viaje_id, ve.venta_id_pagador, ve.venta_tipo_pago_id, ve.venta_estado "+
+                var query = "select * from  " +
+                            "(select ve.venta_pnr,ve.venta_fecha_compra, vi.viaje_id, ve.venta_id_pagador,venta_tipo_pago_id,venta_estado "+
                             "from mondongo.ventas ve "+
-                            "where ve.venta_viaje_id = @viajeId";
+                            "inner join mondongo.pasajes pas on ve.venta_pnr = pas.pasaje_venta_pnr "+
+                            "inner join mondongo.viajes vi on pas.pasaje_viaje_id = vi.viaje_id "+
+                            "union "+
+                            "select ve.venta_pnr,ve.venta_fecha_compra, vi.viaje_id, ve.venta_id_pagador,venta_tipo_pago_id,venta_estado "+
+                            "from mondongo.ventas ve "+
+                            "inner join mondongo.paquetes paq on ve.venta_pnr = paq.paquete_venta_pnr "+
+                            "inner join mondongo.viajes vi on paq.paquete_viaje_id = vi.viaje_id) a "+
+                            "where a.viaje_id = @viajeId";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@viajeId", viajeId);                    

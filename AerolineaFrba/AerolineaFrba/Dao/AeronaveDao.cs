@@ -352,18 +352,17 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select asd.butaca_tipo, max(pasajes)   " +
-                            "from (  "+
-                            "    select viaje_id,b.butaca_tipo, count(*) as pasajes  "+
-                            "    from mondongo.pasajes pas , mondongo.ventas vta, mondongo.viajes v , mondongo.butacas b "+
-                            "where v.fecha_salida between @fechaDesde and @fechaHasta  "+
-                            "        and v.viaje_id = vta.venta_viaje_id  "+
-                            "        and vta.venta_pnr = pas.pasaje_venta_pnr  "+
-                            "        and b.butaca_id = pas.butaca_id "+
-                            "and v.aeronave_matricula=@matricula  "+
-                            "    group by viaje_id,b.butaca_tipo  "+
-                            ") asd "+
-                            "group by asd.butaca_tipo "+
+                var query = "select asd.butaca_tipo, max(pasajes) "+  
+                            "from (   "+
+                                "select viaje_id,b.butaca_tipo, count(*) as pasajes   "+
+                                "from mondongo.pasajes pas , mondongo.ventas vta, mondongo.viajes v , mondongo.butacas b  "+
+	                            "where v.fecha_salida between @fechaDesde and @fechaHasta   "+
+                                "and v.viaje_id = pas.pasaje_viaje_id   "+
+                                "and b.butaca_id = pas.butaca_id  "+
+	                            "and v.aeronave_matricula=@matricula  "+ 
+                                "group by viaje_id,b.butaca_tipo  "+
+                            ") asd  "+
+                            "group by asd.butaca_tipo  " +
                             "order by asd.butaca_tipo";
 
                 command = new SqlCommand(query, myConnection);
@@ -407,14 +406,13 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select max(paquetes) " +
-                            "from ( " +
-                            "    select viaje_id, count(*) as paquetes " +
-                            "    from mondongo.paquetes pas, mondongo.viajes v, MONDONGO.ventas vta " +
-                            "    where v.fecha_salida between @fechaDesde and @fechaHasta " +
-                            "        and vta.venta_pnr = pas.paquete_venta_pnr "+
-		                    "        and vta.venta_viaje_id = v.viaje_id " +
-                            "        and v.aeronave_matricula=@matricula " +
-                            "    group by viaje_id " +
+                            "from ( "+
+                            "select viaje_id, count(*) as paquetes  "+
+                            "from mondongo.paquetes pas, mondongo.viajes v "+
+                            "where v.fecha_salida between @fechaDesde and @fechaHasta  "+
+                            "and pas.paquete_viaje_id = v.viaje_id "+
+                            "and v.aeronave_matricula=@matricula  "+
+                            "group by viaje_id  "+
                             ") asd ";
 
                 command = new SqlCommand(query, myConnection);
