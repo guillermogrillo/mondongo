@@ -87,8 +87,8 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.pasajes(pasaje_venta_pnr, pasaje_pasajero_id, pasaje_monto, butaca_id, estado) " +
-                            "values (@pnr, @pasajeroId, @monto, (select butaca_id from mondongo.butacas where aeronave_matricula = @aeronaveMatricula and butaca_nro = @butacaNumero and butaca_tipo = @butacaTipo), @estado) ";
+                var query = "insert into mondongo.pasajes(pasaje_venta_pnr, pasaje_pasajero_id, pasaje_monto, butaca_id, estado, pasaje_viaje_id) " +
+                            "values (@pnr, @pasajeroId, @monto, (select butaca_id from mondongo.butacas where aeronave_matricula = @aeronaveMatricula and butaca_nro = @butacaNumero and butaca_tipo = @butacaTipo), @estado, @viajeId) ";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
@@ -98,6 +98,7 @@ namespace AerolineaFrba.Dao
                     command.Parameters.AddWithValue("@butacaNumero", cliente.butaca.numero);
                     command.Parameters.AddWithValue("@aeronaveMatricula", compraModel.vueloElegido.aeronaveMatricula);  
                     command.Parameters.AddWithValue("@estado", 0);
+                    command.Parameters.AddWithValue("@viajeId", compraModel.vueloElegido.idViaje);
                 }
                 command.ExecuteNonQuery();                                                
 
@@ -122,14 +123,15 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.paquetes(paquete_venta_pnr, paquete_kg, paquete_monto, estado) "+
-                            "values (@pnr, @kg, @monto, @estado)";
+                var query = "insert into mondongo.paquetes(paquete_venta_pnr, paquete_kg, paquete_monto, estado, paquete_viaje_id) "+
+                            "values (@pnr, @kg, @monto, @estado, @viajeId)";
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@pnr", pnr);
                     command.Parameters.AddWithValue("@kg", compraModel.cantidadKg);
                     command.Parameters.AddWithValue("@monto", compraModel.ruta.precioBaseKg);
                     command.Parameters.AddWithValue("@estado", 0);
+                    command.Parameters.AddWithValue("@viajeId", compraModel.vueloElegido.idViaje);
                 }
                 command.ExecuteNonQuery();                              
                 
@@ -337,26 +339,33 @@ namespace AerolineaFrba.Dao
             return paquete;
         }
 
-        public void cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo, int codDevolucion)
+        public int cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo)
         {
             SqlConnection myConnection = null;
+            int codDevolucion = 0;
             try
             {
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.devoluciones(cod_devolucion, venta_pnr, fecha_devolucion, id_pasaje, motivo) " +
-                            "values(@codDevolucion,@ventaPnr,@fechaDevolucion,@idPasaje,@motivo) ";
+                var query = "insert into mondongo.devoluciones_pasajes(venta_pnr, fecha_devolucion, id_pasaje, motivo) " +
+                            "OUTPUT INSERTED.COD_DEVOLUCION "+
+                            "values(@ventaPnr,@fechaDevolucion,@idPasaje,@motivo) ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
                     command.Parameters.AddWithValue("@ventaPnr", ventaPnr);
                     command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
                     command.Parameters.AddWithValue("@idPasaje", idPasaje);
                     command.Parameters.AddWithValue("@motivo", motivo);
                 }
-                command.ExecuteNonQuery();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        codDevolucion = (int)(double)reader.GetDecimal(0);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -366,28 +375,36 @@ namespace AerolineaFrba.Dao
             {
                 myConnection.Close();
             }
+            return codDevolucion;
         }
 
-        public void cargarDevolucionPaquete(int ventaPnr, int idPaquete, String motivo, int codDevolucion)
+        public int cargarDevolucionPaquete(int ventaPnr, int idPaquete, String motivo)
         {            
             SqlConnection myConnection = null;
+            int codDevolucion = 0;
             try
             {
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "insert into mondongo.devoluciones(cod_devolucion, venta_pnr, fecha_devolucion, id_paquete, motivo) " +
-                            "values(@codDevolucion,@ventaPnr,@fechaDevolucion,@idPaquete,@motivo) ";
+                var query = "insert into mondongo.devoluciones_paquetes(venta_pnr, fecha_devolucion, id_paquete, motivo) " +
+                            "OUTPUT INSERTED.COD_DEVOLUCION " +
+                            "values(@ventaPnr,@fechaDevolucion,@idPaquete,@motivo) ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
-                    command.Parameters.AddWithValue("@codDevolucion", codDevolucion);
                     command.Parameters.AddWithValue("@ventaPnr", ventaPnr);
                     command.Parameters.AddWithValue("@fechaDevolucion", fechaSistema);
                     command.Parameters.AddWithValue("@idPaquete", idPaquete);
                     command.Parameters.AddWithValue("@motivo", motivo);
                 }
-                command.ExecuteNonQuery();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        codDevolucion = (int)(double)reader.GetDecimal(0);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -397,6 +414,7 @@ namespace AerolineaFrba.Dao
             {
                 myConnection.Close();
             }
+            return codDevolucion;
         }
 
         public int generarCodigoDevolucion()

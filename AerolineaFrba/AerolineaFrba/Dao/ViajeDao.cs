@@ -55,7 +55,8 @@ namespace AerolineaFrba.Dao
 		                    "inner join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id  "+
 		                    "inner join mondongo.ciudades c1 on c1.id_ciudad = r.id_ciudad_origen  "+
 		                    "inner join mondongo.ciudades c2 on c2.id_ciudad = r.id_ciudad_destino  "+
-		                    "inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio	 "+
+                            "inner join MONDONGO.ruta_tipo_servicio rts on r.id_ruta=rts.id_ruta "+
+		                    "inner join mondongo.tipos_servicio ts on ts.id_tipo_servicio = rts.id_tipo_servicio	 "+
                             "where	r.id_ruta = @idRuta  "+
                             "and v.estado = 0 " +
 		                    "and cantidad_kg_disponibles > @kg  "+
@@ -180,7 +181,8 @@ namespace AerolineaFrba.Dao
                 var query = "select	v.viaje_id, v.fecha_salida, v.fecha_llegada_estimada " +                           
                             "from	mondongo.viajes v " +
                             "join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id " +
-                            "join mondongo.tipos_servicio ts on ts.id_tipo_servicio = r.id_tipo_servicio " +
+                            "join mondongo.ruta_tipo_servicio rts on r.id_ruta = rts.id_ruta " +
+                            "join mondongo.tipos_servicio ts on ts.id_tipo_servicio = rts.id_tipo_servicio " +
                             "where	r.id_ruta = @idRuta " +
                             "and v.aeronave_matricula = @matricula "+
                             "and CONVERT(VARCHAR(10),v.fecha_salida,103) = @fechaSalida " +

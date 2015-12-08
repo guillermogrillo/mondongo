@@ -92,15 +92,13 @@ namespace AerolineaFrba.Controller
 
         public int cargarDevolucionPasaje(int ventaPnr, int idPasaje, String motivo)
         {
-            int codDevolucion = _compraDao.generarCodigoDevolucion();
-            _compraDao.cargarDevolucionPasaje(ventaPnr, idPasaje, motivo, codDevolucion);
+            int codDevolucion = _compraDao.cargarDevolucionPasaje(ventaPnr, idPasaje, motivo);
             return codDevolucion;
         }
 
         public int cargarDevolucionPaquete(int ventaPnr, int idPasaje, String motivo)
         {
-            int codDevolucion = _compraDao.generarCodigoDevolucion();
-            _compraDao.cargarDevolucionPaquete(ventaPnr, idPasaje, motivo, codDevolucion);
+            int codDevolucion = _compraDao.cargarDevolucionPaquete(ventaPnr, idPasaje, motivo);
             _compraDao.registrarDevolucionDeEncomienda(idPasaje);
             return codDevolucion;
         }
