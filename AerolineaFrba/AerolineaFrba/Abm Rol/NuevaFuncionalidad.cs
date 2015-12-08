@@ -34,10 +34,9 @@ namespace AerolineaFrba.Abm_Rol
         {
             btnGuardar.Enabled = false;
             List<Model.FuncionalidadModel> funcionalidadesDelRol = controller.buscarFuncionalidadesDelRol(rolId, true);
-            
+            cbFuncionalidades.Enabled = (funcionalidadesDelRol.Count > 0);
             if (funcionalidadesDelRol.Count > 0)
-            {
-                cbFuncionalidades.Enabled = (funcionalidadesDelRol.Count > 0);
+            {                
                 cbFuncionalidades.DataSource = funcionalidadesDelRol;
                 cbFuncionalidades.DisplayMember = "_funcionalidadDescripcion";
                 cbFuncionalidades.SelectedIndex = 0;
