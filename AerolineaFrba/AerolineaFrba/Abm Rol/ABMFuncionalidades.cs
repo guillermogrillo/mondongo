@@ -35,13 +35,17 @@ namespace AerolineaFrba.Abm_Rol
         {
             dgvFuncionalidades.AutoGenerateColumns = true;
             dgvFuncionalidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvFuncionalidades.DataSource = controller.buscarFuncionalidadesDelRol(rolId, false);
-            dgvFuncionalidades.Columns[0].Visible = false;
-            dgvFuncionalidades.Columns[1].Visible = false;
-            dgvFuncionalidades.Columns[2].HeaderText = "Descripcion";
-            dgvFuncionalidades.Columns[2].Width = 400;
-            dgvFuncionalidades.Columns[2].ReadOnly = true;
-            dgvFuncionalidades.SelectedRows[0].Selected = true;
+            List<Model.FuncionalidadModel> funcionalidadesDelRol = controller.buscarFuncionalidadesDelRol(rolId, false);
+            if(funcionalidadesDelRol.Count>0)
+            {
+                dgvFuncionalidades.DataSource = funcionalidadesDelRol;
+                dgvFuncionalidades.Columns[0].Visible = false;
+                dgvFuncionalidades.Columns[1].Visible = false;
+                dgvFuncionalidades.Columns[2].HeaderText = "Descripcion";
+                dgvFuncionalidades.Columns[2].Width = 400;
+                dgvFuncionalidades.Columns[2].ReadOnly = true;
+                dgvFuncionalidades.SelectedRows[0].Selected = true;
+            }            
         }
 
         private void dgvFuncionalidades_CellContentClick(object sender, DataGridViewCellEventArgs e)
