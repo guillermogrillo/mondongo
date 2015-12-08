@@ -200,6 +200,10 @@ IF EXISTS (SELECT * FROM sys.sequences seq JOIN sys.schemas sch ON seq.schema_id
    DROP SEQUENCE mondongo.sq_pnr
 GO
 
+IF Object_ID('mondongo.vw_ventas') IS NOT NULL
+    DROP VIEW mondongo.vw_ventas
+GO
+
 
 create function mondongo.fx_busca_id_tipo_servicio(@tipo_servicio nvarchar(255))
 returns numeric(18,0)
@@ -946,24 +950,21 @@ create TRIGGER [MONDONGO].[tr_cancelar_viajes]
    AFTER UPDATE
 AS 
 BEGIN
-	DECLARE @tempTable TABLE
+	DECLARE @tempPNR TABLE
 	(
-		viaje_id numeric(18,0)
+		venta_pnr numeric(18,0)
 	);
-	
-	insert into @tempTable
-	select i.viaje_id
-	from inserted i, deleted d
-	where i.estado<>d.estado
-		and i.viaje_id=d.viaje_id;
-	
-	update MONDONGO.paquetes
-	set estado = (select top 1 estado from inserted)
-	where paquete_viaje_id in (select viaje_id from @tempTable)
 
-	update MONDONGO.pasajes
-	set estado = (select top 1 estado from inserted)
-	where pasaje_viaje_id in (select viaje_id from @tempTable)
+	insert into @tempPNR
+	select v.pnr
+	from inserted i, deleted d, mondongo.vw_ventas	v
+	where i.viaje_id = d.viaje_id
+	and  v.viajeId = i.viaje_id
+	and i.estado <> d.estado;	
+	
+	update MONDONGO.ventas
+	set venta_estado = (select top 1 estado from inserted)
+	where venta_pnr in (select venta_pnr from @tempPNR)
 	
 END
 GO
@@ -1162,3 +1163,16 @@ BEGIN
     END
 
 END
+go
+create view mondongo.vw_ventas
+as
+	select ve.venta_pnr as pnr, pas.pasaje_id as id, vi.viaje_id as viajeId
+	from mondongo.viajes vi, mondongo.ventas ve, mondongo.pasajes pas
+	where vi.viaje_id = pas.pasaje_viaje_id
+	and pas.pasaje_venta_pnr = ve.venta_pnr			
+	union all
+	select ve.venta_pnr as pnr, paquete_id as id, vi.viaje_id as viajeId
+	from mondongo.viajes vi, mondongo.ventas ve, mondongo.paquetes paq
+	where vi.viaje_id = paq.paquete_viaje_id
+	and paq.paquete_venta_pnr = ve.venta_pnr;
+go
