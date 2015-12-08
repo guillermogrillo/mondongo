@@ -47,6 +47,7 @@ namespace AerolineaFrba.Abm_Ruta
             cbOrigen.Enabled = enabled;
             cbDestino.Enabled = enabled;
             tbCodigoRuta.Enabled = enabled;
+            cbTipoServicio.Enabled = enabled;
         }
 
         private void cargarRuta(Model.RutaModel ruta)
@@ -119,17 +120,17 @@ namespace AerolineaFrba.Abm_Ruta
             }
             else
             {
-                Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
-                if (rutaExistente != null && rutaExistente.estado == 0)
-                {
-                    lbError.Text = "Ya existe una ruta con esas caracteristicas";
-                    return;
-                }
-
-                Boolean existeCodigo = (_controller.buscarRutaPorCodigo(ruta.codigoRuta) != null);
+                /*Boolean existeCodigo = (_controller.buscarRutaPorCodigo(ruta.codigoRuta) != null);
                 if (existeCodigo)
                 {
                     lbError.Text = "Ya existe ese codigo de ruta";
+                    return;
+                }
+                */
+                Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.codigoRuta, ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
+                if (rutaExistente != null && rutaExistente.estado == 0)
+                {
+                    lbError.Text = "Ya existe una ruta con esas caracteristicas";
                     return;
                 }
                 

@@ -20,6 +20,10 @@ namespace AerolineaFrba.Controller
         {
             return _rutaDao.buscarRuta(idCiudadOrigen, idCiudadDestino, idTipoServicio);
         }
+        public Model.RutaModel buscarRuta(int codigoRuta, int idCiudadOrigen, int idCiudadDestino, int idTipoServicio)
+        {
+            return _rutaDao.buscarRuta(codigoRuta, idCiudadOrigen, idCiudadDestino, idTipoServicio);
+        }
 
         public Model.RutaModel buscarRutaPorCodigo(int codigoRuta)
         {
@@ -33,7 +37,8 @@ namespace AerolineaFrba.Controller
 
         public void guardarRuta(Model.RutaModel ruta)
         {
-            _rutaDao.guardarRuta(ruta);
+            int rutaId = _rutaDao.guardarRuta(ruta);
+            _rutaDao.guardarRutaTipoServicio(rutaId, ruta.tipoServicio);
         }
 
         public void editarRuta(Model.RutaModel ruta)
@@ -44,6 +49,7 @@ namespace AerolineaFrba.Controller
         public void eliminarRuta(int rutaId)
         {
             _rutaDao.eliminarRuta(rutaId);
+            _rutaDao.eliminarRutaTipoServicio(rutaId);
         }
 
     }
