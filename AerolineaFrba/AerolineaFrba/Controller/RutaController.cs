@@ -48,8 +48,10 @@ namespace AerolineaFrba.Controller
 
         public void eliminarRuta(int rutaId)
         {
-            _rutaDao.eliminarRuta(rutaId);
             _rutaDao.eliminarRutaTipoServicio(rutaId);
+            int cant = _rutaDao.cantRutasTipoServicio(rutaId);
+            if(cant==0)
+                _rutaDao.eliminarRuta(rutaId);
         }
 
     }

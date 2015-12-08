@@ -381,5 +381,40 @@ namespace AerolineaFrba.Dao
             }
             return ruta;
         }
+
+        public int cantRutasTipoServicio(int rutaId)
+        {
+            int cant = 0;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select count(*) from mondongo.ruta_tipo_servicio rts " +
+                            "where rts.id_ruta = @idRuta ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@idRuta", rutaId);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cant = reader.GetInt32(0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return cant;
+        }
     }
 }
