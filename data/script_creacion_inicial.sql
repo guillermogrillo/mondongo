@@ -944,6 +944,22 @@ begin
 	where viaje_ruta_id in (select ruta_id from @tempRuta)
 end
 go
+
+/* VIEWS */
+
+create view mondongo.vw_ventas
+as
+	select ve.venta_pnr as pnr, pas.pasaje_id as id, vi.viaje_id as viajeId
+	from mondongo.viajes vi, mondongo.ventas ve, mondongo.pasajes pas
+	where vi.viaje_id = pas.pasaje_viaje_id
+	and pas.pasaje_venta_pnr = ve.venta_pnr			
+	union all
+	select ve.venta_pnr as pnr, paquete_id as id, vi.viaje_id as viajeId
+	from mondongo.viajes vi, mondongo.ventas ve, mondongo.paquetes paq
+	where vi.viaje_id = paq.paquete_viaje_id
+	and paq.paquete_venta_pnr = ve.venta_pnr;
+go
+
 /* TRIGGERS */
 create TRIGGER [MONDONGO].[tr_cancelar_viajes] 
    ON  [MONDONGO].[viajes] 
@@ -1163,16 +1179,4 @@ BEGIN
     END
 
 END
-go
-create view mondongo.vw_ventas
-as
-	select ve.venta_pnr as pnr, pas.pasaje_id as id, vi.viaje_id as viajeId
-	from mondongo.viajes vi, mondongo.ventas ve, mondongo.pasajes pas
-	where vi.viaje_id = pas.pasaje_viaje_id
-	and pas.pasaje_venta_pnr = ve.venta_pnr			
-	union all
-	select ve.venta_pnr as pnr, paquete_id as id, vi.viaje_id as viajeId
-	from mondongo.viajes vi, mondongo.ventas ve, mondongo.paquetes paq
-	where vi.viaje_id = paq.paquete_viaje_id
-	and paq.paquete_venta_pnr = ve.venta_pnr;
 go
