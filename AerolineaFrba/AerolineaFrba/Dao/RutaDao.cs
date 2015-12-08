@@ -416,5 +416,54 @@ namespace AerolineaFrba.Dao
             }
             return cant;
         }
+
+        public List<Model.RutaModel> buscarRutasPorOrigenYDestino(int origen, int destino)
+        {
+            List<Model.RutaModel> rutasEncontradas = new List<Model.RutaModel>();
+            Model.RutaModel ruta = null;
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "select		r.id_ruta,  " +
+			                "r.codigo_ruta,  "+
+			                "r.id_ciudad_origen,  "+
+			                "r.id_ciudad_destino,  "+
+			                "rts.id_tipo_servicio,  "+
+			                "r.precio_base_pasaje,  "+
+			                "r.precio_base_kg,  "+
+			                "r.horas_vuelo,  "+
+			                "r.estado "+
+                            "from		mondongo.rutas r "+
+                            "inner join	mondongo.ruta_tipo_servicio rts on r.id_ruta = rts.id_ruta "+
+                            "where		r.id_ciudad_origen = @idCiudadOrigen "+
+                            "and			r.id_ciudad_destino = @idCiudadDestino ";
+
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@idCiudadOrigen", origen);
+                    command.Parameters.AddWithValue("@idCiudadDestino", destino);
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ruta = generarRuta(reader);
+                        rutasEncontradas.Add(ruta);  
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+            return rutasEncontradas;
+        }
     }
 }

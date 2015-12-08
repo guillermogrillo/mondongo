@@ -54,5 +54,10 @@ namespace AerolineaFrba.Controller
                 _rutaDao.eliminarRuta(rutaId);
         }
 
+
+        public List<Model.RutaModel> buscarRutasPorOrigenYDestino(int origen, int destino)
+        {
+            return _rutaDao.buscarRutasPorOrigenYDestino(origen,destino);
+        }
     }
 }

@@ -100,55 +100,130 @@ namespace AerolineaFrba.Abm_Ruta
         private void btAceptar_Click(object sender, EventArgs e)
         {
             lbError.Text = "";
-            if (Convert.ToInt32(tbHorasVuelo.Text) == 0 || Convert.ToInt32(tbPasajePrecio.Text) == 0 || Convert.ToInt32(tbPrecioKg.Text) == 0)
-            {
-                lbError.Text = "Los precios y las horas de vuelo no pueden ser cero.";
-                return;
-            }
-            
-            Model.RutaModel ruta = armarRuta();
 
-            if (ruta.horasVuelo > 24)
+            if (!validarCamposObligatorios())
             {
-                lbError.Text = "Las horas de vuelo no pueden superar las 24 horas";
-                return;
-            }
-
-            if (isEdit)
-            {
-                _controller.editarRuta(ruta);
+                lbError.Text = "Debe ingresar todos los campos";
             }
             else
             {
-                /*Boolean existeCodigo = (_controller.buscarRutaPorCodigo(ruta.codigoRuta) != null);
-                if (existeCodigo)
+                if (Convert.ToInt32(tbHorasVuelo.Text) == 0 || Convert.ToInt32(tbPasajePrecio.Text) == 0 || Convert.ToInt32(tbPrecioKg.Text) == 0)
                 {
-                    lbError.Text = "Ya existe ese codigo de ruta";
+                    lbError.Text = "Los precios y las horas de vuelo no pueden ser cero.";
                     return;
                 }
-                */
-                Model.RutaModel rutaExistente = _controller.buscarRuta(ruta.codigoRuta, ruta.ciudadOrigen, ruta.ciudadDestino, ruta.tipoServicio);
-                if (rutaExistente != null && rutaExistente.estado == 0)
+
+                Model.RutaModel ruta = armarRuta();
+
+                if (ruta.horasVuelo > 24)
                 {
-                    lbError.Text = "Ya existe una ruta con esas caracteristicas";
+                    lbError.Text = "Las horas de vuelo no pueden superar las 24 horas";
                     return;
                 }
-                
-                int idCiudadOrigen = (cbOrigen.SelectedValue as Model.CiudadModel).ciudadId;
-                int idCiudadDestino = (cbDestino.SelectedValue as Model.CiudadModel).ciudadId;
-                if (idCiudadOrigen != idCiudadDestino)
+
+                if (isEdit)
                 {
-                    _controller.guardarRuta(ruta);
-                    this.Close();
+                    _controller.editarRuta(ruta);
                 }
                 else
                 {
-                    lbError.Text = "No se puede crear una ruta con igual ciudad origen y destino";
-                }
-                
-                
+                    List<Model.RutaModel> rutasOrigDest = _controller.buscarRutasPorOrigenYDestino(ruta.ciudadOrigen, ruta.ciudadDestino);
+                    if (rutasOrigDest.Count > 0)
+                    {
+                        List<Model.RutaModel> rutasEncontradas = buscarCodigoRuta(rutasOrigDest, ruta.codigoRuta);
+                        if (rutasEncontradas != null && rutasEncontradas.Count > 0)
+                        {
+
+                            Boolean valTS = buscarTipoServicio(rutasEncontradas, ruta.tipoServicio);
+
+                            if (valTS)
+                            {
+                                lbError.Text = "La ruta seleccionada ya tiene ese tipo de servicio asignado";
+                            }
+                            else
+                            {
+                                int idCiudadOrigen = (cbOrigen.SelectedValue as Model.CiudadModel).ciudadId;
+                                int idCiudadDestino = (cbDestino.SelectedValue as Model.CiudadModel).ciudadId;
+                                if (idCiudadOrigen != idCiudadDestino)
+                                {
+                                    _controller.guardarRuta(ruta);
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    lbError.Text = "No se puede crear una ruta con igual ciudad origen y destino";
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            lbError.Text = "Se encontró otra ruta con mismo Origen y Destino pero distinto Codigo Ruta";
+                        }
+                    }
+                    else
+                    {
+                        Model.RutaModel rutaEncontrada = _controller.buscarRutaPorCodigo(ruta.codigoRuta);
+                        if (rutaEncontrada != null)
+                        {
+                            lbError.Text = "Ya existe otra ruta con ese mismo código y distinto Origen y Destino";
+                        }
+                        else
+                        {
+                            int idCiudadOrigen = (cbOrigen.SelectedValue as Model.CiudadModel).ciudadId;
+                            int idCiudadDestino = (cbDestino.SelectedValue as Model.CiudadModel).ciudadId;
+                            if (idCiudadOrigen != idCiudadDestino)
+                            {
+                                _controller.guardarRuta(ruta);
+                                this.Close();
+                            }
+                            else
+                            {
+                                lbError.Text = "No se puede crear una ruta con igual ciudad origen y destino";
+                            }
+                        }
+                    }
+                } 
             }
-            
+
+                       
+        }
+
+        private Boolean validarCamposObligatorios()
+        {
+            Boolean codigoRutaLleno = !String.IsNullOrWhiteSpace(tbCodigoRuta.Text);
+            Boolean horasVueloLleno = !String.IsNullOrWhiteSpace(tbHorasVuelo.Text);
+            Boolean precioPasajeLleno = !String.IsNullOrWhiteSpace(tbPasajePrecio.Text);
+            Boolean precioKgLleno = !String.IsNullOrWhiteSpace(tbPrecioKg.Text);
+
+            return codigoRutaLleno && horasVueloLleno && precioPasajeLleno && precioKgLleno;
+        }
+
+        private Boolean buscarTipoServicio(List<Model.RutaModel> rutasEncontradas, int tipoServicio)
+        {
+            Boolean retVal = false;
+            foreach (Model.RutaModel ruta in rutasEncontradas)
+            {
+                if (ruta.tipoServicio == tipoServicio)
+                {
+                    retVal = true;
+                    break;
+                }
+            }
+            return retVal;
+        }
+
+        private List<Model.RutaModel> buscarCodigoRuta(List<Model.RutaModel> rutasOrigDest, int codigoRuta)
+        {            
+            List<Model.RutaModel> rutasEncontradas = new List<Model.RutaModel>();
+            foreach(Model.RutaModel ruta in rutasOrigDest){
+                if (ruta.codigoRuta == codigoRuta)
+                {
+                    rutasEncontradas.Add(ruta);                    
+                }
+            }
+
+            return rutasEncontradas;
         }
 
         private Model.RutaModel armarRuta()
