@@ -120,7 +120,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "select top 5 c.nombre as destino, count(*) as cantidad "+
-                            "from mondongo.devoluciones d " +
+                            "from mondongo.devoluciones_pasajes d " +
                             "inner join mondongo.pasajes p on p.pasaje_id = d.id_pasaje "+
                             "inner join mondongo.viajes vi on vi.viaje_id = p.pasaje_viaje_id "+
                             "inner join mondongo.rutas r on r.id_ruta = vi.viaje_ruta_id "+
