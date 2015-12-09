@@ -70,18 +70,18 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                String query = "select top 5 a.matricula, sum(libres.cantidad) as sin_vender " +
-                                "from  " +
-                                "(select bv.viaje_id, count(bv.butaca_id) as cantidad " +
-                                "from mondongo.butacas_viaje bv " +
-                                "inner join mondongo.butacas b on b.butaca_id = bv.butaca_id " +
-                                "where bv.estado = 'L' " +
-                                "group by bv.viaje_id,bv.estado) libres " +
-                                "inner join mondongo.viajes v on v.viaje_id = libres.viaje_id " +
-                                "inner join mondongo.aeronaves a on a.matricula = v.aeronave_matricula " +
-                                "where (case when month(v.fecha_salida) between 1 and 6 then 1 else 2 end) = @semestre " +
-                                "and year(v.fecha_salida) = @año " +
-                                "group by a.matricula " +
+                String query = "select top 5 c.nombre, sum(libres.cantidad) as sin_vender "+
+                                "from "+
+                                "(select bv.viaje_id, count(bv.butaca_id) as cantidad "+
+                                "from mondongo.butacas_viaje bv "+
+                                "inner join mondongo.butacas b on b.butaca_id = bv.butaca_id "+
+                                "where bv.estado = 'L' "+
+                                "group by bv.viaje_id,bv.estado) libres "+
+                                "inner join mondongo.viajes v on v.viaje_id = libres.viaje_id "+
+                                "inner join mondongo.rutas r on r.id_ruta = v.viaje_ruta_id "+
+                                "inner join mondongo.ciudades c on c.id_ciudad = r.id_ciudad_destino "+
+                                "group by c.nombre,(case when month(v.fecha_salida) between 1 and 6 then 1 else 2 end),year(v.fecha_salida) "+
+                                "having (case when month(v.fecha_salida) between 1 and 6 then 1 else 2 end) = @semestre and year(v.fecha_salida) = @año "+
                                 "order by sin_vender desc";
                 using (command = new SqlCommand(query, myConnection))
                 {
