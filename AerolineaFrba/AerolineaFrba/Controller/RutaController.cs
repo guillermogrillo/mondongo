@@ -38,7 +38,7 @@ namespace AerolineaFrba.Controller
         public void guardarRuta(Model.RutaModel ruta)
         {
             int rutaId = _rutaDao.guardarRuta(ruta);
-            _rutaDao.guardarRutaTipoServicio(rutaId, ruta.tipoServicio);
+            _rutaDao.guardarRutaTipoServicio(rutaId, ruta.codigoRuta, ruta.tipoServicio);
         }
 
         public void editarRuta(Model.RutaModel ruta)

@@ -451,8 +451,7 @@ namespace AerolineaFrba.Dao
                 var query = "update v "+
                             "set v.cantidad_kg_disponibles = v.cantidad_kg_disponibles + @paqueteKg "+
                             "from mondongo.viajes v "+
-                            "inner join mondongo.ventas ve on ve.venta_viaje_id = v.viaje_id "+
-                            "inner join mondongo.paquetes paq on paq.paquete_venta_pnr = ve.venta_pnr " +
+                            "inner join mondongo.paquetes paq on paq.paquete_viaje_id = v.viaje_id  " +
                             "where paq.paquete_id = @paqueteId";
                 using (command = new SqlCommand(query, myConnection))
                 {

@@ -167,8 +167,8 @@ namespace AerolineaFrba.Dao
                             "inner join mondongo.paquetes paq on ve.venta_pnr = paq.paquete_venta_pnr "+
                             "inner join mondongo.viajes vi on paq.paquete_viaje_id = vi.viaje_id "+
                             "inner join mondongo.tipos_pago tp on tp.tipo_pago_id = ve.venta_tipo_pago_id) a "+
-                            "where a.venta_id_pagador = 1998  "+
-                            "and a.fecha_salida > '12/02/2016'  "+
+                            "where a.venta_id_pagador = @idPagador  " +
+                            "and a.fecha_salida > @fechaSistema  " +
                             "and a.venta_estado = 0 "+
                             "order by a.fecha_salida asc";
                 using (command = new SqlCommand(query, myConnection))

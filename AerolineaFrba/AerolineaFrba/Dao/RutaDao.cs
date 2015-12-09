@@ -23,7 +23,7 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select r.id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, rts.id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado " +
+                var query = "select r.id_ruta, r.codigo_ruta, id_ciudad_origen, id_ciudad_destino, rts.id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado " +
                             "from mondongo.rutas r, MONDONGO.ruta_tipo_servicio rts " +
                             "where r.id_ruta=rts.id_ruta "+
                             "   and id_ciudad_origen = @idCiudadOrigen and id_ciudad_destino = @idCiudadDestino ";
@@ -130,7 +130,7 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "select r.id_ruta, codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado, " +
+                var query = "select r.id_ruta, r.codigo_ruta, id_ciudad_origen, id_ciudad_destino, id_tipo_servicio, precio_base_kg, precio_base_pasaje, horas_vuelo, estado, " +
                             "(select nombre from MONDONGO.ciudades where id_ciudad=id_ciudad_origen) as ciudadOrigen, "+
 	                        "(select nombre from MONDONGO.ciudades where id_ciudad=id_ciudad_destino) as ciudadDestino, "+
                             "(select tipo_servicio from MONDONGO.tipos_servicio ts where ts.id_tipo_servicio=rts.id_tipo_servicio) "+
@@ -316,7 +316,7 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
-        public void guardarRutaTipoServicio(int rutaId, int tipoServicioId)
+        public void guardarRutaTipoServicio(int rutaId, int codigoRuta, int tipoServicioId)
         {
             SqlConnection myConnection = null;
             try
@@ -325,11 +325,12 @@ namespace AerolineaFrba.Dao
                 myConnection.Open();
                 SqlCommand command = null;
                 var query = "insert into mondongo.ruta_tipo_servicio " +
-                            "values(@idRuta, @idTipoServicio) ";
+                            "values(@idRuta, @codigoRuta, @idTipoServicio) ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
                     command.Parameters.AddWithValue("@idRuta", rutaId);
+                    command.Parameters.AddWithValue("@codigoRuta", codigoRuta);
                     command.Parameters.AddWithValue("@idTipoServicio", tipoServicioId);
                 }
 
