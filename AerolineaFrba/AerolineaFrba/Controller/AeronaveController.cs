@@ -10,10 +10,12 @@ namespace AerolineaFrba.Controller
     public class AeronaveController
     {
         private Dao.AeronaveDao _dao = null;
+        private Dao.ViajeDao _viajeDao = null;
 
         public AeronaveController()
         {
             _dao = new Dao.AeronaveDao();
+            _viajeDao = new Dao.ViajeDao();
         }
 
         public List<Model.AeronaveModel> buscarAeronaves()
@@ -28,6 +30,7 @@ namespace AerolineaFrba.Controller
                 return "Matricula existente";
             
             _dao.guardarAeronave(aeronave);
+            _dao.generarButacas(aeronave);
             return "OK";
         }
 
@@ -45,7 +48,7 @@ namespace AerolineaFrba.Controller
         
         public void fueraServicioAeronave(string matricula, DateTime fechaDesde, DateTime fechaHasta)
         {
-            //_dao.fueraServicioAeronave(matricula, fechaDesde, fechaHasta);
+            _viajeDao.cancelarViajesAeronave(matricula, fechaDesde, fechaHasta);
             _dao.grabarBajaAeronave(matricula,fechaDesde,fechaHasta,"FS");
         }
 
