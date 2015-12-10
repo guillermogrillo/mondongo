@@ -124,6 +124,8 @@ namespace AerolineaFrba.Abm_Ruta
                 if (isEdit)
                 {
                     _controller.editarRuta(ruta);
+                    MessageBox.Show("Ruta editada satisfactoriamente");
+                    this.Close();
                 }
                 else
                 {
