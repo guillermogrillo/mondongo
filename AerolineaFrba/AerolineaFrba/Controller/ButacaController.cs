@@ -25,5 +25,10 @@ namespace AerolineaFrba.Controller
         {
             butacaDao.guardarButacasViaje(idViaje, butacas);
         }
+
+        public void borrarButacasViaje(int viajeId)
+        {
+            butacaDao.borrarButacasViaje(viajeId);
+        }
     }
 }

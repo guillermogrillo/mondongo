@@ -605,7 +605,7 @@ create procedure mondongo.pr_cargar_butacas
 AS
 BEGIN
 	insert into MONDONGO.butacas(aeronave_matricula, butaca_nro, butaca_tipo, butaca_piso)
-	select distinct Aeronave_Matricula, Butaca_Nro, Butaca_Tipo, butaca_piso
+	select distinct Aeronave_Matricula, Butaca_Nro, upper(Butaca_Tipo), butaca_piso
 	from gd_esquema.Maestra
 	where Pasaje_Codigo<>0
 	order by Aeronave_Matricula, Butaca_Nro
@@ -1059,36 +1059,6 @@ go
 exec mondongo.pr_cargar_butacas_viaje
 go
 exec mondongo.pr_actualizar_viajes
-go
-
-create trigger mondongo.tr_generar_butacas
-   ON  [MONDONGO].[aeronaves] 
-   AFTER INSERT
-AS 
-BEGIN
-	DECLARE @I INT, @CANT_PAS INT, @CANT_VEN INT, @MATRICULA nvarchar(255)
-	/*SET @I = 1
-	SET @CANT_PAS = (select i.cantidad_butacas_pas from inserted i)
-	SET @CANT_VEN = (select i.cantidad_butacas_ven from inserted i)
-	SET @MATRICULA = (select i.matricula from inserted i)
-
-    WHILE @I <= @CANT_PAS
-    BEGIN
-        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@MATRICULA, @I, 1, 'PASILLO')
-
-        SET @I = @I + 1
-    END
-
-	WHILE @I <= (@CANT_PAS + @CANT_VEN)
-    BEGIN
-        INSERT INTO mondongo.butacas(aeronave_matricula, butaca_nro, butaca_piso, butaca_tipo)
-        VALUES(@MATRICULA, @I, 1, 'VENTANILLA')
-
-        SET @I = @I + 1
-    END
-	*/
-END
 GO
 CREATE TRIGGER [MONDONGO].[tr_ocupar_butaca] 
    ON  [MONDONGO].[pasajes] 

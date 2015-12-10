@@ -18,6 +18,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         Controller.TipoServicioController tipoServicioController = null;
         Controller.MillasController millasController = null;
         Controller.CompraController compraController = null;
+        Controller.ButacaController butacaController = null;
         public Model.CiudadModel ciudadOrigen = null;
         public Model.CiudadModel ciudadDestino = null;
         public List<Model.ViajeRegistroLlegadaModel> vuelosEncontrados = null;
@@ -33,6 +34,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             tipoServicioController = new Controller.TipoServicioController();
             millasController = new Controller.MillasController();
             compraController = new Controller.CompraController();
+            butacaController = new Controller.ButacaController();
             dpFechaSalida.Value = fechaSistema;
             dpFechaLlegada.Value = fechaSistema;
         }
@@ -181,6 +183,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                         }
 
                     }
+
+                    butacaController.borrarButacasViaje(vueloSeleccionado.viajeId);
 
                     MessageBox.Show("Se registró correctamente la llegada a destino del vuelo.");
                     Cursor.Current = Cursors.Default;

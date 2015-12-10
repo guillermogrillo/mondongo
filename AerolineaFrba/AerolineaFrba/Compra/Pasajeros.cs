@@ -29,6 +29,7 @@ namespace AerolineaFrba.Compra
         private void Pasajeros_Load(object sender, EventArgs e)
         {                        
             btnQuitar.Enabled = false;
+            lblInfoAdicional.Visible = compraModel.clientes.Count > 0;
             if(compraModel.clientes.Count==compraModel.cantidadPax)
             {
                 btnAgregar.Enabled = false;

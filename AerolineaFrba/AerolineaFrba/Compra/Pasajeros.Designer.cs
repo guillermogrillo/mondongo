@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbPasajeros = new System.Windows.Forms.GroupBox();
+            this.lblInfoAdicional = new System.Windows.Forms.Label();
             this.lblCalculoPrecio = new System.Windows.Forms.Label();
             this.lblPrecioTotal = new System.Windows.Forms.Label();
             this.lblCalculoPasajes = new System.Windows.Forms.Label();
@@ -51,6 +52,7 @@
             // 
             // gbPasajeros
             // 
+            this.gbPasajeros.Controls.Add(this.lblInfoAdicional);
             this.gbPasajeros.Controls.Add(this.lblCalculoPrecio);
             this.gbPasajeros.Controls.Add(this.lblPrecioTotal);
             this.gbPasajeros.Controls.Add(this.lblCalculoPasajes);
@@ -71,6 +73,16 @@
             this.gbPasajeros.TabIndex = 0;
             this.gbPasajeros.TabStop = false;
             this.gbPasajeros.Text = "Pasajeros";
+            // 
+            // lblInfoAdicional
+            // 
+            this.lblInfoAdicional.AutoSize = true;
+            this.lblInfoAdicional.ForeColor = System.Drawing.Color.Red;
+            this.lblInfoAdicional.Location = new System.Drawing.Point(290, 223);
+            this.lblInfoAdicional.Name = "lblInfoAdicional";
+            this.lblInfoAdicional.Size = new System.Drawing.Size(168, 13);
+            this.lblInfoAdicional.TabIndex = 15;
+            this.lblInfoAdicional.Text = "(incluye adicional por tipo servicio)";
             // 
             // lblCalculoPrecio
             // 
@@ -257,5 +269,6 @@
         private System.Windows.Forms.Label lblCalculoPasajes;
         private System.Windows.Forms.Label lblPrecioTotal;
         private System.Windows.Forms.Label lblCalculoPrecio;
+        private System.Windows.Forms.Label lblInfoAdicional;
     }
 }

@@ -89,5 +89,32 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
+
+        public void borrarButacasViaje(int viajeId)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "delete from mondongo.butacas_viaje "+
+                            "where viaje_id = @viajeId";
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@viajeId", viajeId);
+                }
+                command.ExecuteNonQuery();               
+              
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
     }
 }

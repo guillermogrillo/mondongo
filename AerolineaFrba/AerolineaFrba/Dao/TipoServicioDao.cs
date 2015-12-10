@@ -22,7 +22,7 @@ namespace AerolineaFrba.Dao
                 myConnection = new SqlConnection(stringConexion);
                 myConnection.Open();
                 SqlCommand command = null;
-                var query = "SELECT id_tipo_servicio, tipo_servicio FROM MONDONGO.TIPOS_SERVICIO ";
+                var query = "SELECT id_tipo_servicio, tipo_servicio,costo_adicional FROM MONDONGO.TIPOS_SERVICIO ";
                 command = new SqlCommand(query, myConnection);
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -31,7 +31,7 @@ namespace AerolineaFrba.Dao
                         Model.TipoServicioModel ts = new Model.TipoServicioModel();
                         ts.id = (int)(double)reader.GetDecimal(0);
                         ts.tipoServicio = reader.GetString(1);
-
+                        ts.costoAdicional = (int)(double)reader.GetDecimal(2);
                         tiposServicio.Add(ts);
                     }
                 }

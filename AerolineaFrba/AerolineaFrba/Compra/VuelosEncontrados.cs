@@ -56,11 +56,11 @@ namespace AerolineaFrba.Compra
             dgvVuelos.Columns[5].ReadOnly = true;
             dgvVuelos.Columns[5].Width = 65;
 
-            dgvVuelos.Columns[7].HeaderText = "Butacas Disponibles Pasillo";
+            dgvVuelos.Columns[7].HeaderText = "Butacas Disponibles Ventanilla";
             dgvVuelos.Columns[7].ReadOnly = true;
             dgvVuelos.Columns[7].Width = 65;
 
-            dgvVuelos.Columns[8].HeaderText = "Butacas Disponibles Ventanilla";
+            dgvVuelos.Columns[8].HeaderText = "Butacas Disponibles Pasillo";
             dgvVuelos.Columns[8].ReadOnly = true;
             dgvVuelos.Columns[8].Width = 65;
 

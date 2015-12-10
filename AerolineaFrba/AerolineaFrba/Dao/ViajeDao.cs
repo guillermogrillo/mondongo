@@ -39,14 +39,14 @@ namespace AerolineaFrba.Dao
 		                    "from mondongo.viajes v1 "+
 		                    "inner join mondongo.butacas_viaje bv on v.viaje_id = bv.viaje_id "+
 		                    "inner join mondongo.butacas b on bv.butaca_id = b.butaca_id "+
-		                    "where b.butaca_tipo = 'Pasillo' "+
+		                    "where b.butaca_tipo = 'PASILLO' "+
 		                    "and v1.viaje_id = v.viaje_id "+
 		                    "and bv.estado = 'L') as cantPasillo, "+
 		                    "(select count(*) as cantidad_butacas_ventanilla_disponibles "+
 		                    "from mondongo.viajes v2 "+
 		                    "inner join mondongo.butacas_viaje bv on v.viaje_id = bv.viaje_id "+
 		                    "inner join mondongo.butacas b on bv.butaca_id = b.butaca_id "+
-		                    "where b.butaca_tipo = 'Ventanilla' "+
+		                    "where b.butaca_tipo = 'VENTANILLA' "+
 		                    "and v2.viaje_id = v.viaje_id "+
 		                    "and bv.estado = 'L') as cantVentanilla, "+
 		                    "ts.tipo_servicio,v.aeronave_matricula,  "+
@@ -286,7 +286,7 @@ namespace AerolineaFrba.Dao
                         var butacaNro = (int)(double)reader.GetDecimal(0);
                         var butacaTipo = reader.GetString(1);
                         
-                        if(butacaTipo.Equals("Pasillo"))
+                        if(butacaTipo.Equals("PASILLO"))
                         {
                             butacasDisponiblesPasillo.Add(butacaNro);
                         }else{

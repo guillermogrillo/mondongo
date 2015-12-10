@@ -15,12 +15,14 @@ namespace AerolineaFrba.Compra
 
         private Model.CompraModel compraModel;
         private Controller.CompraController compraController;
+        private Controller.TipoServicioController tipoServicioController = null;
 
         public ConfirmacionCompra(Model.CompraModel compraModel)
         {
             InitializeComponent();
             this.compraModel = compraModel;
             this.compraController = new Controller.CompraController();
+            this.tipoServicioController = new Controller.TipoServicioController();
             gbTarjeta.Visible = false;
         }
 
@@ -71,12 +73,12 @@ namespace AerolineaFrba.Compra
 
             dgvPasajeros.Columns[8].Visible = false; 
 
-            tbPrecioPasajes.Text = (compraModel.cantidadPax * compraModel.ruta.precioBasePasaje).ToString();
+            tbPrecioPasajes.Text = (compraModel.cantidadPax * (compraModel.ruta.precioBasePasaje) + buscarCostoAdicionalPorTipoServicio()).ToString();
             tbNombrePagador.Text = compraModel.pagador.nombre;
             tbApellidoPagador.Text = compraModel.pagador.apellido;
             tbDniPagador.Text = compraModel.pagador.dni.ToString();
             Model.TipoPagoModel formaDePago = compraModel.pagador.formaPago;
-            tbFormaPago.Text = formaDePago.ToString();
+            tbFormaPago.Text = formaDePago.ToString();                        
             Decimal precioTotal = Math.Round((Convert.ToDecimal(tbPrecioEncomienda.Text) + Convert.ToDecimal(tbPrecioPasajes.Text)), 2, MidpointRounding.ToEven);
             tbPrecioTotal.Text = precioTotal.ToString();
             if(compraModel.pagador.formaPago.Equals(Model.TipoPagoModel.Tarjeta))
@@ -116,6 +118,21 @@ namespace AerolineaFrba.Compra
         private int registrarCompra(Model.CompraModel compraModel)
         {
             return compraController.registrarCompra(compraModel);
+        }
+
+        private int buscarCostoAdicionalPorTipoServicio()
+        {
+            List<Model.TipoServicioModel> TodosLosTiposDeServicio = tipoServicioController.buscarTiposServicio();
+            int costoAdicional = 0;
+            foreach (Model.TipoServicioModel tipoServicio in TodosLosTiposDeServicio)
+            {
+                if (tipoServicio.id == compraModel.ruta.tipoServicio)
+                {
+                    costoAdicional = tipoServicio.costoAdicional;
+                    break;
+                }
+            }
+            return costoAdicional;
         }
     }
 }
