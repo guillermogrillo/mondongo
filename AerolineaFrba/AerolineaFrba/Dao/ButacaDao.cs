@@ -116,5 +116,43 @@ namespace AerolineaFrba.Dao
                 myConnection.Close();
             }
         }
+
+        public void borrarButacasPorBaja(string matricula, DateTime fechaDesde, Nullable<DateTime> fechaHasta)
+        {
+            SqlConnection myConnection = null;
+            try
+            {
+                myConnection = new SqlConnection(stringConexion);
+                myConnection.Open();
+                SqlCommand command = null;
+                var query = "delete from mondongo.butacas_viaje " +
+                            "where viaje_id in ( " +
+                            "    select viaje_id from MONDONGO.viajes " +
+                            "    where aeronave_matricula = @matricula " +
+                            "        and fecha_salida > @fechaDesde ";
+
+                if (fechaHasta != null)
+                    query = query + " and fecha_salida < @fechaHasta ";
+                
+                query = query + ")";
+                
+                using (command = new SqlCommand(query, myConnection))
+                {
+                    command.Parameters.AddWithValue("@matricula", matricula);
+                    command.Parameters.AddWithValue("@fechaDesde", fechaDesde);
+                    if (fechaHasta != null) command.Parameters.AddWithValue("@fechaHasta", fechaHasta);
+                }
+                command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR" + ex.Message);
+            }
+            finally
+            {
+                myConnection.Close();
+            }
+        }
     }
 }
