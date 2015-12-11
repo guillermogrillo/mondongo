@@ -357,7 +357,8 @@ namespace AerolineaFrba.Dao
                 SqlCommand command = null;
                 var query = "select r.codigo_ruta " +
                             "from mondongo.rutas r "+
-                            "where r.codigo_ruta = @codRuta ";
+                            "where r.codigo_ruta = @codRuta "+
+                            "and r.estado = 0 ";
 
                 using (command = new SqlCommand(query, myConnection))
                 {
